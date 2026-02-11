@@ -65,7 +65,7 @@ jobs:
             -DMICROSTRAIN_BUILD_PACKAGE=ON \
             -DMICROSTRAIN_BUILD_TESTS=ON \
             -DCMAKE_BUILD_TYPE=RELEASE \
-            ${{ matrix.os_type == 'windows' && '-A x64' || '' }} \
+            ${{ matrix.os_type == 'windows' && '-A x64' || '' }}
           cmake --build . --target package --config Release
 
       - name: Run tests
