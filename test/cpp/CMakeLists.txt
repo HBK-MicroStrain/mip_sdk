@@ -7,6 +7,7 @@ add_executable("${MIP_INTEGRATION_TEST_TARGET_CPP}")
 target_sources("${MIP_UNIT_TEST_TARGET_CPP}" PRIVATE
     "logging.unit.cpp"
     "strings.unit.cpp"
+    "mip.unit.cpp"
 )
 
 target_sources("${MIP_INTEGRATION_TEST_TARGET_CPP}" PRIVATE
