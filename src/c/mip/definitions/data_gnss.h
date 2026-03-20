@@ -49,6 +49,7 @@ enum
     MIP_DATA_DESC_GNSS_SBAS_INFO               = 0x12,
     MIP_DATA_DESC_GNSS_SBAS_CORRECTION         = 0x13,
     MIP_DATA_DESC_GNSS_RF_ERROR_DETECTION      = 0x14,
+    MIP_DATA_DESC_GNSS_HEADING                 = 0x15,
     MIP_DATA_DESC_GNSS_SATELLITE_STATUS        = 0x20,
     MIP_DATA_DESC_GNSS_SATELLITE_SIGNAL_STATUS = 0x21,
     MIP_DATA_DESC_GNSS_RAW                     = 0x22,
@@ -1181,8 +1182,8 @@ static const mip_gnss_rf_error_detection_data_valid_flags MIP_GNSS_RF_ERROR_DETE
 static const mip_gnss_rf_error_detection_data_valid_flags MIP_GNSS_RF_ERROR_DETECTION_DATA_VALID_FLAGS_RF_BAND        = 0x0001; ///<  
 static const mip_gnss_rf_error_detection_data_valid_flags MIP_GNSS_RF_ERROR_DETECTION_DATA_VALID_FLAGS_JAMMING_STATE  = 0x0002; ///<  
 static const mip_gnss_rf_error_detection_data_valid_flags MIP_GNSS_RF_ERROR_DETECTION_DATA_VALID_FLAGS_SPOOFING_STATE = 0x0004; ///<  
-static const mip_gnss_rf_error_detection_data_valid_flags MIP_GNSS_RF_ERROR_DETECTION_DATA_VALID_FLAGS_FLAGS          = 0x0007; ///<  
-static const mip_gnss_rf_error_detection_data_valid_flags MIP_GNSS_RF_ERROR_DETECTION_DATA_VALID_FLAGS_ALL            = 0x0007;
+static const mip_gnss_rf_error_detection_data_valid_flags MIP_GNSS_RF_ERROR_DETECTION_DATA_VALID_FLAGS_FREQUENCY      = 0x0008; ///<  
+static const mip_gnss_rf_error_detection_data_valid_flags MIP_GNSS_RF_ERROR_DETECTION_DATA_VALID_FLAGS_ALL            = 0x000F;
 static inline void insert_mip_gnss_rf_error_detection_data_valid_flags(microstrain_serializer* serializer, const mip_gnss_rf_error_detection_data_valid_flags self)
 {
     microstrain_insert_u16(serializer, (uint16_t)(self));
@@ -1200,7 +1201,8 @@ struct mip_gnss_rf_error_detection_data
     mip_gnss_rf_error_detection_data_rfband rf_band; ///< RF Band of the reported information
     mip_gnss_rf_error_detection_data_jamming_state jamming_state; ///< GNSS Jamming State (as reported by the GNSS module)
     mip_gnss_rf_error_detection_data_spoofing_state spoofing_state; ///< GNSS Spoofing State (as reported by the GNSS module)
-    uint8_t reserved[4]; ///< Reserved for future use
+    uint16_t frequency; ///< Center frequency of the RF band in MHz
+    uint8_t reserved[2]; ///< Reserved for future use
     mip_gnss_rf_error_detection_data_valid_flags valid_flags;
 };
 typedef struct mip_gnss_rf_error_detection_data mip_gnss_rf_error_detection_data;
@@ -1208,6 +1210,65 @@ typedef struct mip_gnss_rf_error_detection_data mip_gnss_rf_error_detection_data
 void insert_mip_gnss_rf_error_detection_data(microstrain_serializer* serializer, const mip_gnss_rf_error_detection_data* self);
 void extract_mip_gnss_rf_error_detection_data(microstrain_serializer* serializer, mip_gnss_rf_error_detection_data* self);
 bool extract_mip_gnss_rf_error_detection_data_from_field(const mip_field_view* field, void* ptr);
+
+
+///@}
+///
+////////////////////////////////////////////////////////////////////////////////
+///@defgroup gnss_heading_c  (0x81,0x15) Heading
+/// GNSS Heading
+///
+///@{
+
+typedef uint16_t mip_gnss_heading_data_valid_flags;
+static const mip_gnss_heading_data_valid_flags MIP_GNSS_HEADING_DATA_VALID_FLAGS_NONE        = 0x0000;
+static const mip_gnss_heading_data_valid_flags MIP_GNSS_HEADING_DATA_VALID_FLAGS_HEADING     = 0x0001; ///<  
+static const mip_gnss_heading_data_valid_flags MIP_GNSS_HEADING_DATA_VALID_FLAGS_UNCERTAINTY = 0x0002; ///<  
+static const mip_gnss_heading_data_valid_flags MIP_GNSS_HEADING_DATA_VALID_FLAGS_FIX_TYPE    = 0x0004; ///<  
+static const mip_gnss_heading_data_valid_flags MIP_GNSS_HEADING_DATA_VALID_FLAGS_ALL         = 0x0007;
+static inline void insert_mip_gnss_heading_data_valid_flags(microstrain_serializer* serializer, const mip_gnss_heading_data_valid_flags self)
+{
+    microstrain_insert_u16(serializer, (uint16_t)(self));
+}
+static inline void extract_mip_gnss_heading_data_valid_flags(microstrain_serializer* serializer, mip_gnss_heading_data_valid_flags* self)
+{
+    uint16_t tmp = 0;
+    microstrain_extract_u16(serializer, &tmp);
+    *self = (mip_gnss_heading_data_valid_flags)tmp;
+}
+
+enum mip_gnss_heading_data_fix_type
+{
+    MIP_GNSS_HEADING_DATA_FIX_TYPE_UNKNOWN = 0,  ///<  
+    MIP_GNSS_HEADING_DATA_FIX_TYPE_FLOAT   = 1,  ///<  
+    MIP_GNSS_HEADING_DATA_FIX_TYPE_FIXED   = 2,  ///<  
+};
+typedef enum mip_gnss_heading_data_fix_type mip_gnss_heading_data_fix_type;
+
+static inline void insert_mip_gnss_heading_data_fix_type(microstrain_serializer* serializer, const mip_gnss_heading_data_fix_type self)
+{
+    microstrain_insert_u8(serializer, (uint8_t)(self));
+}
+static inline void extract_mip_gnss_heading_data_fix_type(microstrain_serializer* serializer, mip_gnss_heading_data_fix_type* self)
+{
+    uint8_t tmp = 0;
+    microstrain_extract_u8(serializer, &tmp);
+    *self = (mip_gnss_heading_data_fix_type)tmp;
+}
+
+
+struct mip_gnss_heading_data
+{
+    float heading; ///< Heading [degrees]
+    float uncertainty; ///< Heading uncertainty [degrees]
+    mip_gnss_heading_data_fix_type fix_type; ///< Heading fix type
+    mip_gnss_heading_data_valid_flags valid_flags;
+};
+typedef struct mip_gnss_heading_data mip_gnss_heading_data;
+
+void insert_mip_gnss_heading_data(microstrain_serializer* serializer, const mip_gnss_heading_data* self);
+void extract_mip_gnss_heading_data(microstrain_serializer* serializer, mip_gnss_heading_data* self);
+bool extract_mip_gnss_heading_data_from_field(const mip_field_view* field, void* ptr);
 
 
 ///@}

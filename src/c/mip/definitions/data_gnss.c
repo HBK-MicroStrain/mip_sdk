@@ -667,7 +667,9 @@ void insert_mip_gnss_rf_error_detection_data(microstrain_serializer* serializer,
     
     insert_mip_gnss_rf_error_detection_data_spoofing_state(serializer, self->spoofing_state);
     
-    for(unsigned int i=0; i < 4; i++)
+    microstrain_insert_u16(serializer, self->frequency);
+    
+    for(unsigned int i=0; i < 2; i++)
         microstrain_insert_u8(serializer, self->reserved[i]);
     
     insert_mip_gnss_rf_error_detection_data_valid_flags(serializer, self->valid_flags);
@@ -681,7 +683,9 @@ void extract_mip_gnss_rf_error_detection_data(microstrain_serializer* serializer
     
     extract_mip_gnss_rf_error_detection_data_spoofing_state(serializer, &self->spoofing_state);
     
-    for(unsigned int i=0; i < 4; i++)
+    microstrain_extract_u16(serializer, &self->frequency);
+    
+    for(unsigned int i=0; i < 2; i++)
         microstrain_extract_u8(serializer, &self->reserved[i]);
     
     extract_mip_gnss_rf_error_detection_data_valid_flags(serializer, &self->valid_flags);
@@ -694,6 +698,38 @@ bool extract_mip_gnss_rf_error_detection_data_from_field(const mip_field_view* f
     microstrain_serializer serializer;
     microstrain_serializer_init_from_field(&serializer, field);
     extract_mip_gnss_rf_error_detection_data(&serializer, self);
+    return microstrain_serializer_is_complete(&serializer);
+}
+
+void insert_mip_gnss_heading_data(microstrain_serializer* serializer, const mip_gnss_heading_data* self)
+{
+    microstrain_insert_float(serializer, self->heading);
+    
+    microstrain_insert_float(serializer, self->uncertainty);
+    
+    insert_mip_gnss_heading_data_fix_type(serializer, self->fix_type);
+    
+    insert_mip_gnss_heading_data_valid_flags(serializer, self->valid_flags);
+    
+}
+void extract_mip_gnss_heading_data(microstrain_serializer* serializer, mip_gnss_heading_data* self)
+{
+    microstrain_extract_float(serializer, &self->heading);
+    
+    microstrain_extract_float(serializer, &self->uncertainty);
+    
+    extract_mip_gnss_heading_data_fix_type(serializer, &self->fix_type);
+    
+    extract_mip_gnss_heading_data_valid_flags(serializer, &self->valid_flags);
+    
+}
+bool extract_mip_gnss_heading_data_from_field(const mip_field_view* field, void* ptr)
+{
+    assert(ptr);
+    mip_gnss_heading_data* self = ptr;
+    microstrain_serializer serializer;
+    microstrain_serializer_init_from_field(&serializer, field);
+    extract_mip_gnss_heading_data(&serializer, self);
     return microstrain_serializer_is_complete(&serializer);
 }
 
