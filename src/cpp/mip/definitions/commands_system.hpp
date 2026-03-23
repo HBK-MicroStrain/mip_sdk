@@ -71,7 +71,8 @@ struct CommsProtocol : Bitfield<CommsProtocol>
         NMEA   = 0x00000100,  ///<  
         RTCM   = 0x00000200,  ///<  
         SPARTN = 0x01000000,  ///<  
-        ALL    = 0x01000301,
+        SBF    = 0x20000000,  ///<  
+        ALL    = 0x21000301,
     };
     uint32_t value = NONE;
     
@@ -91,6 +92,8 @@ struct CommsProtocol : Bitfield<CommsProtocol>
     constexpr void rtcm(bool val) { value &= ~RTCM; if(val) value |= RTCM; }
     constexpr bool spartn() const { return (value & SPARTN) > 0; }
     constexpr void spartn(bool val) { value &= ~SPARTN; if(val) value |= SPARTN; }
+    constexpr bool sbf() const { return (value & SBF) > 0; }
+    constexpr void sbf(bool val) { value &= ~SBF; if(val) value |= SBF; }
     constexpr bool allSet() const { return value == ALL; }
     constexpr void setAll() { value |= ALL; }
 };
