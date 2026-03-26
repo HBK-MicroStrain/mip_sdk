@@ -39,7 +39,7 @@ if(MSVC)
     source_group(TREE ${MICROSTRAIN_SRC_DIR} FILES ${MIP_METADATA_SOURCES})
 endif()
 
-target_compile_features(${MIP_METADATA_LIBRARY} PUBLIC cxx_std_20)
+target_compile_features(${MIP_METADATA_LIBRARY} PUBLIC cxx_std_17)
 
 target_link_libraries(${MIP_METADATA_LIBRARY} PUBLIC ${MIP_LIBRARY})
 

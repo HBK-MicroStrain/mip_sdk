@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.14)
 
-set(CMAKE_CXX_STANDARD 20) # CMake decays this to the highest supported by the compiler
+#set(CMAKE_CXX_STANDARD 20) # CMake decays this to the highest supported by the compiler
 set(CMAKE_C_STANDARD 11)
 
 project(
@@ -105,7 +105,7 @@ if(WIN32)
         "NOMINMAX=1"
         "_WIN32_WINNT=_WIN32_WINNT_WINXP"
     )
-else()
+elseif(CMAKE_C_COMPILER_ID STREQUAL "GNU")
     set(MIP_PRIVATE_COMPILE_OPTIONS
         "-Wall"   # Enable warnings
         "-Wextra" # Enable extra warnings
