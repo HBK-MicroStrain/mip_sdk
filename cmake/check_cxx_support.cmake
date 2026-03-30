@@ -1,6 +1,3 @@
-include(CheckIncludeFileCXX)
-
-CHECK_INCLUDE_FILE_CXX("bit" MICROSTRAIN_COMPILER_SUPPORTS_BIT)
 
 include(CheckCXXSourceCompiles)
 
