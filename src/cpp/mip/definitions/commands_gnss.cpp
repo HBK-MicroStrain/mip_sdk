@@ -243,6 +243,34 @@ TypedResult<SignalConfiguration> defaultSignalConfiguration(C::mip_interface& de
     
     return mip_interface_run_command(&device, DESCRIPTOR_SET, CMD_SIGNAL_CONFIGURATION, buffer, (uint8_t)serializer.usedLength());
 }
+void ReceiverReset::insert(Serializer& serializer) const
+{
+    serializer.insert(receiver_id);
+    
+    serializer.insert(reset_type);
+    
+}
+void ReceiverReset::extract(Serializer& serializer)
+{
+    serializer.extract(receiver_id);
+    
+    serializer.extract(reset_type);
+    
+}
+
+TypedResult<ReceiverReset> receiverReset(C::mip_interface& device, GnssReceiverId receiverId, ReceiverReset::ResetType resetType)
+{
+    uint8_t buffer[MIP_FIELD_PAYLOAD_LENGTH_MAX];
+    Serializer serializer(buffer, sizeof(buffer));
+    
+    serializer.insert(receiverId);
+    
+    serializer.insert(resetType);
+    
+    assert(serializer.isOk());
+    
+    return mip_interface_run_command(&device, DESCRIPTOR_SET, CMD_RECEIVER_RESET, buffer, (uint8_t)serializer.usedLength());
+}
 void SpartnConfiguration::insert(Serializer& serializer) const
 {
     serializer.insert(function);
@@ -561,6 +589,123 @@ TypedResult<RtkDongleConfiguration> defaultRtkDongleConfiguration(C::mip_interfa
     assert(serializer.isOk());
     
     return mip_interface_run_command(&device, DESCRIPTOR_SET, CMD_RTK_DONGLE_CONFIGURATION, buffer, (uint8_t)serializer.usedLength());
+}
+void RtkConfiguration::insert(Serializer& serializer) const
+{
+    serializer.insert(function);
+    
+    if( function == FunctionSelector::WRITE )
+    {
+        serializer.insert(ambiguity_fix_mode);
+        
+        for(unsigned int i=0; i < 4; i++)
+            serializer.insert(reserved[i]);
+        
+    }
+}
+void RtkConfiguration::extract(Serializer& serializer)
+{
+    serializer.extract(function);
+    
+    if( function == FunctionSelector::WRITE )
+    {
+        serializer.extract(ambiguity_fix_mode);
+        
+        for(unsigned int i=0; i < 4; i++)
+            serializer.extract(reserved[i]);
+        
+    }
+}
+
+void RtkConfiguration::Response::insert(Serializer& serializer) const
+{
+    serializer.insert(ambiguity_fix_mode);
+    
+    for(unsigned int i=0; i < 4; i++)
+        serializer.insert(reserved[i]);
+    
+}
+void RtkConfiguration::Response::extract(Serializer& serializer)
+{
+    serializer.extract(ambiguity_fix_mode);
+    
+    for(unsigned int i=0; i < 4; i++)
+        serializer.extract(reserved[i]);
+    
+}
+
+TypedResult<RtkConfiguration> writeRtkConfiguration(C::mip_interface& device, RtkConfiguration::AmbiguityFixMode ambiguityFixMode, const uint8_t* reserved)
+{
+    uint8_t buffer[MIP_FIELD_PAYLOAD_LENGTH_MAX];
+    Serializer serializer(buffer, sizeof(buffer));
+    
+    serializer.insert(FunctionSelector::WRITE);
+    serializer.insert(ambiguityFixMode);
+    
+    assert(reserved);
+    for(unsigned int i=0; i < 4; i++)
+        serializer.insert(reserved[i]);
+    
+    assert(serializer.isOk());
+    
+    return mip_interface_run_command(&device, DESCRIPTOR_SET, CMD_CONFIGURATION, buffer, (uint8_t)serializer.usedLength());
+}
+TypedResult<RtkConfiguration> readRtkConfiguration(C::mip_interface& device, RtkConfiguration::AmbiguityFixMode* ambiguityFixModeOut, uint8_t* reservedOut)
+{
+    uint8_t buffer[MIP_FIELD_PAYLOAD_LENGTH_MAX];
+    Serializer serializer(buffer, sizeof(buffer));
+    
+    serializer.insert(FunctionSelector::READ);
+    assert(serializer.isOk());
+    
+    uint8_t responseLength = sizeof(buffer);
+    TypedResult<RtkConfiguration> result = mip_interface_run_command_with_response(&device, DESCRIPTOR_SET, CMD_CONFIGURATION, buffer, (uint8_t)serializer.usedLength(), REPLY_CONFIGURATION, buffer, &responseLength);
+    
+    if( result == MIP_ACK_OK )
+    {
+        Serializer deserializer(buffer, responseLength);
+        
+        assert(ambiguityFixModeOut);
+        deserializer.extract(*ambiguityFixModeOut);
+        
+        assert(reservedOut);
+        for(unsigned int i=0; i < 4; i++)
+            deserializer.extract(reservedOut[i]);
+        
+        if( deserializer.remaining() != 0 )
+            result = MIP_STATUS_ERROR;
+    }
+    return result;
+}
+TypedResult<RtkConfiguration> saveRtkConfiguration(C::mip_interface& device)
+{
+    uint8_t buffer[MIP_FIELD_PAYLOAD_LENGTH_MAX];
+    Serializer serializer(buffer, sizeof(buffer));
+    
+    serializer.insert(FunctionSelector::SAVE);
+    assert(serializer.isOk());
+    
+    return mip_interface_run_command(&device, DESCRIPTOR_SET, CMD_CONFIGURATION, buffer, (uint8_t)serializer.usedLength());
+}
+TypedResult<RtkConfiguration> loadRtkConfiguration(C::mip_interface& device)
+{
+    uint8_t buffer[MIP_FIELD_PAYLOAD_LENGTH_MAX];
+    Serializer serializer(buffer, sizeof(buffer));
+    
+    serializer.insert(FunctionSelector::LOAD);
+    assert(serializer.isOk());
+    
+    return mip_interface_run_command(&device, DESCRIPTOR_SET, CMD_CONFIGURATION, buffer, (uint8_t)serializer.usedLength());
+}
+TypedResult<RtkConfiguration> defaultRtkConfiguration(C::mip_interface& device)
+{
+    uint8_t buffer[MIP_FIELD_PAYLOAD_LENGTH_MAX];
+    Serializer serializer(buffer, sizeof(buffer));
+    
+    serializer.insert(FunctionSelector::RESET);
+    assert(serializer.isOk());
+    
+    return mip_interface_run_command(&device, DESCRIPTOR_SET, CMD_CONFIGURATION, buffer, (uint8_t)serializer.usedLength());
 }
 
 } // namespace commands_gnss
