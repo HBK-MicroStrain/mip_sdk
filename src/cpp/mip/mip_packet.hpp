@@ -17,6 +17,12 @@ namespace mip
 ///@{
 
 
+// Suppress extraneous uninitialized buffer warnings.
+#if defined(__GNUC__) && !defined(__clang__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wmaybe-uninitialized"
+#endif
+
 ////////////////////////////////////////////////////////////////////////////////
 ///@brief C++ class representing a view of a MIP packet.
 ///
@@ -118,8 +124,8 @@ public:
     // C++ additions
     //
 
-    uint8_t  dataAt(const size_t i) const { assert(i < totalLength()); return payload()[i];   }
-    uint8_t& dataAt(const size_t i)       { assert(i < totalLength()); return payload_w()[i]; }
+    uint8_t  dataAt(const size_t i) const { assert(i < totalLength()); return buffer()[i];   }
+    uint8_t& dataAt(const size_t i)       { assert(i < totalLength()); return buffer_w()[i]; }
     uint8_t  dataAt(const Index i)  const { return dataAt(static_cast<size_t>(i)); }
     uint8_t& dataAt(const Index i)        { return dataAt(static_cast<size_t>(i)); }
 
@@ -320,6 +326,10 @@ public:
         std::memcpy(buffer.data(), packet.data(), packet.size());
         return true;
     }
+
+protected:
+    /// Default constructor
+    PacketView() : mip_packet_view{._buffer=nullptr, ._buffer_length=0} {}
 };
 
 
@@ -329,25 +339,40 @@ public:
 template<size_t BufferSize>
 class SizedPacketBuf : public PacketView
 {
+private:
     static_assert(BufferSize >= LENGTH_MIN, "BufferSize must be at least PacketView::LENGTH_MIN bytes");
 
+    void setup()
+    {
+        // Initialize the PacketView pointers to point to the internal buffer.
+        // This will neither read nor write the buffer contents (which may be invalid).
+        // Note that we can't call SizedPacketBuffer::operator= because that would
+        // only call copyFrom and not initialize the base class pointers.
+        *static_cast<PacketView*>(this) = PacketView(mData.data(), mData.size());
+    }
+
 public:
-    explicit SizedPacketBuf(uint8_t descriptorSet=INVALID_DESCRIPTOR_SET) : PacketView(mData, sizeof(mData), descriptorSet) {}
+    explicit SizedPacketBuf(uint8_t descriptorSet=INVALID_DESCRIPTOR_SET)
+    {
+        // Initialize the PacketView pointers to point to the internal buffer.
+        // This will also create an empty packet in the buffer.
+        *static_cast<PacketView*>(this) = PacketView(mData.data(), mData.size(), descriptorSet);
+    }
 
     ///@brief Construct by copying an existing buffer.
-    explicit SizedPacketBuf(microstrain::ConstU8ArrayView data) : PacketView(mData, sizeof(mData)) { copyFrom(data); }
+    explicit SizedPacketBuf(microstrain::ConstU8ArrayView data) { setup(); copyFrom(data); }
 
     ///@brief Creates a PacketBuf by copying an existing packet.
     ///
-    explicit SizedPacketBuf(const PacketView& packet) : PacketView(mData, sizeof(mData)) { copyFrom(packet); }
+    explicit SizedPacketBuf(const PacketView& packet) { setup(); copyFrom(packet); }
 
     ///@brief Copy constructor
-    SizedPacketBuf(const SizedPacketBuf& other) : PacketView(mData, sizeof(mData)) { copyFrom(other); }
+    SizedPacketBuf(const SizedPacketBuf& other) : PacketView() { setup(); copyFrom(other); }
 
 
     ///@brief Copy constructor (required to insert packets into std::vector in some cases).
     template<size_t OtherSize>
-    explicit SizedPacketBuf(const SizedPacketBuf<OtherSize>& other) : PacketView(mData, sizeof(mData)) { copyFrom(other); };
+    explicit SizedPacketBuf(const SizedPacketBuf<OtherSize>& other) { setup(); copyFrom(other); }
 
     ///@brief Copy assignment operator
     SizedPacketBuf& operator=(const SizedPacketBuf& other) { copyFrom(other); return *this; }
@@ -368,9 +393,9 @@ public:
         const FieldType& field,
         uint8_t fieldDescriptor=INVALID_FIELD_DESCRIPTOR,
         typename std::enable_if<std::is_class<FieldType>::value, void>::type* = nullptr
-    ) : PacketView(mData, sizeof(mData))
-    {
-        createFromField<FieldType>({mData, sizeof(mData)}, field, fieldDescriptor);
+    ) {
+        setup();
+        createFromField<FieldType>({mData.data(), mData.size()}, field, fieldDescriptor);
     }
 
 
@@ -384,13 +409,13 @@ public:
 
     ///@brief Returns an ArrayView covering the entire buffer.
     ///
-    microstrain::ArrayView<uint8_t, BufferSize> buffer() { return {mData}; }
+    microstrain::ArrayView<uint8_t, BufferSize> buffer() { return microstrain::ArrayView<uint8_t, BufferSize>(mData.data()); }
 
     ///@brief Copies the data from a U8ArrayView to this buffer. The data is not inspected.
     ///
     ///@param data Packet data to copy.
     ///
-    void copyFrom(microstrain::ConstU8ArrayView data) { assert(data.size() <= sizeof(mData)); std::memcpy(mData, data.data(), data.size()); }
+    void copyFrom(microstrain::ConstU8ArrayView data) { assert(data.size() <= mData.size()); std::memcpy(mData.data(), data.data(), data.size()); }
 
     ///@brief Copies an existing packet. The packet is assumed to be valid (undefined behavior otherwise).
     ///
@@ -399,8 +424,9 @@ public:
     void copyFrom(const PacketView& packet) { assert(packet.isSane()); copyFrom(packet.data()); }
 
 private:
-    uint8_t mData[BufferSize];
+    std::array<uint8_t, BufferSize> mData;
 };
+
 
 ////////////////////////////////////////////////////////////////////////////////
 ///@brief Typedef for SizedPacketBuf of max possible size.
@@ -410,6 +436,10 @@ private:
 ///
 typedef SizedPacketBuf<PacketView::LENGTH_MAX> PacketBuf;
 
+
+#if defined(__GNUC__) && !defined(__clang__)
+#pragma GCC diagnostic pop
+#endif
 
 
 ///@}

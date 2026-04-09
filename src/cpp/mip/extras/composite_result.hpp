@@ -7,7 +7,9 @@
 #include <mip/mip_result.hpp>
 
 #include <algorithm>
+#include <vector>
 #include <stddef.h>
+
 
 namespace mip
 {
