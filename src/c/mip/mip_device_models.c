@@ -19,6 +19,7 @@ extern "C" {
 ///@returns The model number. Note that it may not be listed in the enum (e.g.
 ///         if it's a new model released after this version of source code).
 ///
+#ifndef __NUTTX__
 mip_model_number get_model_from_string(const char* model_or_serial)
 {
     unsigned int start_index = 0;
@@ -50,7 +51,7 @@ mip_model_number get_model_from_string(const char* model_or_serial)
 
     return (mip_model_number)atoi(model_or_serial + start_index);
 }
-
+#endif
 ////////////////////////////////////////////////////////////////////////////////
 ///@brief Converts a model number to the product's model name.
 ///

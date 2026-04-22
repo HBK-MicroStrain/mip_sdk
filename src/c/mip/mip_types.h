@@ -4,25 +4,10 @@
 #include <stddef.h>
 #include <stdbool.h>
 
-#ifdef __cplusplus
-
-#include <microstrain/embedded_time.hpp>
-
-namespace mip {
-namespace C {
-extern "C" {
-
-typedef microstrain::C::microstrain_embedded_timestamp mip_timestamp;
-typedef microstrain::C::microstrain_embedded_timestamp mip_timeout;
-
-#else
-
 #include <microstrain/embedded_time.h>
 
 typedef microstrain_embedded_timestamp mip_timestamp;
 typedef microstrain_embedded_timestamp mip_timeout;
-
-#endif
 
 
 #ifdef MIP_ENABLE_DIAGNOSTICS
@@ -40,16 +25,3 @@ typedef microstrain_embedded_timestamp mip_timeout;
 #define MIP_DIAG_ZERO(counter) (void)0
 
 #endif // MIP_ENABLE_DIAGNOSTICS
-
-
-#ifdef __cplusplus
-
-} // extern "C"
-} // namespace C
-
-using Timestamp = microstrain::EmbeddedTimestamp;
-using Timeout   = microstrain::EmbeddedTimeout;
-
-} // namespace mip
-
-#endif

@@ -4,12 +4,7 @@
 #include <stdint.h>
 
 
-#ifdef __cplusplus
-namespace microstrain {
-namespace C {
-#else
 #include <assert.h>
-#endif
 
 ///@brief Type used for packet timestamps and timeouts.
 ///
@@ -22,7 +17,7 @@ namespace C {
 ///
 #ifdef MICROSTRAIN_TIMESTAMP_TYPE
 typedef MICROSTRAIN_TIMESTAMP_TYPE microstrain_embedded_timestamp;
-static_assert( sizeof(microstrain_embedded_timestamp) >= 8 || (microstrain_embedded_timestamp)(-1) > 0, "MICROSTRAIN_TIMESTAMP_TYPE must be unsigned unless 64 bits.");
+static_assert(sizeof(microstrain_embedded_timestamp) >= 8 || (microstrain_embedded_timestamp)(-1) > 0, "MICROSTRAIN_TIMESTAMP_TYPE must be unsigned unless 64 bits.");
 
 #elif defined(MICROSTRAIN_PLATFORM_DESKTOP)
 // By default, on desktop we use 64-bit timestamps.
@@ -35,7 +30,3 @@ typedef uint32_t microstrain_embedded_timestamp;
 // Timeouts are just an alias for timestamps
 typedef microstrain_embedded_timestamp microstrain_embedded_timeout;
 
-#ifdef __cplusplus
-} // namespace C
-} // namespace microstrain
-#endif // __cplusplus

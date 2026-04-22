@@ -17,7 +17,9 @@
 ///@}
 
 #ifdef __cplusplus
+#ifndef __NUTTX__
 #include <type_traits>
+#endif
 
 namespace microstrain {
 namespace C {

@@ -152,6 +152,21 @@ if(MICROSTRAIN_ENABLE_CPP)
     #target_compile_definitions(${MICROSTRAIN_LIBRARY} PUBLIC "MICROSTRAIN_ENABLE_CPP_C_NAMESPACE=${MICROSTRAIN_ENABLE_CPP_C_NAMESPACE}")
 endif()
 
+# PX4 compile options
+if(DEFINED PX4_PLATFORM)
+    add_dependencies(mip prebuild_targets)
+    target_compile_options(mip PRIVATE
+        -Wno-shadow
+        -Wno-strict-prototypes
+        -Wno-incompatible-pointer-types
+    )
+
+    if("${PX4_PLATFORM}" MATCHES "nuttx")
+        add_dependencies(mip nuttx_context)
+        target_compile_definitions(mip PUBLIC __NUTTX__)
+    endif()
+endif()
+
 # Create list of requested libraries for easier linking
 # Use the PARENT_SCOPE option when adding new modules and make sure it propagates up all levels
 set(MICROSTRAIN_LIBRARIES ${MICROSTRAIN_LIBRARIES_TMP} CACHE STRING "List of all requested MicroStrain libraries to make linking easier" FORCE)
