@@ -55,8 +55,8 @@ enum class CommsInterface : uint8_t
     ALL    = 0,  ///<  
     MAIN   = 1,  ///<  An alias that directs to Main USB if it's connected, or Main UART otherwise
     UART_1 = 17,  ///<  Depending on your device, this may mean either the first UART *currently configured*, or the first port on which UART *can be configured*. Refer to your device manual.
-    UART_2 = 18,  ///<  
-    UART_3 = 19,  ///<  
+    UART_2 = 18,  ///<  GPIO UART port using GPIOs 1/2, availiable on CV7/GV7 variants.
+    UART_3 = 19,  ///<  GPIO UART port using GPIOs 3/4, available on CV7 variants.
     USB_1  = 33,  ///<  The first virtual serial port over USB (ie. COM5)
     USB_2  = 34,  ///<  The second virtual serial port over USB (ie. COM6), only available on GNSS/INS devices. Recommended for NMEA/RTCM.
 };
@@ -68,10 +68,11 @@ struct CommsProtocol : Bitfield<CommsProtocol>
     {
         NONE   = 0x00000000,
         MIP    = 0x00000001,  ///<  Microstrain Inertial Protocol
-        NMEA   = 0x00000100,  ///<  
-        RTCM   = 0x00000200,  ///<  
-        SPARTN = 0x01000000,  ///<  
-        ALL    = 0x01000301,
+        NMEA   = 0x00000100,  ///<  NMEA-0183 GNSS Protocol
+        RTCM   = 0x00000200,  ///<  GNSS Correction Protocol
+        SPARTN = 0x01000000,  ///<  GNSS Correction Protocol
+        SBF    = 0x20000000,  ///<  Septentrio Binary Format
+        ALL    = 0x21000301,
     };
     uint32_t value = NONE;
     
@@ -91,6 +92,8 @@ struct CommsProtocol : Bitfield<CommsProtocol>
     constexpr void rtcm(bool val) { value &= ~RTCM; if(val) value |= RTCM; }
     constexpr bool spartn() const { return (value & SPARTN) > 0; }
     constexpr void spartn(bool val) { value &= ~SPARTN; if(val) value |= SPARTN; }
+    constexpr bool sbf() const { return (value & SBF) > 0; }
+    constexpr void sbf(bool val) { value &= ~SBF; if(val) value |= SBF; }
     constexpr bool allSet() const { return value == ALL; }
     constexpr void setAll() { value |= ALL; }
 };
@@ -157,7 +160,7 @@ struct CommMode
         static constexpr const uint8_t DESCRIPTOR_SET = ::mip::commands_system::DESCRIPTOR_SET;
         static constexpr const uint8_t FIELD_DESCRIPTOR = ::mip::commands_system::REPLY_COM_MODE;
         static constexpr const CompositeDescriptor DESCRIPTOR = {DESCRIPTOR_SET, FIELD_DESCRIPTOR};
-        static constexpr const char* NAME = "CommMode::Response";
+        static constexpr const char* NAME = "CommModeResponse";
         static constexpr const char* DOC_NAME = "CommMode Response";
         static constexpr const bool HAS_FUNCTION_SELECTOR = false;
         
@@ -251,7 +254,7 @@ struct InterfaceControl
         static constexpr const uint8_t DESCRIPTOR_SET = ::mip::commands_system::DESCRIPTOR_SET;
         static constexpr const uint8_t FIELD_DESCRIPTOR = ::mip::commands_system::REPLY_INTERFACE_CONTROL;
         static constexpr const CompositeDescriptor DESCRIPTOR = {DESCRIPTOR_SET, FIELD_DESCRIPTOR};
-        static constexpr const char* NAME = "InterfaceControl::Response";
+        static constexpr const char* NAME = "InterfaceControlResponse";
         static constexpr const char* DOC_NAME = "Interface Control Response";
         static constexpr const bool HAS_FUNCTION_SELECTOR = false;
         

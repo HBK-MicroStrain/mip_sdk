@@ -147,8 +147,8 @@ struct MetadataFor<commands_aiding::FrameConfig::Response>
     };
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_aiding::FrameConfig::Response",
-            /* .title       = */ "response",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
@@ -234,8 +234,8 @@ struct MetadataFor<commands_aiding::FrameConfig>
     };
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_aiding::FrameConfig",
-            /* .title       = */ "Frame Configuration",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Defines an aiding frame associated with a specific sensor frame ID.\nThe frame ID used in this command should mirror the frame ID used in the aiding command\n(if that aiding measurement is measured in this reference frame).\n\nThis transform satisfies the following relationship:\n\nEQSTART p^{veh} = R p^{sensor_frame} + t EQEND<br/>\n\nWhere:<br/>\nEQSTART R EQEND is rotation matrix defined by the rotation component and EQSTART t EQEND is the translation vector<br/><br/>\nEQSTART p^{sensor_frame} EQEND is a 3-element position vector expressed in the external sensor frame<br/>\nEQSTART p^{veh} EQEND is a 3-element position vector expressed in the vehicle frame<br/>\n\nRotation can be defined using Euler angles OR quaternions.  If Format selector is set to Euler Angles, the fourth element\nin the rotation vector is ignored and should be set to 0.\n\nWhen the tracking_enabled flag is 1, the Kalman filter will track errors in the provided frame definition; when 0, no errors are tracked.\n\nExample: GNSS antenna lever arm\n\nFrame ID: 1\nFormat: 1 (Euler)\nTranslation: [0,1,] (GNSS with a 1 meter Y offset in the vehicle frame)\nRotation: [0,0,0,0] (Rotational component is not relevant for GNSS measurements, set to zero)",
             /* .parameters  = */ parameters,
         },
@@ -297,8 +297,8 @@ struct MetadataFor<commands_aiding::EchoControl::Response>
     };
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_aiding::EchoControl::Response",
-            /* .title       = */ "response",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
@@ -340,8 +340,8 @@ struct MetadataFor<commands_aiding::EchoControl>
     };
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_aiding::EchoControl",
-            /* .title       = */ "Echo Control",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Controls command response behavior to external aiding commands",
             /* .parameters  = */ parameters,
         },
@@ -526,8 +526,8 @@ struct MetadataFor<commands_aiding::PosEcef>
     };
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_aiding::PosEcef",
-            /* .title       = */ "ECEF Position",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Cartesian vector position aiding command. Coordinates are given in the WGS84 ECEF system.",
             /* .parameters  = */ parameters,
         },
@@ -655,8 +655,8 @@ struct MetadataFor<commands_aiding::PosLlh>
     };
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_aiding::PosLlh",
-            /* .title       = */ "LLH Position",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Geodetic position aiding command.\nCoordinates are given in WGS84 geodetic latitude, longitude, and height above the ellipsoid.\nUncertainty is given in NED coordinates, which are parallel to incremental changes in latitude, longitude, and height.",
             /* .parameters  = */ parameters,
         },
@@ -740,8 +740,8 @@ struct MetadataFor<commands_aiding::HeightAboveEllipsoid>
     };
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_aiding::HeightAboveEllipsoid",
-            /* .title       = */ "Height Above Ellipsoid",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Estimated value of the height above ellipsoid.",
             /* .parameters  = */ parameters,
         },
@@ -847,8 +847,8 @@ struct MetadataFor<commands_aiding::VelEcef>
     };
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_aiding::VelEcef",
-            /* .title       = */ "ECEF Velocity",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "ECEF velocity aiding command. Coordinates are given in the WGS84 ECEF frame.",
             /* .parameters  = */ parameters,
         },
@@ -954,8 +954,8 @@ struct MetadataFor<commands_aiding::VelNed>
     };
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_aiding::VelNed",
-            /* .title       = */ "NED Velocity",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "NED velocity aiding command. Coordinates are given in the local North East Down frame.",
             /* .parameters  = */ parameters,
         },
@@ -1061,8 +1061,8 @@ struct MetadataFor<commands_aiding::VelBodyFrame>
     };
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_aiding::VelBodyFrame",
-            /* .title       = */ "Body Frame Velocity",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Estimated of velocity of the vehicle in the frame associated with the given sensor ID, relative to the vehicle frame.",
             /* .parameters  = */ parameters,
         },
@@ -1146,8 +1146,8 @@ struct MetadataFor<commands_aiding::HeadingTrue>
     };
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_aiding::HeadingTrue",
-            /* .title       = */ "True Heading",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
@@ -1253,8 +1253,8 @@ struct MetadataFor<commands_aiding::MagneticField>
     };
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_aiding::MagneticField",
-            /* .title       = */ "Magnetic Field",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Estimate of magnetic field in the frame associated with the given sensor ID.",
             /* .parameters  = */ parameters,
         },
@@ -1338,8 +1338,8 @@ struct MetadataFor<commands_aiding::Pressure>
     };
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_aiding::Pressure",
-            /* .title       = */ "Pressure",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Estimated value of air pressure.",
             /* .parameters  = */ parameters,
         },

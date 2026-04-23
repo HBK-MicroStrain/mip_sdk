@@ -127,8 +127,8 @@ struct MetadataFor<data_gnss::PosLlh>
     };
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_gnss::PosLlh",
-            /* .title       = */ "GNSS LLH Position",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "GNSS reported position in the WGS84 geodetic frame",
             /* .parameters  = */ parameters,
         },
@@ -212,8 +212,8 @@ struct MetadataFor<data_gnss::PosEcef>
     };
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_gnss::PosEcef",
-            /* .title       = */ "GNSS ECEF Position",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "GNSS reported position in the Earth-centered, Earth-Fixed (ECEF) frame",
             /* .parameters  = */ parameters,
         },
@@ -345,8 +345,8 @@ struct MetadataFor<data_gnss::VelNed>
     };
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_gnss::VelNed",
-            /* .title       = */ "NED Velocity",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "GNSS reported velocity in the NED frame",
             /* .parameters  = */ parameters,
         },
@@ -430,8 +430,8 @@ struct MetadataFor<data_gnss::VelEcef>
     };
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_gnss::VelEcef",
-            /* .title       = */ "GNSS ECEF Velocity",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "GNSS reported velocity in the Earth-centered, Earth-Fixed (ECEF) frame",
             /* .parameters  = */ parameters,
         },
@@ -575,8 +575,8 @@ struct MetadataFor<data_gnss::Dop>
     };
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_gnss::Dop",
-            /* .title       = */ "dop",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "GNSS reported dilution of precision information.",
             /* .parameters  = */ parameters,
         },
@@ -715,8 +715,8 @@ struct MetadataFor<data_gnss::UtcTime>
     };
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_gnss::UtcTime",
-            /* .title       = */ "utc_time",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "GNSS reported Coordinated Universal Time",
             /* .parameters  = */ parameters,
         },
@@ -800,8 +800,8 @@ struct MetadataFor<data_gnss::GpsTime>
     };
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_gnss::GpsTime",
-            /* .title       = */ "gps_time",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "GNSS reported GPS Time",
             /* .parameters  = */ parameters,
         },
@@ -897,8 +897,8 @@ struct MetadataFor<data_gnss::ClockInfo>
     };
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_gnss::ClockInfo",
-            /* .title       = */ "clock_info",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "GNSS reported receiver clock parameters",
             /* .parameters  = */ parameters,
         },
@@ -1042,8 +1042,8 @@ struct MetadataFor<data_gnss::FixInfo>
     };
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_gnss::FixInfo",
-            /* .title       = */ "fix_info",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "GNSS reported position fix type",
             /* .parameters  = */ parameters,
         },
@@ -1196,8 +1196,8 @@ struct MetadataFor<data_gnss::SvInfo>
     };
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_gnss::SvInfo",
-            /* .title       = */ "sv_info",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "GNSS reported space vehicle information\n\nWhen enabled, these fields will arrive in separate MIP packets",
             /* .parameters  = */ parameters,
         },
@@ -1361,8 +1361,8 @@ struct MetadataFor<data_gnss::HwStatus>
     };
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_gnss::HwStatus",
-            /* .title       = */ "GNSS Hardware Status",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "GNSS reported hardware status",
             /* .parameters  = */ parameters,
         },
@@ -1470,8 +1470,8 @@ struct MetadataFor<data_gnss::DgpsInfo>
     };
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_gnss::DgpsInfo",
-            /* .title       = */ "dgps_info",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "GNSS reported DGNSS status\n\n<pre>Possible Base Station Status Values:</pre>\n<pre>  0 - UDRE Scale Factor = 1.0</pre>\n<pre>  1 - UDRE Scale Factor = 0.75</pre>\n<pre>  2 - UDRE Scale Factor = 0.5</pre>\n<pre>  3 - UDRE Scale Factor = 0.3</pre>\n<pre>  4 - UDRE Scale Factor = 0.2</pre>\n<pre>  5 - UDRE Scale Factor = 0.1</pre>\n<pre>  6 - Reference Station Transmission Not Monitored</pre>\n<pre>  7 - Reference Station Not Working</pre>\n\n(UDRE = User Differential Range Error)",
             /* .parameters  = */ parameters,
         },
@@ -1579,8 +1579,8 @@ struct MetadataFor<data_gnss::DgpsChannel>
     };
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_gnss::DgpsChannel",
-            /* .title       = */ "dgps_channel",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "GNSS reported DGPS Channel Status status\n\nWhen enabled, a separate field for each active space vehicle will be sent in the packet.",
             /* .parameters  = */ parameters,
         },
@@ -1688,8 +1688,8 @@ struct MetadataFor<data_gnss::ClockInfo2>
     };
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_gnss::ClockInfo2",
-            /* .title       = */ "clock_info_2",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "GNSS reported receiver clock parameters\n\nThis supersedes MIP_DATA_DESC_GNSS_CLOCK_INFO with additional information.",
             /* .parameters  = */ parameters,
         },
@@ -1760,8 +1760,8 @@ struct MetadataFor<data_gnss::GpsLeapSeconds>
     };
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_gnss::GpsLeapSeconds",
-            /* .title       = */ "gps_leap_seconds",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "GNSS reported leap seconds (difference between GPS and UTC Time)",
             /* .parameters  = */ parameters,
         },
@@ -1940,8 +1940,8 @@ struct MetadataFor<data_gnss::SbasInfo>
     };
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_gnss::SbasInfo",
-            /* .title       = */ "sbas_info",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "GNSS SBAS status",
             /* .parameters  = */ parameters,
         },
@@ -2128,8 +2128,8 @@ struct MetadataFor<data_gnss::SbasCorrection>
     };
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_gnss::SbasCorrection",
-            /* .title       = */ "sbas_correction",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "GNSS calculated SBAS Correction\n\nUDREI - the variance of a normal distribution associated with the user differential range errors for a\nsatellite after application of fast and long-term corrections, excluding atmospheric effects\n\n<pre>UDREI  Variance</pre>\n<pre>-----------------------</pre>\n<pre>0      0.0520 m^2</pre>\n<pre>1      0.0924 m^2</pre>\n<pre>2      0.1444 m^2</pre>\n<pre>3      0.2830 m^2</pre>\n<pre>4      0.4678 m^2</pre>\n<pre>5      0.8315 m^2</pre>\n<pre>6      1.2992 m^2</pre>\n<pre>7      1.8709 m^2</pre>\n<pre>8      2.5465 m^2</pre>\n<pre>9      3.3260 m^2</pre>\n<pre>10     5.1968 m^2</pre>\n<pre>11     20.7870 m^2</pre>\n<pre>12     230.9661 m^2</pre>\n<pre>13     2078.695 m^2</pre>\n<pre>14     'Not Monitored'</pre>\n<pre>15     'Do Not Use'</pre>",
             /* .parameters  = */ parameters,
         },
@@ -2220,7 +2220,7 @@ struct MetadataFor<data_gnss::RfErrorDetection::ValidFlags>
         { uint32_t(1), "rf_band", "" },
         { uint32_t(2), "jamming_state", "" },
         { uint32_t(4), "spoofing_state", "" },
-        { uint32_t(7), "flags", "" },
+        { uint32_t(8), "frequency", "" },
     };
 
     static constexpr inline BitfieldInfo value = {
@@ -2243,6 +2243,7 @@ struct MetadataFor<data_gnss::RfErrorDetection>
         decltype(type::rf_band),
         decltype(type::jamming_state),
         decltype(type::spoofing_state),
+        decltype(type::frequency),
         decltype(type::reserved),
         decltype(type::valid_flags)
     >;
@@ -2252,8 +2253,9 @@ struct MetadataFor<data_gnss::RfErrorDetection>
         if constexpr(I == 0) return value_.rf_band;
         if constexpr(I == 1) return value_.jamming_state;
         if constexpr(I == 2) return value_.spoofing_state;
-        if constexpr(I == 3) return value_.reserved;
-        if constexpr(I == 4) return value_.valid_flags;
+        if constexpr(I == 3) return value_.frequency;
+        if constexpr(I == 4) return value_.reserved;
+        if constexpr(I == 5) return value_.valid_flags;
     }
     
     static constexpr inline ParameterInfo parameters[] = {
@@ -2285,12 +2287,21 @@ struct MetadataFor<data_gnss::RfErrorDetection>
             /* .condition     = */ {},
         },
         {
+            /* .name          = */ "frequency",
+            /* .docs          = */ "Center frequency of the RF band in MHz",
+            /* .type          = */ {Type::U16, nullptr},
+            /* .accessor      = */ nullptr, //utils::access<type, uint16_t, &type::frequency>,
+            /* .attributes    = */ {true, false, false, false, false},
+            /* .count         = */ 1,
+            /* .condition     = */ {},
+        },
+        {
             /* .name          = */ "reserved",
             /* .docs          = */ "Reserved for future use",
             /* .type          = */ {Type::U8, nullptr},
             /* .accessor      = */ nullptr, //utils::access<type, uint8_t, &type::reserved>,
             /* .attributes    = */ {true, false, false, false, false},
-            /* .count         = */ 4,
+            /* .count         = */ 2,
             /* .condition     = */ {},
         },
         {
@@ -2305,8 +2316,8 @@ struct MetadataFor<data_gnss::RfErrorDetection>
     };
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_gnss::RfErrorDetection",
-            /* .title       = */ "rf_error_detection",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "GNSS Error Detection subsystem status",
             /* .parameters  = */ parameters,
         },
@@ -2318,6 +2329,124 @@ struct MetadataFor<data_gnss::RfErrorDetection>
 
 template<> struct TypeForFieldInfo< &MetadataFor<data_gnss::RfErrorDetection>::value > { using type = data_gnss::RfErrorDetection; };
 template<> struct TypeForDescriptor<data_gnss::RfErrorDetection::DESCRIPTOR.as_u16()> { using type = data_gnss::RfErrorDetection; };
+
+template<>
+struct MetadataFor<data_gnss::Heading::ValidFlags>
+{
+    using type = data_gnss::Heading::ValidFlags;
+
+    static constexpr inline BitfieldInfo::Entry entries[] = {
+        { uint32_t(1), "heading", "" },
+        { uint32_t(2), "uncertainty", "" },
+        { uint32_t(4), "fix_type", "" },
+    };
+
+    static constexpr inline BitfieldInfo value = {
+        /* .name    = */ "ValidFlags",
+        /* .docs    = */ "",
+        /* .type    = */ Type::U16,
+        /* .entries = */ entries,
+    };
+
+};
+
+template<> struct TypeForBitsInfo< &MetadataFor<data_gnss::Heading::ValidFlags>::value > { using type = data_gnss::Heading::ValidFlags; };
+
+template<>
+struct MetadataFor<data_gnss::Heading::FixType>
+{
+    using type = data_gnss::Heading::FixType;
+
+    static constexpr inline EnumInfo::Entry entries[] = {
+        { uint32_t(0), "UNKNOWN", "" },
+        { uint32_t(1), "FLOAT", "" },
+        { uint32_t(2), "FIXED", "" },
+    };
+
+    static constexpr inline EnumInfo value = {
+        /* .name    = */ "FixType",
+        /* .docs    = */ "",
+        /* .type    = */ Type::U8,
+        /* .entries = */ entries,
+    };
+
+};
+
+template<> struct TypeForEnumInfo< &MetadataFor<data_gnss::Heading::FixType>::value > { using type = data_gnss::Heading::FixType; };
+
+template<>
+struct MetadataFor<data_gnss::Heading>
+{
+    using type = data_gnss::Heading;
+
+    using ParamTypes = std::tuple<
+        decltype(type::heading),
+        decltype(type::uncertainty),
+        decltype(type::fix_type),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.heading;
+        if constexpr(I == 1) return value_.uncertainty;
+        if constexpr(I == 2) return value_.fix_type;
+        if constexpr(I == 3) return value_.valid_flags;
+    }
+    
+    static constexpr inline ParameterInfo parameters[] = {
+        {
+            /* .name          = */ "heading",
+            /* .docs          = */ "Heading [degrees]",
+            /* .type          = */ {Type::FLOAT, nullptr},
+            /* .accessor      = */ nullptr, //utils::access<type, float, &type::heading>,
+            /* .attributes    = */ {true, false, false, false, false},
+            /* .count         = */ 1,
+            /* .condition     = */ {},
+        },
+        {
+            /* .name          = */ "uncertainty",
+            /* .docs          = */ "Heading uncertainty [degrees]",
+            /* .type          = */ {Type::FLOAT, nullptr},
+            /* .accessor      = */ nullptr, //utils::access<type, float, &type::uncertainty>,
+            /* .attributes    = */ {true, false, false, false, false},
+            /* .count         = */ 1,
+            /* .condition     = */ {},
+        },
+        {
+            /* .name          = */ "fix_type",
+            /* .docs          = */ "Heading fix type",
+            /* .type          = */ {Type::ENUM, &MetadataFor<data_gnss::Heading::FixType>::value},
+            /* .accessor      = */ nullptr, //utils::access<type, data_gnss::Heading::FixType, &type::fix_type>,
+            /* .attributes    = */ {true, false, false, false, false},
+            /* .count         = */ 1,
+            /* .condition     = */ {},
+        },
+        {
+            /* .name          = */ "valid_flags",
+            /* .docs          = */ "",
+            /* .type          = */ {Type::BITS, &MetadataFor<data_gnss::Heading::ValidFlags>::value},
+            /* .accessor      = */ nullptr, //utils::access<type, data_gnss::Heading::ValidFlags, &type::valid_flags>,
+            /* .attributes    = */ {true, false, false, false, false},
+            /* .count         = */ 1,
+            /* .condition     = */ {},
+        },
+    };
+    static constexpr inline FieldInfo value = {
+        {
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
+            /* .docs        = */ "GNSS Heading",
+            /* .parameters  = */ parameters,
+        },
+            /* .descriptor  = */ type::DESCRIPTOR,
+            /* .functions   = */ NO_FUNCTIONS,
+            /* .response    = */ nullptr,
+    };
+};
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_gnss::Heading>::value > { using type = data_gnss::Heading; };
+template<> struct TypeForDescriptor<data_gnss::Heading::DESCRIPTOR.as_u16()> { using type = data_gnss::Heading; };
 
 template<>
 struct MetadataFor<data_gnss::BaseStationInfo::IndicatorFlags>
@@ -2466,8 +2595,8 @@ struct MetadataFor<data_gnss::BaseStationInfo>
     };
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_gnss::BaseStationInfo",
-            /* .title       = */ "base_station_info",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "RTCM reported base station information (sourced from RTCM Message 1005 or 1006)\n\nValid Flag Mapping:",
             /* .parameters  = */ parameters,
         },
@@ -2662,8 +2791,8 @@ struct MetadataFor<data_gnss::RtkCorrectionsStatus>
     };
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_gnss::RtkCorrectionsStatus",
-            /* .title       = */ "rtk_corrections_status",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
@@ -2829,8 +2958,8 @@ struct MetadataFor<data_gnss::SatelliteStatus>
     };
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_gnss::SatelliteStatus",
-            /* .title       = */ "satellite_status",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Status information for a GNSS satellite.",
             /* .parameters  = */ parameters,
         },
@@ -3214,8 +3343,8 @@ struct MetadataFor<data_gnss::Raw>
     };
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_gnss::Raw",
-            /* .title       = */ "raw",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "GNSS Raw observation.",
             /* .parameters  = */ parameters,
         },
@@ -3641,8 +3770,8 @@ struct MetadataFor<data_gnss::GpsEphemeris>
     };
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_gnss::GpsEphemeris",
-            /* .title       = */ "GPS Ephemeris",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "GPS Ephemeris Data",
             /* .parameters  = */ parameters,
         },
@@ -4068,8 +4197,8 @@ struct MetadataFor<data_gnss::GalileoEphemeris>
     };
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_gnss::GalileoEphemeris",
-            /* .title       = */ "Galileo Ephemeris",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Galileo Ephemeris Data",
             /* .parameters  = */ parameters,
         },
@@ -4394,8 +4523,8 @@ struct MetadataFor<data_gnss::GloEphemeris>
     };
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_gnss::GloEphemeris",
-            /* .title       = */ "Glonass Ephemeris",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Glonass Ephemeris Data",
             /* .parameters  = */ parameters,
         },
@@ -4821,8 +4950,8 @@ struct MetadataFor<data_gnss::BeidouEphemeris>
     };
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_gnss::BeidouEphemeris",
-            /* .title       = */ "BeiDou Ephemeris",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "BeiDou Ephemeris Data",
             /* .parameters  = */ parameters,
         },
@@ -4930,8 +5059,8 @@ struct MetadataFor<data_gnss::GpsIonoCorr>
     };
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_gnss::GpsIonoCorr",
-            /* .title       = */ "GPS Ionospheric Correction",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Ionospheric Correction Terms for GNSS",
             /* .parameters  = */ parameters,
         },
@@ -5039,8 +5168,8 @@ struct MetadataFor<data_gnss::GalileoIonoCorr>
     };
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_gnss::GalileoIonoCorr",
-            /* .title       = */ "Galileo Ionospheric Correction",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Ionospheric Correction Terms for Galileo",
             /* .parameters  = */ parameters,
         },
@@ -5160,8 +5289,8 @@ struct MetadataFor<data_gnss::BeidouIonoCorr>
     };
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_gnss::BeidouIonoCorr",
-            /* .title       = */ "BeiDou Ionospheric Correction",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Ionospheric Correction Terms for BeiDou",
             /* .parameters  = */ parameters,
         },
@@ -5194,6 +5323,7 @@ static constexpr inline const FieldInfo* DATA_GNSS_FIELDS[] = {
     &MetadataFor<data_gnss::SbasInfo>::value,
     &MetadataFor<data_gnss::SbasCorrection>::value,
     &MetadataFor<data_gnss::RfErrorDetection>::value,
+    &MetadataFor<data_gnss::Heading>::value,
     &MetadataFor<data_gnss::SatelliteStatus>::value,
     &MetadataFor<data_gnss::Raw>::value,
     &MetadataFor<data_gnss::BaseStationInfo>::value,
@@ -5233,6 +5363,7 @@ struct DataSetGnss
         ::mip::data_gnss::SbasInfo,
         ::mip::data_gnss::SbasCorrection,
         ::mip::data_gnss::RfErrorDetection,
+        ::mip::data_gnss::Heading,
         ::mip::data_gnss::SatelliteStatus,
         ::mip::data_gnss::Raw,
         ::mip::data_gnss::BaseStationInfo,

@@ -18,8 +18,8 @@ struct MetadataFor<commands_base::Ping>
 
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_base::Ping",
-            /* .title       = */ "Ping",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Test Communications with a device.\n\nThe Device will respond with an ACK, if present and operating correctly.\n\nIf the device is not in a normal operating mode, it may NACK.",
             /* .parameters  = */ {},
         },
@@ -41,8 +41,8 @@ struct MetadataFor<commands_base::SetIdle>
 
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_base::SetIdle",
-            /* .title       = */ "Set to idle",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Turn off all device data streams.\n\nThe Device will respond with an ACK, if present and operating correctly.\nThis command will suspend streaming (if enabled) or wake the device from sleep (if sleeping) to allow it to respond to status and setup commands.\nYou may restore the device mode by issuing the Resume command.",
             /* .parameters  = */ {},
         },
@@ -172,8 +172,8 @@ struct MetadataFor<commands_base::GetDeviceInfo::Response>
     };
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_base::GetDeviceInfo::Response",
-            /* .title       = */ "response",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
@@ -194,8 +194,8 @@ struct MetadataFor<commands_base::GetDeviceInfo>
 
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_base::GetDeviceInfo",
-            /* .title       = */ "Get device information",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Get the device ID strings and firmware version number.",
             /* .parameters  = */ {},
         },
@@ -246,8 +246,8 @@ struct MetadataFor<commands_base::GetDeviceDescriptors::Response>
     };
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_base::GetDeviceDescriptors::Response",
-            /* .title       = */ "response",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
@@ -268,8 +268,8 @@ struct MetadataFor<commands_base::GetDeviceDescriptors>
 
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_base::GetDeviceDescriptors",
-            /* .title       = */ "Get device descriptors",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Get the command and data descriptors supported by the device.\n\nReply has two fields: 'ACK/NACK' and 'Descriptors'. The 'Descriptors' field is an array of 16 bit values.\nThe MSB specifies the descriptor set and the LSB specifies the descriptor.",
             /* .parameters  = */ {},
         },
@@ -309,8 +309,8 @@ struct MetadataFor<commands_base::BuiltInTest::Response>
     };
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_base::BuiltInTest::Response",
-            /* .title       = */ "response",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
@@ -331,8 +331,8 @@ struct MetadataFor<commands_base::BuiltInTest>
 
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_base::BuiltInTest",
-            /* .title       = */ "Built in test",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Run the device Built-In Test (BIT).\n\nThe Built-In Test command always returns a 32 bit value.\nA value of 0 means that all tests passed.\nA non-zero value indicates that not all tests passed.\nReference the device user manual to decode the result.",
             /* .parameters  = */ {},
         },
@@ -354,8 +354,8 @@ struct MetadataFor<commands_base::Resume>
 
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_base::Resume",
-            /* .title       = */ "Resume",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Take the device out of idle mode.\n\nThe device responds with ACK upon success.",
             /* .parameters  = */ {},
         },
@@ -406,8 +406,8 @@ struct MetadataFor<commands_base::GetExtendedDescriptors::Response>
     };
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_base::GetExtendedDescriptors::Response",
-            /* .title       = */ "response",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
@@ -428,8 +428,8 @@ struct MetadataFor<commands_base::GetExtendedDescriptors>
 
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_base::GetExtendedDescriptors",
-            /* .title       = */ "Get device descriptors (extended)",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Get the command and data descriptors supported by the device.\n\nReply has two fields: 'ACK/NACK' and 'Descriptors'. The 'Descriptors' field is an array of 16 bit values.\nThe MSB specifies the descriptor set and the LSB specifies the descriptor.",
             /* .parameters  = */ {},
         },
@@ -469,8 +469,8 @@ struct MetadataFor<commands_base::ContinuousBit::Response>
     };
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_base::ContinuousBit::Response",
-            /* .title       = */ "response",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
@@ -491,8 +491,8 @@ struct MetadataFor<commands_base::ContinuousBit>
 
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_base::ContinuousBit",
-            /* .title       = */ "Continuous built-in test",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Report result of continuous built-in test.\n\nThis test is non-disruptive but is not as thorough as the commanded BIT.",
             /* .parameters  = */ {},
         },
@@ -543,8 +543,8 @@ struct MetadataFor<commands_base::CommSpeed::Response>
     };
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_base::CommSpeed::Response",
-            /* .title       = */ "response",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
@@ -597,8 +597,8 @@ struct MetadataFor<commands_base::CommSpeed>
     };
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_base::CommSpeed",
-            /* .title       = */ "Comm Port Speed",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Controls the baud rate of a specific port on the device.\n\nPlease see the device user manual for supported baud rates on each port.\n\nThe device will wait until all incoming and outgoing data has been sent, up\nto a maximum of 250 ms, before applying any change.\n\nNo guarantee is provided as to what happens to commands issued during this\ndelay period; They may or may not be processed and any responses aren't\nguaranteed to be at one rate or the other. The same applies to data packets.\n\nIt is highly recommended that the device be idle before issuing this command\nand that it be issued in its own packet. Users should wait 250 ms after\nsending this command before further interaction.",
             /* .parameters  = */ parameters,
         },
@@ -673,8 +673,8 @@ struct MetadataFor<commands_base::GpsTimeUpdate>
     };
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_base::GpsTimeUpdate",
-            /* .title       = */ "GPS Time Update Command",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Set device internal GPS time\nWhen combined with a PPS input signal applied to the I/O connector, this command enables complete synchronization of data outputs\nwith an external time base, such as GPS system time. Since the hardware PPS synchronization can only detect the fractional number of seconds when pulses arrive,\ncomplete synchronization requires that the user provide the whole number of seconds via this command. After achieving PPS synchronization, this command should be sent twice: once to set the time-of-week and once to set the week number. PPS synchronization can be verified by monitoring the time sync status message (0xA0, 0x02) or the valid flags of any shared external timestamp (0x--, D7) data field.",
             /* .parameters  = */ parameters,
         },
@@ -696,8 +696,8 @@ struct MetadataFor<commands_base::SoftReset>
 
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_base::SoftReset",
-            /* .title       = */ "Reset device",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Resets the device.\n\nDevice responds with ACK and immediately resets.",
             /* .parameters  = */ {},
         },

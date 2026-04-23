@@ -169,7 +169,7 @@ struct FrameConfig
         static constexpr const uint8_t DESCRIPTOR_SET = ::mip::commands_aiding::DESCRIPTOR_SET;
         static constexpr const uint8_t FIELD_DESCRIPTOR = ::mip::commands_aiding::REPLY_FRAME_CONFIG;
         static constexpr const CompositeDescriptor DESCRIPTOR = {DESCRIPTOR_SET, FIELD_DESCRIPTOR};
-        static constexpr const char* NAME = "FrameConfig::Response";
+        static constexpr const char* NAME = "FrameConfigResponse";
         static constexpr const char* DOC_NAME = "Frame Configuration Response";
         static constexpr const bool HAS_FUNCTION_SELECTOR = false;
         
@@ -254,7 +254,7 @@ struct EchoControl
         static constexpr const uint8_t DESCRIPTOR_SET = ::mip::commands_aiding::DESCRIPTOR_SET;
         static constexpr const uint8_t FIELD_DESCRIPTOR = ::mip::commands_aiding::REPLY_ECHO_CONTROL;
         static constexpr const CompositeDescriptor DESCRIPTOR = {DESCRIPTOR_SET, FIELD_DESCRIPTOR};
-        static constexpr const char* NAME = "EchoControl::Response";
+        static constexpr const char* NAME = "EchoControlResponse";
         static constexpr const char* DOC_NAME = "Echo Control Response";
         static constexpr const bool HAS_FUNCTION_SELECTOR = false;
         

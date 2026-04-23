@@ -405,7 +405,7 @@ struct ImuGetBaseRate
         static constexpr const uint8_t DESCRIPTOR_SET = ::mip::commands_3dm::DESCRIPTOR_SET;
         static constexpr const uint8_t FIELD_DESCRIPTOR = ::mip::commands_3dm::REPLY_IMU_BASE_RATE;
         static constexpr const CompositeDescriptor DESCRIPTOR = {DESCRIPTOR_SET, FIELD_DESCRIPTOR};
-        static constexpr const char* NAME = "ImuGetBaseRate::Response";
+        static constexpr const char* NAME = "ImuGetBaseRateResponse";
         static constexpr const char* DOC_NAME = "Get IMU Data Base Rate Response";
         static constexpr const bool HAS_FUNCTION_SELECTOR = false;
         
@@ -471,7 +471,7 @@ struct GnssGetBaseRate
         static constexpr const uint8_t DESCRIPTOR_SET = ::mip::commands_3dm::DESCRIPTOR_SET;
         static constexpr const uint8_t FIELD_DESCRIPTOR = ::mip::commands_3dm::REPLY_GNSS_BASE_RATE;
         static constexpr const CompositeDescriptor DESCRIPTOR = {DESCRIPTOR_SET, FIELD_DESCRIPTOR};
-        static constexpr const char* NAME = "GnssGetBaseRate::Response";
+        static constexpr const char* NAME = "GnssGetBaseRateResponse";
         static constexpr const char* DOC_NAME = "Get GNSS Data Base Rate Response";
         static constexpr const bool HAS_FUNCTION_SELECTOR = false;
         
@@ -549,7 +549,7 @@ struct ImuMessageFormat
         static constexpr const uint8_t DESCRIPTOR_SET = ::mip::commands_3dm::DESCRIPTOR_SET;
         static constexpr const uint8_t FIELD_DESCRIPTOR = ::mip::commands_3dm::REPLY_IMU_MESSAGE_FORMAT;
         static constexpr const CompositeDescriptor DESCRIPTOR = {DESCRIPTOR_SET, FIELD_DESCRIPTOR};
-        static constexpr const char* NAME = "ImuMessageFormat::Response";
+        static constexpr const char* NAME = "ImuMessageFormatResponse";
         static constexpr const char* DOC_NAME = "IMU Message Format Response";
         static constexpr const bool HAS_FUNCTION_SELECTOR = false;
         
@@ -631,7 +631,7 @@ struct GnssMessageFormat
         static constexpr const uint8_t DESCRIPTOR_SET = ::mip::commands_3dm::DESCRIPTOR_SET;
         static constexpr const uint8_t FIELD_DESCRIPTOR = ::mip::commands_3dm::REPLY_GNSS_MESSAGE_FORMAT;
         static constexpr const CompositeDescriptor DESCRIPTOR = {DESCRIPTOR_SET, FIELD_DESCRIPTOR};
-        static constexpr const char* NAME = "GnssMessageFormat::Response";
+        static constexpr const char* NAME = "GnssMessageFormatResponse";
         static constexpr const char* DOC_NAME = "GNSS Message Format Response";
         static constexpr const bool HAS_FUNCTION_SELECTOR = false;
         
@@ -713,7 +713,7 @@ struct FilterMessageFormat
         static constexpr const uint8_t DESCRIPTOR_SET = ::mip::commands_3dm::DESCRIPTOR_SET;
         static constexpr const uint8_t FIELD_DESCRIPTOR = ::mip::commands_3dm::REPLY_FILTER_MESSAGE_FORMAT;
         static constexpr const CompositeDescriptor DESCRIPTOR = {DESCRIPTOR_SET, FIELD_DESCRIPTOR};
-        static constexpr const char* NAME = "FilterMessageFormat::Response";
+        static constexpr const char* NAME = "FilterMessageFormatResponse";
         static constexpr const char* DOC_NAME = "Estimation Filter Message Format Response";
         static constexpr const bool HAS_FUNCTION_SELECTOR = false;
         
@@ -783,7 +783,7 @@ struct FilterGetBaseRate
         static constexpr const uint8_t DESCRIPTOR_SET = ::mip::commands_3dm::DESCRIPTOR_SET;
         static constexpr const uint8_t FIELD_DESCRIPTOR = ::mip::commands_3dm::REPLY_FILTER_BASE_RATE;
         static constexpr const CompositeDescriptor DESCRIPTOR = {DESCRIPTOR_SET, FIELD_DESCRIPTOR};
-        static constexpr const char* NAME = "FilterGetBaseRate::Response";
+        static constexpr const char* NAME = "FilterGetBaseRateResponse";
         static constexpr const char* DOC_NAME = "Get Estimation Filter Data Base Rate Response";
         static constexpr const bool HAS_FUNCTION_SELECTOR = false;
         
@@ -859,7 +859,7 @@ struct NmeaMessageFormat
         static constexpr const uint8_t DESCRIPTOR_SET = ::mip::commands_3dm::DESCRIPTOR_SET;
         static constexpr const uint8_t FIELD_DESCRIPTOR = ::mip::commands_3dm::REPLY_NMEA_MESSAGE_FORMAT;
         static constexpr const CompositeDescriptor DESCRIPTOR = {DESCRIPTOR_SET, FIELD_DESCRIPTOR};
-        static constexpr const char* NAME = "NmeaMessageFormat::Response";
+        static constexpr const char* NAME = "NmeaMessageFormatResponse";
         static constexpr const char* DOC_NAME = "NMEA Message Format Response";
         static constexpr const bool HAS_FUNCTION_SELECTOR = false;
         
@@ -979,7 +979,7 @@ struct GetBaseRate
         static constexpr const uint8_t DESCRIPTOR_SET = ::mip::commands_3dm::DESCRIPTOR_SET;
         static constexpr const uint8_t FIELD_DESCRIPTOR = ::mip::commands_3dm::REPLY_BASE_RATE;
         static constexpr const CompositeDescriptor DESCRIPTOR = {DESCRIPTOR_SET, FIELD_DESCRIPTOR};
-        static constexpr const char* NAME = "GetBaseRate::Response";
+        static constexpr const char* NAME = "GetBaseRateResponse";
         static constexpr const char* DOC_NAME = "Get Data Base Rate Response";
         static constexpr const bool HAS_FUNCTION_SELECTOR = false;
         
@@ -1060,7 +1060,7 @@ struct MessageFormat
         static constexpr const uint8_t DESCRIPTOR_SET = ::mip::commands_3dm::DESCRIPTOR_SET;
         static constexpr const uint8_t FIELD_DESCRIPTOR = ::mip::commands_3dm::REPLY_MESSAGE_FORMAT;
         static constexpr const CompositeDescriptor DESCRIPTOR = {DESCRIPTOR_SET, FIELD_DESCRIPTOR};
-        static constexpr const char* NAME = "MessageFormat::Response";
+        static constexpr const char* NAME = "MessageFormatResponse";
         static constexpr const char* DOC_NAME = "Message Format Response";
         static constexpr const bool HAS_FUNCTION_SELECTOR = false;
         
@@ -1200,7 +1200,7 @@ struct DatastreamControl
         static constexpr const uint8_t DESCRIPTOR_SET = ::mip::commands_3dm::DESCRIPTOR_SET;
         static constexpr const uint8_t FIELD_DESCRIPTOR = ::mip::commands_3dm::REPLY_DATASTREAM_ENABLE;
         static constexpr const CompositeDescriptor DESCRIPTOR = {DESCRIPTOR_SET, FIELD_DESCRIPTOR};
-        static constexpr const char* NAME = "DatastreamControl::Response";
+        static constexpr const char* NAME = "DatastreamControlResponse";
         static constexpr const char* DOC_NAME = "Data Stream Control Response";
         static constexpr const bool HAS_FUNCTION_SELECTOR = false;
         
@@ -1348,7 +1348,7 @@ struct ConstellationSettings
         static constexpr const uint8_t DESCRIPTOR_SET = ::mip::commands_3dm::DESCRIPTOR_SET;
         static constexpr const uint8_t FIELD_DESCRIPTOR = ::mip::commands_3dm::REPLY_GNSS_CONSTELLATION_SETTINGS;
         static constexpr const CompositeDescriptor DESCRIPTOR = {DESCRIPTOR_SET, FIELD_DESCRIPTOR};
-        static constexpr const char* NAME = "ConstellationSettings::Response";
+        static constexpr const char* NAME = "ConstellationSettingsResponse";
         static constexpr const char* DOC_NAME = "Constellation Settings Response";
         static constexpr const bool HAS_FUNCTION_SELECTOR = false;
         
@@ -1462,7 +1462,7 @@ struct GnssSbasSettings
         static constexpr const uint8_t DESCRIPTOR_SET = ::mip::commands_3dm::DESCRIPTOR_SET;
         static constexpr const uint8_t FIELD_DESCRIPTOR = ::mip::commands_3dm::REPLY_GNSS_SBAS_SETTINGS;
         static constexpr const CompositeDescriptor DESCRIPTOR = {DESCRIPTOR_SET, FIELD_DESCRIPTOR};
-        static constexpr const char* NAME = "GnssSbasSettings::Response";
+        static constexpr const char* NAME = "GnssSbasSettingsResponse";
         static constexpr const char* DOC_NAME = "GNSS SBAS Settings Response";
         static constexpr const bool HAS_FUNCTION_SELECTOR = false;
         
@@ -1558,7 +1558,7 @@ struct GnssAssistedFix
         static constexpr const uint8_t DESCRIPTOR_SET = ::mip::commands_3dm::DESCRIPTOR_SET;
         static constexpr const uint8_t FIELD_DESCRIPTOR = ::mip::commands_3dm::REPLY_GNSS_ASSISTED_FIX_SETTINGS;
         static constexpr const CompositeDescriptor DESCRIPTOR = {DESCRIPTOR_SET, FIELD_DESCRIPTOR};
-        static constexpr const char* NAME = "GnssAssistedFix::Response";
+        static constexpr const char* NAME = "GnssAssistedFixResponse";
         static constexpr const char* DOC_NAME = "GNSS Assisted Fix Settings Response";
         static constexpr const bool HAS_FUNCTION_SELECTOR = false;
         
@@ -1643,7 +1643,7 @@ struct GnssTimeAssistance
         static constexpr const uint8_t DESCRIPTOR_SET = ::mip::commands_3dm::DESCRIPTOR_SET;
         static constexpr const uint8_t FIELD_DESCRIPTOR = ::mip::commands_3dm::REPLY_GNSS_TIME_ASSISTANCE;
         static constexpr const CompositeDescriptor DESCRIPTOR = {DESCRIPTOR_SET, FIELD_DESCRIPTOR};
-        static constexpr const char* NAME = "GnssTimeAssistance::Response";
+        static constexpr const char* NAME = "GnssTimeAssistanceResponse";
         static constexpr const char* DOC_NAME = "GNSS Time Assistance Response";
         static constexpr const bool HAS_FUNCTION_SELECTOR = false;
         
@@ -1727,7 +1727,7 @@ struct PpsSource
         static constexpr const uint8_t DESCRIPTOR_SET = ::mip::commands_3dm::DESCRIPTOR_SET;
         static constexpr const uint8_t FIELD_DESCRIPTOR = ::mip::commands_3dm::REPLY_PPS_SOURCE;
         static constexpr const CompositeDescriptor DESCRIPTOR = {DESCRIPTOR_SET, FIELD_DESCRIPTOR};
-        static constexpr const char* NAME = "PpsSource::Response";
+        static constexpr const char* NAME = "PpsSourceResponse";
         static constexpr const char* DOC_NAME = "PPS Source Control Response";
         static constexpr const bool HAS_FUNCTION_SELECTOR = false;
         
@@ -1833,7 +1833,7 @@ struct GetEventSupport
         static constexpr const uint8_t DESCRIPTOR_SET = ::mip::commands_3dm::DESCRIPTOR_SET;
         static constexpr const uint8_t FIELD_DESCRIPTOR = ::mip::commands_3dm::REPLY_EVENT_SUPPORT;
         static constexpr const CompositeDescriptor DESCRIPTOR = {DESCRIPTOR_SET, FIELD_DESCRIPTOR};
-        static constexpr const char* NAME = "GetEventSupport::Response";
+        static constexpr const char* NAME = "GetEventSupportResponse";
         static constexpr const char* DOC_NAME = "Get Supported Events Response";
         static constexpr const bool HAS_FUNCTION_SELECTOR = false;
         
@@ -1927,7 +1927,7 @@ struct EventControl
         static constexpr const uint8_t DESCRIPTOR_SET = ::mip::commands_3dm::DESCRIPTOR_SET;
         static constexpr const uint8_t FIELD_DESCRIPTOR = ::mip::commands_3dm::REPLY_EVENT_CONTROL;
         static constexpr const CompositeDescriptor DESCRIPTOR = {DESCRIPTOR_SET, FIELD_DESCRIPTOR};
-        static constexpr const char* NAME = "EventControl::Response";
+        static constexpr const char* NAME = "EventControlResponse";
         static constexpr const char* DOC_NAME = "Event Control Response";
         static constexpr const bool HAS_FUNCTION_SELECTOR = false;
         
@@ -2039,7 +2039,7 @@ struct GetEventTriggerStatus
         static constexpr const uint8_t DESCRIPTOR_SET = ::mip::commands_3dm::DESCRIPTOR_SET;
         static constexpr const uint8_t FIELD_DESCRIPTOR = ::mip::commands_3dm::REPLY_EVENT_TRIGGER_STATUS;
         static constexpr const CompositeDescriptor DESCRIPTOR = {DESCRIPTOR_SET, FIELD_DESCRIPTOR};
-        static constexpr const char* NAME = "GetEventTriggerStatus::Response";
+        static constexpr const char* NAME = "GetEventTriggerStatusResponse";
         static constexpr const char* DOC_NAME = "Get Event Trigger Status Response";
         static constexpr const bool HAS_FUNCTION_SELECTOR = false;
         
@@ -2117,7 +2117,7 @@ struct GetEventActionStatus
         static constexpr const uint8_t DESCRIPTOR_SET = ::mip::commands_3dm::DESCRIPTOR_SET;
         static constexpr const uint8_t FIELD_DESCRIPTOR = ::mip::commands_3dm::REPLY_EVENT_ACTION_STATUS;
         static constexpr const CompositeDescriptor DESCRIPTOR = {DESCRIPTOR_SET, FIELD_DESCRIPTOR};
-        static constexpr const char* NAME = "GetEventActionStatus::Response";
+        static constexpr const char* NAME = "GetEventActionStatusResponse";
         static constexpr const char* DOC_NAME = "Get Event Action Status Response";
         static constexpr const bool HAS_FUNCTION_SELECTOR = false;
         
@@ -2276,7 +2276,7 @@ struct EventTrigger
         static constexpr const uint8_t DESCRIPTOR_SET = ::mip::commands_3dm::DESCRIPTOR_SET;
         static constexpr const uint8_t FIELD_DESCRIPTOR = ::mip::commands_3dm::REPLY_EVENT_TRIGGER_CONFIG;
         static constexpr const CompositeDescriptor DESCRIPTOR = {DESCRIPTOR_SET, FIELD_DESCRIPTOR};
-        static constexpr const char* NAME = "EventTrigger::Response";
+        static constexpr const char* NAME = "EventTriggerResponse";
         static constexpr const char* DOC_NAME = "Event Trigger Configuration Response";
         static constexpr const bool HAS_FUNCTION_SELECTOR = false;
         
@@ -2409,7 +2409,7 @@ struct EventAction
         static constexpr const uint8_t DESCRIPTOR_SET = ::mip::commands_3dm::DESCRIPTOR_SET;
         static constexpr const uint8_t FIELD_DESCRIPTOR = ::mip::commands_3dm::REPLY_EVENT_ACTION_CONFIG;
         static constexpr const CompositeDescriptor DESCRIPTOR = {DESCRIPTOR_SET, FIELD_DESCRIPTOR};
-        static constexpr const char* NAME = "EventAction::Response";
+        static constexpr const char* NAME = "EventActionResponse";
         static constexpr const char* DOC_NAME = "Event Action Configuration Response";
         static constexpr const bool HAS_FUNCTION_SELECTOR = false;
         
@@ -2570,7 +2570,7 @@ struct Sensor2VehicleTransformEuler
         static constexpr const uint8_t DESCRIPTOR_SET = ::mip::commands_3dm::DESCRIPTOR_SET;
         static constexpr const uint8_t FIELD_DESCRIPTOR = ::mip::commands_3dm::REPLY_SENSOR2VEHICLE_TRANSFORM_EUL;
         static constexpr const CompositeDescriptor DESCRIPTOR = {DESCRIPTOR_SET, FIELD_DESCRIPTOR};
-        static constexpr const char* NAME = "Sensor2VehicleTransformEuler::Response";
+        static constexpr const char* NAME = "Sensor2VehicleTransformEulerResponse";
         static constexpr const char* DOC_NAME = "Sensor-to-Vehicle Frame Transformation Euler Response";
         static constexpr const bool HAS_FUNCTION_SELECTOR = false;
         
@@ -2680,7 +2680,7 @@ struct Sensor2VehicleTransformQuaternion
         static constexpr const uint8_t DESCRIPTOR_SET = ::mip::commands_3dm::DESCRIPTOR_SET;
         static constexpr const uint8_t FIELD_DESCRIPTOR = ::mip::commands_3dm::REPLY_SENSOR2VEHICLE_TRANSFORM_QUAT;
         static constexpr const CompositeDescriptor DESCRIPTOR = {DESCRIPTOR_SET, FIELD_DESCRIPTOR};
-        static constexpr const char* NAME = "Sensor2VehicleTransformQuaternion::Response";
+        static constexpr const char* NAME = "Sensor2VehicleTransformQuaternionResponse";
         static constexpr const char* DOC_NAME = "Sensor-to-Vehicle Frame Transformation Quaternion Response";
         static constexpr const bool HAS_FUNCTION_SELECTOR = false;
         
@@ -2789,7 +2789,7 @@ struct Sensor2VehicleTransformDcm
         static constexpr const uint8_t DESCRIPTOR_SET = ::mip::commands_3dm::DESCRIPTOR_SET;
         static constexpr const uint8_t FIELD_DESCRIPTOR = ::mip::commands_3dm::REPLY_SENSOR2VEHICLE_TRANSFORM_DCM;
         static constexpr const CompositeDescriptor DESCRIPTOR = {DESCRIPTOR_SET, FIELD_DESCRIPTOR};
-        static constexpr const char* NAME = "Sensor2VehicleTransformDcm::Response";
+        static constexpr const char* NAME = "Sensor2VehicleTransformDcmResponse";
         static constexpr const char* DOC_NAME = "Sensor-to-Vehicle Frame Transformation Direction Cosine Matrix Response";
         static constexpr const bool HAS_FUNCTION_SELECTOR = false;
         
@@ -2869,7 +2869,7 @@ struct AccelBias
         static constexpr const uint8_t DESCRIPTOR_SET = ::mip::commands_3dm::DESCRIPTOR_SET;
         static constexpr const uint8_t FIELD_DESCRIPTOR = ::mip::commands_3dm::REPLY_ACCEL_BIAS_VECTOR;
         static constexpr const CompositeDescriptor DESCRIPTOR = {DESCRIPTOR_SET, FIELD_DESCRIPTOR};
-        static constexpr const char* NAME = "AccelBias::Response";
+        static constexpr const char* NAME = "AccelBiasResponse";
         static constexpr const char* DOC_NAME = "Accelerometer Bias Configuration Response";
         static constexpr const bool HAS_FUNCTION_SELECTOR = false;
         
@@ -2949,7 +2949,7 @@ struct GyroBias
         static constexpr const uint8_t DESCRIPTOR_SET = ::mip::commands_3dm::DESCRIPTOR_SET;
         static constexpr const uint8_t FIELD_DESCRIPTOR = ::mip::commands_3dm::REPLY_GYRO_BIAS_VECTOR;
         static constexpr const CompositeDescriptor DESCRIPTOR = {DESCRIPTOR_SET, FIELD_DESCRIPTOR};
-        static constexpr const char* NAME = "GyroBias::Response";
+        static constexpr const char* NAME = "GyroBiasResponse";
         static constexpr const char* DOC_NAME = "Gyroscope Bias Configuration Response";
         static constexpr const bool HAS_FUNCTION_SELECTOR = false;
         
@@ -3024,7 +3024,7 @@ struct CaptureGyroBias
         static constexpr const uint8_t DESCRIPTOR_SET = ::mip::commands_3dm::DESCRIPTOR_SET;
         static constexpr const uint8_t FIELD_DESCRIPTOR = ::mip::commands_3dm::REPLY_GYRO_BIAS_VECTOR;
         static constexpr const CompositeDescriptor DESCRIPTOR = {DESCRIPTOR_SET, FIELD_DESCRIPTOR};
-        static constexpr const char* NAME = "CaptureGyroBias::Response";
+        static constexpr const char* NAME = "CaptureGyroBiasResponse";
         static constexpr const char* DOC_NAME = "Capture Gyroscope Bias Response";
         static constexpr const bool HAS_FUNCTION_SELECTOR = false;
         
@@ -3104,7 +3104,7 @@ struct MagHardIronOffset
         static constexpr const uint8_t DESCRIPTOR_SET = ::mip::commands_3dm::DESCRIPTOR_SET;
         static constexpr const uint8_t FIELD_DESCRIPTOR = ::mip::commands_3dm::REPLY_HARD_IRON_OFFSET_VECTOR;
         static constexpr const CompositeDescriptor DESCRIPTOR = {DESCRIPTOR_SET, FIELD_DESCRIPTOR};
-        static constexpr const char* NAME = "MagHardIronOffset::Response";
+        static constexpr const char* NAME = "MagHardIronOffsetResponse";
         static constexpr const char* DOC_NAME = "Magnetometer Hard Iron Offset Response";
         static constexpr const bool HAS_FUNCTION_SELECTOR = false;
         
@@ -3191,7 +3191,7 @@ struct MagSoftIronMatrix
         static constexpr const uint8_t DESCRIPTOR_SET = ::mip::commands_3dm::DESCRIPTOR_SET;
         static constexpr const uint8_t FIELD_DESCRIPTOR = ::mip::commands_3dm::REPLY_SOFT_IRON_COMP_MATRIX;
         static constexpr const CompositeDescriptor DESCRIPTOR = {DESCRIPTOR_SET, FIELD_DESCRIPTOR};
-        static constexpr const char* NAME = "MagSoftIronMatrix::Response";
+        static constexpr const char* NAME = "MagSoftIronMatrixResponse";
         static constexpr const char* DOC_NAME = "Magnetometer Soft Iron Matrix Response";
         static constexpr const bool HAS_FUNCTION_SELECTOR = false;
         
@@ -3269,7 +3269,7 @@ struct ConingScullingEnable
         static constexpr const uint8_t DESCRIPTOR_SET = ::mip::commands_3dm::DESCRIPTOR_SET;
         static constexpr const uint8_t FIELD_DESCRIPTOR = ::mip::commands_3dm::REPLY_CONING_AND_SCULLING_ENABLE;
         static constexpr const CompositeDescriptor DESCRIPTOR = {DESCRIPTOR_SET, FIELD_DESCRIPTOR};
-        static constexpr const char* NAME = "ConingScullingEnable::Response";
+        static constexpr const char* NAME = "ConingScullingEnableResponse";
         static constexpr const char* DOC_NAME = "Coning and Sculling Enable Response";
         static constexpr const bool HAS_FUNCTION_SELECTOR = false;
         
@@ -3361,7 +3361,7 @@ struct UartBaudrate
         static constexpr const uint8_t DESCRIPTOR_SET = ::mip::commands_3dm::DESCRIPTOR_SET;
         static constexpr const uint8_t FIELD_DESCRIPTOR = ::mip::commands_3dm::REPLY_UART_BAUDRATE;
         static constexpr const CompositeDescriptor DESCRIPTOR = {DESCRIPTOR_SET, FIELD_DESCRIPTOR};
-        static constexpr const char* NAME = "UartBaudrate::Response";
+        static constexpr const char* NAME = "UartBaudrateResponse";
         static constexpr const char* DOC_NAME = "UART Baudrate Response";
         static constexpr const bool HAS_FUNCTION_SELECTOR = false;
         
@@ -3521,7 +3521,7 @@ struct GpioConfig
         static constexpr const uint8_t DESCRIPTOR_SET = ::mip::commands_3dm::DESCRIPTOR_SET;
         static constexpr const uint8_t FIELD_DESCRIPTOR = ::mip::commands_3dm::REPLY_GPIO_CONFIG;
         static constexpr const CompositeDescriptor DESCRIPTOR = {DESCRIPTOR_SET, FIELD_DESCRIPTOR};
-        static constexpr const char* NAME = "GpioConfig::Response";
+        static constexpr const char* NAME = "GpioConfigResponse";
         static constexpr const char* DOC_NAME = "GPIO Configuration Response";
         static constexpr const bool HAS_FUNCTION_SELECTOR = false;
         
@@ -3616,7 +3616,7 @@ struct GpioState
         static constexpr const uint8_t DESCRIPTOR_SET = ::mip::commands_3dm::DESCRIPTOR_SET;
         static constexpr const uint8_t FIELD_DESCRIPTOR = ::mip::commands_3dm::REPLY_GPIO_STATE;
         static constexpr const CompositeDescriptor DESCRIPTOR = {DESCRIPTOR_SET, FIELD_DESCRIPTOR};
-        static constexpr const char* NAME = "GpioState::Response";
+        static constexpr const char* NAME = "GpioStateResponse";
         static constexpr const char* DOC_NAME = "GPIO State Response";
         static constexpr const bool HAS_FUNCTION_SELECTOR = false;
         
@@ -3701,7 +3701,7 @@ struct Odometer
         static constexpr const uint8_t DESCRIPTOR_SET = ::mip::commands_3dm::DESCRIPTOR_SET;
         static constexpr const uint8_t FIELD_DESCRIPTOR = ::mip::commands_3dm::REPLY_ODOMETER_CONFIG;
         static constexpr const CompositeDescriptor DESCRIPTOR = {DESCRIPTOR_SET, FIELD_DESCRIPTOR};
-        static constexpr const char* NAME = "Odometer::Response";
+        static constexpr const char* NAME = "OdometerResponse";
         static constexpr const char* DOC_NAME = "Odometer Configuration Response";
         static constexpr const bool HAS_FUNCTION_SELECTOR = false;
         
@@ -3803,7 +3803,7 @@ struct ImuLowpassFilter
         static constexpr const uint8_t DESCRIPTOR_SET = ::mip::commands_3dm::DESCRIPTOR_SET;
         static constexpr const uint8_t FIELD_DESCRIPTOR = ::mip::commands_3dm::REPLY_ADVANCED_DATA_FILTER;
         static constexpr const CompositeDescriptor DESCRIPTOR = {DESCRIPTOR_SET, FIELD_DESCRIPTOR};
-        static constexpr const char* NAME = "ImuLowpassFilter::Response";
+        static constexpr const char* NAME = "ImuLowpassFilterResponse";
         static constexpr const char* DOC_NAME = "Advanced Low-Pass Filter Settings Response";
         static constexpr const bool HAS_FUNCTION_SELECTOR = false;
         
@@ -3891,7 +3891,7 @@ struct ComplementaryFilter
         static constexpr const uint8_t DESCRIPTOR_SET = ::mip::commands_3dm::DESCRIPTOR_SET;
         static constexpr const uint8_t FIELD_DESCRIPTOR = ::mip::commands_3dm::REPLY_LEGACY_COMP_FILTER;
         static constexpr const CompositeDescriptor DESCRIPTOR = {DESCRIPTOR_SET, FIELD_DESCRIPTOR};
-        static constexpr const char* NAME = "ComplementaryFilter::Response";
+        static constexpr const char* NAME = "ComplementaryFilterResponse";
         static constexpr const char* DOC_NAME = "Complementary Filter Configuration Response";
         static constexpr const bool HAS_FUNCTION_SELECTOR = false;
         
@@ -3979,7 +3979,7 @@ struct SensorRange
         static constexpr const uint8_t DESCRIPTOR_SET = ::mip::commands_3dm::DESCRIPTOR_SET;
         static constexpr const uint8_t FIELD_DESCRIPTOR = ::mip::commands_3dm::REPLY_SENSOR_RANGE;
         static constexpr const CompositeDescriptor DESCRIPTOR = {DESCRIPTOR_SET, FIELD_DESCRIPTOR};
-        static constexpr const char* NAME = "SensorRange::Response";
+        static constexpr const char* NAME = "SensorRangeResponse";
         static constexpr const char* DOC_NAME = "Sensor Range Response";
         static constexpr const bool HAS_FUNCTION_SELECTOR = false;
         
@@ -4065,7 +4065,7 @@ struct CalibratedSensorRanges
         static constexpr const uint8_t DESCRIPTOR_SET = ::mip::commands_3dm::DESCRIPTOR_SET;
         static constexpr const uint8_t FIELD_DESCRIPTOR = ::mip::commands_3dm::REPLY_CALIBRATED_RANGES;
         static constexpr const CompositeDescriptor DESCRIPTOR = {DESCRIPTOR_SET, FIELD_DESCRIPTOR};
-        static constexpr const char* NAME = "CalibratedSensorRanges::Response";
+        static constexpr const char* NAME = "CalibratedSensorRangesResponse";
         static constexpr const char* DOC_NAME = "Get Calibrated Sensor Ranges Response";
         static constexpr const bool HAS_FUNCTION_SELECTOR = false;
         
@@ -4161,7 +4161,7 @@ struct LowpassFilter
         static constexpr const uint8_t DESCRIPTOR_SET = ::mip::commands_3dm::DESCRIPTOR_SET;
         static constexpr const uint8_t FIELD_DESCRIPTOR = ::mip::commands_3dm::REPLY_LOWPASS_FILTER;
         static constexpr const CompositeDescriptor DESCRIPTOR = {DESCRIPTOR_SET, FIELD_DESCRIPTOR};
-        static constexpr const char* NAME = "LowpassFilter::Response";
+        static constexpr const char* NAME = "LowpassFilterResponse";
         static constexpr const char* DOC_NAME = "Low-Pass Anti-Aliasing Filter Response";
         static constexpr const bool HAS_FUNCTION_SELECTOR = false;
         

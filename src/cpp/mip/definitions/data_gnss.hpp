@@ -48,6 +48,7 @@ enum
     DATA_SBAS_INFO               = 0x12,
     DATA_SBAS_CORRECTION         = 0x13,
     DATA_RF_ERROR_DETECTION      = 0x14,
+    DATA_HEADING                 = 0x15,
     DATA_SATELLITE_STATUS        = 0x20,
     DATA_SATELLITE_SIGNAL_STATUS = 0x21,
     DATA_RAW                     = 0x22,
@@ -1669,8 +1670,8 @@ struct RfErrorDetection
             RF_BAND        = 0x0001,  ///<  
             JAMMING_STATE  = 0x0002,  ///<  
             SPOOFING_STATE = 0x0004,  ///<  
-            FLAGS          = 0x0007,  ///<  
-            ALL            = 0x0007,
+            FREQUENCY      = 0x0008,  ///<  
+            ALL            = 0x000F,
         };
         uint16_t value = NONE;
         
@@ -1688,8 +1689,8 @@ struct RfErrorDetection
         constexpr void jammingState(bool val) { value &= ~JAMMING_STATE; if(val) value |= JAMMING_STATE; }
         constexpr bool spoofingState() const { return (value & SPOOFING_STATE) > 0; }
         constexpr void spoofingState(bool val) { value &= ~SPOOFING_STATE; if(val) value |= SPOOFING_STATE; }
-        constexpr uint16_t flags() const { return (value & FLAGS) >> 0; }
-        constexpr void flags(uint16_t val) { value = (value & ~FLAGS) | (val << 0); }
+        constexpr bool frequency() const { return (value & FREQUENCY) > 0; }
+        constexpr void frequency(bool val) { value &= ~FREQUENCY; if(val) value |= FREQUENCY; }
         constexpr bool allSet() const { return value == ALL; }
         constexpr void setAll() { value |= ALL; }
     };
@@ -1697,7 +1698,8 @@ struct RfErrorDetection
     RFBand rf_band = static_cast<RFBand>(0); ///< RF Band of the reported information
     JammingState jamming_state = static_cast<JammingState>(0); ///< GNSS Jamming State (as reported by the GNSS module)
     SpoofingState spoofing_state = static_cast<SpoofingState>(0); ///< GNSS Spoofing State (as reported by the GNSS module)
-    uint8_t reserved[4] = {0}; ///< Reserved for future use
+    uint16_t frequency = 0; ///< Center frequency of the RF band in MHz
+    uint8_t reserved[2] = {0}; ///< Reserved for future use
     ValidFlags valid_flags;
     
     /// Descriptors
@@ -1710,12 +1712,89 @@ struct RfErrorDetection
     
     auto asTuple() const
     {
-        return std::make_tuple(rf_band,jamming_state,spoofing_state,reserved,valid_flags);
+        return std::make_tuple(rf_band,jamming_state,spoofing_state,frequency,reserved,valid_flags);
     }
     
     auto asTuple()
     {
-        return std::make_tuple(std::ref(rf_band),std::ref(jamming_state),std::ref(spoofing_state),std::ref(reserved),std::ref(valid_flags));
+        return std::make_tuple(std::ref(rf_band),std::ref(jamming_state),std::ref(spoofing_state),std::ref(frequency),std::ref(reserved),std::ref(valid_flags));
+    }
+    
+    /// Serialization
+    void insert(Serializer& serializer) const;
+    void extract(Serializer& serializer);
+    
+};
+
+///@}
+///
+////////////////////////////////////////////////////////////////////////////////
+///@defgroup gnss_heading_cpp  (0x81,0x15) Heading
+/// GNSS Heading
+///
+///@{
+
+struct Heading
+{
+    struct ValidFlags : Bitfield<ValidFlags>
+    {
+        typedef uint16_t Type;
+        enum _enumType : uint16_t
+        {
+            NONE        = 0x0000,
+            HEADING     = 0x0001,  ///<  
+            UNCERTAINTY = 0x0002,  ///<  
+            FIX_TYPE    = 0x0004,  ///<  
+            ALL         = 0x0007,
+        };
+        uint16_t value = NONE;
+        
+        constexpr ValidFlags() : value(NONE) {}
+        constexpr ValidFlags(int val) : value((uint16_t)val) {}
+        constexpr operator uint16_t() const { return value; }
+        constexpr ValidFlags& operator=(uint16_t val) { value = val; return *this; }
+        constexpr ValidFlags& operator=(int val) { value = uint16_t(val); return *this; }
+        constexpr ValidFlags& operator|=(uint16_t val) { return *this = value | val; }
+        constexpr ValidFlags& operator&=(uint16_t val) { return *this = value & val; }
+        
+        constexpr bool heading() const { return (value & HEADING) > 0; }
+        constexpr void heading(bool val) { value &= ~HEADING; if(val) value |= HEADING; }
+        constexpr bool uncertainty() const { return (value & UNCERTAINTY) > 0; }
+        constexpr void uncertainty(bool val) { value &= ~UNCERTAINTY; if(val) value |= UNCERTAINTY; }
+        constexpr bool fixType() const { return (value & FIX_TYPE) > 0; }
+        constexpr void fixType(bool val) { value &= ~FIX_TYPE; if(val) value |= FIX_TYPE; }
+        constexpr bool allSet() const { return value == ALL; }
+        constexpr void setAll() { value |= ALL; }
+    };
+    enum class FixType : uint8_t
+    {
+        UNKNOWN = 0,  ///<  
+        FLOAT   = 1,  ///<  
+        FIXED   = 2,  ///<  
+    };
+    
+    /// Parameters
+    float heading = 0; ///< Heading [degrees]
+    float uncertainty = 0; ///< Heading uncertainty [degrees]
+    FixType fix_type = static_cast<FixType>(0); ///< Heading fix type
+    ValidFlags valid_flags;
+    
+    /// Descriptors
+    static constexpr const uint8_t DESCRIPTOR_SET = ::mip::data_gnss::DESCRIPTOR_SET;
+    static constexpr const uint8_t FIELD_DESCRIPTOR = ::mip::data_gnss::DATA_HEADING;
+    static constexpr const CompositeDescriptor DESCRIPTOR = {DESCRIPTOR_SET, FIELD_DESCRIPTOR};
+    static constexpr const char* NAME = "Heading";
+    static constexpr const char* DOC_NAME = "Heading";
+    static constexpr const bool HAS_FUNCTION_SELECTOR = false;
+    
+    auto asTuple() const
+    {
+        return std::make_tuple(heading,uncertainty,fix_type,valid_flags);
+    }
+    
+    auto asTuple()
+    {
+        return std::make_tuple(std::ref(heading),std::ref(uncertainty),std::ref(fix_type),std::ref(valid_flags));
     }
     
     /// Serialization
