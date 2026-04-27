@@ -82,7 +82,7 @@ public:
     ///         payload array may not have header bytes and this function isn't
     ///         safe in that case.
     ///
-    microstrain::ConstU8ArrayView data() const { return {payloadPointer()-C::MIP_HEADER_LENGTH, size_t(payloadLength()+C::MIP_HEADER_LENGTH)}; }
+    microstrain::ConstU8ArrayView data() const { return {payloadPointer()-C::MIP_FIELD_HEADER_LENGTH, size_t(payloadLength()+C::MIP_HEADER_LENGTH)}; }
 
     ///@copydoc mip::C::mip_field_is_valid
     bool isValid() const { return C::mip_field_is_valid(this); }
