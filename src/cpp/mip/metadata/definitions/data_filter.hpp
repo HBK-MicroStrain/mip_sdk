@@ -8,11 +8,15 @@
 namespace mip::metadata
 {
 
+struct DataSetFilter;
+
 
 template<>
 struct MetadataFor<data_filter::PositionLlh>
 {
     using type = data_filter::PositionLlh;
+
+    using Context = DataSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::latitude),
@@ -74,9 +78,9 @@ struct MetadataFor<data_filter::PositionLlh>
             /* .docs        = */ "Filter reported position in the WGS84 geodetic frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -87,6 +91,8 @@ template<>
 struct MetadataFor<data_filter::VelocityNed>
 {
     using type = data_filter::VelocityNed;
+
+    using Context = DataSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::north),
@@ -148,9 +154,9 @@ struct MetadataFor<data_filter::VelocityNed>
             /* .docs        = */ "Filter reported velocity in the NED local-level frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -161,6 +167,8 @@ template<>
 struct MetadataFor<data_filter::AttitudeQuaternion>
 {
     using type = data_filter::AttitudeQuaternion;
+
+    using Context = DataSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::q),
@@ -200,9 +208,9 @@ struct MetadataFor<data_filter::AttitudeQuaternion>
             /* .docs        = */ "4x1 vector representation of the quaternion describing the orientation of the device with respect to the NED local-level frame.\nThis quaternion satisfies the following relationship:\n\nEQSTART p^{veh} = q^{-1} p^{ned} q EQEND<br/>\n\nWhere:<br/>\nEQSTART q = (q_w, q_x, q_y, q_z) EQEND is the quaternion describing the rotation. <br/>\nEQSTART p^ned = (0, v^{ned}_x, v^{ned}_y, v^{ned}_z) EQEND and EQSTART v^{ned} EQEND is a 3-element vector expressed in the NED frame.<br/>\nEQSTART p^veh = (0, v^{veh}_x, v^{veh}_y, v^{veh}_z) EQEND and EQSTART v^{veh} EQEND is a 3-element vector expressed in the vehicle frame.<br/>",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -213,6 +221,8 @@ template<>
 struct MetadataFor<data_filter::AttitudeDcm>
 {
     using type = data_filter::AttitudeDcm;
+
+    using Context = DataSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::dcm),
@@ -252,9 +262,9 @@ struct MetadataFor<data_filter::AttitudeDcm>
             /* .docs        = */ "3x3 Direction Cosine Matrix EQSTART M_{ned}^{veh} EQEND describing the orientation of the device with respect to the NED local-level frame.\nThis matrix satisfies the following relationship:\n\nEQSTART v^{veh} = M_{ned}^{veh} v^{ned} EQEND<br/>\n\nWhere:<br/>\n\nEQSTART v^{ned} EQEND is a 3-element vector expressed in the NED frame. <br/>\nEQSTART v^{veh} EQEND is the same 3-element vector expressed in the vehicle frame.  <br/>\n<br/>\nThe matrix elements are stored is row-major order: EQSTART M_{ned}^{veh} = \\begin{bmatrix} M_{11}, M_{12}, M_{13}, M_{21}, M_{22}, M_{23}, M_{31}, M_{32}, M_{33} \\end{bmatrix} EQEND",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -265,6 +275,8 @@ template<>
 struct MetadataFor<data_filter::EulerAngles>
 {
     using type = data_filter::EulerAngles;
+
+    using Context = DataSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::roll),
@@ -326,9 +338,9 @@ struct MetadataFor<data_filter::EulerAngles>
             /* .docs        = */ "Filter reported Euler angles describing the orientation of the device with respect to the NED local-level frame.\nThe Euler angles are reported in 3-2-1 (Yaw-Pitch-Roll, AKA Aircraft) order.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -339,6 +351,8 @@ template<>
 struct MetadataFor<data_filter::GyroBias>
 {
     using type = data_filter::GyroBias;
+
+    using Context = DataSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::bias),
@@ -378,9 +392,9 @@ struct MetadataFor<data_filter::GyroBias>
             /* .docs        = */ "Filter reported gyro bias expressed in the sensor frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -391,6 +405,8 @@ template<>
 struct MetadataFor<data_filter::AccelBias>
 {
     using type = data_filter::AccelBias;
+
+    using Context = DataSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::bias),
@@ -430,9 +446,9 @@ struct MetadataFor<data_filter::AccelBias>
             /* .docs        = */ "Filter reported accelerometer bias expressed in the sensor frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -443,6 +459,8 @@ template<>
 struct MetadataFor<data_filter::PositionLlhUncertainty>
 {
     using type = data_filter::PositionLlhUncertainty;
+
+    using Context = DataSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::north),
@@ -504,9 +522,9 @@ struct MetadataFor<data_filter::PositionLlhUncertainty>
             /* .docs        = */ "Filter reported 1-sigma position uncertainty in the NED local-level frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -517,6 +535,8 @@ template<>
 struct MetadataFor<data_filter::VelocityNedUncertainty>
 {
     using type = data_filter::VelocityNedUncertainty;
+
+    using Context = DataSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::north),
@@ -578,9 +598,9 @@ struct MetadataFor<data_filter::VelocityNedUncertainty>
             /* .docs        = */ "Filter reported 1-sigma velocity uncertainties in the NED local-level frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -591,6 +611,8 @@ template<>
 struct MetadataFor<data_filter::EulerAnglesUncertainty>
 {
     using type = data_filter::EulerAnglesUncertainty;
+
+    using Context = DataSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::roll),
@@ -652,9 +674,9 @@ struct MetadataFor<data_filter::EulerAnglesUncertainty>
             /* .docs        = */ "Filter reported 1-sigma Euler angle uncertainties.\nThe uncertainties are reported in 3-2-1 (Yaw-Pitch-Roll, AKA Aircraft) order.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -665,6 +687,8 @@ template<>
 struct MetadataFor<data_filter::GyroBiasUncertainty>
 {
     using type = data_filter::GyroBiasUncertainty;
+
+    using Context = DataSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::bias_uncert),
@@ -704,9 +728,9 @@ struct MetadataFor<data_filter::GyroBiasUncertainty>
             /* .docs        = */ "Filter reported 1-sigma gyro bias uncertainties expressed in the sensor frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -717,6 +741,8 @@ template<>
 struct MetadataFor<data_filter::AccelBiasUncertainty>
 {
     using type = data_filter::AccelBiasUncertainty;
+
+    using Context = DataSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::bias_uncert),
@@ -756,9 +782,9 @@ struct MetadataFor<data_filter::AccelBiasUncertainty>
             /* .docs        = */ "Filter reported 1-sigma accelerometer bias uncertainties expressed in the sensor frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -769,6 +795,8 @@ template<>
 struct MetadataFor<data_filter::Timestamp>
 {
     using type = data_filter::Timestamp;
+
+    using Context = DataSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::tow),
@@ -819,9 +847,9 @@ struct MetadataFor<data_filter::Timestamp>
             /* .docs        = */ "GPS timestamp of the Filter data\n\nShould the PPS become unavailable, the device will revert to its internal clock, which will cause the reported time to drift from true GPS time.\nUpon recovering from a PPS outage, the user should expect a jump in the reported GPS time due to the accumulation of internal clock error.\nIf synchronization to an external clock or onboard GNSS receiver (for products that have one) is disabled, this time is equivalent to internal system time.\n\nNote: this data field may be deprecated in the future. The more flexible shared data field (0x82, 0xD3) should be used instead.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -930,6 +958,8 @@ struct MetadataFor<data_filter::Status>
 {
     using type = data_filter::Status;
 
+    using Context = DataSetFilter;
+
     using ParamTypes = std::tuple<
         decltype(type::filter_state),
         decltype(type::dynamics_mode),
@@ -979,9 +1009,9 @@ struct MetadataFor<data_filter::Status>
             /* .docs        = */ "Device-specific filter status indicators.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -992,6 +1022,8 @@ template<>
 struct MetadataFor<data_filter::LinearAccel>
 {
     using type = data_filter::LinearAccel;
+
+    using Context = DataSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::accel),
@@ -1031,9 +1063,9 @@ struct MetadataFor<data_filter::LinearAccel>
             /* .docs        = */ "Filter-compensated linear acceleration expressed in the vehicle frame.\nNote: The estimated gravity has been removed from this data leaving only linear acceleration.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -1044,6 +1076,8 @@ template<>
 struct MetadataFor<data_filter::GravityVector>
 {
     using type = data_filter::GravityVector;
+
+    using Context = DataSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::gravity),
@@ -1083,9 +1117,9 @@ struct MetadataFor<data_filter::GravityVector>
             /* .docs        = */ "Filter reported gravity vector expressed in the vehicle frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -1096,6 +1130,8 @@ template<>
 struct MetadataFor<data_filter::CompAccel>
 {
     using type = data_filter::CompAccel;
+
+    using Context = DataSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::accel),
@@ -1135,9 +1171,9 @@ struct MetadataFor<data_filter::CompAccel>
             /* .docs        = */ "Filter-compensated acceleration expressed in the vehicle frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -1148,6 +1184,8 @@ template<>
 struct MetadataFor<data_filter::CompAngularRate>
 {
     using type = data_filter::CompAngularRate;
+
+    using Context = DataSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::gyro),
@@ -1187,9 +1225,9 @@ struct MetadataFor<data_filter::CompAngularRate>
             /* .docs        = */ "Filter-compensated angular rate expressed in the vehicle frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -1200,6 +1238,8 @@ template<>
 struct MetadataFor<data_filter::QuaternionAttitudeUncertainty>
 {
     using type = data_filter::QuaternionAttitudeUncertainty;
+
+    using Context = DataSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::q),
@@ -1239,9 +1279,9 @@ struct MetadataFor<data_filter::QuaternionAttitudeUncertainty>
             /* .docs        = */ "Filter reported quaternion uncertainties.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -1252,6 +1292,8 @@ template<>
 struct MetadataFor<data_filter::Wgs84GravityMag>
 {
     using type = data_filter::Wgs84GravityMag;
+
+    using Context = DataSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::magnitude),
@@ -1291,9 +1333,9 @@ struct MetadataFor<data_filter::Wgs84GravityMag>
             /* .docs        = */ "Filter reported WGS84 gravity magnitude.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -1328,6 +1370,8 @@ template<>
 struct MetadataFor<data_filter::HeadingUpdateState>
 {
     using type = data_filter::HeadingUpdateState;
+
+    using Context = DataSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::heading),
@@ -1389,9 +1433,9 @@ struct MetadataFor<data_filter::HeadingUpdateState>
             /* .docs        = */ "Filter reported heading update state.\n\nHeading updates can be applied from the sources listed below.  Note, some of these sources may be combined.\nThe heading value is always relative to true north.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -1402,6 +1446,8 @@ template<>
 struct MetadataFor<data_filter::MagneticModel>
 {
     using type = data_filter::MagneticModel;
+
+    using Context = DataSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::intensity_north),
@@ -1485,9 +1531,9 @@ struct MetadataFor<data_filter::MagneticModel>
             /* .docs        = */ "The World Magnetic Model is used for this data. Please refer to the device user manual for the current version of the model.\nA valid GNSS location is required for the model to be valid.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -1498,6 +1544,8 @@ template<>
 struct MetadataFor<data_filter::AccelScaleFactor>
 {
     using type = data_filter::AccelScaleFactor;
+
+    using Context = DataSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::scale_factor),
@@ -1537,9 +1585,9 @@ struct MetadataFor<data_filter::AccelScaleFactor>
             /* .docs        = */ "Filter reported accelerometer scale factor expressed in the sensor frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -1550,6 +1598,8 @@ template<>
 struct MetadataFor<data_filter::AccelScaleFactorUncertainty>
 {
     using type = data_filter::AccelScaleFactorUncertainty;
+
+    using Context = DataSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::scale_factor_uncert),
@@ -1589,9 +1639,9 @@ struct MetadataFor<data_filter::AccelScaleFactorUncertainty>
             /* .docs        = */ "Filter reported 1-sigma accelerometer scale factor uncertainty expressed in the sensor frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -1602,6 +1652,8 @@ template<>
 struct MetadataFor<data_filter::GyroScaleFactor>
 {
     using type = data_filter::GyroScaleFactor;
+
+    using Context = DataSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::scale_factor),
@@ -1641,9 +1693,9 @@ struct MetadataFor<data_filter::GyroScaleFactor>
             /* .docs        = */ "Filter reported gyro scale factor expressed in the sensor frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -1654,6 +1706,8 @@ template<>
 struct MetadataFor<data_filter::GyroScaleFactorUncertainty>
 {
     using type = data_filter::GyroScaleFactorUncertainty;
+
+    using Context = DataSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::scale_factor_uncert),
@@ -1693,9 +1747,9 @@ struct MetadataFor<data_filter::GyroScaleFactorUncertainty>
             /* .docs        = */ "Filter reported 1-sigma gyro scale factor uncertainty expressed in the sensor frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -1706,6 +1760,8 @@ template<>
 struct MetadataFor<data_filter::MagBias>
 {
     using type = data_filter::MagBias;
+
+    using Context = DataSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::bias),
@@ -1745,9 +1801,9 @@ struct MetadataFor<data_filter::MagBias>
             /* .docs        = */ "Filter reported magnetometer bias expressed in the sensor frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -1758,6 +1814,8 @@ template<>
 struct MetadataFor<data_filter::MagBiasUncertainty>
 {
     using type = data_filter::MagBiasUncertainty;
+
+    using Context = DataSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::bias_uncert),
@@ -1797,9 +1855,9 @@ struct MetadataFor<data_filter::MagBiasUncertainty>
             /* .docs        = */ "Filter reported 1-sigma magnetometer bias uncertainty expressed in the sensor frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -1810,6 +1868,8 @@ template<>
 struct MetadataFor<data_filter::StandardAtmosphere>
 {
     using type = data_filter::StandardAtmosphere;
+
+    using Context = DataSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::geometric_altitude),
@@ -1893,9 +1953,9 @@ struct MetadataFor<data_filter::StandardAtmosphere>
             /* .docs        = */ "Filter reported standard atmosphere parameters.\n\nThe US 1976 Standard Atmosphere Model is used. A valid GNSS location is required for the model to be valid.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -1906,6 +1966,8 @@ template<>
 struct MetadataFor<data_filter::PressureAltitude>
 {
     using type = data_filter::PressureAltitude;
+
+    using Context = DataSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::pressure_altitude),
@@ -1945,9 +2007,9 @@ struct MetadataFor<data_filter::PressureAltitude>
             /* .docs        = */ "Filter reported pressure altitude.\n\nThe US 1976 Standard Atmosphere Model is used to calculate the pressure altitude in meters.\nA valid pressure sensor reading is required for the pressure altitude to be valid.\nThe minimum pressure reading supported by the model is 0.0037 mBar, corresponding to an altitude of 84,852 meters.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -1958,6 +2020,8 @@ template<>
 struct MetadataFor<data_filter::DensityAltitude>
 {
     using type = data_filter::DensityAltitude;
+
+    using Context = DataSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::density_altitude),
@@ -1997,9 +2061,9 @@ struct MetadataFor<data_filter::DensityAltitude>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -2010,6 +2074,8 @@ template<>
 struct MetadataFor<data_filter::AntennaOffsetCorrection>
 {
     using type = data_filter::AntennaOffsetCorrection;
+
+    using Context = DataSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::offset),
@@ -2049,9 +2115,9 @@ struct MetadataFor<data_filter::AntennaOffsetCorrection>
             /* .docs        = */ "Filter reported GNSS antenna offset in vehicle frame.\n\nThis offset added to any previously stored offset vector to compensate for errors in definition.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -2062,6 +2128,8 @@ template<>
 struct MetadataFor<data_filter::AntennaOffsetCorrectionUncertainty>
 {
     using type = data_filter::AntennaOffsetCorrectionUncertainty;
+
+    using Context = DataSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::offset_uncert),
@@ -2101,9 +2169,9 @@ struct MetadataFor<data_filter::AntennaOffsetCorrectionUncertainty>
             /* .docs        = */ "Filter reported 1-sigma GNSS antenna offset uncertainties in vehicle frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -2114,6 +2182,8 @@ template<>
 struct MetadataFor<data_filter::MultiAntennaOffsetCorrection>
 {
     using type = data_filter::MultiAntennaOffsetCorrection;
+
+    using Context = DataSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::receiver_id),
@@ -2164,9 +2234,9 @@ struct MetadataFor<data_filter::MultiAntennaOffsetCorrection>
             /* .docs        = */ "Filter reported GNSS antenna offset in vehicle frame.\n\nThis offset added to any previously stored offset vector to compensate for errors in definition.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -2177,6 +2247,8 @@ template<>
 struct MetadataFor<data_filter::MultiAntennaOffsetCorrectionUncertainty>
 {
     using type = data_filter::MultiAntennaOffsetCorrectionUncertainty;
+
+    using Context = DataSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::receiver_id),
@@ -2227,9 +2299,9 @@ struct MetadataFor<data_filter::MultiAntennaOffsetCorrectionUncertainty>
             /* .docs        = */ "Filter reported 1-sigma GNSS antenna offset uncertainties in vehicle frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -2240,6 +2312,8 @@ template<>
 struct MetadataFor<data_filter::MagnetometerOffset>
 {
     using type = data_filter::MagnetometerOffset;
+
+    using Context = DataSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::hard_iron),
@@ -2279,9 +2353,9 @@ struct MetadataFor<data_filter::MagnetometerOffset>
             /* .docs        = */ "Filter reported magnetometer hard iron offset in sensor frame.\n\nThis offset added to any previously stored hard iron offset vector to compensate for magnetometer in-run bias errors.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -2292,6 +2366,8 @@ template<>
 struct MetadataFor<data_filter::MagnetometerMatrix>
 {
     using type = data_filter::MagnetometerMatrix;
+
+    using Context = DataSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::soft_iron),
@@ -2331,9 +2407,9 @@ struct MetadataFor<data_filter::MagnetometerMatrix>
             /* .docs        = */ "Filter reported magnetometer soft iron matrix in sensor frame.\n\nThis matrix is post multiplied to any previously stored soft iron matrix to compensate for magnetometer in-run errors.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -2344,6 +2420,8 @@ template<>
 struct MetadataFor<data_filter::MagnetometerOffsetUncertainty>
 {
     using type = data_filter::MagnetometerOffsetUncertainty;
+
+    using Context = DataSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::hard_iron_uncertainty),
@@ -2383,9 +2461,9 @@ struct MetadataFor<data_filter::MagnetometerOffsetUncertainty>
             /* .docs        = */ "Filter reported 1-sigma magnetometer hard iron offset uncertainties in sensor frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -2396,6 +2474,8 @@ template<>
 struct MetadataFor<data_filter::MagnetometerMatrixUncertainty>
 {
     using type = data_filter::MagnetometerMatrixUncertainty;
+
+    using Context = DataSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::soft_iron_uncertainty),
@@ -2435,9 +2515,9 @@ struct MetadataFor<data_filter::MagnetometerMatrixUncertainty>
             /* .docs        = */ "Filter reported 1-sigma magnetometer soft iron matrix uncertainties in sensor frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -2448,6 +2528,8 @@ template<>
 struct MetadataFor<data_filter::MagnetometerCovarianceMatrix>
 {
     using type = data_filter::MagnetometerCovarianceMatrix;
+
+    using Context = DataSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::covariance),
@@ -2487,9 +2569,9 @@ struct MetadataFor<data_filter::MagnetometerCovarianceMatrix>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -2500,6 +2582,8 @@ template<>
 struct MetadataFor<data_filter::MagnetometerResidualVector>
 {
     using type = data_filter::MagnetometerResidualVector;
+
+    using Context = DataSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::residual),
@@ -2539,9 +2623,9 @@ struct MetadataFor<data_filter::MagnetometerResidualVector>
             /* .docs        = */ "Filter reported magnetometer measurement residuals in vehicle frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -2552,6 +2636,8 @@ template<>
 struct MetadataFor<data_filter::ClockCorrection>
 {
     using type = data_filter::ClockCorrection;
+
+    using Context = DataSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::receiver_id),
@@ -2613,9 +2699,9 @@ struct MetadataFor<data_filter::ClockCorrection>
             /* .docs        = */ "Filter reported GNSS receiver clock error parameters.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -2626,6 +2712,8 @@ template<>
 struct MetadataFor<data_filter::ClockCorrectionUncertainty>
 {
     using type = data_filter::ClockCorrectionUncertainty;
+
+    using Context = DataSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::receiver_id),
@@ -2687,9 +2775,9 @@ struct MetadataFor<data_filter::ClockCorrectionUncertainty>
             /* .docs        = */ "Filter reported 1-sigma GNSS receiver clock error parameters.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -2735,6 +2823,8 @@ template<>
 struct MetadataFor<data_filter::GnssPosAidStatus>
 {
     using type = data_filter::GnssPosAidStatus;
+
+    using Context = DataSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::receiver_id),
@@ -2796,9 +2886,9 @@ struct MetadataFor<data_filter::GnssPosAidStatus>
             /* .docs        = */ "Filter reported GNSS position aiding status",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -2809,6 +2899,8 @@ template<>
 struct MetadataFor<data_filter::GnssAttAidStatus>
 {
     using type = data_filter::GnssAttAidStatus;
+
+    using Context = DataSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::time_of_week),
@@ -2859,9 +2951,9 @@ struct MetadataFor<data_filter::GnssAttAidStatus>
             /* .docs        = */ "Filter reported dual antenna GNSS attitude aiding status",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -2893,6 +2985,8 @@ template<>
 struct MetadataFor<data_filter::HeadAidStatus>
 {
     using type = data_filter::HeadAidStatus;
+
+    using Context = DataSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::time_of_week),
@@ -2943,9 +3037,9 @@ struct MetadataFor<data_filter::HeadAidStatus>
             /* .docs        = */ "Filter reported GNSS heading aiding status",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -2956,6 +3050,8 @@ template<>
 struct MetadataFor<data_filter::RelPosNed>
 {
     using type = data_filter::RelPosNed;
+
+    using Context = DataSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::relative_position),
@@ -2995,9 +3091,9 @@ struct MetadataFor<data_filter::RelPosNed>
             /* .docs        = */ "Filter reported relative position, with respect to configured reference position",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -3008,6 +3104,8 @@ template<>
 struct MetadataFor<data_filter::EcefPos>
 {
     using type = data_filter::EcefPos;
+
+    using Context = DataSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::position_ecef),
@@ -3047,9 +3145,9 @@ struct MetadataFor<data_filter::EcefPos>
             /* .docs        = */ "Filter reported ECEF position",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -3060,6 +3158,8 @@ template<>
 struct MetadataFor<data_filter::EcefVel>
 {
     using type = data_filter::EcefVel;
+
+    using Context = DataSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::velocity_ecef),
@@ -3099,9 +3199,9 @@ struct MetadataFor<data_filter::EcefVel>
             /* .docs        = */ "Filter reported ECEF velocity",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -3112,6 +3212,8 @@ template<>
 struct MetadataFor<data_filter::EcefPosUncertainty>
 {
     using type = data_filter::EcefPosUncertainty;
+
+    using Context = DataSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::pos_uncertainty),
@@ -3151,9 +3253,9 @@ struct MetadataFor<data_filter::EcefPosUncertainty>
             /* .docs        = */ "Filter reported 1-sigma position uncertainty in the ECEF frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -3164,6 +3266,8 @@ template<>
 struct MetadataFor<data_filter::EcefVelUncertainty>
 {
     using type = data_filter::EcefVelUncertainty;
+
+    using Context = DataSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::vel_uncertainty),
@@ -3203,9 +3307,9 @@ struct MetadataFor<data_filter::EcefVelUncertainty>
             /* .docs        = */ "Filter reported 1-sigma velocity uncertainties in the ECEF frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -3276,6 +3380,8 @@ struct MetadataFor<data_filter::AidingMeasurementSummary>
 {
     using type = data_filter::AidingMeasurementSummary;
 
+    using Context = DataSetFilter;
+
     using ParamTypes = std::tuple<
         decltype(type::time_of_week),
         decltype(type::source),
@@ -3336,9 +3442,9 @@ struct MetadataFor<data_filter::AidingMeasurementSummary>
             /* .docs        = */ "Filter reported aiding measurement summary. This message contains a summary of the specified aiding measurement over the previous measurement interval ending at the specified time.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -3349,6 +3455,8 @@ template<>
 struct MetadataFor<data_filter::OdometerScaleFactorError>
 {
     using type = data_filter::OdometerScaleFactorError;
+
+    using Context = DataSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::scale_factor_error),
@@ -3388,9 +3496,9 @@ struct MetadataFor<data_filter::OdometerScaleFactorError>
             /* .docs        = */ "Filter reported odometer scale factor error. The total scale factor estimate is the user indicated scale factor, plus the user indicated scale factor times the scale factor error.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -3401,6 +3509,8 @@ template<>
 struct MetadataFor<data_filter::OdometerScaleFactorErrorUncertainty>
 {
     using type = data_filter::OdometerScaleFactorErrorUncertainty;
+
+    using Context = DataSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::scale_factor_error_uncertainty),
@@ -3440,9 +3550,9 @@ struct MetadataFor<data_filter::OdometerScaleFactorErrorUncertainty>
             /* .docs        = */ "Filter reported odometer scale factor error uncertainty.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -3497,6 +3607,8 @@ template<>
 struct MetadataFor<data_filter::GnssDualAntennaStatus>
 {
     using type = data_filter::GnssDualAntennaStatus;
+
+    using Context = DataSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::time_of_week),
@@ -3580,9 +3692,9 @@ struct MetadataFor<data_filter::GnssDualAntennaStatus>
             /* .docs        = */ "Summary information for status of GNSS dual antenna heading estimate.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -3593,6 +3705,8 @@ template<>
 struct MetadataFor<data_filter::AidingFrameConfigError>
 {
     using type = data_filter::AidingFrameConfigError;
+
+    using Context = DataSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::frame_id),
@@ -3643,9 +3757,9 @@ struct MetadataFor<data_filter::AidingFrameConfigError>
             /* .docs        = */ "Filter reported aiding source frame configuration error\n\nThese estimates are used to compensate for small errors to the user-supplied aiding frame configurations (set with (0x13, 0x01) command ).",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -3656,6 +3770,8 @@ template<>
 struct MetadataFor<data_filter::AidingFrameConfigErrorUncertainty>
 {
     using type = data_filter::AidingFrameConfigErrorUncertainty;
+
+    using Context = DataSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::frame_id),
@@ -3706,9 +3822,9 @@ struct MetadataFor<data_filter::AidingFrameConfigErrorUncertainty>
             /* .docs        = */ "Filter reported aiding source frame configuration error uncertainty\n\nThese estimates are used to compensate for small errors to the user-supplied aiding frame configurations (set with (0x13, 0x01) command ).",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 

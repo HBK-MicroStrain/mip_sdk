@@ -8,11 +8,15 @@
 namespace mip::metadata
 {
 
+struct DataSetSensor;
+
 
 template<>
 struct MetadataFor<data_sensor::RawAccel>
 {
     using type = data_sensor::RawAccel;
+
+    using Context = DataSetSensor;
 
     using ParamTypes = std::tuple<
         decltype(type::raw_accel)
@@ -41,9 +45,9 @@ struct MetadataFor<data_sensor::RawAccel>
             /* .docs        = */ "Three element vector representing the sensed acceleration.\nThis quantity is temperature compensated and expressed in the sensor body frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -54,6 +58,8 @@ template<>
 struct MetadataFor<data_sensor::RawGyro>
 {
     using type = data_sensor::RawGyro;
+
+    using Context = DataSetSensor;
 
     using ParamTypes = std::tuple<
         decltype(type::raw_gyro)
@@ -82,9 +88,9 @@ struct MetadataFor<data_sensor::RawGyro>
             /* .docs        = */ "Three element vector representing the sensed angular rate.\nThis quantity is temperature compensated and expressed in the sensor body frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -95,6 +101,8 @@ template<>
 struct MetadataFor<data_sensor::RawMag>
 {
     using type = data_sensor::RawMag;
+
+    using Context = DataSetSensor;
 
     using ParamTypes = std::tuple<
         decltype(type::raw_mag)
@@ -123,9 +131,9 @@ struct MetadataFor<data_sensor::RawMag>
             /* .docs        = */ "Three element vector representing the sensed magnetic field.\nThis quantity is temperature compensated and expressed in the vehicle frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -136,6 +144,8 @@ template<>
 struct MetadataFor<data_sensor::RawPressure>
 {
     using type = data_sensor::RawPressure;
+
+    using Context = DataSetSensor;
 
     using ParamTypes = std::tuple<
         decltype(type::raw_pressure)
@@ -164,9 +174,9 @@ struct MetadataFor<data_sensor::RawPressure>
             /* .docs        = */ "Scalar value representing the sensed ambient pressure.\nThis quantity is temperature compensated.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -177,6 +187,8 @@ template<>
 struct MetadataFor<data_sensor::ScaledAccel>
 {
     using type = data_sensor::ScaledAccel;
+
+    using Context = DataSetSensor;
 
     using ParamTypes = std::tuple<
         decltype(type::scaled_accel)
@@ -205,9 +217,9 @@ struct MetadataFor<data_sensor::ScaledAccel>
             /* .docs        = */ "3-element vector representing the sensed acceleration.\nThis quantity is temperature compensated and expressed in the vehicle frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -218,6 +230,8 @@ template<>
 struct MetadataFor<data_sensor::ScaledGyro>
 {
     using type = data_sensor::ScaledGyro;
+
+    using Context = DataSetSensor;
 
     using ParamTypes = std::tuple<
         decltype(type::scaled_gyro)
@@ -246,9 +260,9 @@ struct MetadataFor<data_sensor::ScaledGyro>
             /* .docs        = */ "3-element vector representing the sensed angular rate.\nThis quantity is temperature compensated and expressed in the vehicle frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -259,6 +273,8 @@ template<>
 struct MetadataFor<data_sensor::ScaledMag>
 {
     using type = data_sensor::ScaledMag;
+
+    using Context = DataSetSensor;
 
     using ParamTypes = std::tuple<
         decltype(type::scaled_mag)
@@ -287,9 +303,9 @@ struct MetadataFor<data_sensor::ScaledMag>
             /* .docs        = */ "3-element vector representing the sensed magnetic field.\nThis quantity is temperature compensated and expressed in the vehicle frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -300,6 +316,8 @@ template<>
 struct MetadataFor<data_sensor::ScaledPressure>
 {
     using type = data_sensor::ScaledPressure;
+
+    using Context = DataSetSensor;
 
     using ParamTypes = std::tuple<
         decltype(type::scaled_pressure)
@@ -328,9 +346,9 @@ struct MetadataFor<data_sensor::ScaledPressure>
             /* .docs        = */ "Scalar value representing the sensed ambient pressure.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -341,6 +359,8 @@ template<>
 struct MetadataFor<data_sensor::DeltaTheta>
 {
     using type = data_sensor::DeltaTheta;
+
+    using Context = DataSetSensor;
 
     using ParamTypes = std::tuple<
         decltype(type::delta_theta)
@@ -369,9 +389,9 @@ struct MetadataFor<data_sensor::DeltaTheta>
             /* .docs        = */ "3-element vector representing the time integral of angular rate.\nThis quantity is the integral of sensed angular rate over the period set by the IMU message format.  It is expressed in the vehicle frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -382,6 +402,8 @@ template<>
 struct MetadataFor<data_sensor::DeltaVelocity>
 {
     using type = data_sensor::DeltaVelocity;
+
+    using Context = DataSetSensor;
 
     using ParamTypes = std::tuple<
         decltype(type::delta_velocity)
@@ -410,9 +432,9 @@ struct MetadataFor<data_sensor::DeltaVelocity>
             /* .docs        = */ "3-element vector representing the time integral of acceleration.\nThis quantity is the integral of sensed acceleration over the period set by the IMU message format.  It is expressed in the vehicle frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -423,6 +445,8 @@ template<>
 struct MetadataFor<data_sensor::CompOrientationMatrix>
 {
     using type = data_sensor::CompOrientationMatrix;
+
+    using Context = DataSetSensor;
 
     using ParamTypes = std::tuple<
         decltype(type::m)
@@ -451,9 +475,9 @@ struct MetadataFor<data_sensor::CompOrientationMatrix>
             /* .docs        = */ "3x3 Direction Cosine Matrix EQSTART M_{ned}^{veh} EQEND describing the orientation of the device with respect to the NED local-level frame.\nThis matrix satisfies the following relationship:\n\nEQSTART v^{veh} = M_{ned}^{veh} v^{ned} EQEND<br/>\n\nWhere:<br/>\n\nEQSTART v^{ned} EQEND is a 3-element vector expressed in the NED frame. <br/>\nEQSTART v^{veh} EQEND is the same 3-element vector expressed in the vehicle frame.  <br/>\n<br/>\nThe matrix elements are stored is row-major order: EQSTART M = \\begin{bmatrix} M_{11}, M_{12}, M_{13}, M_{21}, M_{22}, M_{23}, M_{31}, M_{32}, M_{33} \\end{bmatrix} EQEND",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -464,6 +488,8 @@ template<>
 struct MetadataFor<data_sensor::CompQuaternion>
 {
     using type = data_sensor::CompQuaternion;
+
+    using Context = DataSetSensor;
 
     using ParamTypes = std::tuple<
         decltype(type::q)
@@ -492,9 +518,9 @@ struct MetadataFor<data_sensor::CompQuaternion>
             /* .docs        = */ "4x1 vector representation of the quaternion describing the orientation of the device with respect to the NED local-level frame.\nThis quaternion satisfies the following relationship:\n\nEQSTART p^{veh} = q^{-1} p^{ned} q EQEND<br/>\n\nWhere:<br/>\nEQSTART q = (q_w, q_x, q_y, q_z) EQEND is the quaternion describing the rotation. <br/>\nEQSTART p^ned = (0, v^{ned}_x, v^{ned}_y, v^{ned}_z) EQEND and EQSTART v^{ned} EQEND is a 3-element vector expressed in the NED frame.<br/>\nEQSTART p^veh = (0, v^{veh}_x, v^{veh}_y, v^{veh}_z) EQEND and EQSTART v^{veh} EQEND is a 3-element vector expressed in the vehicle frame.<br/>",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -505,6 +531,8 @@ template<>
 struct MetadataFor<data_sensor::CompEulerAngles>
 {
     using type = data_sensor::CompEulerAngles;
+
+    using Context = DataSetSensor;
 
     using ParamTypes = std::tuple<
         decltype(type::roll),
@@ -555,9 +583,9 @@ struct MetadataFor<data_sensor::CompEulerAngles>
             /* .docs        = */ "Euler angles describing the orientation of the device with respect to the NED local-level frame.\nThe Euler angles are reported in 3-2-1 (Yaw-Pitch-Roll, AKA Aircraft) order.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -568,6 +596,8 @@ template<>
 struct MetadataFor<data_sensor::CompOrientationUpdateMatrix>
 {
     using type = data_sensor::CompOrientationUpdateMatrix;
+
+    using Context = DataSetSensor;
 
     using ParamTypes = std::tuple<
         decltype(type::m)
@@ -596,9 +626,9 @@ struct MetadataFor<data_sensor::CompOrientationUpdateMatrix>
             /* .docs        = */ "DEPRECATED!",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -609,6 +639,8 @@ template<>
 struct MetadataFor<data_sensor::OrientationRawTemp>
 {
     using type = data_sensor::OrientationRawTemp;
+
+    using Context = DataSetSensor;
 
     using ParamTypes = std::tuple<
         decltype(type::raw_temp)
@@ -637,9 +669,9 @@ struct MetadataFor<data_sensor::OrientationRawTemp>
             /* .docs        = */ "DEPRECATED!",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -650,6 +682,8 @@ template<>
 struct MetadataFor<data_sensor::InternalTimestamp>
 {
     using type = data_sensor::InternalTimestamp;
+
+    using Context = DataSetSensor;
 
     using ParamTypes = std::tuple<
         decltype(type::counts)
@@ -678,9 +712,9 @@ struct MetadataFor<data_sensor::InternalTimestamp>
             /* .docs        = */ "DEPRECATED!",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -691,6 +725,8 @@ template<>
 struct MetadataFor<data_sensor::PpsTimestamp>
 {
     using type = data_sensor::PpsTimestamp;
+
+    using Context = DataSetSensor;
 
     using ParamTypes = std::tuple<
         decltype(type::seconds),
@@ -730,9 +766,9 @@ struct MetadataFor<data_sensor::PpsTimestamp>
             /* .docs        = */ "DEPRECATED!",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -767,6 +803,8 @@ template<>
 struct MetadataFor<data_sensor::GpsTimestamp>
 {
     using type = data_sensor::GpsTimestamp;
+
+    using Context = DataSetSensor;
 
     using ParamTypes = std::tuple<
         decltype(type::tow),
@@ -817,9 +855,9 @@ struct MetadataFor<data_sensor::GpsTimestamp>
             /* .docs        = */ "GPS timestamp of the SENSOR data\n\nShould the PPS become unavailable, the device will revert to its internal clock, which will cause the reported time to drift from true GPS time.\nUpon recovering from a PPS outage, the user should expect a jump in the reported GPS time due to the accumulation of internal clock error.\nIf synchronization to an external clock or onboard GNSS receiver (for products that have one) is disabled, this time is equivalent to internal system time.\n\nNote: this data field may be deprecated in the future. The more flexible shared data field (0x80, 0xD3) should be used instead.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -830,6 +868,8 @@ template<>
 struct MetadataFor<data_sensor::TemperatureAbs>
 {
     using type = data_sensor::TemperatureAbs;
+
+    using Context = DataSetSensor;
 
     using ParamTypes = std::tuple<
         decltype(type::min_temp),
@@ -880,9 +920,9 @@ struct MetadataFor<data_sensor::TemperatureAbs>
             /* .docs        = */ "SENSOR reported temperature statistics\n\nTemperature may originate from the MEMS sensors, or be calculated in combination with board temperature sensors.\nAll quantities are calculated with respect to the last power on or reset, whichever is later.\n",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -893,6 +933,8 @@ template<>
 struct MetadataFor<data_sensor::UpVector>
 {
     using type = data_sensor::UpVector;
+
+    using Context = DataSetSensor;
 
     using ParamTypes = std::tuple<
         decltype(type::up)
@@ -921,9 +963,9 @@ struct MetadataFor<data_sensor::UpVector>
             /* .docs        = */ "Gyro-stabilized 3-element vector representing the complementary filter's estimated vertical direction.\nThis quantity is expressed in the vehicle frame.\n\nThis quantity is sensitive to non-gravitational accelerations, which may cause notable deviations from the true vertical direction.\n\nFor legacy reasons, this vector is the inverse of the gravity vector.\n",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -934,6 +976,8 @@ template<>
 struct MetadataFor<data_sensor::NorthVector>
 {
     using type = data_sensor::NorthVector;
+
+    using Context = DataSetSensor;
 
     using ParamTypes = std::tuple<
         decltype(type::north)
@@ -962,9 +1006,9 @@ struct MetadataFor<data_sensor::NorthVector>
             /* .docs        = */ "Gyro-stabilized 3-element vector representing the complementary filter's estimate of magnetic north.\nThis quantity is expressed in the vehicle frame.\n\nThis quantity is sensitive to local magnetic field perturbations, which may cause notable deviations from true magnetic north.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -1005,6 +1049,8 @@ struct MetadataFor<data_sensor::OverrangeStatus>
 {
     using type = data_sensor::OverrangeStatus;
 
+    using Context = DataSetSensor;
+
     using ParamTypes = std::tuple<
         decltype(type::status)
     >;
@@ -1032,9 +1078,9 @@ struct MetadataFor<data_sensor::OverrangeStatus>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -1045,6 +1091,8 @@ template<>
 struct MetadataFor<data_sensor::OdometerData>
 {
     using type = data_sensor::OdometerData;
+
+    using Context = DataSetSensor;
 
     using ParamTypes = std::tuple<
         decltype(type::speed),
@@ -1095,9 +1143,9 @@ struct MetadataFor<data_sensor::OdometerData>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 

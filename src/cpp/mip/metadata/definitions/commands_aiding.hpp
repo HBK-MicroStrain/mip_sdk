@@ -8,6 +8,8 @@
 namespace mip::metadata
 {
 
+struct CommandSetAiding;
+
 
 template<>
 struct MetadataFor<commands_aiding::FrameConfig::Format>
@@ -34,6 +36,8 @@ template<>
 struct MetadataFor<commands_aiding::FrameConfig::Rotation>
 {
     using type = commands_aiding::FrameConfig::Rotation;
+
+    using Context = commands_aiding::FrameConfig;
 
     using ParamTypes = std::tuple<
         decltype(type::euler),
@@ -80,6 +84,8 @@ template<>
 struct MetadataFor<commands_aiding::FrameConfig::Response>
 {
     using type = commands_aiding::FrameConfig::Response;
+
+    using Context = commands_aiding::FrameConfig;
 
     using ParamTypes = std::tuple<
         decltype(type::frame_id),
@@ -152,9 +158,9 @@ struct MetadataFor<commands_aiding::FrameConfig::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -164,6 +170,8 @@ template<>
 struct MetadataFor<commands_aiding::FrameConfig>
 {
     using type = commands_aiding::FrameConfig;
+
+    using Context = CommandSetAiding;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -239,9 +247,9 @@ struct MetadataFor<commands_aiding::FrameConfig>
             /* .docs        = */ "Defines an aiding frame associated with a specific sensor frame ID.\nThe frame ID used in this command should mirror the frame ID used in the aiding command\n(if that aiding measurement is measured in this reference frame).\n\nThis transform satisfies the following relationship:\n\nEQSTART p^{veh} = R p^{sensor_frame} + t EQEND<br/>\n\nWhere:<br/>\nEQSTART R EQEND is rotation matrix defined by the rotation component and EQSTART t EQEND is the translation vector<br/><br/>\nEQSTART p^{sensor_frame} EQEND is a 3-element position vector expressed in the external sensor frame<br/>\nEQSTART p^{veh} EQEND is a 3-element position vector expressed in the vehicle frame<br/>\n\nRotation can be defined using Euler angles OR quaternions.  If Format selector is set to Euler Angles, the fourth element\nin the rotation vector is ignored and should be set to 0.\n\nWhen the tracking_enabled flag is 1, the Kalman filter will track errors in the provided frame definition; when 0, no errors are tracked.\n\nExample: GNSS antenna lever arm\n\nFrame ID: 1\nFormat: 1 (Euler)\nTranslation: [0,1,] (GNSS with a 1 meter Y offset in the vehicle frame)\nRotation: [0,0,0,0] (Rotational component is not relevant for GNSS measurements, set to zero)",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -275,6 +283,8 @@ struct MetadataFor<commands_aiding::EchoControl::Response>
 {
     using type = commands_aiding::EchoControl::Response;
 
+    using Context = commands_aiding::EchoControl;
+
     using ParamTypes = std::tuple<
         decltype(type::mode)
     >;
@@ -302,9 +312,9 @@ struct MetadataFor<commands_aiding::EchoControl::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -314,6 +324,8 @@ template<>
 struct MetadataFor<commands_aiding::EchoControl>
 {
     using type = commands_aiding::EchoControl;
+
+    using Context = CommandSetAiding;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -345,9 +357,9 @@ struct MetadataFor<commands_aiding::EchoControl>
             /* .docs        = */ "Controls command response behavior to external aiding commands",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -380,6 +392,8 @@ template<>
 struct MetadataFor<commands_aiding::Time>
 {
     using type = commands_aiding::Time;
+
+    using Context = CommandSetAiding;
 
     using ParamTypes = std::tuple<
         decltype(type::timebase),
@@ -460,6 +474,8 @@ struct MetadataFor<commands_aiding::PosEcef>
 {
     using type = commands_aiding::PosEcef;
 
+    using Context = CommandSetAiding;
+
     using ParamTypes = std::tuple<
         decltype(type::time),
         decltype(type::frame_id),
@@ -531,9 +547,9 @@ struct MetadataFor<commands_aiding::PosEcef>
             /* .docs        = */ "Cartesian vector position aiding command. Coordinates are given in the WGS84 ECEF system.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -566,6 +582,8 @@ template<>
 struct MetadataFor<commands_aiding::PosLlh>
 {
     using type = commands_aiding::PosLlh;
+
+    using Context = CommandSetAiding;
 
     using ParamTypes = std::tuple<
         decltype(type::time),
@@ -660,9 +678,9 @@ struct MetadataFor<commands_aiding::PosLlh>
             /* .docs        = */ "Geodetic position aiding command.\nCoordinates are given in WGS84 geodetic latitude, longitude, and height above the ellipsoid.\nUncertainty is given in NED coordinates, which are parallel to incremental changes in latitude, longitude, and height.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -673,6 +691,8 @@ template<>
 struct MetadataFor<commands_aiding::HeightAboveEllipsoid>
 {
     using type = commands_aiding::HeightAboveEllipsoid;
+
+    using Context = CommandSetAiding;
 
     using ParamTypes = std::tuple<
         decltype(type::time),
@@ -745,9 +765,9 @@ struct MetadataFor<commands_aiding::HeightAboveEllipsoid>
             /* .docs        = */ "Estimated value of the height above ellipsoid.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -780,6 +800,8 @@ template<>
 struct MetadataFor<commands_aiding::VelEcef>
 {
     using type = commands_aiding::VelEcef;
+
+    using Context = CommandSetAiding;
 
     using ParamTypes = std::tuple<
         decltype(type::time),
@@ -852,9 +874,9 @@ struct MetadataFor<commands_aiding::VelEcef>
             /* .docs        = */ "ECEF velocity aiding command. Coordinates are given in the WGS84 ECEF frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -887,6 +909,8 @@ template<>
 struct MetadataFor<commands_aiding::VelNed>
 {
     using type = commands_aiding::VelNed;
+
+    using Context = CommandSetAiding;
 
     using ParamTypes = std::tuple<
         decltype(type::time),
@@ -959,9 +983,9 @@ struct MetadataFor<commands_aiding::VelNed>
             /* .docs        = */ "NED velocity aiding command. Coordinates are given in the local North East Down frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -994,6 +1018,8 @@ template<>
 struct MetadataFor<commands_aiding::VelBodyFrame>
 {
     using type = commands_aiding::VelBodyFrame;
+
+    using Context = CommandSetAiding;
 
     using ParamTypes = std::tuple<
         decltype(type::time),
@@ -1066,9 +1092,9 @@ struct MetadataFor<commands_aiding::VelBodyFrame>
             /* .docs        = */ "Estimated of velocity of the vehicle in the frame associated with the given sensor ID, relative to the vehicle frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -1079,6 +1105,8 @@ template<>
 struct MetadataFor<commands_aiding::HeadingTrue>
 {
     using type = commands_aiding::HeadingTrue;
+
+    using Context = CommandSetAiding;
 
     using ParamTypes = std::tuple<
         decltype(type::time),
@@ -1151,9 +1179,9 @@ struct MetadataFor<commands_aiding::HeadingTrue>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -1186,6 +1214,8 @@ template<>
 struct MetadataFor<commands_aiding::MagneticField>
 {
     using type = commands_aiding::MagneticField;
+
+    using Context = CommandSetAiding;
 
     using ParamTypes = std::tuple<
         decltype(type::time),
@@ -1258,9 +1288,9 @@ struct MetadataFor<commands_aiding::MagneticField>
             /* .docs        = */ "Estimate of magnetic field in the frame associated with the given sensor ID.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -1271,6 +1301,8 @@ template<>
 struct MetadataFor<commands_aiding::Pressure>
 {
     using type = commands_aiding::Pressure;
+
+    using Context = CommandSetAiding;
 
     using ParamTypes = std::tuple<
         decltype(type::time),
@@ -1343,9 +1375,9 @@ struct MetadataFor<commands_aiding::Pressure>
             /* .docs        = */ "Estimated value of air pressure.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 

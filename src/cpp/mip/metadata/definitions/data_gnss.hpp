@@ -8,6 +8,8 @@
 namespace mip::metadata
 {
 
+struct DataSetGnss;
+
 
 template<>
 struct MetadataFor<data_gnss::PosLlh::ValidFlags>
@@ -38,6 +40,8 @@ template<>
 struct MetadataFor<data_gnss::PosLlh>
 {
     using type = data_gnss::PosLlh;
+
+    using Context = DataSetGnss;
 
     using ParamTypes = std::tuple<
         decltype(type::latitude),
@@ -132,9 +136,9 @@ struct MetadataFor<data_gnss::PosLlh>
             /* .docs        = */ "GNSS reported position in the WGS84 geodetic frame",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -167,6 +171,8 @@ template<>
 struct MetadataFor<data_gnss::PosEcef>
 {
     using type = data_gnss::PosEcef;
+
+    using Context = DataSetGnss;
 
     using ParamTypes = std::tuple<
         decltype(type::x),
@@ -217,9 +223,9 @@ struct MetadataFor<data_gnss::PosEcef>
             /* .docs        = */ "GNSS reported position in the Earth-centered, Earth-Fixed (ECEF) frame",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -256,6 +262,8 @@ template<>
 struct MetadataFor<data_gnss::VelNed>
 {
     using type = data_gnss::VelNed;
+
+    using Context = DataSetGnss;
 
     using ParamTypes = std::tuple<
         decltype(type::v),
@@ -350,9 +358,9 @@ struct MetadataFor<data_gnss::VelNed>
             /* .docs        = */ "GNSS reported velocity in the NED frame",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -385,6 +393,8 @@ template<>
 struct MetadataFor<data_gnss::VelEcef>
 {
     using type = data_gnss::VelEcef;
+
+    using Context = DataSetGnss;
 
     using ParamTypes = std::tuple<
         decltype(type::v),
@@ -435,9 +445,9 @@ struct MetadataFor<data_gnss::VelEcef>
             /* .docs        = */ "GNSS reported velocity in the Earth-centered, Earth-Fixed (ECEF) frame",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -475,6 +485,8 @@ template<>
 struct MetadataFor<data_gnss::Dop>
 {
     using type = data_gnss::Dop;
+
+    using Context = DataSetGnss;
 
     using ParamTypes = std::tuple<
         decltype(type::gdop),
@@ -580,9 +592,9 @@ struct MetadataFor<data_gnss::Dop>
             /* .docs        = */ "GNSS reported dilution of precision information.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -615,6 +627,8 @@ template<>
 struct MetadataFor<data_gnss::UtcTime>
 {
     using type = data_gnss::UtcTime;
+
+    using Context = DataSetGnss;
 
     using ParamTypes = std::tuple<
         decltype(type::year),
@@ -720,9 +734,9 @@ struct MetadataFor<data_gnss::UtcTime>
             /* .docs        = */ "GNSS reported Coordinated Universal Time",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -755,6 +769,8 @@ template<>
 struct MetadataFor<data_gnss::GpsTime>
 {
     using type = data_gnss::GpsTime;
+
+    using Context = DataSetGnss;
 
     using ParamTypes = std::tuple<
         decltype(type::tow),
@@ -805,9 +821,9 @@ struct MetadataFor<data_gnss::GpsTime>
             /* .docs        = */ "GNSS reported GPS Time",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -841,6 +857,8 @@ template<>
 struct MetadataFor<data_gnss::ClockInfo>
 {
     using type = data_gnss::ClockInfo;
+
+    using Context = DataSetGnss;
 
     using ParamTypes = std::tuple<
         decltype(type::bias),
@@ -902,9 +920,9 @@ struct MetadataFor<data_gnss::ClockInfo>
             /* .docs        = */ "GNSS reported receiver clock parameters",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -987,6 +1005,8 @@ struct MetadataFor<data_gnss::FixInfo>
 {
     using type = data_gnss::FixInfo;
 
+    using Context = DataSetGnss;
+
     using ParamTypes = std::tuple<
         decltype(type::fix_type),
         decltype(type::num_sv),
@@ -1047,9 +1067,9 @@ struct MetadataFor<data_gnss::FixInfo>
             /* .docs        = */ "GNSS reported position fix type",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -1107,6 +1127,8 @@ template<>
 struct MetadataFor<data_gnss::SvInfo>
 {
     using type = data_gnss::SvInfo;
+
+    using Context = DataSetGnss;
 
     using ParamTypes = std::tuple<
         decltype(type::channel),
@@ -1201,9 +1223,9 @@ struct MetadataFor<data_gnss::SvInfo>
             /* .docs        = */ "GNSS reported space vehicle information\n\nWhen enabled, these fields will arrive in separate MIP packets",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -1306,6 +1328,8 @@ struct MetadataFor<data_gnss::HwStatus>
 {
     using type = data_gnss::HwStatus;
 
+    using Context = DataSetGnss;
+
     using ParamTypes = std::tuple<
         decltype(type::receiver_state),
         decltype(type::antenna_state),
@@ -1366,9 +1390,9 @@ struct MetadataFor<data_gnss::HwStatus>
             /* .docs        = */ "GNSS reported hardware status",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -1403,6 +1427,8 @@ template<>
 struct MetadataFor<data_gnss::DgpsInfo>
 {
     using type = data_gnss::DgpsInfo;
+
+    using Context = DataSetGnss;
 
     using ParamTypes = std::tuple<
         decltype(type::sv_id),
@@ -1475,9 +1501,9 @@ struct MetadataFor<data_gnss::DgpsInfo>
             /* .docs        = */ "GNSS reported DGNSS status\n\n<pre>Possible Base Station Status Values:</pre>\n<pre>  0 - UDRE Scale Factor = 1.0</pre>\n<pre>  1 - UDRE Scale Factor = 0.75</pre>\n<pre>  2 - UDRE Scale Factor = 0.5</pre>\n<pre>  3 - UDRE Scale Factor = 0.3</pre>\n<pre>  4 - UDRE Scale Factor = 0.2</pre>\n<pre>  5 - UDRE Scale Factor = 0.1</pre>\n<pre>  6 - Reference Station Transmission Not Monitored</pre>\n<pre>  7 - Reference Station Not Working</pre>\n\n(UDRE = User Differential Range Error)",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -1512,6 +1538,8 @@ template<>
 struct MetadataFor<data_gnss::DgpsChannel>
 {
     using type = data_gnss::DgpsChannel;
+
+    using Context = DataSetGnss;
 
     using ParamTypes = std::tuple<
         decltype(type::sv_id),
@@ -1584,9 +1612,9 @@ struct MetadataFor<data_gnss::DgpsChannel>
             /* .docs        = */ "GNSS reported DGPS Channel Status status\n\nWhen enabled, a separate field for each active space vehicle will be sent in the packet.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -1621,6 +1649,8 @@ template<>
 struct MetadataFor<data_gnss::ClockInfo2>
 {
     using type = data_gnss::ClockInfo2;
+
+    using Context = DataSetGnss;
 
     using ParamTypes = std::tuple<
         decltype(type::bias),
@@ -1693,9 +1723,9 @@ struct MetadataFor<data_gnss::ClockInfo2>
             /* .docs        = */ "GNSS reported receiver clock parameters\n\nThis supersedes MIP_DATA_DESC_GNSS_CLOCK_INFO with additional information.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -1726,6 +1756,8 @@ template<>
 struct MetadataFor<data_gnss::GpsLeapSeconds>
 {
     using type = data_gnss::GpsLeapSeconds;
+
+    using Context = DataSetGnss;
 
     using ParamTypes = std::tuple<
         decltype(type::leap_seconds),
@@ -1765,9 +1797,9 @@ struct MetadataFor<data_gnss::GpsLeapSeconds>
             /* .docs        = */ "GNSS reported leap seconds (difference between GPS and UTC Time)",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -1851,6 +1883,8 @@ template<>
 struct MetadataFor<data_gnss::SbasInfo>
 {
     using type = data_gnss::SbasInfo;
+
+    using Context = DataSetGnss;
 
     using ParamTypes = std::tuple<
         decltype(type::time_of_week),
@@ -1945,9 +1979,9 @@ struct MetadataFor<data_gnss::SbasInfo>
             /* .docs        = */ "GNSS SBAS status",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -2006,6 +2040,8 @@ template<>
 struct MetadataFor<data_gnss::SbasCorrection>
 {
     using type = data_gnss::SbasCorrection;
+
+    using Context = DataSetGnss;
 
     using ParamTypes = std::tuple<
         decltype(type::index),
@@ -2133,9 +2169,9 @@ struct MetadataFor<data_gnss::SbasCorrection>
             /* .docs        = */ "GNSS calculated SBAS Correction\n\nUDREI - the variance of a normal distribution associated with the user differential range errors for a\nsatellite after application of fast and long-term corrections, excluding atmospheric effects\n\n<pre>UDREI  Variance</pre>\n<pre>-----------------------</pre>\n<pre>0      0.0520 m^2</pre>\n<pre>1      0.0924 m^2</pre>\n<pre>2      0.1444 m^2</pre>\n<pre>3      0.2830 m^2</pre>\n<pre>4      0.4678 m^2</pre>\n<pre>5      0.8315 m^2</pre>\n<pre>6      1.2992 m^2</pre>\n<pre>7      1.8709 m^2</pre>\n<pre>8      2.5465 m^2</pre>\n<pre>9      3.3260 m^2</pre>\n<pre>10     5.1968 m^2</pre>\n<pre>11     20.7870 m^2</pre>\n<pre>12     230.9661 m^2</pre>\n<pre>13     2078.695 m^2</pre>\n<pre>14     'Not Monitored'</pre>\n<pre>15     'Do Not Use'</pre>",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -2239,6 +2275,8 @@ struct MetadataFor<data_gnss::RfErrorDetection>
 {
     using type = data_gnss::RfErrorDetection;
 
+    using Context = DataSetGnss;
+
     using ParamTypes = std::tuple<
         decltype(type::rf_band),
         decltype(type::jamming_state),
@@ -2321,9 +2359,9 @@ struct MetadataFor<data_gnss::RfErrorDetection>
             /* .docs        = */ "GNSS Error Detection subsystem status",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -2378,6 +2416,8 @@ template<>
 struct MetadataFor<data_gnss::Heading>
 {
     using type = data_gnss::Heading;
+
+    using Context = DataSetGnss;
 
     using ParamTypes = std::tuple<
         decltype(type::heading),
@@ -2439,9 +2479,9 @@ struct MetadataFor<data_gnss::Heading>
             /* .docs        = */ "GNSS Heading",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -2506,6 +2546,8 @@ template<>
 struct MetadataFor<data_gnss::BaseStationInfo>
 {
     using type = data_gnss::BaseStationInfo;
+
+    using Context = DataSetGnss;
 
     using ParamTypes = std::tuple<
         decltype(type::time_of_week),
@@ -2600,9 +2642,9 @@ struct MetadataFor<data_gnss::BaseStationInfo>
             /* .docs        = */ "RTCM reported base station information (sourced from RTCM Message 1005 or 1006)\n\nValid Flag Mapping:",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -2669,6 +2711,8 @@ template<>
 struct MetadataFor<data_gnss::RtkCorrectionsStatus>
 {
     using type = data_gnss::RtkCorrectionsStatus;
+
+    using Context = DataSetGnss;
 
     using ParamTypes = std::tuple<
         decltype(type::time_of_week),
@@ -2796,9 +2840,9 @@ struct MetadataFor<data_gnss::RtkCorrectionsStatus>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -2836,6 +2880,8 @@ template<>
 struct MetadataFor<data_gnss::SatelliteStatus>
 {
     using type = data_gnss::SatelliteStatus;
+
+    using Context = DataSetGnss;
 
     using ParamTypes = std::tuple<
         decltype(type::index),
@@ -2963,9 +3009,9 @@ struct MetadataFor<data_gnss::SatelliteStatus>
             /* .docs        = */ "Status information for a GNSS satellite.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -3122,6 +3168,8 @@ template<>
 struct MetadataFor<data_gnss::Raw>
 {
     using type = data_gnss::Raw;
+
+    using Context = DataSetGnss;
 
     using ParamTypes = std::tuple<
         decltype(type::index),
@@ -3348,9 +3396,9 @@ struct MetadataFor<data_gnss::Raw>
             /* .docs        = */ "GNSS Raw observation.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -3384,6 +3432,8 @@ template<>
 struct MetadataFor<data_gnss::GpsEphemeris>
 {
     using type = data_gnss::GpsEphemeris;
+
+    using Context = DataSetGnss;
 
     using ParamTypes = std::tuple<
         decltype(type::index),
@@ -3775,9 +3825,9 @@ struct MetadataFor<data_gnss::GpsEphemeris>
             /* .docs        = */ "GPS Ephemeris Data",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -3811,6 +3861,8 @@ template<>
 struct MetadataFor<data_gnss::GalileoEphemeris>
 {
     using type = data_gnss::GalileoEphemeris;
+
+    using Context = DataSetGnss;
 
     using ParamTypes = std::tuple<
         decltype(type::index),
@@ -4202,9 +4254,9 @@ struct MetadataFor<data_gnss::GalileoEphemeris>
             /* .docs        = */ "Galileo Ephemeris Data",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -4236,6 +4288,8 @@ template<>
 struct MetadataFor<data_gnss::GloEphemeris>
 {
     using type = data_gnss::GloEphemeris;
+
+    using Context = DataSetGnss;
 
     using ParamTypes = std::tuple<
         decltype(type::index),
@@ -4528,9 +4582,9 @@ struct MetadataFor<data_gnss::GloEphemeris>
             /* .docs        = */ "Glonass Ephemeris Data",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -4564,6 +4618,8 @@ template<>
 struct MetadataFor<data_gnss::BeidouEphemeris>
 {
     using type = data_gnss::BeidouEphemeris;
+
+    using Context = DataSetGnss;
 
     using ParamTypes = std::tuple<
         decltype(type::index),
@@ -4955,9 +5011,9 @@ struct MetadataFor<data_gnss::BeidouEphemeris>
             /* .docs        = */ "BeiDou Ephemeris Data",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -4992,6 +5048,8 @@ template<>
 struct MetadataFor<data_gnss::GpsIonoCorr>
 {
     using type = data_gnss::GpsIonoCorr;
+
+    using Context = DataSetGnss;
 
     using ParamTypes = std::tuple<
         decltype(type::time_of_week),
@@ -5064,9 +5122,9 @@ struct MetadataFor<data_gnss::GpsIonoCorr>
             /* .docs        = */ "Ionospheric Correction Terms for GNSS",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -5101,6 +5159,8 @@ template<>
 struct MetadataFor<data_gnss::GalileoIonoCorr>
 {
     using type = data_gnss::GalileoIonoCorr;
+
+    using Context = DataSetGnss;
 
     using ParamTypes = std::tuple<
         decltype(type::time_of_week),
@@ -5173,9 +5233,9 @@ struct MetadataFor<data_gnss::GalileoIonoCorr>
             /* .docs        = */ "Ionospheric Correction Terms for Galileo",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -5211,6 +5271,8 @@ template<>
 struct MetadataFor<data_gnss::BeidouIonoCorr>
 {
     using type = data_gnss::BeidouIonoCorr;
+
+    using Context = DataSetGnss;
 
     using ParamTypes = std::tuple<
         decltype(type::time_of_week),
@@ -5294,9 +5356,9 @@ struct MetadataFor<data_gnss::BeidouIonoCorr>
             /* .docs        = */ "Ionospheric Correction Terms for BeiDou",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 

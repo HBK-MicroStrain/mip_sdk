@@ -8,11 +8,15 @@
 namespace mip::metadata
 {
 
+struct CommandSetGnss;
+
 
 template<>
 struct MetadataFor<commands_gnss::ReceiverInfo::Info>
 {
     using type = commands_gnss::ReceiverInfo::Info;
+
+    using Context = commands_gnss::ReceiverInfo;
 
     using ParamTypes = std::tuple<
         decltype(type::receiver_id),
@@ -71,6 +75,8 @@ struct MetadataFor<commands_gnss::ReceiverInfo::Response>
 {
     using type = commands_gnss::ReceiverInfo::Response;
 
+    using Context = commands_gnss::ReceiverInfo;
+
     using ParamTypes = std::tuple<
         decltype(type::num_receivers),
         decltype(type::receiver_info)
@@ -109,9 +115,9 @@ struct MetadataFor<commands_gnss::ReceiverInfo::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -122,6 +128,8 @@ struct MetadataFor<commands_gnss::ReceiverInfo>
 {
     using type = commands_gnss::ReceiverInfo;
 
+    using Context = CommandSetGnss;
+
     using ParamTypes = std::tuple<>;
 
     static constexpr inline FieldInfo value = {
@@ -131,9 +139,9 @@ struct MetadataFor<commands_gnss::ReceiverInfo>
             /* .docs        = */ "Return information about the GNSS receivers in the device.\n",
             /* .parameters  = */ {},
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -144,6 +152,8 @@ template<>
 struct MetadataFor<commands_gnss::SignalConfiguration::Response>
 {
     using type = commands_gnss::SignalConfiguration::Response;
+
+    using Context = commands_gnss::SignalConfiguration;
 
     using ParamTypes = std::tuple<
         decltype(type::gps_enable),
@@ -216,9 +226,9 @@ struct MetadataFor<commands_gnss::SignalConfiguration::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -228,6 +238,8 @@ template<>
 struct MetadataFor<commands_gnss::SignalConfiguration>
 {
     using type = commands_gnss::SignalConfiguration;
+
+    using Context = CommandSetGnss;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -303,9 +315,9 @@ struct MetadataFor<commands_gnss::SignalConfiguration>
             /* .docs        = */ "Configure the GNSS signals used by the device.\n",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -364,6 +376,8 @@ struct MetadataFor<commands_gnss::ReceiverReset>
 {
     using type = commands_gnss::ReceiverReset;
 
+    using Context = CommandSetGnss;
+
     using ParamTypes = std::tuple<
         decltype(type::receiver_id),
         decltype(type::reset_type)
@@ -402,9 +416,9 @@ struct MetadataFor<commands_gnss::ReceiverReset>
             /* .docs        = */ "Reset GNSS receiver(s).\n",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -415,6 +429,8 @@ template<>
 struct MetadataFor<commands_gnss::SpartnConfiguration::Response>
 {
     using type = commands_gnss::SpartnConfiguration::Response;
+
+    using Context = commands_gnss::SpartnConfiguration;
 
     using ParamTypes = std::tuple<
         decltype(type::enable),
@@ -520,9 +536,9 @@ struct MetadataFor<commands_gnss::SpartnConfiguration::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -532,6 +548,8 @@ template<>
 struct MetadataFor<commands_gnss::SpartnConfiguration>
 {
     using type = commands_gnss::SpartnConfiguration;
+
+    using Context = CommandSetGnss;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -640,9 +658,9 @@ struct MetadataFor<commands_gnss::SpartnConfiguration>
             /* .docs        = */ "Configure the SPARTN corrections service parameters.\nNotes:<br/>\n- Enable and type settings will only update after a power cycle <br/>\n- Type settings will only take effect after a power cycle <br/>\n- Key information can be updated while running",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -653,6 +671,8 @@ template<>
 struct MetadataFor<commands_gnss::RtkDongleConfiguration::Response>
 {
     using type = commands_gnss::RtkDongleConfiguration::Response;
+
+    using Context = commands_gnss::RtkDongleConfiguration;
 
     using ParamTypes = std::tuple<
         decltype(type::enable),
@@ -692,9 +712,9 @@ struct MetadataFor<commands_gnss::RtkDongleConfiguration::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -704,6 +724,8 @@ template<>
 struct MetadataFor<commands_gnss::RtkDongleConfiguration>
 {
     using type = commands_gnss::RtkDongleConfiguration;
+
+    using Context = CommandSetGnss;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -746,9 +768,9 @@ struct MetadataFor<commands_gnss::RtkDongleConfiguration>
             /* .docs        = */ "Configure the communications with the RTK Dongle connected to the device.\n",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -782,6 +804,8 @@ template<>
 struct MetadataFor<commands_gnss::RtkConfiguration::Response>
 {
     using type = commands_gnss::RtkConfiguration::Response;
+
+    using Context = commands_gnss::RtkConfiguration;
 
     using ParamTypes = std::tuple<
         decltype(type::ambiguity_fix_mode),
@@ -821,9 +845,9 @@ struct MetadataFor<commands_gnss::RtkConfiguration::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -833,6 +857,8 @@ template<>
 struct MetadataFor<commands_gnss::RtkConfiguration>
 {
     using type = commands_gnss::RtkConfiguration;
+
+    using Context = CommandSetGnss;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -875,9 +901,9 @@ struct MetadataFor<commands_gnss::RtkConfiguration>
             /* .docs        = */ "Configure the RTK settings used by the device.\n",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 

@@ -8,11 +8,15 @@
 namespace mip::metadata
 {
 
+struct CommandSet3dm;
+
 
 template<>
 struct MetadataFor<commands_3dm::PollImuMessage>
 {
     using type = commands_3dm::PollImuMessage;
+
+    using Context = CommandSet3dm;
 
     using ParamTypes = std::tuple<
         decltype(type::suppress_ack),
@@ -63,9 +67,9 @@ struct MetadataFor<commands_3dm::PollImuMessage>
             /* .docs        = */ "Poll the device for an IMU message with the specified format\n\nThis function polls for an IMU message using the provided format. The resulting message\nwill maintain the order of descriptors sent in the command and any unrecognized\ndescriptors are ignored. If the format is not provided, the device will attempt to use the\nstored format (set with the Set IMU Message Format command.) If no format is provided\nand there is no stored format, the device will respond with a NACK. The reply packet contains\nan ACK/NACK field. The polled data packet is sent separately as an IMU Data packet.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -76,6 +80,8 @@ template<>
 struct MetadataFor<commands_3dm::PollGnssMessage>
 {
     using type = commands_3dm::PollGnssMessage;
+
+    using Context = CommandSet3dm;
 
     using ParamTypes = std::tuple<
         decltype(type::suppress_ack),
@@ -126,9 +132,9 @@ struct MetadataFor<commands_3dm::PollGnssMessage>
             /* .docs        = */ "Poll the device for an GNSS message with the specified format\n\nThis function polls for a GNSS message using the provided format. The resulting message\nwill maintain the order of descriptors sent in the command and any unrecognized\ndescriptors are ignored. If the format is not provided, the device will attempt to use the\nstored format (set with the Set GNSS Message Format command.) If no format is provided\nand there is no stored format, the device will respond with a NACK. The reply packet contains\nan ACK/NACK field. The polled data packet is sent separately as a GNSS Data packet.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -139,6 +145,8 @@ template<>
 struct MetadataFor<commands_3dm::PollFilterMessage>
 {
     using type = commands_3dm::PollFilterMessage;
+
+    using Context = CommandSet3dm;
 
     using ParamTypes = std::tuple<
         decltype(type::suppress_ack),
@@ -189,9 +197,9 @@ struct MetadataFor<commands_3dm::PollFilterMessage>
             /* .docs        = */ "Poll the device for an Estimation Filter message with the specified format\n\nThis function polls for an Estimation Filter message using the provided format. The resulting message\nwill maintain the order of descriptors sent in the command and any unrecognized\ndescriptors are ignored. If the format is not provided, the device will attempt to use the\nstored format (set with the Set Estimation Filter Message Format command.) If no format is provided\nand there is no stored format, the device will respond with a NACK. The reply packet contains\nan ACK/NACK field. The polled data packet is sent separately as an Estimation Filter Data packet.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -255,6 +263,8 @@ template<>
 struct MetadataFor<commands_3dm::NmeaMessage>
 {
     using type = commands_3dm::NmeaMessage;
+
+    using Context = CommandSet3dm;
 
     using ParamTypes = std::tuple<
         decltype(type::message_id),
@@ -324,6 +334,8 @@ struct MetadataFor<commands_3dm::NmeaPollData>
 {
     using type = commands_3dm::NmeaPollData;
 
+    using Context = CommandSet3dm;
+
     using ParamTypes = std::tuple<
         decltype(type::suppress_ack),
         decltype(type::count),
@@ -373,9 +385,9 @@ struct MetadataFor<commands_3dm::NmeaPollData>
             /* .docs        = */ "Poll the device for a NMEA message with the specified format.\n\nThis function polls for a NMEA message using the provided format.\nIf the format is not provided, the device will attempt to use the\nstored format (set with the Set NMEA Message Format command.) If no format is provided\nand there is no stored format, the device will respond with a NACK. The reply packet contains\nan ACK/NACK field. The polled data packet is sent separately as normal NMEA messages.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -387,6 +399,8 @@ struct MetadataFor<commands_3dm::ImuGetBaseRate::Response>
 {
     using type = commands_3dm::ImuGetBaseRate::Response;
 
+    using Context = commands_3dm::ImuGetBaseRate;
+
     using ParamTypes = std::tuple<
         decltype(type::rate)
     >;
@@ -414,9 +428,9 @@ struct MetadataFor<commands_3dm::ImuGetBaseRate::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -427,6 +441,8 @@ struct MetadataFor<commands_3dm::ImuGetBaseRate>
 {
     using type = commands_3dm::ImuGetBaseRate;
 
+    using Context = CommandSet3dm;
+
     using ParamTypes = std::tuple<>;
 
     static constexpr inline FieldInfo value = {
@@ -436,9 +452,9 @@ struct MetadataFor<commands_3dm::ImuGetBaseRate>
             /* .docs        = */ "Get the base rate for the IMU data in Hz\n\nThis is the fastest rate for this type of data available on the device.\nThis is used in conjunction with the IMU Message Format Command to set streaming data at a specified rate.",
             /* .parameters  = */ {},
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -450,6 +466,8 @@ struct MetadataFor<commands_3dm::GnssGetBaseRate::Response>
 {
     using type = commands_3dm::GnssGetBaseRate::Response;
 
+    using Context = commands_3dm::GnssGetBaseRate;
+
     using ParamTypes = std::tuple<
         decltype(type::rate)
     >;
@@ -477,9 +495,9 @@ struct MetadataFor<commands_3dm::GnssGetBaseRate::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -490,6 +508,8 @@ struct MetadataFor<commands_3dm::GnssGetBaseRate>
 {
     using type = commands_3dm::GnssGetBaseRate;
 
+    using Context = CommandSet3dm;
+
     using ParamTypes = std::tuple<>;
 
     static constexpr inline FieldInfo value = {
@@ -499,9 +519,9 @@ struct MetadataFor<commands_3dm::GnssGetBaseRate>
             /* .docs        = */ "Get the base rate for the GNSS data in Hz\n\nThis is the fastest rate for this type of data available on the device.\nThis is used in conjunction with the GNSS Message Format Command to set streaming data at a specified rate.",
             /* .parameters  = */ {},
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -512,6 +532,8 @@ template<>
 struct MetadataFor<commands_3dm::ImuMessageFormat::Response>
 {
     using type = commands_3dm::ImuMessageFormat::Response;
+
+    using Context = commands_3dm::ImuMessageFormat;
 
     using ParamTypes = std::tuple<
         decltype(type::num_descriptors),
@@ -551,9 +573,9 @@ struct MetadataFor<commands_3dm::ImuMessageFormat::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -563,6 +585,8 @@ template<>
 struct MetadataFor<commands_3dm::ImuMessageFormat>
 {
     using type = commands_3dm::ImuMessageFormat;
+
+    using Context = CommandSet3dm;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -605,9 +629,9 @@ struct MetadataFor<commands_3dm::ImuMessageFormat>
             /* .docs        = */ "Set, read, or save the format of the IMU data packet.\n\nThe resulting data messages will maintain the order of descriptors sent in the command.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -618,6 +642,8 @@ template<>
 struct MetadataFor<commands_3dm::GnssMessageFormat::Response>
 {
     using type = commands_3dm::GnssMessageFormat::Response;
+
+    using Context = commands_3dm::GnssMessageFormat;
 
     using ParamTypes = std::tuple<
         decltype(type::num_descriptors),
@@ -657,9 +683,9 @@ struct MetadataFor<commands_3dm::GnssMessageFormat::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -669,6 +695,8 @@ template<>
 struct MetadataFor<commands_3dm::GnssMessageFormat>
 {
     using type = commands_3dm::GnssMessageFormat;
+
+    using Context = CommandSet3dm;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -711,9 +739,9 @@ struct MetadataFor<commands_3dm::GnssMessageFormat>
             /* .docs        = */ "Set, read, or save the format of the GNSS data packet.\n\nThe resulting data messages will maintain the order of descriptors sent in the command.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -724,6 +752,8 @@ template<>
 struct MetadataFor<commands_3dm::FilterMessageFormat::Response>
 {
     using type = commands_3dm::FilterMessageFormat::Response;
+
+    using Context = commands_3dm::FilterMessageFormat;
 
     using ParamTypes = std::tuple<
         decltype(type::num_descriptors),
@@ -763,9 +793,9 @@ struct MetadataFor<commands_3dm::FilterMessageFormat::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -775,6 +805,8 @@ template<>
 struct MetadataFor<commands_3dm::FilterMessageFormat>
 {
     using type = commands_3dm::FilterMessageFormat;
+
+    using Context = CommandSet3dm;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -817,9 +849,9 @@ struct MetadataFor<commands_3dm::FilterMessageFormat>
             /* .docs        = */ "Set, read, or save the format of the Estimation Filter data packet.\n\nThe resulting data messages will maintain the order of descriptors sent in the command.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -830,6 +862,8 @@ template<>
 struct MetadataFor<commands_3dm::FilterGetBaseRate::Response>
 {
     using type = commands_3dm::FilterGetBaseRate::Response;
+
+    using Context = commands_3dm::FilterGetBaseRate;
 
     using ParamTypes = std::tuple<
         decltype(type::rate)
@@ -858,9 +892,9 @@ struct MetadataFor<commands_3dm::FilterGetBaseRate::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -871,6 +905,8 @@ struct MetadataFor<commands_3dm::FilterGetBaseRate>
 {
     using type = commands_3dm::FilterGetBaseRate;
 
+    using Context = CommandSet3dm;
+
     using ParamTypes = std::tuple<>;
 
     static constexpr inline FieldInfo value = {
@@ -880,9 +916,9 @@ struct MetadataFor<commands_3dm::FilterGetBaseRate>
             /* .docs        = */ "Get the base rate for the Estimation Filter data in Hz\n\nThis is the fastest rate for this type of data available on the device.\nThis is used in conjunction with the Estimation Filter Message Format Command to set streaming data at a specified rate.",
             /* .parameters  = */ {},
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -893,6 +929,8 @@ template<>
 struct MetadataFor<commands_3dm::NmeaMessageFormat::Response>
 {
     using type = commands_3dm::NmeaMessageFormat::Response;
+
+    using Context = commands_3dm::NmeaMessageFormat;
 
     using ParamTypes = std::tuple<
         decltype(type::count),
@@ -932,9 +970,9 @@ struct MetadataFor<commands_3dm::NmeaMessageFormat::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -944,6 +982,8 @@ template<>
 struct MetadataFor<commands_3dm::NmeaMessageFormat>
 {
     using type = commands_3dm::NmeaMessageFormat;
+
+    using Context = CommandSet3dm;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -986,9 +1026,9 @@ struct MetadataFor<commands_3dm::NmeaMessageFormat>
             /* .docs        = */ "Set, read, or save the NMEA message format.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -999,6 +1039,8 @@ template<>
 struct MetadataFor<commands_3dm::PollData>
 {
     using type = commands_3dm::PollData;
+
+    using Context = CommandSet3dm;
 
     using ParamTypes = std::tuple<
         decltype(type::desc_set),
@@ -1060,9 +1102,9 @@ struct MetadataFor<commands_3dm::PollData>
             /* .docs        = */ "Poll the device for a message with the specified descriptor set and format.\n\nThis function polls for a message using the provided format. The resulting message\nwill maintain the order of descriptors sent in the command and any unrecognized\ndescriptors are ignored. If the format is not provided, the device will attempt to use the\nstored format (set with the Set Message Format command.) If no format is provided\nand there is no stored format, the device will respond with a NACK. The reply packet contains\nan ACK/NACK field. The polled data packet is sent separately as a normal Data packet.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -1073,6 +1115,8 @@ template<>
 struct MetadataFor<commands_3dm::GetBaseRate::Response>
 {
     using type = commands_3dm::GetBaseRate::Response;
+
+    using Context = commands_3dm::GetBaseRate;
 
     using ParamTypes = std::tuple<
         decltype(type::desc_set),
@@ -1112,9 +1156,9 @@ struct MetadataFor<commands_3dm::GetBaseRate::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -1124,6 +1168,8 @@ template<>
 struct MetadataFor<commands_3dm::GetBaseRate>
 {
     using type = commands_3dm::GetBaseRate;
+
+    using Context = CommandSet3dm;
 
     using ParamTypes = std::tuple<
         decltype(type::desc_set)
@@ -1152,9 +1198,9 @@ struct MetadataFor<commands_3dm::GetBaseRate>
             /* .docs        = */ "Get the base rate for the specified descriptor set in Hz.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -1165,6 +1211,8 @@ template<>
 struct MetadataFor<commands_3dm::MessageFormat::Response>
 {
     using type = commands_3dm::MessageFormat::Response;
+
+    using Context = commands_3dm::MessageFormat;
 
     using ParamTypes = std::tuple<
         decltype(type::desc_set),
@@ -1215,9 +1263,9 @@ struct MetadataFor<commands_3dm::MessageFormat::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -1227,6 +1275,8 @@ template<>
 struct MetadataFor<commands_3dm::MessageFormat>
 {
     using type = commands_3dm::MessageFormat;
+
+    using Context = CommandSet3dm;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -1280,9 +1330,9 @@ struct MetadataFor<commands_3dm::MessageFormat>
             /* .docs        = */ "Set, read, or save the format for a given data packet.\n\nThe resulting data messages will maintain the order of descriptors sent in the command.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -1315,6 +1365,8 @@ template<>
 struct MetadataFor<commands_3dm::FactoryStreaming>
 {
     using type = commands_3dm::FactoryStreaming;
+
+    using Context = CommandSet3dm;
 
     using ParamTypes = std::tuple<
         decltype(type::action),
@@ -1354,9 +1406,9 @@ struct MetadataFor<commands_3dm::FactoryStreaming>
             /* .docs        = */ "Configures the device for recording data for technical support.\n\nThis command will configure all available data streams to predefined\nformats designed to be used with technical support.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -1367,6 +1419,8 @@ template<>
 struct MetadataFor<commands_3dm::DatastreamControl::Response>
 {
     using type = commands_3dm::DatastreamControl::Response;
+
+    using Context = commands_3dm::DatastreamControl;
 
     using ParamTypes = std::tuple<
         decltype(type::desc_set),
@@ -1406,9 +1460,9 @@ struct MetadataFor<commands_3dm::DatastreamControl::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -1418,6 +1472,8 @@ template<>
 struct MetadataFor<commands_3dm::DatastreamControl>
 {
     using type = commands_3dm::DatastreamControl;
+
+    using Context = CommandSet3dm;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -1460,9 +1516,9 @@ struct MetadataFor<commands_3dm::DatastreamControl>
             /* .docs        = */ "Enable/disable the selected data stream.\n\nEach data stream (descriptor set) can be enabled or disabled.\nThe default for the device is all streams enabled.\nFor all functions except 0x01 (use new setting),\nthe new enable flag value is ignored and can be omitted.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -1518,6 +1574,8 @@ template<>
 struct MetadataFor<commands_3dm::ConstellationSettings::Settings>
 {
     using type = commands_3dm::ConstellationSettings::Settings;
+
+    using Context = commands_3dm::ConstellationSettings;
 
     using ParamTypes = std::tuple<
         decltype(type::constellation_id),
@@ -1598,6 +1656,8 @@ struct MetadataFor<commands_3dm::ConstellationSettings::Response>
 {
     using type = commands_3dm::ConstellationSettings::Response;
 
+    using Context = commands_3dm::ConstellationSettings;
+
     using ParamTypes = std::tuple<
         decltype(type::max_channels_available),
         decltype(type::max_channels_use),
@@ -1658,9 +1718,9 @@ struct MetadataFor<commands_3dm::ConstellationSettings::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -1670,6 +1730,8 @@ template<>
 struct MetadataFor<commands_3dm::ConstellationSettings>
 {
     using type = commands_3dm::ConstellationSettings;
+
+    using Context = CommandSet3dm;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -1723,9 +1785,9 @@ struct MetadataFor<commands_3dm::ConstellationSettings>
             /* .docs        = */ "This command configures which satellite constellations are enabled and how many channels are dedicated to tracking each constellation.\n\nMaximum number of tracking channels to use (total for all constellations):\n0 to max_channels_available (from reply message)\n\nFor each constellation you wish to use, include a ConstellationSettings struct.  Note the following:\n\nTotal number of tracking channels (sum of 'reserved_channels' for all constellations) must be <= 32:\n0 -> 32 Number of reserved channels\n0 -> 32 Max number of channels (>= reserved channels)\n\nThe factory default setting is: GPS and GLONASS enabled.  Min/Max for GPS = 8/16, GLONASS = 8/14, SBAS = 1/3, QZSS = 0/3.\n\nWarning: SBAS functionality shall not be used in 'safety of life' applications!\nWarning: Any setting that causes the total reserved channels to exceed 32 will result in a NACK.\nWarning: You cannot enable GLONASS and BeiDou at the same time.\nNote:    Enabling SBAS and QZSS augments GPS accuracy.\nNote:    It is recommended to disable GLONASS and BeiDou if a GPS-only antenna or GPS-only SAW filter is used.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -1758,6 +1820,8 @@ template<>
 struct MetadataFor<commands_3dm::GnssSbasSettings::Response>
 {
     using type = commands_3dm::GnssSbasSettings::Response;
+
+    using Context = commands_3dm::GnssSbasSettings;
 
     using ParamTypes = std::tuple<
         decltype(type::enable_sbas),
@@ -1819,9 +1883,9 @@ struct MetadataFor<commands_3dm::GnssSbasSettings::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -1831,6 +1895,8 @@ template<>
 struct MetadataFor<commands_3dm::GnssSbasSettings>
 {
     using type = commands_3dm::GnssSbasSettings;
+
+    using Context = CommandSet3dm;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -1895,9 +1961,9 @@ struct MetadataFor<commands_3dm::GnssSbasSettings>
             /* .docs        = */ "Configure the GNSS SBAS subsystem",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -1929,6 +1995,8 @@ template<>
 struct MetadataFor<commands_3dm::GnssAssistedFix::Response>
 {
     using type = commands_3dm::GnssAssistedFix::Response;
+
+    using Context = commands_3dm::GnssAssistedFix;
 
     using ParamTypes = std::tuple<
         decltype(type::option),
@@ -1968,9 +2036,9 @@ struct MetadataFor<commands_3dm::GnssAssistedFix::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -1980,6 +2048,8 @@ template<>
 struct MetadataFor<commands_3dm::GnssAssistedFix>
 {
     using type = commands_3dm::GnssAssistedFix;
+
+    using Context = CommandSet3dm;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -2022,9 +2092,9 @@ struct MetadataFor<commands_3dm::GnssAssistedFix>
             /* .docs        = */ "Set the options for assisted GNSS fix.\n\nDevices that implement this command have a dedicated GNSS flash memory and a non-volatile FRAM.\nThese storage mechanisms are used to retain information about the last good GNSS fix. This can greatly reduces the TTFF (Time To First Fix) depending on the age of the stored information.\nThe TTFF can be as low as one second, or up to the equivalent of a cold start. There is a small increase in power used when enabling assisted fix.\n\nThe fastest fix will be obtained by supplying the device with a GNSS Assist Time Update message containing the current GPS time immediately after subsequent power up.\nThis allows the device to determine if the last GNSS information saved is still fresh enough to improve the TTFF.\n\nNOTE: Non-volatile GNSS memory is cleared when going from an enabled state to a disabled state.\nWARNING: The clearing operation results in an erase operation on the GNSS Flash. The flash has a limited durability of 100,000 write/erase cycles",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -2035,6 +2105,8 @@ template<>
 struct MetadataFor<commands_3dm::GnssTimeAssistance::Response>
 {
     using type = commands_3dm::GnssTimeAssistance::Response;
+
+    using Context = commands_3dm::GnssTimeAssistance;
 
     using ParamTypes = std::tuple<
         decltype(type::tow),
@@ -2085,9 +2157,9 @@ struct MetadataFor<commands_3dm::GnssTimeAssistance::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -2097,6 +2169,8 @@ template<>
 struct MetadataFor<commands_3dm::GnssTimeAssistance>
 {
     using type = commands_3dm::GnssTimeAssistance;
+
+    using Context = CommandSet3dm;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -2150,9 +2224,9 @@ struct MetadataFor<commands_3dm::GnssTimeAssistance>
             /* .docs        = */ "Provide the GNSS subsystem with initial time information.\n\nThis message is required immediately after power up if GNSS Assist was enabled when the device was powered off.\nThis will initialize the subsystem clock to help reduce the time to first fix (TTFF).",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, false, false, false},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, false, false, false},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -2188,6 +2262,8 @@ struct MetadataFor<commands_3dm::PpsSource::Response>
 {
     using type = commands_3dm::PpsSource::Response;
 
+    using Context = commands_3dm::PpsSource;
+
     using ParamTypes = std::tuple<
         decltype(type::source)
     >;
@@ -2215,9 +2291,9 @@ struct MetadataFor<commands_3dm::PpsSource::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -2227,6 +2303,8 @@ template<>
 struct MetadataFor<commands_3dm::PpsSource>
 {
     using type = commands_3dm::PpsSource;
+
+    using Context = CommandSet3dm;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -2258,9 +2336,9 @@ struct MetadataFor<commands_3dm::PpsSource>
             /* .docs        = */ "Controls the Pulse Per Second (PPS) source.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -2292,6 +2370,8 @@ template<>
 struct MetadataFor<commands_3dm::GetEventSupport::Info>
 {
     using type = commands_3dm::GetEventSupport::Info;
+
+    using Context = commands_3dm::GetEventSupport;
 
     using ParamTypes = std::tuple<
         decltype(type::type),
@@ -2338,6 +2418,8 @@ template<>
 struct MetadataFor<commands_3dm::GetEventSupport::Response>
 {
     using type = commands_3dm::GetEventSupport::Response;
+
+    using Context = commands_3dm::GetEventSupport;
 
     using ParamTypes = std::tuple<
         decltype(type::query),
@@ -2399,9 +2481,9 @@ struct MetadataFor<commands_3dm::GetEventSupport::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -2411,6 +2493,8 @@ template<>
 struct MetadataFor<commands_3dm::GetEventSupport>
 {
     using type = commands_3dm::GetEventSupport;
+
+    using Context = CommandSet3dm;
 
     using ParamTypes = std::tuple<
         decltype(type::query)
@@ -2439,9 +2523,9 @@ struct MetadataFor<commands_3dm::GetEventSupport>
             /* .docs        = */ "Lists the available trigger or action types.\n\nThere are a limited number of trigger and action slots available\nin the device. Up to M triggers and N actions can be configured at once\nin slots 1..M and 1..N respectively. M and N are identified by the\nmax_instances field in the response with the appropriate query selector.\n\nEach slot can be configured as one of a variety of different types of\ntriggers or actions. The supported types are enumerated in the response\nto this command. Additionally, there is a limit on the number of a given\ntype. In other words, while the device may support M triggers in total,\nonly a few of them maybe usable as a given type. This limit helps optimize\ndevice resources. The limit is identified in the count field.\n\nAll of the information in this command is available in the user manual.\nThis command provides a programmatic method for obtaining the information.\n",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -2475,6 +2559,8 @@ template<>
 struct MetadataFor<commands_3dm::EventControl::Response>
 {
     using type = commands_3dm::EventControl::Response;
+
+    using Context = commands_3dm::EventControl;
 
     using ParamTypes = std::tuple<
         decltype(type::instance),
@@ -2514,9 +2600,9 @@ struct MetadataFor<commands_3dm::EventControl::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -2526,6 +2612,8 @@ template<>
 struct MetadataFor<commands_3dm::EventControl>
 {
     using type = commands_3dm::EventControl;
+
+    using Context = CommandSet3dm;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -2568,9 +2656,9 @@ struct MetadataFor<commands_3dm::EventControl>
             /* .docs        = */ "Enables or disables event triggers.\n\nTriggers can be disabled, enabled, and tested. While disabled, a trigger will\nnot evaluate its logic and effective behave like no trigger is configured.\nA disabled trigger will not activate any actions. Triggers are disabled by default.\n\nUse this command to enable (or disable) a trigger, or to place it into a test mode.\nWhen in test mode, the trigger logic is disabled but the output is forced to\nthe active state, meaning that it will behave as if the trigger logic is satisfied\nand any associated actions will execute.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -2603,6 +2691,8 @@ template<>
 struct MetadataFor<commands_3dm::GetEventTriggerStatus::Entry>
 {
     using type = commands_3dm::GetEventTriggerStatus::Entry;
+
+    using Context = commands_3dm::GetEventTriggerStatus;
 
     using ParamTypes = std::tuple<
         decltype(type::type),
@@ -2650,6 +2740,8 @@ struct MetadataFor<commands_3dm::GetEventTriggerStatus::Response>
 {
     using type = commands_3dm::GetEventTriggerStatus::Response;
 
+    using Context = commands_3dm::GetEventTriggerStatus;
+
     using ParamTypes = std::tuple<
         decltype(type::count),
         decltype(type::triggers)
@@ -2688,9 +2780,9 @@ struct MetadataFor<commands_3dm::GetEventTriggerStatus::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -2700,6 +2792,8 @@ template<>
 struct MetadataFor<commands_3dm::GetEventTriggerStatus>
 {
     using type = commands_3dm::GetEventTriggerStatus;
+
+    using Context = CommandSet3dm;
 
     using ParamTypes = std::tuple<
         decltype(type::requested_count),
@@ -2739,9 +2833,9 @@ struct MetadataFor<commands_3dm::GetEventTriggerStatus>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -2752,6 +2846,8 @@ template<>
 struct MetadataFor<commands_3dm::GetEventActionStatus::Entry>
 {
     using type = commands_3dm::GetEventActionStatus::Entry;
+
+    using Context = commands_3dm::GetEventActionStatus;
 
     using ParamTypes = std::tuple<
         decltype(type::action_type),
@@ -2799,6 +2895,8 @@ struct MetadataFor<commands_3dm::GetEventActionStatus::Response>
 {
     using type = commands_3dm::GetEventActionStatus::Response;
 
+    using Context = commands_3dm::GetEventActionStatus;
+
     using ParamTypes = std::tuple<
         decltype(type::count),
         decltype(type::actions)
@@ -2837,9 +2935,9 @@ struct MetadataFor<commands_3dm::GetEventActionStatus::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -2849,6 +2947,8 @@ template<>
 struct MetadataFor<commands_3dm::GetEventActionStatus>
 {
     using type = commands_3dm::GetEventActionStatus;
+
+    using Context = CommandSet3dm;
 
     using ParamTypes = std::tuple<
         decltype(type::requested_count),
@@ -2888,9 +2988,9 @@ struct MetadataFor<commands_3dm::GetEventActionStatus>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -2924,6 +3024,8 @@ template<>
 struct MetadataFor<commands_3dm::EventTrigger::GpioParams>
 {
     using type = commands_3dm::EventTrigger::GpioParams;
+
+    using Context = commands_3dm::EventTrigger;
 
     using ParamTypes = std::tuple<
         decltype(type::pin),
@@ -2991,6 +3093,8 @@ template<>
 struct MetadataFor<commands_3dm::EventTrigger::ThresholdParams>
 {
     using type = commands_3dm::EventTrigger::ThresholdParams;
+
+    using Context = commands_3dm::EventTrigger;
 
     using ParamTypes = std::tuple<
         decltype(type::desc_set),
@@ -3082,6 +3186,8 @@ struct MetadataFor<commands_3dm::EventTrigger::CombinationParams>
 {
     using type = commands_3dm::EventTrigger::CombinationParams;
 
+    using Context = commands_3dm::EventTrigger;
+
     using ParamTypes = std::tuple<
         decltype(type::logic_table),
         decltype(type::input_triggers)
@@ -3151,6 +3257,8 @@ struct MetadataFor<commands_3dm::EventTrigger::Parameters>
 {
     using type = commands_3dm::EventTrigger::Parameters;
 
+    using Context = commands_3dm::EventTrigger;
+
     using ParamTypes = std::tuple<
         decltype(type::gpio),
         decltype(type::threshold),
@@ -3208,6 +3316,8 @@ struct MetadataFor<commands_3dm::EventTrigger::Response>
 {
     using type = commands_3dm::EventTrigger::Response;
 
+    using Context = commands_3dm::EventTrigger;
+
     using ParamTypes = std::tuple<
         decltype(type::instance),
         decltype(type::type),
@@ -3257,9 +3367,9 @@ struct MetadataFor<commands_3dm::EventTrigger::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -3269,6 +3379,8 @@ template<>
 struct MetadataFor<commands_3dm::EventTrigger>
 {
     using type = commands_3dm::EventTrigger;
+
+    using Context = CommandSet3dm;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -3322,9 +3434,9 @@ struct MetadataFor<commands_3dm::EventTrigger>
             /* .docs        = */ "Configures various types of event triggers.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -3360,6 +3472,8 @@ template<>
 struct MetadataFor<commands_3dm::EventAction::GpioParams>
 {
     using type = commands_3dm::EventAction::GpioParams;
+
+    using Context = commands_3dm::EventAction;
 
     using ParamTypes = std::tuple<
         decltype(type::pin),
@@ -3406,6 +3520,8 @@ template<>
 struct MetadataFor<commands_3dm::EventAction::MessageParams>
 {
     using type = commands_3dm::EventAction::MessageParams;
+
+    using Context = commands_3dm::EventAction;
 
     using ParamTypes = std::tuple<
         decltype(type::desc_set),
@@ -3497,6 +3613,8 @@ struct MetadataFor<commands_3dm::EventAction::Parameters>
 {
     using type = commands_3dm::EventAction::Parameters;
 
+    using Context = commands_3dm::EventAction;
+
     using ParamTypes = std::tuple<
         decltype(type::gpio),
         decltype(type::message)
@@ -3542,6 +3660,8 @@ template<>
 struct MetadataFor<commands_3dm::EventAction::Response>
 {
     using type = commands_3dm::EventAction::Response;
+
+    using Context = commands_3dm::EventAction;
 
     using ParamTypes = std::tuple<
         decltype(type::instance),
@@ -3603,9 +3723,9 @@ struct MetadataFor<commands_3dm::EventAction::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -3615,6 +3735,8 @@ template<>
 struct MetadataFor<commands_3dm::EventAction>
 {
     using type = commands_3dm::EventAction;
+
+    using Context = CommandSet3dm;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -3679,9 +3801,9 @@ struct MetadataFor<commands_3dm::EventAction>
             /* .docs        = */ "Configures various types of event actions.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -3692,6 +3814,8 @@ template<>
 struct MetadataFor<commands_3dm::DeviceSettings>
 {
     using type = commands_3dm::DeviceSettings;
+
+    using Context = CommandSet3dm;
 
     using ParamTypes = std::tuple<
         decltype(type::function)
@@ -3713,9 +3837,9 @@ struct MetadataFor<commands_3dm::DeviceSettings>
             /* .docs        = */ "Save, Load, or Reset to Default the values for all device settings.\n\nWhen a save current settings command is issued, a brief data disturbance may occur while all settings are written to non-volatile memory.\n\nThis command should have a long timeout as it may take up to 1 second to complete.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {false, false, true, true, true},
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {false, false, true, true, true},
+        /* .response    = */ nullptr,
     };
 };
 
@@ -3726,6 +3850,8 @@ template<>
 struct MetadataFor<commands_3dm::Sensor2VehicleTransformEuler::Response>
 {
     using type = commands_3dm::Sensor2VehicleTransformEuler::Response;
+
+    using Context = commands_3dm::Sensor2VehicleTransformEuler;
 
     using ParamTypes = std::tuple<
         decltype(type::roll),
@@ -3776,9 +3902,9 @@ struct MetadataFor<commands_3dm::Sensor2VehicleTransformEuler::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -3788,6 +3914,8 @@ template<>
 struct MetadataFor<commands_3dm::Sensor2VehicleTransformEuler>
 {
     using type = commands_3dm::Sensor2VehicleTransformEuler;
+
+    using Context = CommandSet3dm;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -3841,9 +3969,9 @@ struct MetadataFor<commands_3dm::Sensor2VehicleTransformEuler>
             /* .docs        = */ "Sets the sensor-to-vehicle frame transformation using Yaw, Pitch, and Roll Euler angles.\n\nThese are the Yaw, Pitch, and Roll mounting angles of the sensor with respect to vehicle frame of reference,\nand describe the transformation of vectors from the sensor body frame to the vehicle frame.<br/>\n\nNote: This is the transformation, the inverse of the rotation defined in our legacy products.<br/>\n\nThe transformation may be stored in the device as a matrix or quaternion.  When Euler angles are read back from the device, they may not\nbe exactly equal to the Euler angles used to set the transformation, but they are functionally equivalent, such that they result in the same transformation.<br/>\n<br/><br/>\nThis transformation to the vehicle frame will be applied to the following output quantities:<br/><br/>\nIMU:<br/>\nScaled Acceleration<br/>\nScaled Gyro<br/>\nScaled Magnetometer<br/>\nDelta Theta<br/>\nDelta Velocity<br/>\nComplementary Filter Orientation<br/>\n<br/><br/>\nEstimation Filter:<br/>\nEstimated Orientation, Quaternion<br/>\nEstimated Orientation, Matrix<br/>\nEstimated Orientation, Euler Angles<br/>\nEstimated Linear Acceleration<br/>\nEstimated Angular Rate<br/>\nEstimated Gravity Vector<br/>\n<br/>\nChanging this setting will force all low-pass filters, the complementary filter, and the estimation filter to reset.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -3854,6 +3982,8 @@ template<>
 struct MetadataFor<commands_3dm::Sensor2VehicleTransformQuaternion::Response>
 {
     using type = commands_3dm::Sensor2VehicleTransformQuaternion::Response;
+
+    using Context = commands_3dm::Sensor2VehicleTransformQuaternion;
 
     using ParamTypes = std::tuple<
         decltype(type::q)
@@ -3882,9 +4012,9 @@ struct MetadataFor<commands_3dm::Sensor2VehicleTransformQuaternion::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -3894,6 +4024,8 @@ template<>
 struct MetadataFor<commands_3dm::Sensor2VehicleTransformQuaternion>
 {
     using type = commands_3dm::Sensor2VehicleTransformQuaternion;
+
+    using Context = CommandSet3dm;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -3925,9 +4057,9 @@ struct MetadataFor<commands_3dm::Sensor2VehicleTransformQuaternion>
             /* .docs        = */ "Set the sensor-to-vehicle frame transformation using unit length quaternion.\n\nNote: This is the transformation, the inverse of the rotation.\n\nThis quaternion describes the transformation of vectors from the sensor body frame to the vehicle frame of reference, and satisfies the following relationship:<br/>\n\nEQSTART p^{veh} = q^{-1} p^{sen} q EQEND<br/>\n\nWhere:<br/>\nEQSTART q = (q_w, q_x, q_y, q_z) EQEND is the quaternion describing the transformation. <br/>\nEQSTART p^{sen} = (0, v^{sen}_x, v^{sen}_y, v^{sen}_z) EQEND and EQSTART v^{sen} EQEND is a 3-element vector expressed in the sensor body frame.<br/>\nEQSTART p^{veh} = (0, v^{veh}_x, v^{veh}_y, v^{veh}_z) EQEND and EQSTART v^{veh} EQEND is a 3-element vector expressed in the vehicle frame.<br/>\n\nThe transformation may be stored in the device as a matrix or a quaternion.  When the quaternion is read back from the device, it may not\nbe exactly equal to the quaternion used to set the transformation, but it is functionally equivalent.<br/>\n<br/><br/>\nThis transformation affects the following output quantities:<br/><br/>\nIMU:<br/>\nScaled Acceleration<br/>\nScaled Gyro<br/>\nScaled Magnetometer<br/>\nDelta Theta<br/>\nDelta Velocity<br/>\n<br/><br/>\nEstimation Filter:<br/>\nEstimated Orientation, Quaternion<br/>\nEstimated Orientation, Matrix<br/>\nEstimated Orientation, Euler Angles<br/>\nEstimated Linear Acceleration<br/>\nEstimated Angular Rate<br/>\nEstimated Gravity Vector<br/>\n<br/>\nChanging this setting will force all low-pass filters, the complementary filter, and the estimation filter to reset.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -3938,6 +4070,8 @@ template<>
 struct MetadataFor<commands_3dm::Sensor2VehicleTransformDcm::Response>
 {
     using type = commands_3dm::Sensor2VehicleTransformDcm::Response;
+
+    using Context = commands_3dm::Sensor2VehicleTransformDcm;
 
     using ParamTypes = std::tuple<
         decltype(type::dcm)
@@ -3966,9 +4100,9 @@ struct MetadataFor<commands_3dm::Sensor2VehicleTransformDcm::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -3978,6 +4112,8 @@ template<>
 struct MetadataFor<commands_3dm::Sensor2VehicleTransformDcm>
 {
     using type = commands_3dm::Sensor2VehicleTransformDcm;
+
+    using Context = CommandSet3dm;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -4009,9 +4145,9 @@ struct MetadataFor<commands_3dm::Sensor2VehicleTransformDcm>
             /* .docs        = */ "Set the sensor to vehicle frame transformation using a using a 3 x 3 direction cosine matrix EQSTART M_{ned}^{veh} EQEND, stored in row-major order in a 9-element array.\n\nThese angles define the transformation of vectors from the sensor body frame to the fixed vehicle frame, according to:<br/>\nEQSTART v^{veh} = M_{sen}^{veh} v^{sen} EQEND<br/>\n\nWhere:<br/>\n\nEQSTART v^{sen} EQEND is a 3-element vector expressed in the sensor body frame. <br/>\nEQSTART v^{veh} EQEND is the same 3-element vector expressed in the vehicle frame.  <br/>\n<br/>\nThe matrix elements are stored is row-major order: EQSTART M_{sen}^{veh} = \\begin{bmatrix} M_{11}, M_{12}, M_{13}, M_{21}, M_{22}, M_{23}, M_{31}, M_{32}, M_{33} \\end{bmatrix} EQEND\n\nThe transformation may be stored in the device as a matrix or a quaternion. When EQSTART M_{sen}^{veh} EQEND is read back from the device, it may not\nbe exactly equal to array used to set the transformation, but it is functionally equivalent.<br/>\n<br/><br/>\nThis transformation affects the following output quantities:<br/><br/>\nIMU:<br/>\nScaled Acceleration<br/>\nScaled Gyro<br/>\nScaled Magnetometer<br/>\nDelta Theta<br/>\nDelta Velocity<br/>\n<br/><br/>\nEstimation Filter:<br/>\nEstimated Orientation, Quaternion<br/>\nEstimated Orientation, Matrix<br/>\nEstimated Orientation, Euler Angles<br/>\nEstimated Linear Acceleration<br/>\nEstimated Angular Rate<br/>\nEstimated Gravity Vector<br/>\n<br/>\nChanging this setting will force all low-pass filters, the complementary filter, and the estimation filter to reset.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -4022,6 +4158,8 @@ template<>
 struct MetadataFor<commands_3dm::AccelBias::Response>
 {
     using type = commands_3dm::AccelBias::Response;
+
+    using Context = commands_3dm::AccelBias;
 
     using ParamTypes = std::tuple<
         decltype(type::bias)
@@ -4050,9 +4188,9 @@ struct MetadataFor<commands_3dm::AccelBias::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -4062,6 +4200,8 @@ template<>
 struct MetadataFor<commands_3dm::AccelBias>
 {
     using type = commands_3dm::AccelBias;
+
+    using Context = CommandSet3dm;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -4093,9 +4233,9 @@ struct MetadataFor<commands_3dm::AccelBias>
             /* .docs        = */ "Configures the user specified accelerometer bias\n\nThe user specified bias is subtracted from the calibrated accelerometer output.  Value is input in the sensor frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -4106,6 +4246,8 @@ template<>
 struct MetadataFor<commands_3dm::GyroBias::Response>
 {
     using type = commands_3dm::GyroBias::Response;
+
+    using Context = commands_3dm::GyroBias;
 
     using ParamTypes = std::tuple<
         decltype(type::bias)
@@ -4134,9 +4276,9 @@ struct MetadataFor<commands_3dm::GyroBias::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -4146,6 +4288,8 @@ template<>
 struct MetadataFor<commands_3dm::GyroBias>
 {
     using type = commands_3dm::GyroBias;
+
+    using Context = CommandSet3dm;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -4177,9 +4321,9 @@ struct MetadataFor<commands_3dm::GyroBias>
             /* .docs        = */ "Configures the user specified gyroscope bias\n\nThe user specified bias is subtracted from the calibrated angular rate output.  Value is input in the sensor frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -4190,6 +4334,8 @@ template<>
 struct MetadataFor<commands_3dm::CaptureGyroBias::Response>
 {
     using type = commands_3dm::CaptureGyroBias::Response;
+
+    using Context = commands_3dm::CaptureGyroBias;
 
     using ParamTypes = std::tuple<
         decltype(type::bias)
@@ -4218,9 +4364,9 @@ struct MetadataFor<commands_3dm::CaptureGyroBias::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -4230,6 +4376,8 @@ template<>
 struct MetadataFor<commands_3dm::CaptureGyroBias>
 {
     using type = commands_3dm::CaptureGyroBias;
+
+    using Context = CommandSet3dm;
 
     using ParamTypes = std::tuple<
         decltype(type::averaging_time_ms)
@@ -4258,9 +4406,9 @@ struct MetadataFor<commands_3dm::CaptureGyroBias>
             /* .docs        = */ "Samples gyro for a specified time range and writes the averaged result to the Gyro Bias vector in RAM\n\nThe device will average the gyro output for the duration of 'averaging_time_ms.' To store the resulting vector\nin non-volatile memory, use the Set Gyro Bias command.\nIMPORTANT: The device must be stationary and experiencing minimum vibration for the duration of 'averaging_time_ms'\nAveraging Time range: 1000 to 30,000",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -4271,6 +4419,8 @@ template<>
 struct MetadataFor<commands_3dm::MagHardIronOffset::Response>
 {
     using type = commands_3dm::MagHardIronOffset::Response;
+
+    using Context = commands_3dm::MagHardIronOffset;
 
     using ParamTypes = std::tuple<
         decltype(type::offset)
@@ -4299,9 +4449,9 @@ struct MetadataFor<commands_3dm::MagHardIronOffset::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -4311,6 +4461,8 @@ template<>
 struct MetadataFor<commands_3dm::MagHardIronOffset>
 {
     using type = commands_3dm::MagHardIronOffset;
+
+    using Context = CommandSet3dm;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -4342,9 +4494,9 @@ struct MetadataFor<commands_3dm::MagHardIronOffset>
             /* .docs        = */ "Configure the user specified magnetometer hard iron offset vector\n\nThe values for this offset are determined empirically by external software algorithms\nbased on calibration data taken after the device is installed in its application. These values\ncan be obtained and set by using Microstrain software tools.\nAlternatively, on some systems, the auto-mag calibration feature may be used to capture these values in-run.\nThe offset is applied to the scaled magnetometer vector prior to output.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -4355,6 +4507,8 @@ template<>
 struct MetadataFor<commands_3dm::MagSoftIronMatrix::Response>
 {
     using type = commands_3dm::MagSoftIronMatrix::Response;
+
+    using Context = commands_3dm::MagSoftIronMatrix;
 
     using ParamTypes = std::tuple<
         decltype(type::offset)
@@ -4383,9 +4537,9 @@ struct MetadataFor<commands_3dm::MagSoftIronMatrix::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -4395,6 +4549,8 @@ template<>
 struct MetadataFor<commands_3dm::MagSoftIronMatrix>
 {
     using type = commands_3dm::MagSoftIronMatrix;
+
+    using Context = CommandSet3dm;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -4426,9 +4582,9 @@ struct MetadataFor<commands_3dm::MagSoftIronMatrix>
             /* .docs        = */ "Configure the user specified magnetometer soft iron offset matrix\n\nThe values for this matrix are determined empirically by external software algorithms\nbased on calibration data taken after the device is installed in its application. These values\ncan be obtained and set by using Microstrain software tools.\nAlternatively, on some systems, the auto-mag calibration feature may be used to capture these values in-run.\nThe matrix is applied to the scaled magnetometer vector prior to output.\n\nThe matrix is in row major order:\nEQSTART M = \\begin{bmatrix} 0 &amp; 1 &amp; 2 \\\\ 3 &amp; 4 &amp; 5 \\\\ 6 &amp; 7 &amp; 8 \\end{bmatrix} EQEND",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -4439,6 +4595,8 @@ template<>
 struct MetadataFor<commands_3dm::ConingScullingEnable::Response>
 {
     using type = commands_3dm::ConingScullingEnable::Response;
+
+    using Context = commands_3dm::ConingScullingEnable;
 
     using ParamTypes = std::tuple<
         decltype(type::enable)
@@ -4467,9 +4625,9 @@ struct MetadataFor<commands_3dm::ConingScullingEnable::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -4479,6 +4637,8 @@ template<>
 struct MetadataFor<commands_3dm::ConingScullingEnable>
 {
     using type = commands_3dm::ConingScullingEnable;
+
+    using Context = CommandSet3dm;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -4510,9 +4670,9 @@ struct MetadataFor<commands_3dm::ConingScullingEnable>
             /* .docs        = */ "Controls the Coning and Sculling Compenstation setting.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -4523,6 +4683,8 @@ template<>
 struct MetadataFor<commands_3dm::UartBaudrate::Response>
 {
     using type = commands_3dm::UartBaudrate::Response;
+
+    using Context = commands_3dm::UartBaudrate;
 
     using ParamTypes = std::tuple<
         decltype(type::baud)
@@ -4551,9 +4713,9 @@ struct MetadataFor<commands_3dm::UartBaudrate::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -4563,6 +4725,8 @@ template<>
 struct MetadataFor<commands_3dm::UartBaudrate>
 {
     using type = commands_3dm::UartBaudrate;
+
+    using Context = CommandSet3dm;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -4594,9 +4758,9 @@ struct MetadataFor<commands_3dm::UartBaudrate>
             /* .docs        = */ "Read, Save, Load, or Reset to Default the baud rate of the main communication channel.\n\nFor all functions except 0x01 (use new settings), the new baud rate value is ignored.\nPlease see the device user manual for supported baud rates.\n\nThe device will wait until all incoming and outgoing data has been sent, up\nto a maximum of 250 ms, before applying any change.\n\nNo guarantee is provided as to what happens to commands issued during this\ndelay period; They may or may not be processed and any responses aren't\nguaranteed to be at one rate or the other. The same applies to data packets.\n\nIt is highly recommended that the device be idle before issuing this command\nand that it be issued in its own packet. Users should wait 250 ms after\nsending this command before further interaction.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -4689,6 +4853,8 @@ struct MetadataFor<commands_3dm::GpioConfig::Response>
 {
     using type = commands_3dm::GpioConfig::Response;
 
+    using Context = commands_3dm::GpioConfig;
+
     using ParamTypes = std::tuple<
         decltype(type::pin),
         decltype(type::feature),
@@ -4749,9 +4915,9 @@ struct MetadataFor<commands_3dm::GpioConfig::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -4761,6 +4927,8 @@ template<>
 struct MetadataFor<commands_3dm::GpioConfig>
 {
     using type = commands_3dm::GpioConfig;
+
+    using Context = CommandSet3dm;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -4825,9 +4993,9 @@ struct MetadataFor<commands_3dm::GpioConfig>
             /* .docs        = */ "Configures the user GPIO pins on the connector for use with several built-in functions or for general input or output.\n\nGPIO pins are device-dependent. Some features are only available on\ncertain pins. Some behaviors require specific configurations.\nConsult the device user manual for restrictions and default settings.\n\nTo avoid glitches on GPIOs configured as an output in a mode other than\nGPIO, always configure the relevant function before setting up the pin\nwith this command. Otherwise, the pin state will be undefined between\nthis command and the one to set up the feature. For input pins, use\nthis command first so the state is well-defined when the feature is\ninitialized.\n\nSome configurations can only be active on one pin at a time. If such\nconfiguration is applied to a second pin, the second one will take\nprecedence and the original pin's configuration will be reset.\n",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -4838,6 +5006,8 @@ template<>
 struct MetadataFor<commands_3dm::GpioState::Response>
 {
     using type = commands_3dm::GpioState::Response;
+
+    using Context = commands_3dm::GpioState;
 
     using ParamTypes = std::tuple<
         decltype(type::pin),
@@ -4877,9 +5047,9 @@ struct MetadataFor<commands_3dm::GpioState::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -4889,6 +5059,8 @@ template<>
 struct MetadataFor<commands_3dm::GpioState>
 {
     using type = commands_3dm::GpioState;
+
+    using Context = CommandSet3dm;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -4931,9 +5103,9 @@ struct MetadataFor<commands_3dm::GpioState>
             /* .docs        = */ "Allows the state of the pin to be read or controlled.\n\nThis command serves two purposes: 1) To allow reading the state of a pin via command,\nrather than polling a data quantity, and 2) to provide a way to set the output state\nwithout also having to specify the operating mode.\n\nThe state read back from the pin is the physical state of the pin, rather than a\nconfiguration value. The state can be read regardless of its configuration as long as\nthe device supports GPIO input on that pin. If the pin is set to an output, the read\nvalue would match the output value.\n\nWhile the state of a pin can always be set, it will only have an observable effect if\nthe pin is set to output mode.\n\nThis command does not support saving, loading, or resetting the state. Instead, use the\nGPIO Configuration command, which allows the initial state to be configured.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, false, false, false},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, false, false, false},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -4965,6 +5137,8 @@ template<>
 struct MetadataFor<commands_3dm::Odometer::Response>
 {
     using type = commands_3dm::Odometer::Response;
+
+    using Context = commands_3dm::Odometer;
 
     using ParamTypes = std::tuple<
         decltype(type::mode),
@@ -5015,9 +5189,9 @@ struct MetadataFor<commands_3dm::Odometer::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -5027,6 +5201,8 @@ template<>
 struct MetadataFor<commands_3dm::Odometer>
 {
     using type = commands_3dm::Odometer;
+
+    using Context = CommandSet3dm;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -5080,9 +5256,9 @@ struct MetadataFor<commands_3dm::Odometer>
             /* .docs        = */ "Configures the hardware odometer interface.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -5093,6 +5269,8 @@ template<>
 struct MetadataFor<commands_3dm::ImuLowpassFilter::Response>
 {
     using type = commands_3dm::ImuLowpassFilter::Response;
+
+    using Context = commands_3dm::ImuLowpassFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::target_descriptor),
@@ -5165,9 +5343,9 @@ struct MetadataFor<commands_3dm::ImuLowpassFilter::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -5177,6 +5355,8 @@ template<>
 struct MetadataFor<commands_3dm::ImuLowpassFilter>
 {
     using type = commands_3dm::ImuLowpassFilter;
+
+    using Context = CommandSet3dm;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -5252,9 +5432,9 @@ struct MetadataFor<commands_3dm::ImuLowpassFilter>
             /* .docs        = */ "Advanced configuration for the IMU data quantity low-pass filters.\n\nDeprecated, use the lowpass filter (0x0C,0x54) command instead.\n\nThe scaled data quantities are by default filtered through a single-pole IIR low-pass filter\nwhich is configured with a -3dB cutoff frequency of half the reporting frequency (set by\ndecimation factor in the IMU Message Format command) to prevent aliasing on a per data\nquantity basis. This advanced configuration command allows for the cutoff frequency to\nbe configured independently of the data reporting frequency as well as allowing for a\ncomplete bypass of the digital low-pass filter.\n\nPossible data descriptors:\n0x04 - Scaled accelerometer data\n0x05 - Scaled gyro data\n0x06 - Scaled magnetometer data (if applicable)\n0x17 - Scaled pressure data (if applicable)",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -5265,6 +5445,8 @@ template<>
 struct MetadataFor<commands_3dm::ComplementaryFilter::Response>
 {
     using type = commands_3dm::ComplementaryFilter::Response;
+
+    using Context = commands_3dm::ComplementaryFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::pitch_roll_enable),
@@ -5326,9 +5508,9 @@ struct MetadataFor<commands_3dm::ComplementaryFilter::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -5338,6 +5520,8 @@ template<>
 struct MetadataFor<commands_3dm::ComplementaryFilter>
 {
     using type = commands_3dm::ComplementaryFilter;
+
+    using Context = CommandSet3dm;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -5402,9 +5586,9 @@ struct MetadataFor<commands_3dm::ComplementaryFilter>
             /* .docs        = */ "Configure the settings for the complementary filter which produces the following (0x80) descriptor set values: attitude matrix (0x80,09), quaternion (0x80,0A), and  Euler angle (0x80,0C) outputs.\n\nThe filter can be configured to correct for pitch and roll using the accelerometer (with the assumption that linear acceleration is minimal),\nand to correct for heading using the magnetometer (with the assumption that the local magnetic field is dominated by the Earth's own magnetic field).\nPitch/roll and heading corrections each have their own configurable time constants, with a valid range of 1-1000 seconds. The default time constant is 10 seconds.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -5439,6 +5623,8 @@ template<>
 struct MetadataFor<commands_3dm::SensorRange::Response>
 {
     using type = commands_3dm::SensorRange::Response;
+
+    using Context = commands_3dm::SensorRange;
 
     using ParamTypes = std::tuple<
         decltype(type::sensor),
@@ -5478,9 +5664,9 @@ struct MetadataFor<commands_3dm::SensorRange::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -5490,6 +5676,8 @@ template<>
 struct MetadataFor<commands_3dm::SensorRange>
 {
     using type = commands_3dm::SensorRange;
+
+    using Context = CommandSet3dm;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -5532,9 +5720,9 @@ struct MetadataFor<commands_3dm::SensorRange>
             /* .docs        = */ "Changes the IMU sensor gain.\n\nThis allows you to optimize the range to get the best accuracy and performance\nwhile minimizing over-range events.\n\nUse the 3DM Get Calibrated Sensor Ranges (0x0C,0x53) command to determine\nthe appropriate setting value for your application. Using values other than\nthose specified may result in a NACK or inaccurate measurement data.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -5545,6 +5733,8 @@ template<>
 struct MetadataFor<commands_3dm::CalibratedSensorRanges::Entry>
 {
     using type = commands_3dm::CalibratedSensorRanges::Entry;
+
+    using Context = commands_3dm::CalibratedSensorRanges;
 
     using ParamTypes = std::tuple<
         decltype(type::setting),
@@ -5591,6 +5781,8 @@ template<>
 struct MetadataFor<commands_3dm::CalibratedSensorRanges::Response>
 {
     using type = commands_3dm::CalibratedSensorRanges::Response;
+
+    using Context = commands_3dm::CalibratedSensorRanges;
 
     using ParamTypes = std::tuple<
         decltype(type::sensor),
@@ -5641,9 +5833,9 @@ struct MetadataFor<commands_3dm::CalibratedSensorRanges::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -5653,6 +5845,8 @@ template<>
 struct MetadataFor<commands_3dm::CalibratedSensorRanges>
 {
     using type = commands_3dm::CalibratedSensorRanges;
+
+    using Context = CommandSet3dm;
 
     using ParamTypes = std::tuple<
         decltype(type::sensor)
@@ -5681,9 +5875,9 @@ struct MetadataFor<commands_3dm::CalibratedSensorRanges>
             /* .docs        = */ "Returns the supported sensor ranges which may be used with the 3DM Sensor Range (0x0C,0x52) command.\n\nThe response includes an array of (u8, float) pairs which map each allowed setting\nto the corresponding maximum range in physical units. See SensorRangeType for units.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -5694,6 +5888,8 @@ template<>
 struct MetadataFor<commands_3dm::LowpassFilter::Response>
 {
     using type = commands_3dm::LowpassFilter::Response;
+
+    using Context = commands_3dm::LowpassFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::desc_set),
@@ -5766,9 +5962,9 @@ struct MetadataFor<commands_3dm::LowpassFilter::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -5778,6 +5974,8 @@ template<>
 struct MetadataFor<commands_3dm::LowpassFilter>
 {
     using type = commands_3dm::LowpassFilter;
+
+    using Context = CommandSet3dm;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -5853,9 +6051,9 @@ struct MetadataFor<commands_3dm::LowpassFilter>
             /* .docs        = */ "This command controls the low-pass anti-aliasing filter supported data quantities.\n\nSee the device user manual for data quantities which support the anti-aliasing filter.\n\nIf set to automatic mode, the frequency will track half of the transmission rate\nof the target descriptor according to the configured message format (0x0C,0x0F).\nFor example, if scaled accel (0x80,0x04) is set to stream at 100 Hz, the filter would\nbe set to 50 Hz. Changing the message format to 200 Hz would automatically adjust the\nfilter to 100 Hz.\n\nFor WRITE, SAVE, LOAD, and DEFAULT function selectors, the descriptor set and/or field descriptor\nmay be 0x00 to set, save, load, or reset the setting for all supported descriptors. The\nfield descriptor must be 0x00 if the descriptor set is 0x00.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 

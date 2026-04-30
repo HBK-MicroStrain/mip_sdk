@@ -8,11 +8,15 @@
 namespace mip::metadata
 {
 
+struct CommandSetFilter;
+
 
 template<>
 struct MetadataFor<commands_filter::Reset>
 {
     using type = commands_filter::Reset;
+
+    using Context = CommandSetFilter;
 
     using ParamTypes = std::tuple<>;
 
@@ -23,9 +27,9 @@ struct MetadataFor<commands_filter::Reset>
             /* .docs        = */ "Resets the filter to the initialization state.\n\nIf the auto-initialization feature is disabled, the initial attitude or heading must be set in\norder to enter the run state after a reset.",
             /* .parameters  = */ {},
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -36,6 +40,8 @@ template<>
 struct MetadataFor<commands_filter::SetInitialAttitude>
 {
     using type = commands_filter::SetInitialAttitude;
+
+    using Context = CommandSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::roll),
@@ -86,9 +92,9 @@ struct MetadataFor<commands_filter::SetInitialAttitude>
             /* .docs        = */ "Set the sensor initial attitude.\n\nThis command can only be issued in the 'Init' state and should be used with a good\nestimate of the vehicle attitude.  The Euler angles are the sensor body frame with respect\nto the NED frame.\n\nThe valid input ranges are as follows:\n\nRoll:    [-pi, pi]\nPitch:   [-pi/2, pi/2]\nHeading: [-pi, pi]\n",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -126,6 +132,8 @@ struct MetadataFor<commands_filter::EstimationControl::Response>
 {
     using type = commands_filter::EstimationControl::Response;
 
+    using Context = commands_filter::EstimationControl;
+
     using ParamTypes = std::tuple<
         decltype(type::enable)
     >;
@@ -153,9 +161,9 @@ struct MetadataFor<commands_filter::EstimationControl::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -165,6 +173,8 @@ template<>
 struct MetadataFor<commands_filter::EstimationControl>
 {
     using type = commands_filter::EstimationControl;
+
+    using Context = CommandSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -196,9 +206,9 @@ struct MetadataFor<commands_filter::EstimationControl>
             /* .docs        = */ "Estimation Control Flags\n\nControls which parameters are estimated by the Kalman Filter.\n\nDesired settings should be logically ORed together.\n\nExamples:\n\n0x0001 - Enable Gyro Bias Estimation Only\n0x0063 - Enable Gyro Bias, Accel Bias, and Mag Auto Hard and Soft Iron Cal States Only\n",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -209,6 +219,8 @@ template<>
 struct MetadataFor<commands_filter::ExternalGnssUpdate>
 {
     using type = commands_filter::ExternalGnssUpdate;
+
+    using Context = CommandSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::gps_time),
@@ -314,9 +326,9 @@ struct MetadataFor<commands_filter::ExternalGnssUpdate>
             /* .docs        = */ "Provide a filter measurement from an external GNSS\n\nThe GNSS source control must be set to 'external' for this command to succeed, otherwise it will be NACK'd.\nPlease refer to your device user manual for information on the maximum rate of this message.\n",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -327,6 +339,8 @@ template<>
 struct MetadataFor<commands_filter::ExternalHeadingUpdate>
 {
     using type = commands_filter::ExternalHeadingUpdate;
+
+    using Context = CommandSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::heading),
@@ -377,9 +391,9 @@ struct MetadataFor<commands_filter::ExternalHeadingUpdate>
             /* .docs        = */ "Provide a filter measurement from an external heading source\n\nThe heading must be the sensor frame with respect to the NED frame.\n\nThe heading update control must be set to external for this command to update the filter; otherwise it is NACK'd.\nHeading angle uncertainties of &lt;= 0.0 will be NACK'd\n\nPlease refer to your device user manual for information on the maximum rate of this message.\n\nOn -25 models, if the declination source (0x0D, 0x43) is not valid, true heading updates will be NACK'd.\nOn -45 models, if the declination source is invalid, magnetic heading updates will be NACK'd.\n\n",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -390,6 +404,8 @@ template<>
 struct MetadataFor<commands_filter::ExternalHeadingUpdateWithTime>
 {
     using type = commands_filter::ExternalHeadingUpdateWithTime;
+
+    using Context = CommandSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::gps_time),
@@ -462,9 +478,9 @@ struct MetadataFor<commands_filter::ExternalHeadingUpdateWithTime>
             /* .docs        = */ "Provide a filter measurement from an external heading source at a specific GPS time\n\nThis is more accurate than the External Heading Update (0x0D, 0x17) and should be used in applications\nwhere the rate of heading change will cause significant measurement error due to the sampling, transmission,\nand processing time required.  Accurate time stamping of the heading information is important.\n\nThe heading must be the sensor frame with respect to the NED frame.\n\nThe heading update control must be set to external for this command to update the filter; otherwise it is NACK'd.\nHeading angle uncertainties of &lt;= 0.0 will be NACK'd\n\nPlease refer to your device user manual for information on the maximum rate of this message.\n\nOn -25 models, if the declination source (0x0D, 0x43) is not valid, true heading updates will be NACK'd.\nOn -45 models, if the declination source is invalid, magnetic heading updates will be NACK'd.\n\n",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -498,6 +514,8 @@ struct MetadataFor<commands_filter::TareOrientation::Response>
 {
     using type = commands_filter::TareOrientation::Response;
 
+    using Context = commands_filter::TareOrientation;
+
     using ParamTypes = std::tuple<
         decltype(type::axes)
     >;
@@ -525,9 +543,9 @@ struct MetadataFor<commands_filter::TareOrientation::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -537,6 +555,8 @@ template<>
 struct MetadataFor<commands_filter::TareOrientation>
 {
     using type = commands_filter::TareOrientation;
+
+    using Context = CommandSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -568,9 +588,9 @@ struct MetadataFor<commands_filter::TareOrientation>
             /* .docs        = */ "Tare the device orientation.\n\nThis function uses the current device orientation relative to the NED frame as the current sensor to vehicle transformation.\nThis command is provided as a convenient way to set the sensor to vehicle frame transformation.\nThe filter must be initialized and have a valid attitude output. If the attitude is not valid, an error will be returned.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -605,6 +625,8 @@ struct MetadataFor<commands_filter::VehicleDynamicsMode::Response>
 {
     using type = commands_filter::VehicleDynamicsMode::Response;
 
+    using Context = commands_filter::VehicleDynamicsMode;
+
     using ParamTypes = std::tuple<
         decltype(type::mode)
     >;
@@ -632,9 +654,9 @@ struct MetadataFor<commands_filter::VehicleDynamicsMode::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -644,6 +666,8 @@ template<>
 struct MetadataFor<commands_filter::VehicleDynamicsMode>
 {
     using type = commands_filter::VehicleDynamicsMode;
+
+    using Context = CommandSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -675,9 +699,9 @@ struct MetadataFor<commands_filter::VehicleDynamicsMode>
             /* .docs        = */ "Controls the vehicle dynamics mode.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -688,6 +712,8 @@ template<>
 struct MetadataFor<commands_filter::SensorToVehicleRotationEuler::Response>
 {
     using type = commands_filter::SensorToVehicleRotationEuler::Response;
+
+    using Context = commands_filter::SensorToVehicleRotationEuler;
 
     using ParamTypes = std::tuple<
         decltype(type::roll),
@@ -738,9 +764,9 @@ struct MetadataFor<commands_filter::SensorToVehicleRotationEuler::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -750,6 +776,8 @@ template<>
 struct MetadataFor<commands_filter::SensorToVehicleRotationEuler>
 {
     using type = commands_filter::SensorToVehicleRotationEuler;
+
+    using Context = CommandSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -803,9 +831,9 @@ struct MetadataFor<commands_filter::SensorToVehicleRotationEuler>
             /* .docs        = */ "Set the sensor to vehicle frame rotation using Yaw, Pitch, Roll Euler angles.\n\nNote: This is the rotation, the inverse of the transformation.\nThese angles define the rotation from the sensor body frame to the fixed vehicle frame.<br/>\nPlease reference the device Theory of Operation for more information.<br/>\nThe rotation is stored in the device as a quaternion.  When Euler angles are read back from the device, they may not\nbe equivalent in value to the Euler angles used to set the rotation, but they are functionally equivalent.<br/>\n<br/><br/>\nThis rotation affects the following output quantities:<br/><br/>\nIMU:<br/>\nScaled Acceleration<br/>\nScaled Gyro<br/>\nScaled Magnetometer<br/>\nDelta Theta<br/>\nDelta Velocity<br/>\n<br/><br/>\nEstimation Filter:<br/>\nEstimated Orientation, Quaternion<br/>\nEstimated Orientation, Matrix<br/>\nEstimated Orientation, Euler Angles<br/>\nEstimated Linear Acceleration<br/>\nEstimated Angular Rate<br/>\nEstimated Gravity Vector<br/>",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -816,6 +844,8 @@ template<>
 struct MetadataFor<commands_filter::SensorToVehicleRotationDcm::Response>
 {
     using type = commands_filter::SensorToVehicleRotationDcm::Response;
+
+    using Context = commands_filter::SensorToVehicleRotationDcm;
 
     using ParamTypes = std::tuple<
         decltype(type::dcm)
@@ -844,9 +874,9 @@ struct MetadataFor<commands_filter::SensorToVehicleRotationDcm::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -856,6 +886,8 @@ template<>
 struct MetadataFor<commands_filter::SensorToVehicleRotationDcm>
 {
     using type = commands_filter::SensorToVehicleRotationDcm;
+
+    using Context = CommandSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -887,9 +919,9 @@ struct MetadataFor<commands_filter::SensorToVehicleRotationDcm>
             /* .docs        = */ "Set the sensor to vehicle frame rotation using a row-major direction cosine matrix.\n\nNote: This is the rotation, the inverse of the transformation.\nThis matrix defines the rotation from the sensor body frame to the fixed vehicle frame.<br/>\nPlease reference the device Theory of Operation for more information.<br/>\nThe matrix must be orthonormal (tolerance 1e-3) or the device will NACK the command.\nThe rotation is stored in the device as a quaternion.  When the DCM is read back from the device, the components may not\nbe exactly equivalent in value to the DCM used to set the rotation, but they are functionally equivalent.<br/>\n<br/>\nMatrix element order:<br/><br/>\n\nEQSTART T_{SEN}^{VEH} = \\begin{bmatrix} 0 &amp; 1 &amp; 2\\\\  3 &amp; 4 &amp; 5\\\\ 6 &amp; 7 &amp; 8 \\end{bmatrix} EQEND\n\n<br/><br/>\nThis rotation affects the following output quantities:<br/><br/>\nIMU:<br/>\nScaled Acceleration<br/>\nScaled Gyro<br/>\nScaled Magnetometer<br/>\nDelta Theta<br/>\nDelta Velocity<br/>\n<br/><br/>\nEstimation Filter:<br/>\nEstimated Orientation, Quaternion<br/>\nEstimated Orientation, Matrix<br/>\nEstimated Orientation, Euler Angles<br/>\nEstimated Linear Acceleration<br/>\nEstimated Angular Rate<br/>\nEstimated Gravity Vector<br/>",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -900,6 +932,8 @@ template<>
 struct MetadataFor<commands_filter::SensorToVehicleRotationQuaternion::Response>
 {
     using type = commands_filter::SensorToVehicleRotationQuaternion::Response;
+
+    using Context = commands_filter::SensorToVehicleRotationQuaternion;
 
     using ParamTypes = std::tuple<
         decltype(type::quat)
@@ -928,9 +962,9 @@ struct MetadataFor<commands_filter::SensorToVehicleRotationQuaternion::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -940,6 +974,8 @@ template<>
 struct MetadataFor<commands_filter::SensorToVehicleRotationQuaternion>
 {
     using type = commands_filter::SensorToVehicleRotationQuaternion;
+
+    using Context = CommandSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -971,9 +1007,9 @@ struct MetadataFor<commands_filter::SensorToVehicleRotationQuaternion>
             /* .docs        = */ "Set the sensor to vehicle frame rotation using a quaternion.\n\nNote: This is the rotation, the inverse of the transformation.\nThis quaternion defines the rotation from the sensor body frame to the fixed vehicle frame.<br/>\nPlease reference the device Theory of Operation for more information.<br/>\nThe quaternion must be unit length (tolerance 1e-3) or the device will NACK the command.\nThe rotation is stored in the device as a unit quaternion.  When the quaternion elements are read back from the device, they may not\nbe equivalent in value to the quaternion used to set the rotation, due to normalization.<br/>\n<br/>\nQuaternion element definition:<br/><br/>\n<br/>\nEQSTART Q_{SEN}^{VEH} = \\begin{bmatrix} q_{0} &amp; q_{1}*i  &amp; q_{2}*j  &amp; q_{3}*k \\end{bmatrix} EQEND\n<br/><br/>\nThis rotation affects the following output quantities:<br/><br/>\nIMU:<br/>\nScaled Acceleration<br/>\nScaled Gyro<br/>\nScaled Magnetometer<br/>\nDelta Theta<br/>\nDelta Velocity<br/>\n<br/><br/>\nEstimation Filter:<br/>\nEstimated Orientation, Quaternion<br/>\nEstimated Orientation, Matrix<br/>\nEstimated Orientation, Euler Angles<br/>\nEstimated Linear Acceleration<br/>\nEstimated Angular Rate<br/>\nEstimated Gravity Vector<br/>",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -984,6 +1020,8 @@ template<>
 struct MetadataFor<commands_filter::SensorToVehicleOffset::Response>
 {
     using type = commands_filter::SensorToVehicleOffset::Response;
+
+    using Context = commands_filter::SensorToVehicleOffset;
 
     using ParamTypes = std::tuple<
         decltype(type::offset)
@@ -1012,9 +1050,9 @@ struct MetadataFor<commands_filter::SensorToVehicleOffset::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -1024,6 +1062,8 @@ template<>
 struct MetadataFor<commands_filter::SensorToVehicleOffset>
 {
     using type = commands_filter::SensorToVehicleOffset;
+
+    using Context = CommandSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -1055,9 +1095,9 @@ struct MetadataFor<commands_filter::SensorToVehicleOffset>
             /* .docs        = */ "Set the sensor to vehicle frame offset, expressed in the sensor frame.\n\nThis is a simple offset, not a lever arm.  It does not compensate for inertial effects experienced from being offset from the center of gravity/rotation of the vehicle.\nIt simply adds the offset to the position output to express it in the origin of the user's vehicle frame.\n\nThis offset affects the following output quantities:\nEstimated LLH Position\n\nThe magnitude of the offset vector is limited to 10 meters",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -1068,6 +1108,8 @@ template<>
 struct MetadataFor<commands_filter::AntennaOffset::Response>
 {
     using type = commands_filter::AntennaOffset::Response;
+
+    using Context = commands_filter::AntennaOffset;
 
     using ParamTypes = std::tuple<
         decltype(type::offset)
@@ -1096,9 +1138,9 @@ struct MetadataFor<commands_filter::AntennaOffset::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -1108,6 +1150,8 @@ template<>
 struct MetadataFor<commands_filter::AntennaOffset>
 {
     using type = commands_filter::AntennaOffset;
+
+    using Context = CommandSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -1139,9 +1183,9 @@ struct MetadataFor<commands_filter::AntennaOffset>
             /* .docs        = */ "Configure the GNSS antenna offset.\n\nFor 5-series products, this is expressed in the sensor frame, from the sensor origin to the GNSS antenna RF center.\n\nFor 7-series products, this is expressed in the vehicle frame, from the sensor origin to the GNSS antenna RF center.\n\nThis command should also be used for CV7 / GV7-INS NMEA Input over GPIO.\n\nThe magnitude of the offset vector is limited to 10 meters\n",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -1176,6 +1220,8 @@ struct MetadataFor<commands_filter::GnssSource::Response>
 {
     using type = commands_filter::GnssSource::Response;
 
+    using Context = commands_filter::GnssSource;
+
     using ParamTypes = std::tuple<
         decltype(type::source)
     >;
@@ -1203,9 +1249,9 @@ struct MetadataFor<commands_filter::GnssSource::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -1215,6 +1261,8 @@ template<>
 struct MetadataFor<commands_filter::GnssSource>
 {
     using type = commands_filter::GnssSource;
+
+    using Context = CommandSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -1246,9 +1294,9 @@ struct MetadataFor<commands_filter::GnssSource>
             /* .docs        = */ "Control the source of GNSS information used to update the Kalman Filter.\n\nChanging the GNSS source while the sensor is in the 'running' state may temporarily place\nit back in the 'init' state until the new source of GNSS data is received.\n",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -1287,6 +1335,8 @@ struct MetadataFor<commands_filter::HeadingSource::Response>
 {
     using type = commands_filter::HeadingSource::Response;
 
+    using Context = commands_filter::HeadingSource;
+
     using ParamTypes = std::tuple<
         decltype(type::source)
     >;
@@ -1314,9 +1364,9 @@ struct MetadataFor<commands_filter::HeadingSource::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -1326,6 +1376,8 @@ template<>
 struct MetadataFor<commands_filter::HeadingSource>
 {
     using type = commands_filter::HeadingSource;
+
+    using Context = CommandSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -1357,9 +1409,9 @@ struct MetadataFor<commands_filter::HeadingSource>
             /* .docs        = */ "Control the source of heading information used to update the Kalman Filter.\n\n1. To use internal GNSS velocity vector for heading updates, the target application\nmust have minimal (preferably no) side-slip.  This option is good for wheeled vehicles.\n\n2. On some devices, when using GNSS velocity vector for heading updates, the X-axis of the device\nmust align with the direction of travel.  Please reference the user guide for your particular device to\ndetermine if this limitation is applicable.\n\n3. When none is selected, the heading estimate can still converge if GNSS is available and sufficient dynamic motion\n(change in direction of travel and acceleration) is experienced.  The heading may drift when: stationary, traveling\nat a constant speed, or during a constant course over ground.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -1370,6 +1422,8 @@ template<>
 struct MetadataFor<commands_filter::AutoInitControl::Response>
 {
     using type = commands_filter::AutoInitControl::Response;
+
+    using Context = commands_filter::AutoInitControl;
 
     using ParamTypes = std::tuple<
         decltype(type::enable)
@@ -1398,9 +1452,9 @@ struct MetadataFor<commands_filter::AutoInitControl::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -1410,6 +1464,8 @@ template<>
 struct MetadataFor<commands_filter::AutoInitControl>
 {
     using type = commands_filter::AutoInitControl;
+
+    using Context = CommandSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -1441,9 +1497,9 @@ struct MetadataFor<commands_filter::AutoInitControl>
             /* .docs        = */ "Filter Auto-initialization Control\n\nEnable/Disable automatic initialization upon device startup.\n\nPossible enable values:\n\n0x00 - Disable auto-initialization\n0x01 - Enable auto-initialization\n",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -1454,6 +1510,8 @@ template<>
 struct MetadataFor<commands_filter::AccelNoise::Response>
 {
     using type = commands_filter::AccelNoise::Response;
+
+    using Context = commands_filter::AccelNoise;
 
     using ParamTypes = std::tuple<
         decltype(type::noise)
@@ -1482,9 +1540,9 @@ struct MetadataFor<commands_filter::AccelNoise::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -1494,6 +1552,8 @@ template<>
 struct MetadataFor<commands_filter::AccelNoise>
 {
     using type = commands_filter::AccelNoise;
+
+    using Context = CommandSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -1525,9 +1585,9 @@ struct MetadataFor<commands_filter::AccelNoise>
             /* .docs        = */ "Accelerometer Noise Standard Deviation\n\nEach of the noise values must be greater than 0.0.\n\nThe noise value represents process noise in the Estimation Filter.\nChanging this value modifies how the filter responds to dynamic input and can be used to tune the performance of the filter.\nDefault values provide good performance for most laboratory conditions.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -1538,6 +1598,8 @@ template<>
 struct MetadataFor<commands_filter::GyroNoise::Response>
 {
     using type = commands_filter::GyroNoise::Response;
+
+    using Context = commands_filter::GyroNoise;
 
     using ParamTypes = std::tuple<
         decltype(type::noise)
@@ -1566,9 +1628,9 @@ struct MetadataFor<commands_filter::GyroNoise::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -1578,6 +1640,8 @@ template<>
 struct MetadataFor<commands_filter::GyroNoise>
 {
     using type = commands_filter::GyroNoise;
+
+    using Context = CommandSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -1609,9 +1673,9 @@ struct MetadataFor<commands_filter::GyroNoise>
             /* .docs        = */ "Gyroscope Noise Standard Deviation\n\nEach of the noise values must be greater than 0.0\n\nThe noise value represents process noise in the Estimation Filter.\nChanging this value modifies how the filter responds to dynamic input and can be used to tune the performance of the filter.\nDefault values provide good performance for most laboratory conditions.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -1622,6 +1686,8 @@ template<>
 struct MetadataFor<commands_filter::AccelBiasModel::Response>
 {
     using type = commands_filter::AccelBiasModel::Response;
+
+    using Context = commands_filter::AccelBiasModel;
 
     using ParamTypes = std::tuple<
         decltype(type::beta),
@@ -1661,9 +1727,9 @@ struct MetadataFor<commands_filter::AccelBiasModel::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -1673,6 +1739,8 @@ template<>
 struct MetadataFor<commands_filter::AccelBiasModel>
 {
     using type = commands_filter::AccelBiasModel;
+
+    using Context = CommandSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -1715,9 +1783,9 @@ struct MetadataFor<commands_filter::AccelBiasModel>
             /* .docs        = */ "Accelerometer Bias Model Parameters\n\nNoise values must be greater than 0.0\n",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -1728,6 +1796,8 @@ template<>
 struct MetadataFor<commands_filter::GyroBiasModel::Response>
 {
     using type = commands_filter::GyroBiasModel::Response;
+
+    using Context = commands_filter::GyroBiasModel;
 
     using ParamTypes = std::tuple<
         decltype(type::beta),
@@ -1767,9 +1837,9 @@ struct MetadataFor<commands_filter::GyroBiasModel::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -1779,6 +1849,8 @@ template<>
 struct MetadataFor<commands_filter::GyroBiasModel>
 {
     using type = commands_filter::GyroBiasModel;
+
+    using Context = CommandSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -1821,9 +1893,9 @@ struct MetadataFor<commands_filter::GyroBiasModel>
             /* .docs        = */ "Gyroscope Bias Model Parameters\n\nNoise values must be greater than 0.0\n",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -1856,6 +1928,8 @@ struct MetadataFor<commands_filter::AltitudeAiding::Response>
 {
     using type = commands_filter::AltitudeAiding::Response;
 
+    using Context = commands_filter::AltitudeAiding;
+
     using ParamTypes = std::tuple<
         decltype(type::selector)
     >;
@@ -1883,9 +1957,9 @@ struct MetadataFor<commands_filter::AltitudeAiding::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -1895,6 +1969,8 @@ template<>
 struct MetadataFor<commands_filter::AltitudeAiding>
 {
     using type = commands_filter::AltitudeAiding;
+
+    using Context = CommandSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -1926,9 +2002,9 @@ struct MetadataFor<commands_filter::AltitudeAiding>
             /* .docs        = */ "Select altitude input for absolute altitude and/or vertical velocity. The primary altitude reading is always GNSS.\nAiding inputs are used to improve GNSS altitude readings when GNSS is available and to backup GNSS during outages.\n\nPressure altitude is based on 'instant sea level pressure' which is dependent on location and weather conditions and can vary by more than 40 meters.\n",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -1961,6 +2037,8 @@ struct MetadataFor<commands_filter::PitchRollAiding::Response>
 {
     using type = commands_filter::PitchRollAiding::Response;
 
+    using Context = commands_filter::PitchRollAiding;
+
     using ParamTypes = std::tuple<
         decltype(type::source)
     >;
@@ -1988,9 +2066,9 @@ struct MetadataFor<commands_filter::PitchRollAiding::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -2000,6 +2078,8 @@ template<>
 struct MetadataFor<commands_filter::PitchRollAiding>
 {
     using type = commands_filter::PitchRollAiding;
+
+    using Context = CommandSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -2031,9 +2111,9 @@ struct MetadataFor<commands_filter::PitchRollAiding>
             /* .docs        = */ "Select pitch/roll aiding input. Pitch/roll reading is always derived from GNSS corrected inertial solution.\nAiding inputs are used to improve that solution during periods of low dynamics and GNSS outages.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -2044,6 +2124,8 @@ template<>
 struct MetadataFor<commands_filter::AutoZupt::Response>
 {
     using type = commands_filter::AutoZupt::Response;
+
+    using Context = commands_filter::AutoZupt;
 
     using ParamTypes = std::tuple<
         decltype(type::enable),
@@ -2083,9 +2165,9 @@ struct MetadataFor<commands_filter::AutoZupt::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -2095,6 +2177,8 @@ template<>
 struct MetadataFor<commands_filter::AutoZupt>
 {
     using type = commands_filter::AutoZupt;
+
+    using Context = CommandSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -2137,9 +2221,9 @@ struct MetadataFor<commands_filter::AutoZupt>
             /* .docs        = */ "The ZUPT is triggered when the scalar magnitude of the GNSS reported velocity vector is equal-to or less than the threshold value.\nThe device will NACK threshold values that are less than zero (i.e.negative.)",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -2150,6 +2234,8 @@ template<>
 struct MetadataFor<commands_filter::AutoAngularZupt::Response>
 {
     using type = commands_filter::AutoAngularZupt::Response;
+
+    using Context = commands_filter::AutoAngularZupt;
 
     using ParamTypes = std::tuple<
         decltype(type::enable),
@@ -2189,9 +2275,9 @@ struct MetadataFor<commands_filter::AutoAngularZupt::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -2201,6 +2287,8 @@ template<>
 struct MetadataFor<commands_filter::AutoAngularZupt>
 {
     using type = commands_filter::AutoAngularZupt;
+
+    using Context = CommandSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -2243,9 +2331,9 @@ struct MetadataFor<commands_filter::AutoAngularZupt>
             /* .docs        = */ "Zero Angular Rate Update\nThe ZUPT is triggered when the scalar magnitude of the angular rate vector is equal-to or less than the threshold value.\nThe device will NACK threshold values that are less than zero (i.e.negative.)",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -2257,6 +2345,8 @@ struct MetadataFor<commands_filter::CommandedZupt>
 {
     using type = commands_filter::CommandedZupt;
 
+    using Context = CommandSetFilter;
+
     using ParamTypes = std::tuple<>;
 
     static constexpr inline FieldInfo value = {
@@ -2266,9 +2356,9 @@ struct MetadataFor<commands_filter::CommandedZupt>
             /* .docs        = */ "Please see the device user manual for the maximum rate of this message.",
             /* .parameters  = */ {},
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -2280,6 +2370,8 @@ struct MetadataFor<commands_filter::CommandedAngularZupt>
 {
     using type = commands_filter::CommandedAngularZupt;
 
+    using Context = CommandSetFilter;
+
     using ParamTypes = std::tuple<>;
 
     static constexpr inline FieldInfo value = {
@@ -2289,9 +2381,9 @@ struct MetadataFor<commands_filter::CommandedAngularZupt>
             /* .docs        = */ "Please see the device user manual for the maximum rate of this message.",
             /* .parameters  = */ {},
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -2302,6 +2394,8 @@ template<>
 struct MetadataFor<commands_filter::MagCaptureAutoCal>
 {
     using type = commands_filter::MagCaptureAutoCal;
+
+    using Context = CommandSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::function)
@@ -2323,9 +2417,9 @@ struct MetadataFor<commands_filter::MagCaptureAutoCal>
             /* .docs        = */ "This command captures the current value of the auto-calibration, applies it to the current fixed hard and soft iron calibration coefficients, and replaces the current fixed hard and soft iron calibration coefficients with the new values.\nThis may be used in place of (or in addition to) a manual hard and soft iron calibration utility. This command also resets the auto-calibration coefficients.\nFunction selector SAVE is the same as issuing the 0x0C, 0x3A and 0x0C, 0x3B commands with the SAVE function selector.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, false, true, false, false},
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, false, true, false, false},
+        /* .response    = */ nullptr,
     };
 };
 
@@ -2336,6 +2430,8 @@ template<>
 struct MetadataFor<commands_filter::GravityNoise::Response>
 {
     using type = commands_filter::GravityNoise::Response;
+
+    using Context = commands_filter::GravityNoise;
 
     using ParamTypes = std::tuple<
         decltype(type::noise)
@@ -2364,9 +2460,9 @@ struct MetadataFor<commands_filter::GravityNoise::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -2376,6 +2472,8 @@ template<>
 struct MetadataFor<commands_filter::GravityNoise>
 {
     using type = commands_filter::GravityNoise;
+
+    using Context = CommandSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -2407,9 +2505,9 @@ struct MetadataFor<commands_filter::GravityNoise>
             /* .docs        = */ "Set the expected gravity noise 1-sigma values. This function can be used to tune the filter performance in the target application.\n\nNote: Noise values must be greater than 0.0\n\nThe noise value represents process noise in the Estimation Filter. Changing this value modifies how the filter responds to dynamic input and can be used to tune filter performance.\nDefault values provide good performance for most laboratory conditions.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -2420,6 +2518,8 @@ template<>
 struct MetadataFor<commands_filter::PressureAltitudeNoise::Response>
 {
     using type = commands_filter::PressureAltitudeNoise::Response;
+
+    using Context = commands_filter::PressureAltitudeNoise;
 
     using ParamTypes = std::tuple<
         decltype(type::noise)
@@ -2448,9 +2548,9 @@ struct MetadataFor<commands_filter::PressureAltitudeNoise::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -2460,6 +2560,8 @@ template<>
 struct MetadataFor<commands_filter::PressureAltitudeNoise>
 {
     using type = commands_filter::PressureAltitudeNoise;
+
+    using Context = CommandSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -2491,9 +2593,9 @@ struct MetadataFor<commands_filter::PressureAltitudeNoise>
             /* .docs        = */ "Set the expected pressure altitude noise 1-sigma values. This function can be used to tune the filter performance in the target application.\n\nThe noise value must be greater than 0.0\n\nThis noise value represents pressure altitude model noise in the Estimation Filter.\nA lower value will increase responsiveness of the sensor to pressure changes, however height estimates will be more susceptible to error from air pressure fluctuations not due to changes in altitude. Default values provide good performance for most laboratory conditions.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -2504,6 +2606,8 @@ template<>
 struct MetadataFor<commands_filter::HardIronOffsetNoise::Response>
 {
     using type = commands_filter::HardIronOffsetNoise::Response;
+
+    using Context = commands_filter::HardIronOffsetNoise;
 
     using ParamTypes = std::tuple<
         decltype(type::noise)
@@ -2532,9 +2636,9 @@ struct MetadataFor<commands_filter::HardIronOffsetNoise::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -2544,6 +2648,8 @@ template<>
 struct MetadataFor<commands_filter::HardIronOffsetNoise>
 {
     using type = commands_filter::HardIronOffsetNoise;
+
+    using Context = CommandSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -2575,9 +2681,9 @@ struct MetadataFor<commands_filter::HardIronOffsetNoise>
             /* .docs        = */ "Set the expected hard iron offset noise 1-sigma values. This function can be used to tune the filter performance in the target application.\n\nThis function can be used to tune the filter performance in the target application.\n\nNoise values must be greater than 0.0\n\nThe noise values represent process noise in the Estimation Filter.\nChanging this value modifies how the filter responds to dynamic input and can be used to tune the performance of the filter. Default values provide good performance for most laboratory conditions.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -2588,6 +2694,8 @@ template<>
 struct MetadataFor<commands_filter::SoftIronMatrixNoise::Response>
 {
     using type = commands_filter::SoftIronMatrixNoise::Response;
+
+    using Context = commands_filter::SoftIronMatrixNoise;
 
     using ParamTypes = std::tuple<
         decltype(type::noise)
@@ -2616,9 +2724,9 @@ struct MetadataFor<commands_filter::SoftIronMatrixNoise::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -2628,6 +2736,8 @@ template<>
 struct MetadataFor<commands_filter::SoftIronMatrixNoise>
 {
     using type = commands_filter::SoftIronMatrixNoise;
+
+    using Context = CommandSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -2659,9 +2769,9 @@ struct MetadataFor<commands_filter::SoftIronMatrixNoise>
             /* .docs        = */ "Set the expected soft iron matrix noise 1-sigma values.\nThis function can be used to tune the filter performance in the target application.\n\nNoise values must be greater than 0.0\n\nThe noise value represents process noise in the Estimation Filter.\nChanging this value modifies how the filter responds to dynamic input and can be used to tune the performance of the filter. Default values provide good performance for most laboratory conditions.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -2672,6 +2782,8 @@ template<>
 struct MetadataFor<commands_filter::MagNoise::Response>
 {
     using type = commands_filter::MagNoise::Response;
+
+    using Context = commands_filter::MagNoise;
 
     using ParamTypes = std::tuple<
         decltype(type::noise)
@@ -2700,9 +2812,9 @@ struct MetadataFor<commands_filter::MagNoise::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -2712,6 +2824,8 @@ template<>
 struct MetadataFor<commands_filter::MagNoise>
 {
     using type = commands_filter::MagNoise;
+
+    using Context = CommandSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -2743,9 +2857,9 @@ struct MetadataFor<commands_filter::MagNoise>
             /* .docs        = */ "Set the expected magnetometer noise 1-sigma values.\nThis function can be used to tune the filter performance in the target application.\n\nNoise values must be greater than 0.0 (gauss)\n\nThe noise value represents process noise in the Estimation Filter.\nChanging this value modifies how the filter responds to dynamic input and can be used to tune the performance of the filter. Default values provide good performance for most laboratory conditions",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -2778,6 +2892,8 @@ template<>
 struct MetadataFor<commands_filter::InclinationSource::Response>
 {
     using type = commands_filter::InclinationSource::Response;
+
+    using Context = commands_filter::InclinationSource;
 
     using ParamTypes = std::tuple<
         decltype(type::source),
@@ -2817,9 +2933,9 @@ struct MetadataFor<commands_filter::InclinationSource::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -2829,6 +2945,8 @@ template<>
 struct MetadataFor<commands_filter::InclinationSource>
 {
     using type = commands_filter::InclinationSource;
+
+    using Context = CommandSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -2871,9 +2989,9 @@ struct MetadataFor<commands_filter::InclinationSource>
             /* .docs        = */ "Set/Get the local magnetic field inclination angle source.\n\nThis can be used to correct for the local value of inclination (dip angle) of the earthmagnetic field.\nHaving a correct value is important for best performance of the auto-mag calibration feature. If you do not have an accurate inclination angle source, it is recommended that you leave the auto-mag calibration feature off.\n",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -2884,6 +3002,8 @@ template<>
 struct MetadataFor<commands_filter::MagneticDeclinationSource::Response>
 {
     using type = commands_filter::MagneticDeclinationSource::Response;
+
+    using Context = commands_filter::MagneticDeclinationSource;
 
     using ParamTypes = std::tuple<
         decltype(type::source),
@@ -2923,9 +3043,9 @@ struct MetadataFor<commands_filter::MagneticDeclinationSource::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -2935,6 +3055,8 @@ template<>
 struct MetadataFor<commands_filter::MagneticDeclinationSource>
 {
     using type = commands_filter::MagneticDeclinationSource;
+
+    using Context = CommandSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -2977,9 +3099,9 @@ struct MetadataFor<commands_filter::MagneticDeclinationSource>
             /* .docs        = */ "Set/Get the local magnetic field declination angle source.\n\nThis can be used to correct for the local value of declination of the earthmagnetic field.\nHaving a correct value is important for best performance of the auto-mag calibration feature. If you do not have an accurate inclination angle source, it is recommended that you leave the auto-mag calibration feature off.\n",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -2990,6 +3112,8 @@ template<>
 struct MetadataFor<commands_filter::MagFieldMagnitudeSource::Response>
 {
     using type = commands_filter::MagFieldMagnitudeSource::Response;
+
+    using Context = commands_filter::MagFieldMagnitudeSource;
 
     using ParamTypes = std::tuple<
         decltype(type::source),
@@ -3029,9 +3153,9 @@ struct MetadataFor<commands_filter::MagFieldMagnitudeSource::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -3041,6 +3165,8 @@ template<>
 struct MetadataFor<commands_filter::MagFieldMagnitudeSource>
 {
     using type = commands_filter::MagFieldMagnitudeSource;
+
+    using Context = CommandSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -3083,9 +3209,9 @@ struct MetadataFor<commands_filter::MagFieldMagnitudeSource>
             /* .docs        = */ "Set/Get the local magnetic field magnitude source.\n\nThis is used to specify the local magnitude of the earth's magnetic field.\nHaving a correct value for magnitude is important for best performance of the auto-mag calibration feature and for the magnetometer adaptive magnitude. If you do not have an accurate value for the local magnetic field magnitude, it is recommended that you leave the auto-mag calibration feature off.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -3096,6 +3222,8 @@ template<>
 struct MetadataFor<commands_filter::ReferencePosition::Response>
 {
     using type = commands_filter::ReferencePosition::Response;
+
+    using Context = commands_filter::ReferencePosition;
 
     using ParamTypes = std::tuple<
         decltype(type::enable),
@@ -3157,9 +3285,9 @@ struct MetadataFor<commands_filter::ReferencePosition::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -3169,6 +3297,8 @@ template<>
 struct MetadataFor<commands_filter::ReferencePosition>
 {
     using type = commands_filter::ReferencePosition;
+
+    using Context = CommandSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -3233,9 +3363,9 @@ struct MetadataFor<commands_filter::ReferencePosition>
             /* .docs        = */ "Set the Lat/Long/Alt reference position for the sensor.\n\nThis position is used by the sensor to calculate the WGS84 gravity and WMM2015 magnetic field parameters.\n",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -3268,6 +3398,8 @@ template<>
 struct MetadataFor<commands_filter::AccelMagnitudeErrorAdaptiveMeasurement::Response>
 {
     using type = commands_filter::AccelMagnitudeErrorAdaptiveMeasurement::Response;
+
+    using Context = commands_filter::AccelMagnitudeErrorAdaptiveMeasurement;
 
     using ParamTypes = std::tuple<
         decltype(type::adaptive_measurement),
@@ -3362,9 +3494,9 @@ struct MetadataFor<commands_filter::AccelMagnitudeErrorAdaptiveMeasurement::Resp
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -3374,6 +3506,8 @@ template<>
 struct MetadataFor<commands_filter::AccelMagnitudeErrorAdaptiveMeasurement>
 {
     using type = commands_filter::AccelMagnitudeErrorAdaptiveMeasurement;
+
+    using Context = CommandSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -3471,9 +3605,9 @@ struct MetadataFor<commands_filter::AccelMagnitudeErrorAdaptiveMeasurement>
             /* .docs        = */ "Enable or disable the gravity magnitude error adaptive measurement.\nThis function can be used to tune the filter performance in the target application\n\nPick values that give you the least occurrence of invalid EF attitude output.\nThe default values are good for standard low dynamics applications.\nIncrease values for higher dynamic conditions, lower values for lower dynamic.\nToo low a value will result in excessive heading errors.\nHigher values increase heading errors when undergoing magnetic field anomalies caused by DC currents, magnets, steel structures,etc.\n\nAdaptive measurements can be enabled/disabled without the need for providing the additional parameters.\nIn this case, only the function selector and enable value are required; all other parameters will remain at their previous values.\nWhen 'auto-adaptive' is selected, the filter and limit parameters are ignored.\nInstead, aiding measurements which rely on the gravity vector will be automatically reweighted by the Kalman filter according to the perceived measurement quality.\n",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -3484,6 +3618,8 @@ template<>
 struct MetadataFor<commands_filter::MagMagnitudeErrorAdaptiveMeasurement::Response>
 {
     using type = commands_filter::MagMagnitudeErrorAdaptiveMeasurement::Response;
+
+    using Context = commands_filter::MagMagnitudeErrorAdaptiveMeasurement;
 
     using ParamTypes = std::tuple<
         decltype(type::adaptive_measurement),
@@ -3578,9 +3714,9 @@ struct MetadataFor<commands_filter::MagMagnitudeErrorAdaptiveMeasurement::Respon
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -3590,6 +3726,8 @@ template<>
 struct MetadataFor<commands_filter::MagMagnitudeErrorAdaptiveMeasurement>
 {
     using type = commands_filter::MagMagnitudeErrorAdaptiveMeasurement;
+
+    using Context = CommandSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -3687,9 +3825,9 @@ struct MetadataFor<commands_filter::MagMagnitudeErrorAdaptiveMeasurement>
             /* .docs        = */ "Enable or disable the magnetometer magnitude error adaptive measurement.\nThis feature will reject magnetometer readings that are out of range of the thresholds specified (fixed adaptive) or calculated internally (auto-adaptive).\n\nPick values that give you the least occurrence of invalid EF attitude output.\nThe default values are good for standard low dynamics applications.\nIncrease values for higher dynamic conditions, lower values for lower dynamic.\nToo low a value will result in excessive heading errors.\nHigher values increase heading errors when undergoing magnetic field anomalies caused by DC currents, magnets, steel structures,etc.\n",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -3700,6 +3838,8 @@ template<>
 struct MetadataFor<commands_filter::MagDipAngleErrorAdaptiveMeasurement::Response>
 {
     using type = commands_filter::MagDipAngleErrorAdaptiveMeasurement::Response;
+
+    using Context = commands_filter::MagDipAngleErrorAdaptiveMeasurement;
 
     using ParamTypes = std::tuple<
         decltype(type::enable),
@@ -3772,9 +3912,9 @@ struct MetadataFor<commands_filter::MagDipAngleErrorAdaptiveMeasurement::Respons
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -3784,6 +3924,8 @@ template<>
 struct MetadataFor<commands_filter::MagDipAngleErrorAdaptiveMeasurement>
 {
     using type = commands_filter::MagDipAngleErrorAdaptiveMeasurement;
+
+    using Context = CommandSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -3859,9 +4001,9 @@ struct MetadataFor<commands_filter::MagDipAngleErrorAdaptiveMeasurement>
             /* .docs        = */ "Enable or disable the magnetometer dip angle error adaptive measurement.\nThis function can be used to tune the filter performance in the target application\n\nPick values that give you the least occurrence of invalid EF attitude output.\nThe default values are good for standard low dynamics applications.\nIncrease values for higher dynamic conditions, lower values for lower dynamic.\nToo low a value will result in excessive heading errors.\nHigher values increase heading errors when undergoing magnetic field anomalies caused by DC currents, magnets, steel structures,etc.\n\nThe magnetometer dip angle adaptive measurement is ignored if the auto-adaptive magnetometer magnitude or auto-adaptive accel magnitude options are selected.\n",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -3902,6 +4044,8 @@ struct MetadataFor<commands_filter::AidingMeasurementEnable::Response>
 {
     using type = commands_filter::AidingMeasurementEnable::Response;
 
+    using Context = commands_filter::AidingMeasurementEnable;
+
     using ParamTypes = std::tuple<
         decltype(type::aiding_source),
         decltype(type::enable)
@@ -3940,9 +4084,9 @@ struct MetadataFor<commands_filter::AidingMeasurementEnable::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -3952,6 +4096,8 @@ template<>
 struct MetadataFor<commands_filter::AidingMeasurementEnable>
 {
     using type = commands_filter::AidingMeasurementEnable;
+
+    using Context = CommandSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -3994,9 +4140,9 @@ struct MetadataFor<commands_filter::AidingMeasurementEnable>
             /* .docs        = */ "Enables / disables the specified aiding measurement source.\n\n",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -4008,6 +4154,8 @@ struct MetadataFor<commands_filter::Run>
 {
     using type = commands_filter::Run;
 
+    using Context = CommandSetFilter;
+
     using ParamTypes = std::tuple<>;
 
     static constexpr inline FieldInfo value = {
@@ -4017,9 +4165,9 @@ struct MetadataFor<commands_filter::Run>
             /* .docs        = */ "Manual run command.\n\nIf the initialization configuration has the 'wait_for_run_command' option enabled, the filter will wait until it receives this command before commencing integration and enabling the Kalman filter. Prior to the receipt of this command, the filter will remain in the filter initialization mode.",
             /* .parameters  = */ {},
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -4030,6 +4178,8 @@ template<>
 struct MetadataFor<commands_filter::KinematicConstraint::Response>
 {
     using type = commands_filter::KinematicConstraint::Response;
+
+    using Context = commands_filter::KinematicConstraint;
 
     using ParamTypes = std::tuple<
         decltype(type::acceleration_constraint_selection),
@@ -4080,9 +4230,9 @@ struct MetadataFor<commands_filter::KinematicConstraint::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -4092,6 +4242,8 @@ template<>
 struct MetadataFor<commands_filter::KinematicConstraint>
 {
     using type = commands_filter::KinematicConstraint;
+
+    using Context = CommandSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -4145,9 +4297,9 @@ struct MetadataFor<commands_filter::KinematicConstraint>
             /* .docs        = */ "Controls kinematic constraint model selection for the navigation filter.\n\nSee manual for explanation of how the kinematic constraints are applied.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -4225,6 +4377,8 @@ template<>
 struct MetadataFor<commands_filter::InitializationConfiguration::Response>
 {
     using type = commands_filter::InitializationConfiguration::Response;
+
+    using Context = commands_filter::InitializationConfiguration;
 
     using ParamTypes = std::tuple<
         decltype(type::wait_for_run_command),
@@ -4341,9 +4495,9 @@ struct MetadataFor<commands_filter::InitializationConfiguration::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -4353,6 +4507,8 @@ template<>
 struct MetadataFor<commands_filter::InitializationConfiguration>
 {
     using type = commands_filter::InitializationConfiguration;
+
+    using Context = CommandSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -4472,9 +4628,9 @@ struct MetadataFor<commands_filter::InitializationConfiguration>
             /* .docs        = */ "Controls the source and values used for initial conditions of the navigation solution.\n\nNotes: Initial conditions are the position, velocity, and attitude of the platform used when the filter starts running or is reset.\nFor the user specified position array, the units are meters if the ECEF frame is selected, and degrees latitude, degrees longitude, and meters above ellipsoid if the latitude/longitude/height frame is selected.\nFor the user specified velocity array, the units are meters per second, but the reference frame depends on the reference frame selector (ECEF or NED).",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -4485,6 +4641,8 @@ template<>
 struct MetadataFor<commands_filter::AdaptiveFilterOptions::Response>
 {
     using type = commands_filter::AdaptiveFilterOptions::Response;
+
+    using Context = commands_filter::AdaptiveFilterOptions;
 
     using ParamTypes = std::tuple<
         decltype(type::level),
@@ -4524,9 +4682,9 @@ struct MetadataFor<commands_filter::AdaptiveFilterOptions::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -4536,6 +4694,8 @@ template<>
 struct MetadataFor<commands_filter::AdaptiveFilterOptions>
 {
     using type = commands_filter::AdaptiveFilterOptions;
+
+    using Context = CommandSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -4578,9 +4738,9 @@ struct MetadataFor<commands_filter::AdaptiveFilterOptions>
             /* .docs        = */ "Configures the basic setup for auto-adaptive filtering. See product manual for a detailed description of this feature.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -4591,6 +4751,8 @@ template<>
 struct MetadataFor<commands_filter::MultiAntennaOffset::Response>
 {
     using type = commands_filter::MultiAntennaOffset::Response;
+
+    using Context = commands_filter::MultiAntennaOffset;
 
     using ParamTypes = std::tuple<
         decltype(type::receiver_id),
@@ -4630,9 +4792,9 @@ struct MetadataFor<commands_filter::MultiAntennaOffset::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -4642,6 +4804,8 @@ template<>
 struct MetadataFor<commands_filter::MultiAntennaOffset>
 {
     using type = commands_filter::MultiAntennaOffset;
+
+    using Context = CommandSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -4684,9 +4848,9 @@ struct MetadataFor<commands_filter::MultiAntennaOffset>
             /* .docs        = */ "Set the antenna lever arm.\n\nThis command works with devices that utilize multiple antennas.\n<br/><br/><b>Offset Limit</b>: 10 m magnitude (default)",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -4697,6 +4861,8 @@ template<>
 struct MetadataFor<commands_filter::RelPosConfiguration::Response>
 {
     using type = commands_filter::RelPosConfiguration::Response;
+
+    using Context = commands_filter::RelPosConfiguration;
 
     using ParamTypes = std::tuple<
         decltype(type::source),
@@ -4747,9 +4913,9 @@ struct MetadataFor<commands_filter::RelPosConfiguration::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -4759,6 +4925,8 @@ template<>
 struct MetadataFor<commands_filter::RelPosConfiguration>
 {
     using type = commands_filter::RelPosConfiguration;
+
+    using Context = CommandSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -4812,9 +4980,9 @@ struct MetadataFor<commands_filter::RelPosConfiguration>
             /* .docs        = */ "Configure the reference location for filter relative positioning outputs",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -4845,6 +5013,8 @@ template<>
 struct MetadataFor<commands_filter::RefPointLeverArm::Response>
 {
     using type = commands_filter::RefPointLeverArm::Response;
+
+    using Context = commands_filter::RefPointLeverArm;
 
     using ParamTypes = std::tuple<
         decltype(type::ref_point_sel),
@@ -4884,9 +5054,9 @@ struct MetadataFor<commands_filter::RefPointLeverArm::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -4896,6 +5066,8 @@ template<>
 struct MetadataFor<commands_filter::RefPointLeverArm>
 {
     using type = commands_filter::RefPointLeverArm;
+
+    using Context = CommandSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -4938,9 +5110,9 @@ struct MetadataFor<commands_filter::RefPointLeverArm>
             /* .docs        = */ "Lever arm offset with respect to the sensor for the indicated point of reference.\nThis is used to change the location of the indicated point of reference, and will affect filter position and velocity outputs.\nChanging this setting from default will result in a global position offset that depends on vehicle attitude,\nand a velocity offset that depends on vehicle attitude and angular rate.\n<br/>The lever arm is defined by a 3-element vector that points from the sensor to the desired reference point, with (x,y,z) components given in the vehicle's reference frame.\n<br/><br/>Note, if the reference point selector is set to VEH (1), this setting will affect the following data fields: (0x82, 0x01), (0x82, 0x02), (0x82, 0x40), (0x82, 0x41), and (0x82, 42)\n<br/><br/><b>Offset Limits</b>\n<br/>Reference Point VEH (1): 10 m magnitude (default)",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -4951,6 +5123,8 @@ template<>
 struct MetadataFor<commands_filter::SpeedMeasurement>
 {
     using type = commands_filter::SpeedMeasurement;
+
+    using Context = CommandSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::source),
@@ -5012,9 +5186,9 @@ struct MetadataFor<commands_filter::SpeedMeasurement>
             /* .docs        = */ "Speed aiding measurement, where speed is defined as rate of motion along the vehicle's x-axis direction.\nCan be used by an external odometer/speedometer, for example.\nThis command cannot be used if the internal odometer is configured.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -5025,6 +5199,8 @@ template<>
 struct MetadataFor<commands_filter::SpeedLeverArm::Response>
 {
     using type = commands_filter::SpeedLeverArm::Response;
+
+    using Context = commands_filter::SpeedLeverArm;
 
     using ParamTypes = std::tuple<
         decltype(type::source),
@@ -5064,9 +5240,9 @@ struct MetadataFor<commands_filter::SpeedLeverArm::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -5076,6 +5252,8 @@ template<>
 struct MetadataFor<commands_filter::SpeedLeverArm>
 {
     using type = commands_filter::SpeedLeverArm;
+
+    using Context = CommandSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -5118,9 +5296,9 @@ struct MetadataFor<commands_filter::SpeedLeverArm>
             /* .docs        = */ "Lever arm offset for speed measurements.\nThis is used to compensate for an off-center measurement point\nhaving a different speed due to rotation of the vehicle.\nThe typical use case for this would be an odometer attached to a wheel\non a standard 4-wheeled vehicle. If the odometer is on the left wheel,\nit will report higher speed on right turns and lower speed on left turns.\nThis is because the outside edge of the curve is longer than the inside edge.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -5131,6 +5309,8 @@ template<>
 struct MetadataFor<commands_filter::WheeledVehicleConstraintControl::Response>
 {
     using type = commands_filter::WheeledVehicleConstraintControl::Response;
+
+    using Context = commands_filter::WheeledVehicleConstraintControl;
 
     using ParamTypes = std::tuple<
         decltype(type::enable)
@@ -5159,9 +5339,9 @@ struct MetadataFor<commands_filter::WheeledVehicleConstraintControl::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -5171,6 +5351,8 @@ template<>
 struct MetadataFor<commands_filter::WheeledVehicleConstraintControl>
 {
     using type = commands_filter::WheeledVehicleConstraintControl;
+
+    using Context = CommandSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -5202,9 +5384,9 @@ struct MetadataFor<commands_filter::WheeledVehicleConstraintControl>
             /* .docs        = */ "Configure the wheeled vehicle kinematic constraint.\n\nWhen enabled, the filter uses the assumption that velocity is constrained to the primary vehicle axis.\nBy convention, the primary vehicle axis is the vehicle X-axis (note: the sensor may be physically installed in\nany orientation on the vehicle if the appropriate mounting transformation has been specified).\nThis constraint will typically improve heading estimates for vehicles where the assumption is valid, such\nas an automobile, particularly when GNSS coverage is intermittent.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -5215,6 +5397,8 @@ template<>
 struct MetadataFor<commands_filter::VerticalGyroConstraintControl::Response>
 {
     using type = commands_filter::VerticalGyroConstraintControl::Response;
+
+    using Context = commands_filter::VerticalGyroConstraintControl;
 
     using ParamTypes = std::tuple<
         decltype(type::enable)
@@ -5243,9 +5427,9 @@ struct MetadataFor<commands_filter::VerticalGyroConstraintControl::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -5255,6 +5439,8 @@ template<>
 struct MetadataFor<commands_filter::VerticalGyroConstraintControl>
 {
     using type = commands_filter::VerticalGyroConstraintControl;
+
+    using Context = CommandSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -5286,9 +5472,9 @@ struct MetadataFor<commands_filter::VerticalGyroConstraintControl>
             /* .docs        = */ "Configure the vertical gyro kinematic constraint.\n\nWhen enabled and no valid GNSS measurements are available, the filter uses the accelerometers to track pitch\nand roll under the assumption that the sensor platform is not undergoing linear acceleration.\nThis constraint is useful to maintain accurate pitch and roll during GNSS signal outages.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -5299,6 +5485,8 @@ template<>
 struct MetadataFor<commands_filter::GnssAntennaCalControl::Response>
 {
     using type = commands_filter::GnssAntennaCalControl::Response;
+
+    using Context = commands_filter::GnssAntennaCalControl;
 
     using ParamTypes = std::tuple<
         decltype(type::enable),
@@ -5338,9 +5526,9 @@ struct MetadataFor<commands_filter::GnssAntennaCalControl::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -5350,6 +5538,8 @@ template<>
 struct MetadataFor<commands_filter::GnssAntennaCalControl>
 {
     using type = commands_filter::GnssAntennaCalControl;
+
+    using Context = CommandSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -5392,9 +5582,9 @@ struct MetadataFor<commands_filter::GnssAntennaCalControl>
             /* .docs        = */ "Configure the GNSS antenna lever arm calibration.\n\nWhen enabled, the filter will enable lever arm error tracking, up to the maximum offset specified.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -5405,6 +5595,8 @@ template<>
 struct MetadataFor<commands_filter::SetInitialHeading>
 {
     using type = commands_filter::SetInitialHeading;
+
+    using Context = CommandSetFilter;
 
     using ParamTypes = std::tuple<
         decltype(type::heading)
@@ -5433,9 +5625,9 @@ struct MetadataFor<commands_filter::SetInitialHeading>
             /* .docs        = */ "Set the initial heading angle.\n\nThe estimation filter will reset the heading estimate to provided value. If the product supports magnetometer aiding and this feature has been enabled, the heading\nargument will be ignored and the filter will initialize using the inferred magnetic heading.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 

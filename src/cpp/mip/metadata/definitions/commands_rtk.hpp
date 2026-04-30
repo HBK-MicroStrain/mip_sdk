@@ -8,6 +8,8 @@
 namespace mip::metadata
 {
 
+struct CommandSetRtk;
+
 
 template<>
 struct MetadataFor<commands_rtk::GetStatusFlags::StatusFlagsLegacy>
@@ -75,6 +77,8 @@ struct MetadataFor<commands_rtk::GetStatusFlags::Response>
 {
     using type = commands_rtk::GetStatusFlags::Response;
 
+    using Context = commands_rtk::GetStatusFlags;
+
     using ParamTypes = std::tuple<
         decltype(type::flags)
     >;
@@ -102,9 +106,9 @@ struct MetadataFor<commands_rtk::GetStatusFlags::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -115,6 +119,8 @@ struct MetadataFor<commands_rtk::GetStatusFlags>
 {
     using type = commands_rtk::GetStatusFlags;
 
+    using Context = CommandSetRtk;
+
     using ParamTypes = std::tuple<>;
 
     static constexpr inline FieldInfo value = {
@@ -124,9 +130,9 @@ struct MetadataFor<commands_rtk::GetStatusFlags>
             /* .docs        = */ "",
             /* .parameters  = */ {},
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -137,6 +143,8 @@ template<>
 struct MetadataFor<commands_rtk::GetImei::Response>
 {
     using type = commands_rtk::GetImei::Response;
+
+    using Context = commands_rtk::GetImei;
 
     using ParamTypes = std::tuple<
         decltype(type::IMEI)
@@ -165,9 +173,9 @@ struct MetadataFor<commands_rtk::GetImei::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -178,6 +186,8 @@ struct MetadataFor<commands_rtk::GetImei>
 {
     using type = commands_rtk::GetImei;
 
+    using Context = CommandSetRtk;
+
     using ParamTypes = std::tuple<>;
 
     static constexpr inline FieldInfo value = {
@@ -187,9 +197,9 @@ struct MetadataFor<commands_rtk::GetImei>
             /* .docs        = */ "",
             /* .parameters  = */ {},
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -200,6 +210,8 @@ template<>
 struct MetadataFor<commands_rtk::GetImsi::Response>
 {
     using type = commands_rtk::GetImsi::Response;
+
+    using Context = commands_rtk::GetImsi;
 
     using ParamTypes = std::tuple<
         decltype(type::IMSI)
@@ -228,9 +240,9 @@ struct MetadataFor<commands_rtk::GetImsi::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -241,6 +253,8 @@ struct MetadataFor<commands_rtk::GetImsi>
 {
     using type = commands_rtk::GetImsi;
 
+    using Context = CommandSetRtk;
+
     using ParamTypes = std::tuple<>;
 
     static constexpr inline FieldInfo value = {
@@ -250,9 +264,9 @@ struct MetadataFor<commands_rtk::GetImsi>
             /* .docs        = */ "",
             /* .parameters  = */ {},
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -263,6 +277,8 @@ template<>
 struct MetadataFor<commands_rtk::GetIccid::Response>
 {
     using type = commands_rtk::GetIccid::Response;
+
+    using Context = commands_rtk::GetIccid;
 
     using ParamTypes = std::tuple<
         decltype(type::ICCID)
@@ -291,9 +307,9 @@ struct MetadataFor<commands_rtk::GetIccid::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -304,6 +320,8 @@ struct MetadataFor<commands_rtk::GetIccid>
 {
     using type = commands_rtk::GetIccid;
 
+    using Context = CommandSetRtk;
+
     using ParamTypes = std::tuple<>;
 
     static constexpr inline FieldInfo value = {
@@ -313,9 +331,9 @@ struct MetadataFor<commands_rtk::GetIccid>
             /* .docs        = */ "",
             /* .parameters  = */ {},
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -348,6 +366,8 @@ struct MetadataFor<commands_rtk::ConnectedDeviceType::Response>
 {
     using type = commands_rtk::ConnectedDeviceType::Response;
 
+    using Context = commands_rtk::ConnectedDeviceType;
+
     using ParamTypes = std::tuple<
         decltype(type::devType)
     >;
@@ -375,9 +395,9 @@ struct MetadataFor<commands_rtk::ConnectedDeviceType::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -387,6 +407,8 @@ template<>
 struct MetadataFor<commands_rtk::ConnectedDeviceType>
 {
     using type = commands_rtk::ConnectedDeviceType;
+
+    using Context = CommandSetRtk;
 
     using ParamTypes = std::tuple<
         decltype(type::function),
@@ -418,9 +440,9 @@ struct MetadataFor<commands_rtk::ConnectedDeviceType>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -431,6 +453,8 @@ template<>
 struct MetadataFor<commands_rtk::GetActCode::Response>
 {
     using type = commands_rtk::GetActCode::Response;
+
+    using Context = commands_rtk::GetActCode;
 
     using ParamTypes = std::tuple<
         decltype(type::ActivationCode)
@@ -459,9 +483,9 @@ struct MetadataFor<commands_rtk::GetActCode::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -472,6 +496,8 @@ struct MetadataFor<commands_rtk::GetActCode>
 {
     using type = commands_rtk::GetActCode;
 
+    using Context = CommandSetRtk;
+
     using ParamTypes = std::tuple<>;
 
     static constexpr inline FieldInfo value = {
@@ -481,9 +507,9 @@ struct MetadataFor<commands_rtk::GetActCode>
             /* .docs        = */ "",
             /* .parameters  = */ {},
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -494,6 +520,8 @@ template<>
 struct MetadataFor<commands_rtk::GetModemFirmwareVersion::Response>
 {
     using type = commands_rtk::GetModemFirmwareVersion::Response;
+
+    using Context = commands_rtk::GetModemFirmwareVersion;
 
     using ParamTypes = std::tuple<
         decltype(type::ModemFirmwareVersion)
@@ -522,9 +550,9 @@ struct MetadataFor<commands_rtk::GetModemFirmwareVersion::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -535,6 +563,8 @@ struct MetadataFor<commands_rtk::GetModemFirmwareVersion>
 {
     using type = commands_rtk::GetModemFirmwareVersion;
 
+    using Context = CommandSetRtk;
+
     using ParamTypes = std::tuple<>;
 
     static constexpr inline FieldInfo value = {
@@ -544,9 +574,9 @@ struct MetadataFor<commands_rtk::GetModemFirmwareVersion>
             /* .docs        = */ "",
             /* .parameters  = */ {},
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -557,6 +587,8 @@ template<>
 struct MetadataFor<commands_rtk::GetRssi::Response>
 {
     using type = commands_rtk::GetRssi::Response;
+
+    using Context = commands_rtk::GetRssi;
 
     using ParamTypes = std::tuple<
         decltype(type::valid),
@@ -607,9 +639,9 @@ struct MetadataFor<commands_rtk::GetRssi::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -620,6 +652,8 @@ struct MetadataFor<commands_rtk::GetRssi>
 {
     using type = commands_rtk::GetRssi;
 
+    using Context = CommandSetRtk;
+
     using ParamTypes = std::tuple<>;
 
     static constexpr inline FieldInfo value = {
@@ -629,9 +663,9 @@ struct MetadataFor<commands_rtk::GetRssi>
             /* .docs        = */ "Get the RSSI and connected/disconnected status of modem",
             /* .parameters  = */ {},
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -664,6 +698,8 @@ template<>
 struct MetadataFor<commands_rtk::ServiceStatus::Response>
 {
     using type = commands_rtk::ServiceStatus::Response;
+
+    using Context = commands_rtk::ServiceStatus;
 
     using ParamTypes = std::tuple<
         decltype(type::flags),
@@ -725,9 +761,9 @@ struct MetadataFor<commands_rtk::ServiceStatus::Response>
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -737,6 +773,8 @@ template<>
 struct MetadataFor<commands_rtk::ServiceStatus>
 {
     using type = commands_rtk::ServiceStatus;
+
+    using Context = CommandSetRtk;
 
     using ParamTypes = std::tuple<
         decltype(type::reserved1),
@@ -776,9 +814,9 @@ struct MetadataFor<commands_rtk::ServiceStatus>
             /* .docs        = */ "The 3DMRTK will send this message to the server to indicate that the connection should remain open. The Server will respond with information and status.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
 
@@ -811,6 +849,8 @@ struct MetadataFor<commands_rtk::ProdEraseStorage>
 {
     using type = commands_rtk::ProdEraseStorage;
 
+    using Context = CommandSetRtk;
+
     using ParamTypes = std::tuple<
         decltype(type::media)
     >;
@@ -838,9 +878,9 @@ struct MetadataFor<commands_rtk::ProdEraseStorage>
             /* .docs        = */ "This command will erase the selected media to a raw and uninitialized state. ALL DATA WILL BE LOST.\nThis command is only available in calibration mode.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -873,6 +913,8 @@ template<>
 struct MetadataFor<commands_rtk::LedControl>
 {
     using type = commands_rtk::LedControl;
+
+    using Context = CommandSetRtk;
 
     using ParamTypes = std::tuple<
         decltype(type::primaryColor),
@@ -934,9 +976,9 @@ struct MetadataFor<commands_rtk::LedControl>
             /* .docs        = */ "This command allows direct control of the LED on the 3DM RTK. This command is only available in calibration mode or Production Test Mode.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
@@ -948,6 +990,8 @@ struct MetadataFor<commands_rtk::ModemHardReset>
 {
     using type = commands_rtk::ModemHardReset;
 
+    using Context = CommandSetRtk;
+
     using ParamTypes = std::tuple<>;
 
     static constexpr inline FieldInfo value = {
@@ -957,9 +1001,9 @@ struct MetadataFor<commands_rtk::ModemHardReset>
             /* .docs        = */ "This command will clear the modem flash.  THIS MUST NOT BE DONE OFTEN AS IT CAN DAMAGE THE FLASH!\nThis command is only available in calibration mode.",
             /* .parameters  = */ {},
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
 
