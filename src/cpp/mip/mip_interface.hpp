@@ -1221,7 +1221,7 @@ namespace mip
 
         size_t responseLength = C::mip_pending_cmd_response_length(&pending);
 
-        return extract(response, packet.buffer_w().data(), responseLength, 0) ? CmdResult::ACK_OK : CmdResult::STATUS_ERROR;
+        return extract(response, {packet.buffer_w().data(), responseLength}, 0) ? CmdResult::ACK_OK : CmdResult::STATUS_ERROR;
     }
 
     template<class Cmd>
