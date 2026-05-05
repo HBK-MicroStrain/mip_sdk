@@ -231,6 +231,35 @@ mip_cmd_result mip_gnss_default_signal_configuration(mip_interface* device)
     
     return mip_interface_run_command(device, MIP_GNSS_CMD_DESC_SET, MIP_CMD_DESC_GNSS_SIGNAL_CONFIGURATION, buffer, (uint8_t)microstrain_serializer_length(&serializer));
 }
+void insert_mip_gnss_receiver_reset_command(microstrain_serializer* serializer, const mip_gnss_receiver_reset_command* self)
+{
+    insert_mip_gnss_receiver_id(serializer, self->receiver_id);
+    
+    insert_mip_gnss_receiver_reset_command_reset_type(serializer, self->reset_type);
+    
+}
+void extract_mip_gnss_receiver_reset_command(microstrain_serializer* serializer, mip_gnss_receiver_reset_command* self)
+{
+    extract_mip_gnss_receiver_id(serializer, &self->receiver_id);
+    
+    extract_mip_gnss_receiver_reset_command_reset_type(serializer, &self->reset_type);
+    
+}
+
+mip_cmd_result mip_gnss_receiver_reset(mip_interface* device, mip_gnss_receiver_id receiver_id, mip_gnss_receiver_reset_command_reset_type reset_type)
+{
+    microstrain_serializer serializer;
+    uint8_t buffer[MIP_FIELD_PAYLOAD_LENGTH_MAX];
+    microstrain_serializer_init_insertion(&serializer, buffer, sizeof(buffer));
+    
+    insert_mip_gnss_receiver_id(&serializer, receiver_id);
+    
+    insert_mip_gnss_receiver_reset_command_reset_type(&serializer, reset_type);
+    
+    assert(microstrain_serializer_is_ok(&serializer));
+    
+    return mip_interface_run_command(device, MIP_GNSS_CMD_DESC_SET, MIP_CMD_DESC_GNSS_RECEIVER_RESET, buffer, (uint8_t)microstrain_serializer_length(&serializer));
+}
 void insert_mip_gnss_spartn_configuration_command(microstrain_serializer* serializer, const mip_gnss_spartn_configuration_command* self)
 {
     insert_mip_function_selector(serializer, self->function);
@@ -571,6 +600,134 @@ mip_cmd_result mip_gnss_default_rtk_dongle_configuration(mip_interface* device)
     assert(microstrain_serializer_is_ok(&serializer));
     
     return mip_interface_run_command(device, MIP_GNSS_CMD_DESC_SET, MIP_CMD_DESC_GNSS_RTK_DONGLE_CONFIGURATION, buffer, (uint8_t)microstrain_serializer_length(&serializer));
+}
+void insert_mip_gnss_rtk_configuration_command(microstrain_serializer* serializer, const mip_gnss_rtk_configuration_command* self)
+{
+    insert_mip_function_selector(serializer, self->function);
+    
+    if( self->function == MIP_FUNCTION_WRITE )
+    {
+        insert_mip_gnss_rtk_configuration_command_ambiguity_fix_mode(serializer, self->ambiguity_fix_mode);
+        
+        for(unsigned int i=0; i < 4; i++)
+            microstrain_insert_u8(serializer, self->reserved[i]);
+        
+    }
+}
+void extract_mip_gnss_rtk_configuration_command(microstrain_serializer* serializer, mip_gnss_rtk_configuration_command* self)
+{
+    extract_mip_function_selector(serializer, &self->function);
+    
+    if( self->function == MIP_FUNCTION_WRITE )
+    {
+        extract_mip_gnss_rtk_configuration_command_ambiguity_fix_mode(serializer, &self->ambiguity_fix_mode);
+        
+        for(unsigned int i=0; i < 4; i++)
+            microstrain_extract_u8(serializer, &self->reserved[i]);
+        
+    }
+}
+
+void insert_mip_gnss_rtk_configuration_response(microstrain_serializer* serializer, const mip_gnss_rtk_configuration_response* self)
+{
+    insert_mip_gnss_rtk_configuration_command_ambiguity_fix_mode(serializer, self->ambiguity_fix_mode);
+    
+    for(unsigned int i=0; i < 4; i++)
+        microstrain_insert_u8(serializer, self->reserved[i]);
+    
+}
+void extract_mip_gnss_rtk_configuration_response(microstrain_serializer* serializer, mip_gnss_rtk_configuration_response* self)
+{
+    extract_mip_gnss_rtk_configuration_command_ambiguity_fix_mode(serializer, &self->ambiguity_fix_mode);
+    
+    for(unsigned int i=0; i < 4; i++)
+        microstrain_extract_u8(serializer, &self->reserved[i]);
+    
+}
+
+mip_cmd_result mip_gnss_write_rtk_configuration(mip_interface* device, mip_gnss_rtk_configuration_command_ambiguity_fix_mode ambiguity_fix_mode, const uint8_t* reserved)
+{
+    microstrain_serializer serializer;
+    uint8_t buffer[MIP_FIELD_PAYLOAD_LENGTH_MAX];
+    microstrain_serializer_init_insertion(&serializer, buffer, sizeof(buffer));
+    
+    insert_mip_function_selector(&serializer, MIP_FUNCTION_WRITE);
+    
+    insert_mip_gnss_rtk_configuration_command_ambiguity_fix_mode(&serializer, ambiguity_fix_mode);
+    
+    assert(reserved);
+    for(unsigned int i=0; i < 4; i++)
+        microstrain_insert_u8(&serializer, reserved[i]);
+    
+    assert(microstrain_serializer_is_ok(&serializer));
+    
+    return mip_interface_run_command(device, MIP_GNSS_CMD_DESC_SET, MIP_CMD_DESC_RTK_CONFIGURATION, buffer, (uint8_t)microstrain_serializer_length(&serializer));
+}
+mip_cmd_result mip_gnss_read_rtk_configuration(mip_interface* device, mip_gnss_rtk_configuration_command_ambiguity_fix_mode* ambiguity_fix_mode_out, uint8_t* reserved_out)
+{
+    microstrain_serializer serializer;
+    uint8_t buffer[MIP_FIELD_PAYLOAD_LENGTH_MAX];
+    microstrain_serializer_init_insertion(&serializer, buffer, sizeof(buffer));
+    
+    insert_mip_function_selector(&serializer, MIP_FUNCTION_READ);
+    
+    assert(microstrain_serializer_is_ok(&serializer));
+    
+    uint8_t responseLength = sizeof(buffer);
+    mip_cmd_result result = mip_interface_run_command_with_response(device, MIP_GNSS_CMD_DESC_SET, MIP_CMD_DESC_RTK_CONFIGURATION, buffer, (uint8_t)microstrain_serializer_length(&serializer), MIP_REPLY_DESC_RTK_CONFIGURATION, buffer, &responseLength);
+    
+    if( result == MIP_ACK_OK )
+    {
+        microstrain_serializer deserializer;
+        microstrain_serializer_init_insertion(&deserializer, buffer, responseLength);
+        
+        assert(ambiguity_fix_mode_out);
+        extract_mip_gnss_rtk_configuration_command_ambiguity_fix_mode(&deserializer, ambiguity_fix_mode_out);
+        
+        assert(reserved_out);
+        for(unsigned int i=0; i < 4; i++)
+            microstrain_extract_u8(&deserializer, &reserved_out[i]);
+        
+        if( microstrain_serializer_remaining(&deserializer) != 0 )
+            result = MIP_STATUS_ERROR;
+    }
+    return result;
+}
+mip_cmd_result mip_gnss_save_rtk_configuration(mip_interface* device)
+{
+    microstrain_serializer serializer;
+    uint8_t buffer[MIP_FIELD_PAYLOAD_LENGTH_MAX];
+    microstrain_serializer_init_insertion(&serializer, buffer, sizeof(buffer));
+    
+    insert_mip_function_selector(&serializer, MIP_FUNCTION_SAVE);
+    
+    assert(microstrain_serializer_is_ok(&serializer));
+    
+    return mip_interface_run_command(device, MIP_GNSS_CMD_DESC_SET, MIP_CMD_DESC_RTK_CONFIGURATION, buffer, (uint8_t)microstrain_serializer_length(&serializer));
+}
+mip_cmd_result mip_gnss_load_rtk_configuration(mip_interface* device)
+{
+    microstrain_serializer serializer;
+    uint8_t buffer[MIP_FIELD_PAYLOAD_LENGTH_MAX];
+    microstrain_serializer_init_insertion(&serializer, buffer, sizeof(buffer));
+    
+    insert_mip_function_selector(&serializer, MIP_FUNCTION_LOAD);
+    
+    assert(microstrain_serializer_is_ok(&serializer));
+    
+    return mip_interface_run_command(device, MIP_GNSS_CMD_DESC_SET, MIP_CMD_DESC_RTK_CONFIGURATION, buffer, (uint8_t)microstrain_serializer_length(&serializer));
+}
+mip_cmd_result mip_gnss_default_rtk_configuration(mip_interface* device)
+{
+    microstrain_serializer serializer;
+    uint8_t buffer[MIP_FIELD_PAYLOAD_LENGTH_MAX];
+    microstrain_serializer_init_insertion(&serializer, buffer, sizeof(buffer));
+    
+    insert_mip_function_selector(&serializer, MIP_FUNCTION_RESET);
+    
+    assert(microstrain_serializer_is_ok(&serializer));
+    
+    return mip_interface_run_command(device, MIP_GNSS_CMD_DESC_SET, MIP_CMD_DESC_RTK_CONFIGURATION, buffer, (uint8_t)microstrain_serializer_length(&serializer));
 }
 
 #ifdef __cplusplus

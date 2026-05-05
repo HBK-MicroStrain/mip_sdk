@@ -33,13 +33,16 @@ enum
     
     MIP_CMD_DESC_GNSS_LIST_RECEIVERS             = 0x01,
     MIP_CMD_DESC_GNSS_SIGNAL_CONFIGURATION       = 0x02,
+    MIP_CMD_DESC_GNSS_RECEIVER_RESET             = 0x03,
+    MIP_CMD_DESC_RTK_CONFIGURATION               = 0x04,
     MIP_CMD_DESC_GNSS_RTK_DONGLE_CONFIGURATION   = 0x10,
     MIP_CMD_DESC_GNSS_SPARTN_CONFIGURATION       = 0x20,
     
     MIP_REPLY_DESC_GNSS_LIST_RECEIVERS           = 0x81,
     MIP_REPLY_DESC_GNSS_SIGNAL_CONFIGURATION     = 0x82,
-    MIP_REPLY_DESC_GNSS_RTK_DONGLE_CONFIGURATION = 0x90,
     MIP_REPLY_DESC_GNSS_SPARTN_CONFIGURATION     = 0xA0,
+    MIP_REPLY_DESC_GNSS_RTK_DONGLE_CONFIGURATION = 0x90,
+    MIP_REPLY_DESC_RTK_CONFIGURATION             = 0x84,
 };
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -57,6 +60,27 @@ enum { MIP_GNSS_GALILEO_ENABLE_E5A = 0x0004 };
 enum { MIP_GNSS_BEIDOU_ENABLE_B1 = 0x0001 };
 enum { MIP_GNSS_BEIDOU_ENABLE_B2 = 0x0002 };
 enum { MIP_GNSS_BEIDOU_ENABLE_B2A = 0x0004 };
+enum mip_gnss_receiver_id
+{
+    MIP_GNSS_RECEIVER_ID_ALL             = 0,  ///<  All receivers (for commands which support this)
+    MIP_GNSS_RECEIVER_ID_INTERNAL_RECV_1 = 1,  ///<  
+    MIP_GNSS_RECEIVER_ID_INTERNAL_RECV_2 = 2,  ///<  
+    MIP_GNSS_RECEIVER_ID_USER_RECV_1     = 4,  ///<  
+    MIP_GNSS_RECEIVER_ID_USER_RECV_2     = 5,  ///<  
+};
+typedef enum mip_gnss_receiver_id mip_gnss_receiver_id;
+
+static inline void insert_mip_gnss_receiver_id(microstrain_serializer* serializer, const mip_gnss_receiver_id self)
+{
+    microstrain_insert_u8(serializer, (uint8_t)(self));
+}
+static inline void extract_mip_gnss_receiver_id(microstrain_serializer* serializer, mip_gnss_receiver_id* self)
+{
+    uint8_t tmp = 0;
+    microstrain_extract_u8(serializer, &tmp);
+    *self = (mip_gnss_receiver_id)tmp;
+}
+
 
 ////////////////////////////////////////////////////////////////////////////////
 // Mip Fields
@@ -136,6 +160,48 @@ mip_cmd_result mip_gnss_read_signal_configuration(mip_interface* device, uint8_t
 mip_cmd_result mip_gnss_save_signal_configuration(mip_interface* device);
 mip_cmd_result mip_gnss_load_signal_configuration(mip_interface* device);
 mip_cmd_result mip_gnss_default_signal_configuration(mip_interface* device);
+
+///@}
+///
+////////////////////////////////////////////////////////////////////////////////
+///@defgroup gnss_receiver_reset_c  (0x0E,0x03) Receiver Reset
+/// Reset GNSS receiver(s).
+/// 
+///
+///@{
+
+enum mip_gnss_receiver_reset_command_reset_type
+{
+    MIP_GNSS_RECEIVER_RESET_COMMAND_RESET_TYPE_HARDWARE = 1,  ///<  Hardware-level reset of the gnss receiver.
+    MIP_GNSS_RECEIVER_RESET_COMMAND_RESET_TYPE_COLD     = 2,  ///<  Full gnss receiver software reset.
+    MIP_GNSS_RECEIVER_RESET_COMMAND_RESET_TYPE_WARM     = 3,  ///<  Only restarts receiver positioning engine.
+    MIP_GNSS_RECEIVER_RESET_COMMAND_RESET_TYPE_HOT      = 4,  ///<  Restarts receiver positioning and clears satellite data (ephemeris/almanac).
+};
+typedef enum mip_gnss_receiver_reset_command_reset_type mip_gnss_receiver_reset_command_reset_type;
+
+static inline void insert_mip_gnss_receiver_reset_command_reset_type(microstrain_serializer* serializer, const mip_gnss_receiver_reset_command_reset_type self)
+{
+    microstrain_insert_u8(serializer, (uint8_t)(self));
+}
+static inline void extract_mip_gnss_receiver_reset_command_reset_type(microstrain_serializer* serializer, mip_gnss_receiver_reset_command_reset_type* self)
+{
+    uint8_t tmp = 0;
+    microstrain_extract_u8(serializer, &tmp);
+    *self = (mip_gnss_receiver_reset_command_reset_type)tmp;
+}
+
+
+struct mip_gnss_receiver_reset_command
+{
+    mip_gnss_receiver_id receiver_id; ///< Receiver ID - Only internal receivers are supported.
+    mip_gnss_receiver_reset_command_reset_type reset_type; ///< Reset level - Some devices may not support certain ResetType options.
+};
+typedef struct mip_gnss_receiver_reset_command mip_gnss_receiver_reset_command;
+
+void insert_mip_gnss_receiver_reset_command(microstrain_serializer* serializer, const mip_gnss_receiver_reset_command* self);
+void extract_mip_gnss_receiver_reset_command(microstrain_serializer* serializer, mip_gnss_receiver_reset_command* self);
+
+mip_cmd_result mip_gnss_receiver_reset(mip_interface* device, mip_gnss_receiver_id receiver_id, mip_gnss_receiver_reset_command_reset_type reset_type);
 
 ///@}
 ///
@@ -223,6 +289,63 @@ mip_cmd_result mip_gnss_read_rtk_dongle_configuration(mip_interface* device, uin
 mip_cmd_result mip_gnss_save_rtk_dongle_configuration(mip_interface* device);
 mip_cmd_result mip_gnss_load_rtk_dongle_configuration(mip_interface* device);
 mip_cmd_result mip_gnss_default_rtk_dongle_configuration(mip_interface* device);
+
+///@}
+///
+////////////////////////////////////////////////////////////////////////////////
+///@defgroup gnss_rtk_configuration_c  (0x0E,0x04) Rtk Configuration
+/// Configure the RTK settings used by the device.
+/// 
+///
+///@{
+
+enum mip_gnss_rtk_configuration_command_ambiguity_fix_mode
+{
+    MIP_GNSS_RTK_CONFIGURATION_COMMAND_AMBIGUITY_FIX_MODE_OFF          = 1,  ///<  No attempt is made to fix RTK integer ambiguity
+    MIP_GNSS_RTK_CONFIGURATION_COMMAND_AMBIGUITY_FIX_MODE_CONSERVATIVE = 2,  ///<  Conservative ambiguity resolution.
+    MIP_GNSS_RTK_CONFIGURATION_COMMAND_AMBIGUITY_FIX_MODE_MODERATE     = 3,  ///<  Moderate ambiguity resolution.
+    MIP_GNSS_RTK_CONFIGURATION_COMMAND_AMBIGUITY_FIX_MODE_AGGRESSIVE   = 4,  ///<  Ambiguities are fixed whenever possible.
+};
+typedef enum mip_gnss_rtk_configuration_command_ambiguity_fix_mode mip_gnss_rtk_configuration_command_ambiguity_fix_mode;
+
+static inline void insert_mip_gnss_rtk_configuration_command_ambiguity_fix_mode(microstrain_serializer* serializer, const mip_gnss_rtk_configuration_command_ambiguity_fix_mode self)
+{
+    microstrain_insert_u8(serializer, (uint8_t)(self));
+}
+static inline void extract_mip_gnss_rtk_configuration_command_ambiguity_fix_mode(microstrain_serializer* serializer, mip_gnss_rtk_configuration_command_ambiguity_fix_mode* self)
+{
+    uint8_t tmp = 0;
+    microstrain_extract_u8(serializer, &tmp);
+    *self = (mip_gnss_rtk_configuration_command_ambiguity_fix_mode)tmp;
+}
+
+
+struct mip_gnss_rtk_configuration_command
+{
+    mip_function_selector function;
+    mip_gnss_rtk_configuration_command_ambiguity_fix_mode ambiguity_fix_mode; ///< Ambiguity fix mode, see device user manual for specific details on supported modes.
+    uint8_t reserved[4];
+};
+typedef struct mip_gnss_rtk_configuration_command mip_gnss_rtk_configuration_command;
+
+void insert_mip_gnss_rtk_configuration_command(microstrain_serializer* serializer, const mip_gnss_rtk_configuration_command* self);
+void extract_mip_gnss_rtk_configuration_command(microstrain_serializer* serializer, mip_gnss_rtk_configuration_command* self);
+
+struct mip_gnss_rtk_configuration_response
+{
+    mip_gnss_rtk_configuration_command_ambiguity_fix_mode ambiguity_fix_mode; ///< Ambiguity fix mode, see device user manual for specific details on supported modes.
+    uint8_t reserved[4];
+};
+typedef struct mip_gnss_rtk_configuration_response mip_gnss_rtk_configuration_response;
+
+void insert_mip_gnss_rtk_configuration_response(microstrain_serializer* serializer, const mip_gnss_rtk_configuration_response* self);
+void extract_mip_gnss_rtk_configuration_response(microstrain_serializer* serializer, mip_gnss_rtk_configuration_response* self);
+
+mip_cmd_result mip_gnss_write_rtk_configuration(mip_interface* device, mip_gnss_rtk_configuration_command_ambiguity_fix_mode ambiguity_fix_mode, const uint8_t* reserved);
+mip_cmd_result mip_gnss_read_rtk_configuration(mip_interface* device, mip_gnss_rtk_configuration_command_ambiguity_fix_mode* ambiguity_fix_mode_out, uint8_t* reserved_out);
+mip_cmd_result mip_gnss_save_rtk_configuration(mip_interface* device);
+mip_cmd_result mip_gnss_load_rtk_configuration(mip_interface* device);
+mip_cmd_result mip_gnss_default_rtk_configuration(mip_interface* device);
 
 ///@}
 ///
