@@ -56,8 +56,8 @@ enum mip_comms_interface
     MIP_COMMS_INTERFACE_ALL    = 0,  ///<  
     MIP_COMMS_INTERFACE_MAIN   = 1,  ///<  An alias that directs to Main USB if it's connected, or Main UART otherwise
     MIP_COMMS_INTERFACE_UART_1 = 17,  ///<  Depending on your device, this may mean either the first UART *currently configured*, or the first port on which UART *can be configured*. Refer to your device manual.
-    MIP_COMMS_INTERFACE_UART_2 = 18,  ///<  
-    MIP_COMMS_INTERFACE_UART_3 = 19,  ///<  
+    MIP_COMMS_INTERFACE_UART_2 = 18,  ///<  GPIO UART port using GPIOs 1/2, availiable on CV7/GV7 variants.
+    MIP_COMMS_INTERFACE_UART_3 = 19,  ///<  GPIO UART port using GPIOs 3/4, available on CV7 variants.
     MIP_COMMS_INTERFACE_USB_1  = 33,  ///<  The first virtual serial port over USB (ie. COM5)
     MIP_COMMS_INTERFACE_USB_2  = 34,  ///<  The second virtual serial port over USB (ie. COM6), only available on GNSS/INS devices. Recommended for NMEA/RTCM.
 };
@@ -77,10 +77,11 @@ static inline void extract_mip_comms_interface(microstrain_serializer* serialize
 typedef uint32_t mip_comms_protocol;
 static const mip_comms_protocol MIP_COMMS_PROTOCOL_NONE   = 0x00000000;
 static const mip_comms_protocol MIP_COMMS_PROTOCOL_MIP    = 0x00000001; ///<  Microstrain Inertial Protocol
-static const mip_comms_protocol MIP_COMMS_PROTOCOL_NMEA   = 0x00000100; ///<  
-static const mip_comms_protocol MIP_COMMS_PROTOCOL_RTCM   = 0x00000200; ///<  
-static const mip_comms_protocol MIP_COMMS_PROTOCOL_SPARTN = 0x01000000; ///<  
-static const mip_comms_protocol MIP_COMMS_PROTOCOL_ALL    = 0x01000301;
+static const mip_comms_protocol MIP_COMMS_PROTOCOL_NMEA   = 0x00000100; ///<  NMEA-0183 GNSS Protocol
+static const mip_comms_protocol MIP_COMMS_PROTOCOL_RTCM   = 0x00000200; ///<  GNSS Correction Protocol
+static const mip_comms_protocol MIP_COMMS_PROTOCOL_SPARTN = 0x01000000; ///<  GNSS Correction Protocol
+static const mip_comms_protocol MIP_COMMS_PROTOCOL_SBF    = 0x20000000; ///<  Septentrio Binary Format
+static const mip_comms_protocol MIP_COMMS_PROTOCOL_ALL    = 0x21000301;
 static inline void insert_mip_comms_protocol(microstrain_serializer* serializer, const mip_comms_protocol self)
 {
     microstrain_insert_u32(serializer, (uint32_t)(self));
