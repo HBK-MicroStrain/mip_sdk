@@ -6149,8 +6149,6 @@ static constexpr inline const FieldInfo* COMMANDS_3DM_FIELDS[] = {
     &MetadataFor<commands_3dm::LowpassFilter::Response>::value,
 };
 
-//namespace commands_3dm
-//{
 struct CommandSet3dm
 {
     static inline constexpr uint8_t DESCRIPTOR_SET = commands_3dm::DESCRIPTOR_SET;
@@ -6245,8 +6243,6 @@ struct CommandSet3dm
     >;
 };
 
-//} // namespace commands_3dm
-
 template<>
 struct MetadataFor<CommandSet3dm>
 {
@@ -6259,7 +6255,7 @@ struct MetadataFor<CommandSet3dm>
         /* .fields     = */ COMMANDS_3DM_FIELDS,
     };
 };
-template<> struct TypeForDescriptor< (commands_3dm::DESCRIPTOR_SET << 8) > { using type = CommandSet3dm; };
+//template<> struct TypeForDescriptor< (commands_3dm::DESCRIPTOR_SET << 8) > { using type = CommandSet3dm; };
 
 static constexpr const DescriptorSetInfo& COMMANDS_3DM = MetadataFor<CommandSet3dm>::value;
 

@@ -213,8 +213,6 @@ static constexpr inline const FieldInfo* DATA_SYSTEM_FIELDS[] = {
     &MetadataFor<data_system::GpioAnalogValue>::value,
 };
 
-//namespace data_system
-//{
 struct DataSetSystem
 {
     static inline constexpr uint8_t DESCRIPTOR_SET = data_system::DESCRIPTOR_SET;
@@ -228,8 +226,6 @@ struct DataSetSystem
     >;
 };
 
-//} // namespace data_system
-
 template<>
 struct MetadataFor<DataSetSystem>
 {
@@ -242,7 +238,7 @@ struct MetadataFor<DataSetSystem>
         /* .fields     = */ DATA_SYSTEM_FIELDS,
     };
 };
-template<> struct TypeForDescriptor< (data_system::DESCRIPTOR_SET << 8) > { using type = DataSetSystem; };
+//template<> struct TypeForDescriptor< (data_system::DESCRIPTOR_SET << 8) > { using type = DataSetSystem; };
 
 static constexpr const DescriptorSetInfo& DATA_SYSTEM = MetadataFor<DataSetSystem>::value;
 

@@ -1179,8 +1179,6 @@ static constexpr inline const FieldInfo* DATA_SENSOR_FIELDS[] = {
     &MetadataFor<data_sensor::OdometerData>::value,
 };
 
-//namespace data_sensor
-//{
 struct DataSetSensor
 {
     static inline constexpr uint8_t DESCRIPTOR_SET = data_sensor::DESCRIPTOR_SET;
@@ -1213,8 +1211,6 @@ struct DataSetSensor
     >;
 };
 
-//} // namespace data_sensor
-
 template<>
 struct MetadataFor<DataSetSensor>
 {
@@ -1227,7 +1223,7 @@ struct MetadataFor<DataSetSensor>
         /* .fields     = */ DATA_SENSOR_FIELDS,
     };
 };
-template<> struct TypeForDescriptor< (data_sensor::DESCRIPTOR_SET << 8) > { using type = DataSetSensor; };
+//template<> struct TypeForDescriptor< (data_sensor::DESCRIPTOR_SET << 8) > { using type = DataSetSensor; };
 
 static constexpr const DescriptorSetInfo& DATA_SENSOR = MetadataFor<DataSetSensor>::value;
 

@@ -289,8 +289,6 @@ static constexpr inline const FieldInfo* COMMANDS_SYSTEM_FIELDS[] = {
     &MetadataFor<commands_system::CommMode::Response>::value,
 };
 
-//namespace commands_system
-//{
 struct CommandSetSystem
 {
     static inline constexpr uint8_t DESCRIPTOR_SET = commands_system::DESCRIPTOR_SET;
@@ -304,8 +302,6 @@ struct CommandSetSystem
     >;
 };
 
-//} // namespace commands_system
-
 template<>
 struct MetadataFor<CommandSetSystem>
 {
@@ -318,7 +314,7 @@ struct MetadataFor<CommandSetSystem>
         /* .fields     = */ COMMANDS_SYSTEM_FIELDS,
     };
 };
-template<> struct TypeForDescriptor< (commands_system::DESCRIPTOR_SET << 8) > { using type = CommandSetSystem; };
+//template<> struct TypeForDescriptor< (commands_system::DESCRIPTOR_SET << 8) > { using type = CommandSetSystem; };
 
 static constexpr const DescriptorSetInfo& COMMANDS_SYSTEM = MetadataFor<CommandSetSystem>::value;
 

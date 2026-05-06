@@ -517,8 +517,6 @@ static constexpr inline const FieldInfo* DATA_SHARED_FIELDS[] = {
     &MetadataFor<data_shared::ExternalTimeDelta>::value,
 };
 
-//namespace data_shared
-//{
 struct DataSetShared
 {
     static inline constexpr uint8_t DESCRIPTOR_SET = data_shared::DESCRIPTOR_SET;
@@ -537,8 +535,6 @@ struct DataSetShared
     >;
 };
 
-//} // namespace data_shared
-
 template<>
 struct MetadataFor<DataSetShared>
 {
@@ -551,7 +547,7 @@ struct MetadataFor<DataSetShared>
         /* .fields     = */ DATA_SHARED_FIELDS,
     };
 };
-template<> struct TypeForDescriptor< (data_shared::DESCRIPTOR_SET << 8) > { using type = DataSetShared; };
+//template<> struct TypeForDescriptor< (data_shared::DESCRIPTOR_SET << 8) > { using type = DataSetShared; };
 
 static constexpr const DescriptorSetInfo& DATA_SHARED = MetadataFor<DataSetShared>::value;
 

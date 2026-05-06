@@ -5399,8 +5399,6 @@ static constexpr inline const FieldInfo* DATA_GNSS_FIELDS[] = {
     &MetadataFor<data_gnss::BeidouIonoCorr>::value,
 };
 
-//namespace data_gnss
-//{
 struct DataSetGnss
 {
     static inline constexpr uint8_t DESCRIPTOR_SET = data_gnss::DESCRIPTOR_SET;
@@ -5440,8 +5438,6 @@ struct DataSetGnss
     >;
 };
 
-//} // namespace data_gnss
-
 template<>
 struct MetadataFor<DataSetGnss>
 {
@@ -5454,7 +5450,7 @@ struct MetadataFor<DataSetGnss>
         /* .fields     = */ DATA_GNSS_FIELDS,
     };
 };
-template<> struct TypeForDescriptor< (data_gnss::DESCRIPTOR_SET << 8) > { using type = DataSetGnss; };
+//template<> struct TypeForDescriptor< (data_gnss::DESCRIPTOR_SET << 8) > { using type = DataSetGnss; };
 
 static constexpr const DescriptorSetInfo& DATA_GNSS = MetadataFor<DataSetGnss>::value;
 

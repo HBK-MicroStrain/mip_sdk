@@ -1035,8 +1035,6 @@ static constexpr inline const FieldInfo* COMMANDS_RTK_FIELDS[] = {
     &MetadataFor<commands_rtk::ServiceStatus::Response>::value,
 };
 
-//namespace commands_rtk
-//{
 struct CommandSetRtk
 {
     static inline constexpr uint8_t DESCRIPTOR_SET = commands_rtk::DESCRIPTOR_SET;
@@ -1067,8 +1065,6 @@ struct CommandSetRtk
     >;
 };
 
-//} // namespace commands_rtk
-
 template<>
 struct MetadataFor<CommandSetRtk>
 {
@@ -1081,7 +1077,7 @@ struct MetadataFor<CommandSetRtk>
         /* .fields     = */ COMMANDS_RTK_FIELDS,
     };
 };
-template<> struct TypeForDescriptor< (commands_rtk::DESCRIPTOR_SET << 8) > { using type = CommandSetRtk; };
+//template<> struct TypeForDescriptor< (commands_rtk::DESCRIPTOR_SET << 8) > { using type = CommandSetRtk; };
 
 static constexpr const DescriptorSetInfo& COMMANDS_RTK = MetadataFor<CommandSetRtk>::value;
 

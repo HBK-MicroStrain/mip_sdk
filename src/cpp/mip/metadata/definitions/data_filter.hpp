@@ -3892,8 +3892,6 @@ static constexpr inline const FieldInfo* DATA_FILTER_FIELDS[] = {
     &MetadataFor<data_filter::AidingFrameConfigErrorUncertainty>::value,
 };
 
-//namespace data_filter
-//{
 struct DataSetFilter
 {
     static inline constexpr uint8_t DESCRIPTOR_SET = data_filter::DESCRIPTOR_SET;
@@ -3960,8 +3958,6 @@ struct DataSetFilter
     >;
 };
 
-//} // namespace data_filter
-
 template<>
 struct MetadataFor<DataSetFilter>
 {
@@ -3974,7 +3970,7 @@ struct MetadataFor<DataSetFilter>
         /* .fields     = */ DATA_FILTER_FIELDS,
     };
 };
-template<> struct TypeForDescriptor< (data_filter::DESCRIPTOR_SET << 8) > { using type = DataSetFilter; };
+//template<> struct TypeForDescriptor< (data_filter::DESCRIPTOR_SET << 8) > { using type = DataSetFilter; };
 
 static constexpr const DescriptorSetInfo& DATA_FILTER = MetadataFor<DataSetFilter>::value;
 

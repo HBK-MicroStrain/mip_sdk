@@ -925,8 +925,6 @@ static constexpr inline const FieldInfo* COMMANDS_GNSS_FIELDS[] = {
     &MetadataFor<commands_gnss::SpartnConfiguration::Response>::value,
 };
 
-//namespace commands_gnss
-//{
 struct CommandSetGnss
 {
     static inline constexpr uint8_t DESCRIPTOR_SET = commands_gnss::DESCRIPTOR_SET;
@@ -947,8 +945,6 @@ struct CommandSetGnss
     >;
 };
 
-//} // namespace commands_gnss
-
 template<>
 struct MetadataFor<CommandSetGnss>
 {
@@ -961,7 +957,7 @@ struct MetadataFor<CommandSetGnss>
         /* .fields     = */ COMMANDS_GNSS_FIELDS,
     };
 };
-template<> struct TypeForDescriptor< (commands_gnss::DESCRIPTOR_SET << 8) > { using type = CommandSetGnss; };
+//template<> struct TypeForDescriptor< (commands_gnss::DESCRIPTOR_SET << 8) > { using type = CommandSetGnss; };
 
 static constexpr const DescriptorSetInfo& COMMANDS_GNSS = MetadataFor<CommandSetGnss>::value;
 

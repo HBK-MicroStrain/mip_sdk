@@ -1401,8 +1401,6 @@ static constexpr inline const FieldInfo* COMMANDS_AIDING_FIELDS[] = {
     &MetadataFor<commands_aiding::EchoControl::Response>::value,
 };
 
-//namespace commands_aiding
-//{
 struct CommandSetAiding
 {
     static inline constexpr uint8_t DESCRIPTOR_SET = commands_aiding::DESCRIPTOR_SET;
@@ -1425,8 +1423,6 @@ struct CommandSetAiding
     >;
 };
 
-//} // namespace commands_aiding
-
 template<>
 struct MetadataFor<CommandSetAiding>
 {
@@ -1439,7 +1435,7 @@ struct MetadataFor<CommandSetAiding>
         /* .fields     = */ COMMANDS_AIDING_FIELDS,
     };
 };
-template<> struct TypeForDescriptor< (commands_aiding::DESCRIPTOR_SET << 8) > { using type = CommandSetAiding; };
+//template<> struct TypeForDescriptor< (commands_aiding::DESCRIPTOR_SET << 8) > { using type = CommandSetAiding; };
 
 static constexpr const DescriptorSetInfo& COMMANDS_AIDING = MetadataFor<CommandSetAiding>::value;
 

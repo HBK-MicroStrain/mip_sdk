@@ -5733,8 +5733,6 @@ static constexpr inline const FieldInfo* COMMANDS_FILTER_FIELDS[] = {
     &MetadataFor<commands_filter::GnssAntennaCalControl::Response>::value,
 };
 
-//namespace commands_filter
-//{
 struct CommandSetFilter
 {
     static inline constexpr uint8_t DESCRIPTOR_SET = commands_filter::DESCRIPTOR_SET;
@@ -5839,8 +5837,6 @@ struct CommandSetFilter
     >;
 };
 
-//} // namespace commands_filter
-
 template<>
 struct MetadataFor<CommandSetFilter>
 {
@@ -5853,7 +5849,7 @@ struct MetadataFor<CommandSetFilter>
         /* .fields     = */ COMMANDS_FILTER_FIELDS,
     };
 };
-template<> struct TypeForDescriptor< (commands_filter::DESCRIPTOR_SET << 8) > { using type = CommandSetFilter; };
+//template<> struct TypeForDescriptor< (commands_filter::DESCRIPTOR_SET << 8) > { using type = CommandSetFilter; };
 
 static constexpr const DescriptorSetInfo& COMMANDS_FILTER = MetadataFor<CommandSetFilter>::value;
 
