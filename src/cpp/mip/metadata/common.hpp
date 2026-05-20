@@ -57,7 +57,7 @@ namespace mip::metadata
         static constexpr inline EnumInfo value = {
             /* .name    = */ "CmdResult",
             /* .docs    = */ "Acknowledgement/reply code from the device after a command is issued",
-            /* .type    = */ Type::U8,
+            /* .type    = */ Type::S8,
             /* .entries = */ entries,
         };
     };
