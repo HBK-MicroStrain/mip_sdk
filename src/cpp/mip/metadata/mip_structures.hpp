@@ -41,6 +41,13 @@ namespace mip::metadata
         UNION,
     };
 
+    static constexpr bool isSignedType(Type type) { return type == Type::S8 || type == Type::S16 || type == Type::S32 || type == Type::S64; }
+    static constexpr bool isUnsignedType(Type type) { return type == Type::U8 || type == Type::U16 || type == Type::U32 || type == Type::U64; }
+    static constexpr bool isIntegralType(Type type) { return isSignedType(type) || isUnsignedType(type); }
+    static constexpr bool isFloatingPointType(Type type) { return type == Type::FLOAT || type == Type::DOUBLE; }
+    static constexpr bool isNumericType(Type type) { return isIntegralType(type) || isFloatingPointType(type); }
+    static constexpr bool isStringType(Type type) { return type == Type::CHAR; }
+
     struct TypeInfo
     {
         //template<class Field, class T>
@@ -75,14 +82,14 @@ namespace mip::metadata
 
         ConstArrayView<Entry> entries;
 
-        const char* nameForValue(uint32_t value) const
+        const char* nameForValue(uint32_t value, const char* default_=nullptr) const
         {
             for (const Entry& entry : entries)
             {
                 if (entry.value == value)
                     return entry.name;
             }
-            return nullptr;
+            return default_;
         }
     };
 
