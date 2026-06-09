@@ -12,7 +12,7 @@ namespace mip::metadata
     struct TypeForDescriptor;
 
     template<class FieldType>
-    using DescriptorSetTypeForField = TypeForDescriptor< FieldType::DESCRIPTOR_SET << 8 >::type;
+    using DescriptorSetTypeForField = typename TypeForDescriptor< FieldType::DESCRIPTOR_SET << 8 >::type;
 
     // Type trait class to be specialized for each field/struct/etc.
     template<class FieldType>
