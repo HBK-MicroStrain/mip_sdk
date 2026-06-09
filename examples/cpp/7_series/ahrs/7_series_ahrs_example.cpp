@@ -508,8 +508,8 @@ static void configureEventTriggers(mip::Interface& _device)
 
     // Configure the high and low thresholds for the trigger window
     // Note: The command expects radians for these values
-    eventTriggerParameters.threshold.low_thres  = 45.0 * M_PI / 180.0;                         // 45 degrees
-    eventTriggerParameters.threshold.high_thres = -eventTriggerParameters.threshold.low_thres; // -45 degrees
+    eventTriggerParameters.threshold.first_thres  = 45.0 * M_PI / 180.0;                         // 45 degrees
+    eventTriggerParameters.threshold.second_thres = -eventTriggerParameters.threshold.first_thres; // -45 degrees
 
     // Note: This is independent of the param_id
     uint8_t triggerInstanceId = 1;
