@@ -118,8 +118,8 @@ public:
     // C++ additions
     //
 
-    uint8_t  dataAt(const size_t i) const { assert(i < totalLength()); return payload()[i];   }
-    uint8_t& dataAt(const size_t i)       { assert(i < totalLength()); return payload_w()[i]; }
+    uint8_t  dataAt(const size_t i) const { assert(i < totalLength()); return C::mip_packet_buffer  (this)[i];   }
+    uint8_t& dataAt(const size_t i)       { assert(i < totalLength()); return C::mip_packet_buffer_w(this)[i]; }
     uint8_t  dataAt(const Index i)  const { return dataAt(static_cast<size_t>(i)); }
     uint8_t& dataAt(const Index i)        { return dataAt(static_cast<size_t>(i)); }
 

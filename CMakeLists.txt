@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.14)
 
-set(CMAKE_CXX_STANDARD 20) # CMake decays this to the highest supported by the compiler
-set(CMAKE_C_STANDARD 11)
+#set(CMAKE_C_STANDARD 11)
+#set(CMAKE_C_STANDARD_REQUIRED ON)
 
 project(
     "MIP_SDK"
@@ -44,7 +44,7 @@ option(MICROSTRAIN_ENABLE_CPP "Enables the C++ API. Turn off to avoid compiling 
 #option(MICROSTRAIN_ENABLE_CPP_C_NAMESPACE "Wraps the C api in a C++ namespace to avoid global namespace pollution (e.g. microstrain::C::microstrain_serial_port)" ${MICROSTRAIN_ENABLE_CPP})
 message(DEBUG "MICROSTRAIN_ENABLE_CPP=${MICROSTRAIN_ENABLE_CPP}")
 if(MICROSTRAIN_ENABLE_CPP)
-    option(MICROSTRAIN_USE_STD_ENDIAN "Use std::endian from C++20 for microstrain::Endian." ${MICROSTRAIN_COMPILER_SUPPORTS_BIT})
+    option(MICROSTRAIN_USE_STD_ENDIAN "Use std::endian from C++20 for microstrain::Endian." OFF)
     message(DEBUG "MICROSTRAIN_USE_STD_ENDIAN=${MICROSTRAIN_USE_STD_ENDIAN}")
 endif()
 
@@ -71,7 +71,7 @@ option(MIP_ENABLE_DIAGNOSTICS "Enable various diagnostic counters in the mip lib
 if(NOT DEFINED MIP_ENABLE_METADATA)
     message(STATUS "MIP_ENABLE_METADATA not set - compiler support: ${MIP_COMPILER_SUPPORTS_METADATA}")
 endif()
-option(MIP_ENABLE_METADATA "Build support for MIP protocol metadata in C++ (requires c++20)" ${MIP_COMPILER_SUPPORTS_METADATA})
+option(MIP_ENABLE_METADATA "Build support for MIP protocol metadata in C++ (requires c++17)" ${MIP_COMPILER_SUPPORTS_METADATA})
 option(MIP_ENABLE_EXTRAS "Build extra support into the library including some things that might work at a higher level and use dynamically allocated memory" ${MICROSTRAIN_ENABLE_EXTRAS})
 
 # Include some utilities used for MicroStrain projects
@@ -105,7 +105,7 @@ if(WIN32)
         "NOMINMAX=1"
         "_WIN32_WINNT=_WIN32_WINNT_WINXP"
     )
-else()
+elseif(CMAKE_C_COMPILER_ID STREQUAL "GNU")
     set(MIP_PRIVATE_COMPILE_OPTIONS
         "-Wall"   # Enable warnings
         "-Wextra" # Enable extra warnings

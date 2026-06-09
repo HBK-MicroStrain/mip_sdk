@@ -1,0 +1,80 @@
+name: Build Binaries
+on:
+  push:
+    branches:
+      - develop
+      - main
+      - master
+  pull_request:
+    branches:
+      - develop
+      - main
+      - master
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build on ${{ matrix.name }}
+    runs-on: ${{ matrix.runner }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # Linux
+          - name: Ubuntu x64 22.04
+            runner: ubuntu-22.04
+            os_type: linux
+            build_arch: amd64
+
+          - name: Ubuntu arm64 22.04
+            runner: ubuntu-22.04-arm
+            os_type: linux
+            build_arch: arm64
+
+          # Windows
+          - name: Windows x64
+            runner: windows-latest
+            os_type: windows
+            build_arch: x64
+
+          # MacOS
+          - name: MacOS arm64
+            runner: macos-latest
+            os_type: macos
+            build_arch: arm64
+
+          - name: MacOS Intel
+            runner: macos-15-intel
+            os_type: macos
+            build_arch: intel
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup CMake (Linux)
+        shell: bash
+        run: |
+          set -e
+          mkdir build && cd build
+          cmake .. \
+            -DMICROSTRAIN_BUILD_EXAMPLES=ON \
+            -DMICROSTRAIN_BUILD_PACKAGE=ON \
+            -DMICROSTRAIN_BUILD_TESTS=ON \
+            -DCMAKE_BUILD_TYPE=RELEASE \
+            ${{ matrix.os_type == 'windows' && '-A x64' || '' }}
+          cmake --build . --target package --config Release
+
+      - name: Run tests
+        run: ctest --test-dir build -C Release --verbose --output-on-failure --output-junit unit_test_results.xml
+
+      - name: Archive Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: mipsdk-${{ matrix.os_type }}-${{ matrix.build_arch }}
+          path: |
+            build/*
+          if-no-files-found: 'error'
