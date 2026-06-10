@@ -57,7 +57,34 @@ struct ArrayView
     using const_iterator = const T*;
 
     constexpr explicit ArrayView(pointer ptr) : m_ptr(ptr) {}
-    constexpr ArrayView(const std::array<T, Extent>& data) : m_ptr(data) {}
+
+    // ArrayView(const ArrayView<T, Extent>& other) but also allows ArrayView<mutable T> to construct ArrayView<const T>
+    template<typename U=T>
+    constexpr ArrayView(
+        ArrayView<U,Extent> other,
+        typename std::enable_if< std::is_convertible<U*,T*>::value, nullptr_t>::type=nullptr
+    ) : m_ptr(other.data()) {}
+
+    // ArrayView(const std::array<T,N>& array) but also allows construction from non-const arrays when T is const.
+    // T     U     Array
+    // const any   any     OK
+    //             any     OK
+    //       const any     NO
+    //       any   const   NO
+
+    // Const T
+    template<typename U=T>
+    constexpr ArrayView(
+        const std::array<U,Extent>& array,
+        typename std::enable_if< std::is_const<T>::value && std::is_convertible<U*,T*>::value, nullptr_t>::type=nullptr
+    ) : m_ptr(array.data()) {}
+
+    // Mutable T
+    template<typename U=T>
+    constexpr ArrayView(
+        std::array<U,Extent>& data,
+        typename std::enable_if<std::is_convertible<U*,T*>::value, nullptr_t>::type=nullptr
+    ) : m_ptr(data.data()) {}
 
     constexpr pointer begin() const noexcept { return m_ptr; }
     constexpr pointer end() const noexcept { return m_ptr+extent; }
@@ -88,8 +115,6 @@ struct ArrayView
 
     [[nodiscard]] constexpr operator pointer() const { return m_ptr; }
 
-    operator ArrayView<const T, Extent>() const { return {m_ptr, Extent}; }
-
 private:
     pointer m_ptr = nullptr;
 };
@@ -111,11 +136,41 @@ struct ArrayView<T, DYNAMIC_EXTENT>
     constexpr ArrayView() = default;
     constexpr ArrayView(pointer ptr, size_t cnt) : m_ptr(ptr), m_cnt(cnt) {}
 
-    template<size_t N>
-    constexpr ArrayView(T (&arr)[N]) : m_ptr(arr), m_cnt(N) {}
+    // ArrayView(const ArrayView<T>& other) but also allows ArrayView<mutable T> to construct ArrayView<const T>
+    template<typename U=T>
+    constexpr ArrayView(
+        const ArrayView<U>& other,
+        typename std::enable_if< std::is_convertible<U*,T*>::value, nullptr_t>::type=nullptr
+    ) : m_ptr(other.data()), m_cnt(other.size()) {}
 
-    template<size_t N>
-    constexpr ArrayView(const std::array<T,N>& data) : m_ptr(data.data()), m_cnt(N) {}
+    // ArrayView(T array[N]) but also allows construction from non-const arrays when T is const.
+    template<size_t N, typename U=T>
+    constexpr ArrayView(
+        U (&arr)[N],
+        typename std::enable_if<std::is_convertible<U*,T*>::value, nullptr_t>::type=nullptr
+    ) : m_ptr(arr), m_cnt(N) {}
+
+    // ArrayView(const std::array<T,N>& array) but also allows construction from non-const arrays when T is const.
+    // T     U     Array
+    // const any   any     OK
+    //             any     OK
+    //       const any     NO
+    //       any   const   NO
+
+    // Const T
+    template<size_t N, typename U=T>
+    constexpr ArrayView(
+        const std::array<U,N>& array,
+        typename std::enable_if< std::is_const<T>::value && std::is_convertible<U*,T*>::value, nullptr_t>::type=nullptr
+    ) : m_ptr(array.data()), m_cnt(array.size()) {}
+
+    // Mutable T
+    template<size_t N, typename U=T>
+    constexpr ArrayView(
+        std::array<U,N>& data,
+        typename std::enable_if<std::is_convertible<U*,T*>::value, nullptr_t>::type=nullptr
+    ) : m_ptr(data.data()), m_cnt(data.size()) {}
+
 
     constexpr pointer begin() const noexcept { return m_ptr; }
     constexpr pointer end() const noexcept { return m_ptr+m_cnt; }
@@ -145,8 +200,6 @@ struct ArrayView<T, DYNAMIC_EXTENT>
     [[nodiscard]] constexpr ArrayView<T, Count> last() const { return {m_ptr+(size()-Count)}; }
 
     [[nodiscard]] constexpr operator pointer() const { return m_ptr; }
-
-    operator ArrayView<const T, DYNAMIC_EXTENT>() const { return {m_ptr, m_cnt}; }
 
 private:
     pointer m_ptr   = nullptr;

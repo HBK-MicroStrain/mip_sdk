@@ -7,6 +7,7 @@ add_executable("${MIP_INTEGRATION_TEST_TARGET_CPP}")
 target_sources("${MIP_UNIT_TEST_TARGET_CPP}" PRIVATE
     "logging.unit.cpp"
     "strings.unit.cpp"
+    "array_view.unit.cpp"
 )
 
 target_sources("${MIP_INTEGRATION_TEST_TARGET_CPP}" PRIVATE
@@ -26,6 +27,9 @@ target_link_libraries("${MIP_INTEGRATION_TEST_TARGET_CPP}" PRIVATE
     "${MICROSTRAIN_LIBRARIES}"
     microstrain_test::cpp
 )
+
+target_compile_features("${MIP_UNIT_TEST_TARGET_CPP}" PRIVATE cxx_std_17)
+target_compile_features("${MIP_INTEGRATION_TEST_TARGET_CPP}" PRIVATE cxx_std_17)
 
 target_compile_definitions("${MIP_UNIT_TEST_TARGET_CPP}" PRIVATE
     "MICROSTRAIN_LOGGING_MAX_LEVEL=MICROSTRAIN_LOGGING_LEVEL_WARN_"
