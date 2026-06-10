@@ -26,11 +26,11 @@ MICROSTRAIN_TEST_CASE("C++ ArrayView", "An ArrayView constructed from a pointer 
     CHECK_EQ(view_ccv.data(), view_buffer);
     CHECK_EQ(view_ccf.data(), view_buffer);
     CHECK_EQ(view_mv.size(), sizeof(view_buffer));
-    CHECK_EQ(view_mf.size(), sizeof(view_buffer));
+    CHECK_EQ(view_mf.size(), 4);
     CHECK_EQ(view_cv.size(), sizeof(view_buffer));
-    CHECK_EQ(view_cf.size(), sizeof(view_buffer));
+    CHECK_EQ(view_cf.size(), 4);
     CHECK_EQ(view_ccv.size(), sizeof(view_buffer));
-    CHECK_EQ(view_ccf.size(), sizeof(view_buffer));
+    CHECK_EQ(view_ccf.size(), 4);
 }
 
 MICROSTRAIN_TEST_CASE("C++ ArrayView", "An ArrayView constructed from another ArrayView has correct pointer and size")
@@ -54,17 +54,17 @@ MICROSTRAIN_TEST_CASE("C++ ArrayView", "An ArrayView constructed from another Ar
     CHECK_EQ(copy_cf.data(), view_buffer);
     CHECK_EQ(copy_cmv.data(), view_buffer);
     CHECK_EQ(copy_cmf.data(), view_buffer);
-    CHECK_EQ(copy_mv.size(), 4);
+    CHECK_EQ(copy_mv.size(), sizeof(view_buffer));
     CHECK_EQ(copy_mf.size(), 4);
-    CHECK_EQ(copy_cv.size(), 4);
+    CHECK_EQ(copy_cv.size(), sizeof(view_buffer));
     CHECK_EQ(copy_cf.size(), 4);
-    CHECK_EQ(copy_cmv.size(), 4);
+    CHECK_EQ(copy_cmv.size(), sizeof(view_buffer));
     CHECK_EQ(copy_cmf.size(), 4);
 }
 
 MICROSTRAIN_TEST_CASE("C++ ArrayView", "An ArrayView constructed from a std::array has correct pointer and size")
 {
-    std::array<char, 4> view_buffer;
+    std::array<char, 4> view_buffer{};
     const std::array<char,4>& const_buffer = view_buffer;
 
     const ArrayView<      char   > view_mv(view_buffer);
