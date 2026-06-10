@@ -28,8 +28,8 @@ public:
 
     void setCallback(C::mip_packet_callback callback, void* callbackObject) { C::mip_parser_set_callback(this, callback, callbackObject); }
 
-    template<class Lambda>
-    void setCallback(const Lambda& lambda);
+    template<class Callable>
+    void setCallback(const Callable& callable);
 
     template<class T, bool (T::*Callback)(const PacketView&, Timestamp)>
     void setCallback(T& object);
@@ -61,16 +61,28 @@ public:
 };
 
 
-template<class Lambda>
-void Parser::setCallback(const Lambda& function)
+////////////////////////////////////////////////////////////////////////////////
+///@brief Sets the packet callback.
+///
+///@tparam Callable
+///
+///@param callable
+///       Any callable function or object with the signature
+///       `bool callback(const mip::PacketView& packet, mip::Timestamp timestamp)`
+///
+///@warning Callable must remain valid for the lifetime of the parser or until a
+///         new callback is assigned.
+///
+template<class Callable>
+void Parser::setCallback(const Callable& callable)
 {
     C::mip_packet_callback callback = [](void* obj, const C::mip_packet_view* packet, Timestamp timestamp)->bool
     {
-        Lambda& func = *(static_cast<Lambda*>(obj));
+        Callable& func = *(static_cast<Callable*>(obj));
         return func( mip::PacketView(*packet), timestamp );
     };
 
-    C::mip_parser_set_callback(this, callback, (void*)&function);
+    C::mip_parser_set_callback(this, callback, (void*)&callable);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
