@@ -1,4 +1,5 @@
 #pragma once
+#if __cplusplus >= 201703L  // This module requires string_view support
 
 #include "mip/mip_interface.hpp"
 
@@ -16,3 +17,5 @@ namespace mip
 
     } // namespace platform
 } // namespace mip
+
+#endif // #if __cplusplus >= 201703L
