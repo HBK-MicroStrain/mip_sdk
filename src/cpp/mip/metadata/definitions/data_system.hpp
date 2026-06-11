@@ -8,12 +8,25 @@
 namespace mip::metadata
 {
 
+struct DataSetSystem;
+
 
 template<>
 struct MetadataFor<data_system::BuiltInTest>
 {
     using type = data_system::BuiltInTest;
 
+    using Context = DataSetSystem;
+
+    using ParamTypes = std::tuple<
+        decltype(type::result)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.result;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "result",
@@ -25,25 +38,40 @@ struct MetadataFor<data_system::BuiltInTest>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_system::BuiltInTest",
-            /* .title       = */ "built_in_test",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Contains the continuous built-in-test (BIT) results.\n\nDue to the large size of this field, it is recommended to stream it at\na low rate or poll it on demand.\n\nThese bits are 'sticky' until the next output message. If a fault occurs\nin between scheduled messages or while the device is idle, the next\npacket with this field will have the corresponding flags set. The flag\nis then cleared unless the fault persists.\n\nUnlike the commanded BIT, some bits may be 1 in certain\nnon-fault situations, so simply checking if the result is all 0s is\nnot very useful. For example, on devices with a built-in GNSS receiver,\na 'solution fault' bit may be set before the receiver has obtained\na position fix. Consult the device manual to determine which bits are\nof interest for your application.\n\nAll unspecified bits are reserved for future use and must be ignored.\n",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_system::BuiltInTest>::value > { using type = data_system::BuiltInTest; };
+template<> struct TypeForDescriptor<data_system::BuiltInTest::DESCRIPTOR.as_u16()> { using type = data_system::BuiltInTest; };
 
 template<>
 struct MetadataFor<data_system::TimeSyncStatus>
 {
     using type = data_system::TimeSyncStatus;
 
+    using Context = DataSetSystem;
+
+    using ParamTypes = std::tuple<
+        decltype(type::time_sync),
+        decltype(type::last_pps_rcvd)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.time_sync;
+        if constexpr(I == 1) return value_.last_pps_rcvd;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "time_sync",
@@ -64,25 +92,38 @@ struct MetadataFor<data_system::TimeSyncStatus>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_system::TimeSyncStatus",
-            /* .title       = */ "time_sync_status",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Indicates whether a sync has been achieved using the PPS signal.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_system::TimeSyncStatus>::value > { using type = data_system::TimeSyncStatus; };
+template<> struct TypeForDescriptor<data_system::TimeSyncStatus::DESCRIPTOR.as_u16()> { using type = data_system::TimeSyncStatus; };
 
 template<>
 struct MetadataFor<data_system::GpioState>
 {
     using type = data_system::GpioState;
 
+    using Context = DataSetSystem;
+
+    using ParamTypes = std::tuple<
+        decltype(type::states)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.states;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "states",
@@ -94,25 +135,40 @@ struct MetadataFor<data_system::GpioState>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_system::GpioState",
-            /* .title       = */ "gpio_state",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Indicates the state of all of the user GPIO pins.\n\nThis message can be used to correlate external signals\nwith the device time or other data quantities. It should\ngenerally be used with slow GPIO signals as brief pulses\nshorter than the scheduled data rate will be missed.\n\nTo synchronize with faster signals and pulses, or for more accurate timestamping,\nutilize the event system and set the GPIO feature to TIMESTAMP in the 3DM GPIO\nConfiguration command (0x0C,0x41).\n\nThese GPIO states are sampled within one base period\nof the system data descriptor set.\n\nTo obtain valid readings, the desired pin(s) must be configured to the GPIO feature\n(either input or output behavior) using the 3DM GPIO Configuration command\n(0x0C,0x41). Other gpio features may work on some devices but this is not guaranteed.\nConsult the factory before producing a design relying on reading pins configured\nto other feature types.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_system::GpioState>::value > { using type = data_system::GpioState; };
+template<> struct TypeForDescriptor<data_system::GpioState::DESCRIPTOR.as_u16()> { using type = data_system::GpioState; };
 
 template<>
 struct MetadataFor<data_system::GpioAnalogValue>
 {
     using type = data_system::GpioAnalogValue;
 
+    using Context = DataSetSystem;
+
+    using ParamTypes = std::tuple<
+        decltype(type::gpio_id),
+        decltype(type::value)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.gpio_id;
+        if constexpr(I == 1) return value_.value;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "gpio_id",
@@ -133,19 +189,21 @@ struct MetadataFor<data_system::GpioAnalogValue>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_system::GpioAnalogValue",
-            /* .title       = */ "gpio_analog_value",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Indicates the analog value of the given user GPIO.\nThe pin must be configured for analog input.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_system::GpioAnalogValue>::value > { using type = data_system::GpioAnalogValue; };
+template<> struct TypeForDescriptor<data_system::GpioAnalogValue::DESCRIPTOR.as_u16()> { using type = data_system::GpioAnalogValue; };
 
 
 static constexpr inline const FieldInfo* DATA_SYSTEM_FIELDS[] = {
@@ -155,11 +213,34 @@ static constexpr inline const FieldInfo* DATA_SYSTEM_FIELDS[] = {
     &MetadataFor<data_system::GpioAnalogValue>::value,
 };
 
-static constexpr DescriptorSetInfo DATA_SYSTEM = {
-    /* .descriptor = */ mip::data_system::DESCRIPTOR_SET,
-    /* .name       = */ "System Data",
-    /* .fields     = */ DATA_SYSTEM_FIELDS,
+struct DataSetSystem
+{
+    static inline constexpr uint8_t DESCRIPTOR_SET = data_system::DESCRIPTOR_SET;
+    static inline constexpr CompositeDescriptor DESCRIPTOR = {DESCRIPTOR_SET, INVALID_FIELD_DESCRIPTOR};
+
+    using Fields = std::tuple<
+        ::mip::data_system::BuiltInTest,
+        ::mip::data_system::TimeSyncStatus,
+        ::mip::data_system::GpioState,
+        ::mip::data_system::GpioAnalogValue
+    >;
 };
+
+template<>
+struct MetadataFor<DataSetSystem>
+{
+    using type = DataSetSystem;
+    
+    static inline constexpr DescriptorSetInfo value = {
+        /* .descriptor = */ data_system::DESCRIPTOR_SET,
+        /* .name       = */ "data_system",
+        /* .title      = */ "System Data",
+        /* .fields     = */ DATA_SYSTEM_FIELDS,
+    };
+};
+//template<> struct TypeForDescriptor< (data_system::DESCRIPTOR_SET << 8) > { using type = DataSetSystem; };
+
+static constexpr const DescriptorSetInfo& DATA_SYSTEM = MetadataFor<DataSetSystem>::value;
 
 } // namespace mip::metadata
 

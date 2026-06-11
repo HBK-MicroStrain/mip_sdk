@@ -41,6 +41,13 @@ namespace mip::metadata
         UNION,
     };
 
+    static constexpr bool isSignedType(Type type) { return type == Type::S8 || type == Type::S16 || type == Type::S32 || type == Type::S64; }
+    static constexpr bool isUnsignedType(Type type) { return type == Type::U8 || type == Type::U16 || type == Type::U32 || type == Type::U64; }
+    static constexpr bool isIntegralType(Type type) { return isSignedType(type) || isUnsignedType(type); }
+    static constexpr bool isFloatingPointType(Type type) { return type == Type::FLOAT || type == Type::DOUBLE; }
+    static constexpr bool isNumericType(Type type) { return isIntegralType(type) || isFloatingPointType(type); }
+    static constexpr bool isStringType(Type type) { return type == Type::CHAR; }
+
     struct TypeInfo
     {
         //template<class Field, class T>
@@ -50,14 +57,14 @@ namespace mip::metadata
 
         const void* infoPtr = nullptr;
 
-        const EnumInfo*     enumPointer()     const { return (type == Type::ENUM  ) ? static_cast<const EnumInfo*    >(infoPtr) : nullptr; }
-        const BitfieldInfo* bitfieldPointer() const { return (type == Type::BITS  ) ? static_cast<const BitfieldInfo*>(infoPtr) : nullptr; }
-        const UnionInfo*    unionPointer()    const { return (type == Type::UNION ) ? static_cast<const UnionInfo*   >(infoPtr) : nullptr; }
-        const StructInfo*   structPointer()   const { return (type == Type::STRUCT) ? static_cast<const StructInfo*  >(infoPtr) : nullptr; }
+        constexpr const EnumInfo*     enumPointer()     const { return (type == Type::ENUM  ) ? static_cast<const EnumInfo*    >(infoPtr) : nullptr; }
+        constexpr const BitfieldInfo* bitfieldPointer() const { return (type == Type::BITS  ) ? static_cast<const BitfieldInfo*>(infoPtr) : nullptr; }
+        constexpr const UnionInfo*    unionPointer()    const { return (type == Type::UNION ) ? static_cast<const UnionInfo*   >(infoPtr) : nullptr; }
+        constexpr const StructInfo*   structPointer()   const { return (type == Type::STRUCT) ? static_cast<const StructInfo*  >(infoPtr) : nullptr; }
 
-        bool isBasicType() const { return type <= Type::DOUBLE; }
-        bool isCustom()    const { return type != Type::NONE && type >= Type::ENUM; }
-        bool isClass()     const { return type != Type::NONE && type >= Type::STRUCT; }
+        constexpr bool isBasicType() const { return type <= Type::DOUBLE; }
+        constexpr bool isCustom()    const { return type != Type::NONE && type >= Type::ENUM; }
+        constexpr bool isClass()     const { return type != Type::NONE && type >= Type::STRUCT; }
     };
 
     struct EnumInfo
@@ -75,14 +82,14 @@ namespace mip::metadata
 
         ConstArrayView<Entry> entries;
 
-        const char* nameForValue(uint32_t value) const
+        const char* nameForValue(uint32_t value, const char* default_=nullptr) const
         {
             for (const Entry& entry : entries)
             {
                 if (entry.value == value)
                     return entry.name;
             }
-            return nullptr;
+            return default_;
         }
     };
 
@@ -220,6 +227,7 @@ namespace mip::metadata
     {
         uint8_t                      descriptor = mip::INVALID_DESCRIPTOR_SET;
         const char*                  name       = nullptr;
+        const char*                  title      = nullptr;
         ConstArrayView<const FieldInfo*> fields     = {};
 
         //const FieldInfo* findField(uint8_t field_desc) const
@@ -229,4 +237,13 @@ namespace mip::metadata
         //    return (it != fields.end()) && ((*it)->descriptor.fieldDescriptor==field_desc) ? *it : nullptr;
         //}
     };
+
+//    template<class... Fields>
+//    using DescriptorSetType = std::tuple<Fields...>;
+    // struct DescriptorSetFields
+    // {
+    //     template<size_t I>
+    //     using FieldI = typename std::tuple_element<I, std::tuple<Fields...>>::type;
+    // };
+
 } // namespace mip::metadata

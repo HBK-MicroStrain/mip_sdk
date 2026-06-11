@@ -225,7 +225,7 @@ struct GetStatusFlags
         static constexpr const uint8_t DESCRIPTOR_SET = ::mip::commands_rtk::DESCRIPTOR_SET;
         static constexpr const uint8_t FIELD_DESCRIPTOR = ::mip::commands_rtk::REPLY_GET_STATUS_FLAGS;
         static constexpr const CompositeDescriptor DESCRIPTOR = {DESCRIPTOR_SET, FIELD_DESCRIPTOR};
-        static constexpr const char* NAME = "GetStatusFlags::Response";
+        static constexpr const char* NAME = "GetStatusFlagsResponse";
         static constexpr const char* DOC_NAME = "Get RTK Device Status Flags Response";
         static constexpr const bool HAS_FUNCTION_SELECTOR = false;
         
@@ -287,7 +287,7 @@ struct GetImei
         static constexpr const uint8_t DESCRIPTOR_SET = ::mip::commands_rtk::DESCRIPTOR_SET;
         static constexpr const uint8_t FIELD_DESCRIPTOR = ::mip::commands_rtk::REPLY_GET_IMEI;
         static constexpr const CompositeDescriptor DESCRIPTOR = {DESCRIPTOR_SET, FIELD_DESCRIPTOR};
-        static constexpr const char* NAME = "GetImei::Response";
+        static constexpr const char* NAME = "GetImeiResponse";
         static constexpr const char* DOC_NAME = "Get RTK Device IMEI (International Mobile Equipment Identifier) Response";
         static constexpr const bool HAS_FUNCTION_SELECTOR = false;
         
@@ -349,7 +349,7 @@ struct GetImsi
         static constexpr const uint8_t DESCRIPTOR_SET = ::mip::commands_rtk::DESCRIPTOR_SET;
         static constexpr const uint8_t FIELD_DESCRIPTOR = ::mip::commands_rtk::REPLY_GET_IMSI;
         static constexpr const CompositeDescriptor DESCRIPTOR = {DESCRIPTOR_SET, FIELD_DESCRIPTOR};
-        static constexpr const char* NAME = "GetImsi::Response";
+        static constexpr const char* NAME = "GetImsiResponse";
         static constexpr const char* DOC_NAME = "Get RTK Device IMSI (International Mobile Subscriber Identifier) Response";
         static constexpr const bool HAS_FUNCTION_SELECTOR = false;
         
@@ -411,7 +411,7 @@ struct GetIccid
         static constexpr const uint8_t DESCRIPTOR_SET = ::mip::commands_rtk::DESCRIPTOR_SET;
         static constexpr const uint8_t FIELD_DESCRIPTOR = ::mip::commands_rtk::REPLY_GET_ICCID;
         static constexpr const CompositeDescriptor DESCRIPTOR = {DESCRIPTOR_SET, FIELD_DESCRIPTOR};
-        static constexpr const char* NAME = "GetIccid::Response";
+        static constexpr const char* NAME = "GetIccidResponse";
         static constexpr const char* DOC_NAME = "Get RTK Device ICCID (Integrated Circuit Card Identification [SIM Number]) Response";
         static constexpr const bool HAS_FUNCTION_SELECTOR = false;
         
@@ -490,7 +490,7 @@ struct ConnectedDeviceType
         static constexpr const uint8_t DESCRIPTOR_SET = ::mip::commands_rtk::DESCRIPTOR_SET;
         static constexpr const uint8_t FIELD_DESCRIPTOR = ::mip::commands_rtk::REPLY_CONNECTED_DEVICE_TYPE;
         static constexpr const CompositeDescriptor DESCRIPTOR = {DESCRIPTOR_SET, FIELD_DESCRIPTOR};
-        static constexpr const char* NAME = "ConnectedDeviceType::Response";
+        static constexpr const char* NAME = "ConnectedDeviceTypeResponse";
         static constexpr const char* DOC_NAME = "Configure or read the type of the connected device Response";
         static constexpr const bool HAS_FUNCTION_SELECTOR = false;
         
@@ -556,7 +556,7 @@ struct GetActCode
         static constexpr const uint8_t DESCRIPTOR_SET = ::mip::commands_rtk::DESCRIPTOR_SET;
         static constexpr const uint8_t FIELD_DESCRIPTOR = ::mip::commands_rtk::REPLY_GET_ACT_CODE;
         static constexpr const CompositeDescriptor DESCRIPTOR = {DESCRIPTOR_SET, FIELD_DESCRIPTOR};
-        static constexpr const char* NAME = "GetActCode::Response";
+        static constexpr const char* NAME = "GetActCodeResponse";
         static constexpr const char* DOC_NAME = "Get RTK Device Activation Code Response";
         static constexpr const bool HAS_FUNCTION_SELECTOR = false;
         
@@ -618,7 +618,7 @@ struct GetModemFirmwareVersion
         static constexpr const uint8_t DESCRIPTOR_SET = ::mip::commands_rtk::DESCRIPTOR_SET;
         static constexpr const uint8_t FIELD_DESCRIPTOR = ::mip::commands_rtk::REPLY_GET_MODEM_FIRMWARE_VERSION;
         static constexpr const CompositeDescriptor DESCRIPTOR = {DESCRIPTOR_SET, FIELD_DESCRIPTOR};
-        static constexpr const char* NAME = "GetModemFirmwareVersion::Response";
+        static constexpr const char* NAME = "GetModemFirmwareVersionResponse";
         static constexpr const char* DOC_NAME = "Get RTK Device's Cell Modem Firmware version number Response";
         static constexpr const bool HAS_FUNCTION_SELECTOR = false;
         
@@ -683,7 +683,7 @@ struct GetRssi
         static constexpr const uint8_t DESCRIPTOR_SET = ::mip::commands_rtk::DESCRIPTOR_SET;
         static constexpr const uint8_t FIELD_DESCRIPTOR = ::mip::commands_rtk::REPLY_GET_RSSI;
         static constexpr const CompositeDescriptor DESCRIPTOR = {DESCRIPTOR_SET, FIELD_DESCRIPTOR};
-        static constexpr const char* NAME = "GetRssi::Response";
+        static constexpr const char* NAME = "GetRssiResponse";
         static constexpr const char* DOC_NAME = "GetRssi Response";
         static constexpr const bool HAS_FUNCTION_SELECTOR = false;
         
@@ -783,7 +783,7 @@ struct ServiceStatus
         static constexpr const uint8_t DESCRIPTOR_SET = ::mip::commands_rtk::DESCRIPTOR_SET;
         static constexpr const uint8_t FIELD_DESCRIPTOR = ::mip::commands_rtk::REPLY_SERVICE_STATUS;
         static constexpr const CompositeDescriptor DESCRIPTOR = {DESCRIPTOR_SET, FIELD_DESCRIPTOR};
-        static constexpr const char* NAME = "ServiceStatus::Response";
+        static constexpr const char* NAME = "ServiceStatusResponse";
         static constexpr const char* DOC_NAME = "ServiceStatus Response";
         static constexpr const bool HAS_FUNCTION_SELECTOR = false;
         

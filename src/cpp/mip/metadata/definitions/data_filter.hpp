@@ -8,12 +8,31 @@
 namespace mip::metadata
 {
 
+struct DataSetFilter;
+
 
 template<>
 struct MetadataFor<data_filter::PositionLlh>
 {
     using type = data_filter::PositionLlh;
 
+    using Context = DataSetFilter;
+
+    using ParamTypes = std::tuple<
+        decltype(type::latitude),
+        decltype(type::longitude),
+        decltype(type::ellipsoid_height),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.latitude;
+        if constexpr(I == 1) return value_.longitude;
+        if constexpr(I == 2) return value_.ellipsoid_height;
+        if constexpr(I == 3) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "latitude",
@@ -52,25 +71,44 @@ struct MetadataFor<data_filter::PositionLlh>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_filter::PositionLlh",
-            /* .title       = */ "LLH Position",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Filter reported position in the WGS84 geodetic frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_filter::PositionLlh>::value > { using type = data_filter::PositionLlh; };
+template<> struct TypeForDescriptor<data_filter::PositionLlh::DESCRIPTOR.as_u16()> { using type = data_filter::PositionLlh; };
 
 template<>
 struct MetadataFor<data_filter::VelocityNed>
 {
     using type = data_filter::VelocityNed;
 
+    using Context = DataSetFilter;
+
+    using ParamTypes = std::tuple<
+        decltype(type::north),
+        decltype(type::east),
+        decltype(type::down),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.north;
+        if constexpr(I == 1) return value_.east;
+        if constexpr(I == 2) return value_.down;
+        if constexpr(I == 3) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "north",
@@ -109,25 +147,40 @@ struct MetadataFor<data_filter::VelocityNed>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_filter::VelocityNed",
-            /* .title       = */ "velocity_ned",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Filter reported velocity in the NED local-level frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_filter::VelocityNed>::value > { using type = data_filter::VelocityNed; };
+template<> struct TypeForDescriptor<data_filter::VelocityNed::DESCRIPTOR.as_u16()> { using type = data_filter::VelocityNed; };
 
 template<>
 struct MetadataFor<data_filter::AttitudeQuaternion>
 {
     using type = data_filter::AttitudeQuaternion;
 
+    using Context = DataSetFilter;
+
+    using ParamTypes = std::tuple<
+        decltype(type::q),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.q;
+        if constexpr(I == 1) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "q",
@@ -148,25 +201,40 @@ struct MetadataFor<data_filter::AttitudeQuaternion>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_filter::AttitudeQuaternion",
-            /* .title       = */ "attitude_quaternion",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "4x1 vector representation of the quaternion describing the orientation of the device with respect to the NED local-level frame.\nThis quaternion satisfies the following relationship:\n\nEQSTART p^{veh} = q^{-1} p^{ned} q EQEND<br/>\n\nWhere:<br/>\nEQSTART q = (q_w, q_x, q_y, q_z) EQEND is the quaternion describing the rotation. <br/>\nEQSTART p^ned = (0, v^{ned}_x, v^{ned}_y, v^{ned}_z) EQEND and EQSTART v^{ned} EQEND is a 3-element vector expressed in the NED frame.<br/>\nEQSTART p^veh = (0, v^{veh}_x, v^{veh}_y, v^{veh}_z) EQEND and EQSTART v^{veh} EQEND is a 3-element vector expressed in the vehicle frame.<br/>",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_filter::AttitudeQuaternion>::value > { using type = data_filter::AttitudeQuaternion; };
+template<> struct TypeForDescriptor<data_filter::AttitudeQuaternion::DESCRIPTOR.as_u16()> { using type = data_filter::AttitudeQuaternion; };
 
 template<>
 struct MetadataFor<data_filter::AttitudeDcm>
 {
     using type = data_filter::AttitudeDcm;
 
+    using Context = DataSetFilter;
+
+    using ParamTypes = std::tuple<
+        decltype(type::dcm),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.dcm;
+        if constexpr(I == 1) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "dcm",
@@ -187,25 +255,44 @@ struct MetadataFor<data_filter::AttitudeDcm>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_filter::AttitudeDcm",
-            /* .title       = */ "attitude_dcm",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "3x3 Direction Cosine Matrix EQSTART M_{ned}^{veh} EQEND describing the orientation of the device with respect to the NED local-level frame.\nThis matrix satisfies the following relationship:\n\nEQSTART v^{veh} = M_{ned}^{veh} v^{ned} EQEND<br/>\n\nWhere:<br/>\n\nEQSTART v^{ned} EQEND is a 3-element vector expressed in the NED frame. <br/>\nEQSTART v^{veh} EQEND is the same 3-element vector expressed in the vehicle frame.  <br/>\n<br/>\nThe matrix elements are stored is row-major order: EQSTART M_{ned}^{veh} = \\begin{bmatrix} M_{11}, M_{12}, M_{13}, M_{21}, M_{22}, M_{23}, M_{31}, M_{32}, M_{33} \\end{bmatrix} EQEND",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_filter::AttitudeDcm>::value > { using type = data_filter::AttitudeDcm; };
+template<> struct TypeForDescriptor<data_filter::AttitudeDcm::DESCRIPTOR.as_u16()> { using type = data_filter::AttitudeDcm; };
 
 template<>
 struct MetadataFor<data_filter::EulerAngles>
 {
     using type = data_filter::EulerAngles;
 
+    using Context = DataSetFilter;
+
+    using ParamTypes = std::tuple<
+        decltype(type::roll),
+        decltype(type::pitch),
+        decltype(type::yaw),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.roll;
+        if constexpr(I == 1) return value_.pitch;
+        if constexpr(I == 2) return value_.yaw;
+        if constexpr(I == 3) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "roll",
@@ -244,25 +331,40 @@ struct MetadataFor<data_filter::EulerAngles>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_filter::EulerAngles",
-            /* .title       = */ "euler_angles",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Filter reported Euler angles describing the orientation of the device with respect to the NED local-level frame.\nThe Euler angles are reported in 3-2-1 (Yaw-Pitch-Roll, AKA Aircraft) order.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_filter::EulerAngles>::value > { using type = data_filter::EulerAngles; };
+template<> struct TypeForDescriptor<data_filter::EulerAngles::DESCRIPTOR.as_u16()> { using type = data_filter::EulerAngles; };
 
 template<>
 struct MetadataFor<data_filter::GyroBias>
 {
     using type = data_filter::GyroBias;
 
+    using Context = DataSetFilter;
+
+    using ParamTypes = std::tuple<
+        decltype(type::bias),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.bias;
+        if constexpr(I == 1) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "bias",
@@ -283,25 +385,40 @@ struct MetadataFor<data_filter::GyroBias>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_filter::GyroBias",
-            /* .title       = */ "gyro_bias",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Filter reported gyro bias expressed in the sensor frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_filter::GyroBias>::value > { using type = data_filter::GyroBias; };
+template<> struct TypeForDescriptor<data_filter::GyroBias::DESCRIPTOR.as_u16()> { using type = data_filter::GyroBias; };
 
 template<>
 struct MetadataFor<data_filter::AccelBias>
 {
     using type = data_filter::AccelBias;
 
+    using Context = DataSetFilter;
+
+    using ParamTypes = std::tuple<
+        decltype(type::bias),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.bias;
+        if constexpr(I == 1) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "bias",
@@ -322,25 +439,44 @@ struct MetadataFor<data_filter::AccelBias>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_filter::AccelBias",
-            /* .title       = */ "accel_bias",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Filter reported accelerometer bias expressed in the sensor frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_filter::AccelBias>::value > { using type = data_filter::AccelBias; };
+template<> struct TypeForDescriptor<data_filter::AccelBias::DESCRIPTOR.as_u16()> { using type = data_filter::AccelBias; };
 
 template<>
 struct MetadataFor<data_filter::PositionLlhUncertainty>
 {
     using type = data_filter::PositionLlhUncertainty;
 
+    using Context = DataSetFilter;
+
+    using ParamTypes = std::tuple<
+        decltype(type::north),
+        decltype(type::east),
+        decltype(type::down),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.north;
+        if constexpr(I == 1) return value_.east;
+        if constexpr(I == 2) return value_.down;
+        if constexpr(I == 3) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "north",
@@ -379,25 +515,44 @@ struct MetadataFor<data_filter::PositionLlhUncertainty>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_filter::PositionLlhUncertainty",
-            /* .title       = */ "LLH Position Uncertainty",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Filter reported 1-sigma position uncertainty in the NED local-level frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_filter::PositionLlhUncertainty>::value > { using type = data_filter::PositionLlhUncertainty; };
+template<> struct TypeForDescriptor<data_filter::PositionLlhUncertainty::DESCRIPTOR.as_u16()> { using type = data_filter::PositionLlhUncertainty; };
 
 template<>
 struct MetadataFor<data_filter::VelocityNedUncertainty>
 {
     using type = data_filter::VelocityNedUncertainty;
 
+    using Context = DataSetFilter;
+
+    using ParamTypes = std::tuple<
+        decltype(type::north),
+        decltype(type::east),
+        decltype(type::down),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.north;
+        if constexpr(I == 1) return value_.east;
+        if constexpr(I == 2) return value_.down;
+        if constexpr(I == 3) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "north",
@@ -436,25 +591,44 @@ struct MetadataFor<data_filter::VelocityNedUncertainty>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_filter::VelocityNedUncertainty",
-            /* .title       = */ "NED Velocity Uncertainty",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Filter reported 1-sigma velocity uncertainties in the NED local-level frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_filter::VelocityNedUncertainty>::value > { using type = data_filter::VelocityNedUncertainty; };
+template<> struct TypeForDescriptor<data_filter::VelocityNedUncertainty::DESCRIPTOR.as_u16()> { using type = data_filter::VelocityNedUncertainty; };
 
 template<>
 struct MetadataFor<data_filter::EulerAnglesUncertainty>
 {
     using type = data_filter::EulerAnglesUncertainty;
 
+    using Context = DataSetFilter;
+
+    using ParamTypes = std::tuple<
+        decltype(type::roll),
+        decltype(type::pitch),
+        decltype(type::yaw),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.roll;
+        if constexpr(I == 1) return value_.pitch;
+        if constexpr(I == 2) return value_.yaw;
+        if constexpr(I == 3) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "roll",
@@ -493,25 +667,40 @@ struct MetadataFor<data_filter::EulerAnglesUncertainty>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_filter::EulerAnglesUncertainty",
-            /* .title       = */ "euler_angles_uncertainty",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Filter reported 1-sigma Euler angle uncertainties.\nThe uncertainties are reported in 3-2-1 (Yaw-Pitch-Roll, AKA Aircraft) order.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_filter::EulerAnglesUncertainty>::value > { using type = data_filter::EulerAnglesUncertainty; };
+template<> struct TypeForDescriptor<data_filter::EulerAnglesUncertainty::DESCRIPTOR.as_u16()> { using type = data_filter::EulerAnglesUncertainty; };
 
 template<>
 struct MetadataFor<data_filter::GyroBiasUncertainty>
 {
     using type = data_filter::GyroBiasUncertainty;
 
+    using Context = DataSetFilter;
+
+    using ParamTypes = std::tuple<
+        decltype(type::bias_uncert),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.bias_uncert;
+        if constexpr(I == 1) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "bias_uncert",
@@ -532,25 +721,40 @@ struct MetadataFor<data_filter::GyroBiasUncertainty>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_filter::GyroBiasUncertainty",
-            /* .title       = */ "gyro_bias_uncertainty",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Filter reported 1-sigma gyro bias uncertainties expressed in the sensor frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_filter::GyroBiasUncertainty>::value > { using type = data_filter::GyroBiasUncertainty; };
+template<> struct TypeForDescriptor<data_filter::GyroBiasUncertainty::DESCRIPTOR.as_u16()> { using type = data_filter::GyroBiasUncertainty; };
 
 template<>
 struct MetadataFor<data_filter::AccelBiasUncertainty>
 {
     using type = data_filter::AccelBiasUncertainty;
 
+    using Context = DataSetFilter;
+
+    using ParamTypes = std::tuple<
+        decltype(type::bias_uncert),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.bias_uncert;
+        if constexpr(I == 1) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "bias_uncert",
@@ -571,25 +775,42 @@ struct MetadataFor<data_filter::AccelBiasUncertainty>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_filter::AccelBiasUncertainty",
-            /* .title       = */ "accel_bias_uncertainty",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Filter reported 1-sigma accelerometer bias uncertainties expressed in the sensor frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_filter::AccelBiasUncertainty>::value > { using type = data_filter::AccelBiasUncertainty; };
+template<> struct TypeForDescriptor<data_filter::AccelBiasUncertainty::DESCRIPTOR.as_u16()> { using type = data_filter::AccelBiasUncertainty; };
 
 template<>
 struct MetadataFor<data_filter::Timestamp>
 {
     using type = data_filter::Timestamp;
 
+    using Context = DataSetFilter;
+
+    using ParamTypes = std::tuple<
+        decltype(type::tow),
+        decltype(type::week_number),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.tow;
+        if constexpr(I == 1) return value_.week_number;
+        if constexpr(I == 2) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "tow",
@@ -619,19 +840,21 @@ struct MetadataFor<data_filter::Timestamp>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_filter::Timestamp",
-            /* .title       = */ "timestamp",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "GPS timestamp of the Filter data\n\nShould the PPS become unavailable, the device will revert to its internal clock, which will cause the reported time to drift from true GPS time.\nUpon recovering from a PPS outage, the user should expect a jump in the reported GPS time due to the accumulation of internal clock error.\nIf synchronization to an external clock or onboard GNSS receiver (for products that have one) is disabled, this time is equivalent to internal system time.\n\nNote: this data field may be deprecated in the future. The more flexible shared data field (0x82, 0xD3) should be used instead.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_filter::Timestamp>::value > { using type = data_filter::Timestamp; };
+template<> struct TypeForDescriptor<data_filter::Timestamp::DESCRIPTOR.as_u16()> { using type = data_filter::Timestamp; };
 
 template<>
 struct MetadataFor<data_filter::FilterMode>
@@ -658,6 +881,8 @@ struct MetadataFor<data_filter::FilterMode>
 
 };
 
+template<> struct TypeForEnumInfo< &MetadataFor<data_filter::FilterMode>::value > { using type = data_filter::FilterMode; };
+
 template<>
 struct MetadataFor<data_filter::FilterDynamicsMode>
 {
@@ -678,6 +903,8 @@ struct MetadataFor<data_filter::FilterDynamicsMode>
     };
 
 };
+
+template<> struct TypeForEnumInfo< &MetadataFor<data_filter::FilterDynamicsMode>::value > { using type = data_filter::FilterDynamicsMode; };
 
 template<>
 struct MetadataFor<data_filter::FilterStatusFlags>
@@ -724,11 +951,28 @@ struct MetadataFor<data_filter::FilterStatusFlags>
 
 };
 
+template<> struct TypeForBitsInfo< &MetadataFor<data_filter::FilterStatusFlags>::value > { using type = data_filter::FilterStatusFlags; };
+
 template<>
 struct MetadataFor<data_filter::Status>
 {
     using type = data_filter::Status;
 
+    using Context = DataSetFilter;
+
+    using ParamTypes = std::tuple<
+        decltype(type::filter_state),
+        decltype(type::dynamics_mode),
+        decltype(type::status_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.filter_state;
+        if constexpr(I == 1) return value_.dynamics_mode;
+        if constexpr(I == 2) return value_.status_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "filter_state",
@@ -758,25 +1002,40 @@ struct MetadataFor<data_filter::Status>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_filter::Status",
-            /* .title       = */ "status",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Device-specific filter status indicators.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_filter::Status>::value > { using type = data_filter::Status; };
+template<> struct TypeForDescriptor<data_filter::Status::DESCRIPTOR.as_u16()> { using type = data_filter::Status; };
 
 template<>
 struct MetadataFor<data_filter::LinearAccel>
 {
     using type = data_filter::LinearAccel;
 
+    using Context = DataSetFilter;
+
+    using ParamTypes = std::tuple<
+        decltype(type::accel),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.accel;
+        if constexpr(I == 1) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "accel",
@@ -797,25 +1056,40 @@ struct MetadataFor<data_filter::LinearAccel>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_filter::LinearAccel",
-            /* .title       = */ "linear_accel",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Filter-compensated linear acceleration expressed in the vehicle frame.\nNote: The estimated gravity has been removed from this data leaving only linear acceleration.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_filter::LinearAccel>::value > { using type = data_filter::LinearAccel; };
+template<> struct TypeForDescriptor<data_filter::LinearAccel::DESCRIPTOR.as_u16()> { using type = data_filter::LinearAccel; };
 
 template<>
 struct MetadataFor<data_filter::GravityVector>
 {
     using type = data_filter::GravityVector;
 
+    using Context = DataSetFilter;
+
+    using ParamTypes = std::tuple<
+        decltype(type::gravity),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.gravity;
+        if constexpr(I == 1) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "gravity",
@@ -836,25 +1110,40 @@ struct MetadataFor<data_filter::GravityVector>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_filter::GravityVector",
-            /* .title       = */ "gravity_vector",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Filter reported gravity vector expressed in the vehicle frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_filter::GravityVector>::value > { using type = data_filter::GravityVector; };
+template<> struct TypeForDescriptor<data_filter::GravityVector::DESCRIPTOR.as_u16()> { using type = data_filter::GravityVector; };
 
 template<>
 struct MetadataFor<data_filter::CompAccel>
 {
     using type = data_filter::CompAccel;
 
+    using Context = DataSetFilter;
+
+    using ParamTypes = std::tuple<
+        decltype(type::accel),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.accel;
+        if constexpr(I == 1) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "accel",
@@ -875,25 +1164,40 @@ struct MetadataFor<data_filter::CompAccel>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_filter::CompAccel",
-            /* .title       = */ "Compensated Acceleration",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Filter-compensated acceleration expressed in the vehicle frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_filter::CompAccel>::value > { using type = data_filter::CompAccel; };
+template<> struct TypeForDescriptor<data_filter::CompAccel::DESCRIPTOR.as_u16()> { using type = data_filter::CompAccel; };
 
 template<>
 struct MetadataFor<data_filter::CompAngularRate>
 {
     using type = data_filter::CompAngularRate;
 
+    using Context = DataSetFilter;
+
+    using ParamTypes = std::tuple<
+        decltype(type::gyro),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.gyro;
+        if constexpr(I == 1) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "gyro",
@@ -914,25 +1218,40 @@ struct MetadataFor<data_filter::CompAngularRate>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_filter::CompAngularRate",
-            /* .title       = */ "comp_angular_rate",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Filter-compensated angular rate expressed in the vehicle frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_filter::CompAngularRate>::value > { using type = data_filter::CompAngularRate; };
+template<> struct TypeForDescriptor<data_filter::CompAngularRate::DESCRIPTOR.as_u16()> { using type = data_filter::CompAngularRate; };
 
 template<>
 struct MetadataFor<data_filter::QuaternionAttitudeUncertainty>
 {
     using type = data_filter::QuaternionAttitudeUncertainty;
 
+    using Context = DataSetFilter;
+
+    using ParamTypes = std::tuple<
+        decltype(type::q),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.q;
+        if constexpr(I == 1) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "q",
@@ -953,25 +1272,40 @@ struct MetadataFor<data_filter::QuaternionAttitudeUncertainty>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_filter::QuaternionAttitudeUncertainty",
-            /* .title       = */ "quaternion_attitude_uncertainty",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Filter reported quaternion uncertainties.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_filter::QuaternionAttitudeUncertainty>::value > { using type = data_filter::QuaternionAttitudeUncertainty; };
+template<> struct TypeForDescriptor<data_filter::QuaternionAttitudeUncertainty::DESCRIPTOR.as_u16()> { using type = data_filter::QuaternionAttitudeUncertainty; };
 
 template<>
 struct MetadataFor<data_filter::Wgs84GravityMag>
 {
     using type = data_filter::Wgs84GravityMag;
 
+    using Context = DataSetFilter;
+
+    using ParamTypes = std::tuple<
+        decltype(type::magnitude),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.magnitude;
+        if constexpr(I == 1) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "magnitude",
@@ -992,19 +1326,21 @@ struct MetadataFor<data_filter::Wgs84GravityMag>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_filter::Wgs84GravityMag",
-            /* .title       = */ "wgs84_gravity_mag",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Filter reported WGS84 gravity magnitude.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_filter::Wgs84GravityMag>::value > { using type = data_filter::Wgs84GravityMag; };
+template<> struct TypeForDescriptor<data_filter::Wgs84GravityMag::DESCRIPTOR.as_u16()> { using type = data_filter::Wgs84GravityMag; };
 
 template<>
 struct MetadataFor<data_filter::HeadingUpdateState::HeadingSource>
@@ -1028,11 +1364,30 @@ struct MetadataFor<data_filter::HeadingUpdateState::HeadingSource>
 
 };
 
+template<> struct TypeForEnumInfo< &MetadataFor<data_filter::HeadingUpdateState::HeadingSource>::value > { using type = data_filter::HeadingUpdateState::HeadingSource; };
+
 template<>
 struct MetadataFor<data_filter::HeadingUpdateState>
 {
     using type = data_filter::HeadingUpdateState;
 
+    using Context = DataSetFilter;
+
+    using ParamTypes = std::tuple<
+        decltype(type::heading),
+        decltype(type::heading_1sigma),
+        decltype(type::source),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.heading;
+        if constexpr(I == 1) return value_.heading_1sigma;
+        if constexpr(I == 2) return value_.source;
+        if constexpr(I == 3) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "heading",
@@ -1071,25 +1426,48 @@ struct MetadataFor<data_filter::HeadingUpdateState>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_filter::HeadingUpdateState",
-            /* .title       = */ "heading_update_state",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Filter reported heading update state.\n\nHeading updates can be applied from the sources listed below.  Note, some of these sources may be combined.\nThe heading value is always relative to true north.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_filter::HeadingUpdateState>::value > { using type = data_filter::HeadingUpdateState; };
+template<> struct TypeForDescriptor<data_filter::HeadingUpdateState::DESCRIPTOR.as_u16()> { using type = data_filter::HeadingUpdateState; };
 
 template<>
 struct MetadataFor<data_filter::MagneticModel>
 {
     using type = data_filter::MagneticModel;
 
+    using Context = DataSetFilter;
+
+    using ParamTypes = std::tuple<
+        decltype(type::intensity_north),
+        decltype(type::intensity_east),
+        decltype(type::intensity_down),
+        decltype(type::inclination),
+        decltype(type::declination),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.intensity_north;
+        if constexpr(I == 1) return value_.intensity_east;
+        if constexpr(I == 2) return value_.intensity_down;
+        if constexpr(I == 3) return value_.inclination;
+        if constexpr(I == 4) return value_.declination;
+        if constexpr(I == 5) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "intensity_north",
@@ -1146,25 +1524,40 @@ struct MetadataFor<data_filter::MagneticModel>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_filter::MagneticModel",
-            /* .title       = */ "magnetic_model",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "The World Magnetic Model is used for this data. Please refer to the device user manual for the current version of the model.\nA valid GNSS location is required for the model to be valid.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_filter::MagneticModel>::value > { using type = data_filter::MagneticModel; };
+template<> struct TypeForDescriptor<data_filter::MagneticModel::DESCRIPTOR.as_u16()> { using type = data_filter::MagneticModel; };
 
 template<>
 struct MetadataFor<data_filter::AccelScaleFactor>
 {
     using type = data_filter::AccelScaleFactor;
 
+    using Context = DataSetFilter;
+
+    using ParamTypes = std::tuple<
+        decltype(type::scale_factor),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.scale_factor;
+        if constexpr(I == 1) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "scale_factor",
@@ -1185,25 +1578,40 @@ struct MetadataFor<data_filter::AccelScaleFactor>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_filter::AccelScaleFactor",
-            /* .title       = */ "accel_scale_factor",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Filter reported accelerometer scale factor expressed in the sensor frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_filter::AccelScaleFactor>::value > { using type = data_filter::AccelScaleFactor; };
+template<> struct TypeForDescriptor<data_filter::AccelScaleFactor::DESCRIPTOR.as_u16()> { using type = data_filter::AccelScaleFactor; };
 
 template<>
 struct MetadataFor<data_filter::AccelScaleFactorUncertainty>
 {
     using type = data_filter::AccelScaleFactorUncertainty;
 
+    using Context = DataSetFilter;
+
+    using ParamTypes = std::tuple<
+        decltype(type::scale_factor_uncert),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.scale_factor_uncert;
+        if constexpr(I == 1) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "scale_factor_uncert",
@@ -1224,25 +1632,40 @@ struct MetadataFor<data_filter::AccelScaleFactorUncertainty>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_filter::AccelScaleFactorUncertainty",
-            /* .title       = */ "accel_scale_factor_uncertainty",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Filter reported 1-sigma accelerometer scale factor uncertainty expressed in the sensor frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_filter::AccelScaleFactorUncertainty>::value > { using type = data_filter::AccelScaleFactorUncertainty; };
+template<> struct TypeForDescriptor<data_filter::AccelScaleFactorUncertainty::DESCRIPTOR.as_u16()> { using type = data_filter::AccelScaleFactorUncertainty; };
 
 template<>
 struct MetadataFor<data_filter::GyroScaleFactor>
 {
     using type = data_filter::GyroScaleFactor;
 
+    using Context = DataSetFilter;
+
+    using ParamTypes = std::tuple<
+        decltype(type::scale_factor),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.scale_factor;
+        if constexpr(I == 1) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "scale_factor",
@@ -1263,25 +1686,40 @@ struct MetadataFor<data_filter::GyroScaleFactor>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_filter::GyroScaleFactor",
-            /* .title       = */ "gyro_scale_factor",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Filter reported gyro scale factor expressed in the sensor frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_filter::GyroScaleFactor>::value > { using type = data_filter::GyroScaleFactor; };
+template<> struct TypeForDescriptor<data_filter::GyroScaleFactor::DESCRIPTOR.as_u16()> { using type = data_filter::GyroScaleFactor; };
 
 template<>
 struct MetadataFor<data_filter::GyroScaleFactorUncertainty>
 {
     using type = data_filter::GyroScaleFactorUncertainty;
 
+    using Context = DataSetFilter;
+
+    using ParamTypes = std::tuple<
+        decltype(type::scale_factor_uncert),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.scale_factor_uncert;
+        if constexpr(I == 1) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "scale_factor_uncert",
@@ -1302,25 +1740,40 @@ struct MetadataFor<data_filter::GyroScaleFactorUncertainty>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_filter::GyroScaleFactorUncertainty",
-            /* .title       = */ "gyro_scale_factor_uncertainty",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Filter reported 1-sigma gyro scale factor uncertainty expressed in the sensor frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_filter::GyroScaleFactorUncertainty>::value > { using type = data_filter::GyroScaleFactorUncertainty; };
+template<> struct TypeForDescriptor<data_filter::GyroScaleFactorUncertainty::DESCRIPTOR.as_u16()> { using type = data_filter::GyroScaleFactorUncertainty; };
 
 template<>
 struct MetadataFor<data_filter::MagBias>
 {
     using type = data_filter::MagBias;
 
+    using Context = DataSetFilter;
+
+    using ParamTypes = std::tuple<
+        decltype(type::bias),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.bias;
+        if constexpr(I == 1) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "bias",
@@ -1341,25 +1794,40 @@ struct MetadataFor<data_filter::MagBias>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_filter::MagBias",
-            /* .title       = */ "mag_bias",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Filter reported magnetometer bias expressed in the sensor frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_filter::MagBias>::value > { using type = data_filter::MagBias; };
+template<> struct TypeForDescriptor<data_filter::MagBias::DESCRIPTOR.as_u16()> { using type = data_filter::MagBias; };
 
 template<>
 struct MetadataFor<data_filter::MagBiasUncertainty>
 {
     using type = data_filter::MagBiasUncertainty;
 
+    using Context = DataSetFilter;
+
+    using ParamTypes = std::tuple<
+        decltype(type::bias_uncert),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.bias_uncert;
+        if constexpr(I == 1) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "bias_uncert",
@@ -1380,25 +1848,48 @@ struct MetadataFor<data_filter::MagBiasUncertainty>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_filter::MagBiasUncertainty",
-            /* .title       = */ "mag_bias_uncertainty",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Filter reported 1-sigma magnetometer bias uncertainty expressed in the sensor frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_filter::MagBiasUncertainty>::value > { using type = data_filter::MagBiasUncertainty; };
+template<> struct TypeForDescriptor<data_filter::MagBiasUncertainty::DESCRIPTOR.as_u16()> { using type = data_filter::MagBiasUncertainty; };
 
 template<>
 struct MetadataFor<data_filter::StandardAtmosphere>
 {
     using type = data_filter::StandardAtmosphere;
 
+    using Context = DataSetFilter;
+
+    using ParamTypes = std::tuple<
+        decltype(type::geometric_altitude),
+        decltype(type::geopotential_altitude),
+        decltype(type::standard_temperature),
+        decltype(type::standard_pressure),
+        decltype(type::standard_density),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.geometric_altitude;
+        if constexpr(I == 1) return value_.geopotential_altitude;
+        if constexpr(I == 2) return value_.standard_temperature;
+        if constexpr(I == 3) return value_.standard_pressure;
+        if constexpr(I == 4) return value_.standard_density;
+        if constexpr(I == 5) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "geometric_altitude",
@@ -1455,25 +1946,40 @@ struct MetadataFor<data_filter::StandardAtmosphere>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_filter::StandardAtmosphere",
-            /* .title       = */ "standard_atmosphere",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Filter reported standard atmosphere parameters.\n\nThe US 1976 Standard Atmosphere Model is used. A valid GNSS location is required for the model to be valid.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_filter::StandardAtmosphere>::value > { using type = data_filter::StandardAtmosphere; };
+template<> struct TypeForDescriptor<data_filter::StandardAtmosphere::DESCRIPTOR.as_u16()> { using type = data_filter::StandardAtmosphere; };
 
 template<>
 struct MetadataFor<data_filter::PressureAltitude>
 {
     using type = data_filter::PressureAltitude;
 
+    using Context = DataSetFilter;
+
+    using ParamTypes = std::tuple<
+        decltype(type::pressure_altitude),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.pressure_altitude;
+        if constexpr(I == 1) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "pressure_altitude",
@@ -1494,25 +2000,40 @@ struct MetadataFor<data_filter::PressureAltitude>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_filter::PressureAltitude",
-            /* .title       = */ "pressure_altitude",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Filter reported pressure altitude.\n\nThe US 1976 Standard Atmosphere Model is used to calculate the pressure altitude in meters.\nA valid pressure sensor reading is required for the pressure altitude to be valid.\nThe minimum pressure reading supported by the model is 0.0037 mBar, corresponding to an altitude of 84,852 meters.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_filter::PressureAltitude>::value > { using type = data_filter::PressureAltitude; };
+template<> struct TypeForDescriptor<data_filter::PressureAltitude::DESCRIPTOR.as_u16()> { using type = data_filter::PressureAltitude; };
 
 template<>
 struct MetadataFor<data_filter::DensityAltitude>
 {
     using type = data_filter::DensityAltitude;
 
+    using Context = DataSetFilter;
+
+    using ParamTypes = std::tuple<
+        decltype(type::density_altitude),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.density_altitude;
+        if constexpr(I == 1) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "density_altitude",
@@ -1533,25 +2054,40 @@ struct MetadataFor<data_filter::DensityAltitude>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_filter::DensityAltitude",
-            /* .title       = */ "density_altitude",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_filter::DensityAltitude>::value > { using type = data_filter::DensityAltitude; };
+template<> struct TypeForDescriptor<data_filter::DensityAltitude::DESCRIPTOR.as_u16()> { using type = data_filter::DensityAltitude; };
 
 template<>
 struct MetadataFor<data_filter::AntennaOffsetCorrection>
 {
     using type = data_filter::AntennaOffsetCorrection;
 
+    using Context = DataSetFilter;
+
+    using ParamTypes = std::tuple<
+        decltype(type::offset),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.offset;
+        if constexpr(I == 1) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "offset",
@@ -1572,25 +2108,40 @@ struct MetadataFor<data_filter::AntennaOffsetCorrection>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_filter::AntennaOffsetCorrection",
-            /* .title       = */ "antenna_offset_correction",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Filter reported GNSS antenna offset in vehicle frame.\n\nThis offset added to any previously stored offset vector to compensate for errors in definition.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_filter::AntennaOffsetCorrection>::value > { using type = data_filter::AntennaOffsetCorrection; };
+template<> struct TypeForDescriptor<data_filter::AntennaOffsetCorrection::DESCRIPTOR.as_u16()> { using type = data_filter::AntennaOffsetCorrection; };
 
 template<>
 struct MetadataFor<data_filter::AntennaOffsetCorrectionUncertainty>
 {
     using type = data_filter::AntennaOffsetCorrectionUncertainty;
 
+    using Context = DataSetFilter;
+
+    using ParamTypes = std::tuple<
+        decltype(type::offset_uncert),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.offset_uncert;
+        if constexpr(I == 1) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "offset_uncert",
@@ -1611,25 +2162,42 @@ struct MetadataFor<data_filter::AntennaOffsetCorrectionUncertainty>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_filter::AntennaOffsetCorrectionUncertainty",
-            /* .title       = */ "antenna_offset_correction_uncertainty",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Filter reported 1-sigma GNSS antenna offset uncertainties in vehicle frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_filter::AntennaOffsetCorrectionUncertainty>::value > { using type = data_filter::AntennaOffsetCorrectionUncertainty; };
+template<> struct TypeForDescriptor<data_filter::AntennaOffsetCorrectionUncertainty::DESCRIPTOR.as_u16()> { using type = data_filter::AntennaOffsetCorrectionUncertainty; };
 
 template<>
 struct MetadataFor<data_filter::MultiAntennaOffsetCorrection>
 {
     using type = data_filter::MultiAntennaOffsetCorrection;
 
+    using Context = DataSetFilter;
+
+    using ParamTypes = std::tuple<
+        decltype(type::receiver_id),
+        decltype(type::offset),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.receiver_id;
+        if constexpr(I == 1) return value_.offset;
+        if constexpr(I == 2) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "receiver_id",
@@ -1659,25 +2227,42 @@ struct MetadataFor<data_filter::MultiAntennaOffsetCorrection>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_filter::MultiAntennaOffsetCorrection",
-            /* .title       = */ "multi_antenna_offset_correction",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Filter reported GNSS antenna offset in vehicle frame.\n\nThis offset added to any previously stored offset vector to compensate for errors in definition.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_filter::MultiAntennaOffsetCorrection>::value > { using type = data_filter::MultiAntennaOffsetCorrection; };
+template<> struct TypeForDescriptor<data_filter::MultiAntennaOffsetCorrection::DESCRIPTOR.as_u16()> { using type = data_filter::MultiAntennaOffsetCorrection; };
 
 template<>
 struct MetadataFor<data_filter::MultiAntennaOffsetCorrectionUncertainty>
 {
     using type = data_filter::MultiAntennaOffsetCorrectionUncertainty;
 
+    using Context = DataSetFilter;
+
+    using ParamTypes = std::tuple<
+        decltype(type::receiver_id),
+        decltype(type::offset_uncert),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.receiver_id;
+        if constexpr(I == 1) return value_.offset_uncert;
+        if constexpr(I == 2) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "receiver_id",
@@ -1707,25 +2292,40 @@ struct MetadataFor<data_filter::MultiAntennaOffsetCorrectionUncertainty>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_filter::MultiAntennaOffsetCorrectionUncertainty",
-            /* .title       = */ "multi_antenna_offset_correction_uncertainty",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Filter reported 1-sigma GNSS antenna offset uncertainties in vehicle frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_filter::MultiAntennaOffsetCorrectionUncertainty>::value > { using type = data_filter::MultiAntennaOffsetCorrectionUncertainty; };
+template<> struct TypeForDescriptor<data_filter::MultiAntennaOffsetCorrectionUncertainty::DESCRIPTOR.as_u16()> { using type = data_filter::MultiAntennaOffsetCorrectionUncertainty; };
 
 template<>
 struct MetadataFor<data_filter::MagnetometerOffset>
 {
     using type = data_filter::MagnetometerOffset;
 
+    using Context = DataSetFilter;
+
+    using ParamTypes = std::tuple<
+        decltype(type::hard_iron),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.hard_iron;
+        if constexpr(I == 1) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "hard_iron",
@@ -1746,25 +2346,40 @@ struct MetadataFor<data_filter::MagnetometerOffset>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_filter::MagnetometerOffset",
-            /* .title       = */ "magnetometer_offset",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Filter reported magnetometer hard iron offset in sensor frame.\n\nThis offset added to any previously stored hard iron offset vector to compensate for magnetometer in-run bias errors.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_filter::MagnetometerOffset>::value > { using type = data_filter::MagnetometerOffset; };
+template<> struct TypeForDescriptor<data_filter::MagnetometerOffset::DESCRIPTOR.as_u16()> { using type = data_filter::MagnetometerOffset; };
 
 template<>
 struct MetadataFor<data_filter::MagnetometerMatrix>
 {
     using type = data_filter::MagnetometerMatrix;
 
+    using Context = DataSetFilter;
+
+    using ParamTypes = std::tuple<
+        decltype(type::soft_iron),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.soft_iron;
+        if constexpr(I == 1) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "soft_iron",
@@ -1785,25 +2400,40 @@ struct MetadataFor<data_filter::MagnetometerMatrix>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_filter::MagnetometerMatrix",
-            /* .title       = */ "magnetometer_matrix",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Filter reported magnetometer soft iron matrix in sensor frame.\n\nThis matrix is post multiplied to any previously stored soft iron matrix to compensate for magnetometer in-run errors.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_filter::MagnetometerMatrix>::value > { using type = data_filter::MagnetometerMatrix; };
+template<> struct TypeForDescriptor<data_filter::MagnetometerMatrix::DESCRIPTOR.as_u16()> { using type = data_filter::MagnetometerMatrix; };
 
 template<>
 struct MetadataFor<data_filter::MagnetometerOffsetUncertainty>
 {
     using type = data_filter::MagnetometerOffsetUncertainty;
 
+    using Context = DataSetFilter;
+
+    using ParamTypes = std::tuple<
+        decltype(type::hard_iron_uncertainty),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.hard_iron_uncertainty;
+        if constexpr(I == 1) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "hard_iron_uncertainty",
@@ -1824,25 +2454,40 @@ struct MetadataFor<data_filter::MagnetometerOffsetUncertainty>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_filter::MagnetometerOffsetUncertainty",
-            /* .title       = */ "magnetometer_offset_uncertainty",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Filter reported 1-sigma magnetometer hard iron offset uncertainties in sensor frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_filter::MagnetometerOffsetUncertainty>::value > { using type = data_filter::MagnetometerOffsetUncertainty; };
+template<> struct TypeForDescriptor<data_filter::MagnetometerOffsetUncertainty::DESCRIPTOR.as_u16()> { using type = data_filter::MagnetometerOffsetUncertainty; };
 
 template<>
 struct MetadataFor<data_filter::MagnetometerMatrixUncertainty>
 {
     using type = data_filter::MagnetometerMatrixUncertainty;
 
+    using Context = DataSetFilter;
+
+    using ParamTypes = std::tuple<
+        decltype(type::soft_iron_uncertainty),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.soft_iron_uncertainty;
+        if constexpr(I == 1) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "soft_iron_uncertainty",
@@ -1863,25 +2508,40 @@ struct MetadataFor<data_filter::MagnetometerMatrixUncertainty>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_filter::MagnetometerMatrixUncertainty",
-            /* .title       = */ "magnetometer_matrix_uncertainty",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Filter reported 1-sigma magnetometer soft iron matrix uncertainties in sensor frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_filter::MagnetometerMatrixUncertainty>::value > { using type = data_filter::MagnetometerMatrixUncertainty; };
+template<> struct TypeForDescriptor<data_filter::MagnetometerMatrixUncertainty::DESCRIPTOR.as_u16()> { using type = data_filter::MagnetometerMatrixUncertainty; };
 
 template<>
 struct MetadataFor<data_filter::MagnetometerCovarianceMatrix>
 {
     using type = data_filter::MagnetometerCovarianceMatrix;
 
+    using Context = DataSetFilter;
+
+    using ParamTypes = std::tuple<
+        decltype(type::covariance),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.covariance;
+        if constexpr(I == 1) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "covariance",
@@ -1902,25 +2562,40 @@ struct MetadataFor<data_filter::MagnetometerCovarianceMatrix>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_filter::MagnetometerCovarianceMatrix",
-            /* .title       = */ "magnetometer_covariance_matrix",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_filter::MagnetometerCovarianceMatrix>::value > { using type = data_filter::MagnetometerCovarianceMatrix; };
+template<> struct TypeForDescriptor<data_filter::MagnetometerCovarianceMatrix::DESCRIPTOR.as_u16()> { using type = data_filter::MagnetometerCovarianceMatrix; };
 
 template<>
 struct MetadataFor<data_filter::MagnetometerResidualVector>
 {
     using type = data_filter::MagnetometerResidualVector;
 
+    using Context = DataSetFilter;
+
+    using ParamTypes = std::tuple<
+        decltype(type::residual),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.residual;
+        if constexpr(I == 1) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "residual",
@@ -1941,25 +2616,44 @@ struct MetadataFor<data_filter::MagnetometerResidualVector>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_filter::MagnetometerResidualVector",
-            /* .title       = */ "magnetometer_residual_vector",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Filter reported magnetometer measurement residuals in vehicle frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_filter::MagnetometerResidualVector>::value > { using type = data_filter::MagnetometerResidualVector; };
+template<> struct TypeForDescriptor<data_filter::MagnetometerResidualVector::DESCRIPTOR.as_u16()> { using type = data_filter::MagnetometerResidualVector; };
 
 template<>
 struct MetadataFor<data_filter::ClockCorrection>
 {
     using type = data_filter::ClockCorrection;
 
+    using Context = DataSetFilter;
+
+    using ParamTypes = std::tuple<
+        decltype(type::receiver_id),
+        decltype(type::bias),
+        decltype(type::bias_drift),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.receiver_id;
+        if constexpr(I == 1) return value_.bias;
+        if constexpr(I == 2) return value_.bias_drift;
+        if constexpr(I == 3) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "receiver_id",
@@ -1998,25 +2692,44 @@ struct MetadataFor<data_filter::ClockCorrection>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_filter::ClockCorrection",
-            /* .title       = */ "clock_correction",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Filter reported GNSS receiver clock error parameters.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_filter::ClockCorrection>::value > { using type = data_filter::ClockCorrection; };
+template<> struct TypeForDescriptor<data_filter::ClockCorrection::DESCRIPTOR.as_u16()> { using type = data_filter::ClockCorrection; };
 
 template<>
 struct MetadataFor<data_filter::ClockCorrectionUncertainty>
 {
     using type = data_filter::ClockCorrectionUncertainty;
 
+    using Context = DataSetFilter;
+
+    using ParamTypes = std::tuple<
+        decltype(type::receiver_id),
+        decltype(type::bias_uncertainty),
+        decltype(type::bias_drift_uncertainty),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.receiver_id;
+        if constexpr(I == 1) return value_.bias_uncertainty;
+        if constexpr(I == 2) return value_.bias_drift_uncertainty;
+        if constexpr(I == 3) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "receiver_id",
@@ -2055,19 +2768,21 @@ struct MetadataFor<data_filter::ClockCorrectionUncertainty>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_filter::ClockCorrectionUncertainty",
-            /* .title       = */ "clock_correction_uncertainty",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Filter reported 1-sigma GNSS receiver clock error parameters.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_filter::ClockCorrectionUncertainty>::value > { using type = data_filter::ClockCorrectionUncertainty; };
+template<> struct TypeForDescriptor<data_filter::ClockCorrectionUncertainty::DESCRIPTOR.as_u16()> { using type = data_filter::ClockCorrectionUncertainty; };
 
 template<>
 struct MetadataFor<data_filter::GnssAidStatusFlags>
@@ -2102,11 +2817,30 @@ struct MetadataFor<data_filter::GnssAidStatusFlags>
 
 };
 
+template<> struct TypeForBitsInfo< &MetadataFor<data_filter::GnssAidStatusFlags>::value > { using type = data_filter::GnssAidStatusFlags; };
+
 template<>
 struct MetadataFor<data_filter::GnssPosAidStatus>
 {
     using type = data_filter::GnssPosAidStatus;
 
+    using Context = DataSetFilter;
+
+    using ParamTypes = std::tuple<
+        decltype(type::receiver_id),
+        decltype(type::time_of_week),
+        decltype(type::status),
+        decltype(type::reserved)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.receiver_id;
+        if constexpr(I == 1) return value_.time_of_week;
+        if constexpr(I == 2) return value_.status;
+        if constexpr(I == 3) return value_.reserved;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "receiver_id",
@@ -2145,25 +2879,42 @@ struct MetadataFor<data_filter::GnssPosAidStatus>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_filter::GnssPosAidStatus",
-            /* .title       = */ "GNSS Position Aiding Status",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Filter reported GNSS position aiding status",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_filter::GnssPosAidStatus>::value > { using type = data_filter::GnssPosAidStatus; };
+template<> struct TypeForDescriptor<data_filter::GnssPosAidStatus::DESCRIPTOR.as_u16()> { using type = data_filter::GnssPosAidStatus; };
 
 template<>
 struct MetadataFor<data_filter::GnssAttAidStatus>
 {
     using type = data_filter::GnssAttAidStatus;
 
+    using Context = DataSetFilter;
+
+    using ParamTypes = std::tuple<
+        decltype(type::time_of_week),
+        decltype(type::status),
+        decltype(type::reserved)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.time_of_week;
+        if constexpr(I == 1) return value_.status;
+        if constexpr(I == 2) return value_.reserved;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "time_of_week",
@@ -2193,19 +2944,21 @@ struct MetadataFor<data_filter::GnssAttAidStatus>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_filter::GnssAttAidStatus",
-            /* .title       = */ "GNSS Attitude Aiding Status",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Filter reported dual antenna GNSS attitude aiding status",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_filter::GnssAttAidStatus>::value > { using type = data_filter::GnssAttAidStatus; };
+template<> struct TypeForDescriptor<data_filter::GnssAttAidStatus::DESCRIPTOR.as_u16()> { using type = data_filter::GnssAttAidStatus; };
 
 template<>
 struct MetadataFor<data_filter::HeadAidStatus::HeadingAidType>
@@ -2226,11 +2979,28 @@ struct MetadataFor<data_filter::HeadAidStatus::HeadingAidType>
 
 };
 
+template<> struct TypeForEnumInfo< &MetadataFor<data_filter::HeadAidStatus::HeadingAidType>::value > { using type = data_filter::HeadAidStatus::HeadingAidType; };
+
 template<>
 struct MetadataFor<data_filter::HeadAidStatus>
 {
     using type = data_filter::HeadAidStatus;
 
+    using Context = DataSetFilter;
+
+    using ParamTypes = std::tuple<
+        decltype(type::time_of_week),
+        decltype(type::type),
+        decltype(type::reserved)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.time_of_week;
+        if constexpr(I == 1) return value_.type;
+        if constexpr(I == 2) return value_.reserved;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "time_of_week",
@@ -2260,25 +3030,40 @@ struct MetadataFor<data_filter::HeadAidStatus>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_filter::HeadAidStatus",
-            /* .title       = */ "head_aid_status",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Filter reported GNSS heading aiding status",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_filter::HeadAidStatus>::value > { using type = data_filter::HeadAidStatus; };
+template<> struct TypeForDescriptor<data_filter::HeadAidStatus::DESCRIPTOR.as_u16()> { using type = data_filter::HeadAidStatus; };
 
 template<>
 struct MetadataFor<data_filter::RelPosNed>
 {
     using type = data_filter::RelPosNed;
 
+    using Context = DataSetFilter;
+
+    using ParamTypes = std::tuple<
+        decltype(type::relative_position),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.relative_position;
+        if constexpr(I == 1) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "relative_position",
@@ -2299,25 +3084,40 @@ struct MetadataFor<data_filter::RelPosNed>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_filter::RelPosNed",
-            /* .title       = */ "NED Relative Position",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Filter reported relative position, with respect to configured reference position",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_filter::RelPosNed>::value > { using type = data_filter::RelPosNed; };
+template<> struct TypeForDescriptor<data_filter::RelPosNed::DESCRIPTOR.as_u16()> { using type = data_filter::RelPosNed; };
 
 template<>
 struct MetadataFor<data_filter::EcefPos>
 {
     using type = data_filter::EcefPos;
 
+    using Context = DataSetFilter;
+
+    using ParamTypes = std::tuple<
+        decltype(type::position_ecef),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.position_ecef;
+        if constexpr(I == 1) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "position_ecef",
@@ -2338,25 +3138,40 @@ struct MetadataFor<data_filter::EcefPos>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_filter::EcefPos",
-            /* .title       = */ "ECEF Position",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Filter reported ECEF position",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_filter::EcefPos>::value > { using type = data_filter::EcefPos; };
+template<> struct TypeForDescriptor<data_filter::EcefPos::DESCRIPTOR.as_u16()> { using type = data_filter::EcefPos; };
 
 template<>
 struct MetadataFor<data_filter::EcefVel>
 {
     using type = data_filter::EcefVel;
 
+    using Context = DataSetFilter;
+
+    using ParamTypes = std::tuple<
+        decltype(type::velocity_ecef),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.velocity_ecef;
+        if constexpr(I == 1) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "velocity_ecef",
@@ -2377,25 +3192,40 @@ struct MetadataFor<data_filter::EcefVel>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_filter::EcefVel",
-            /* .title       = */ "ECEF Velocity",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Filter reported ECEF velocity",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_filter::EcefVel>::value > { using type = data_filter::EcefVel; };
+template<> struct TypeForDescriptor<data_filter::EcefVel::DESCRIPTOR.as_u16()> { using type = data_filter::EcefVel; };
 
 template<>
 struct MetadataFor<data_filter::EcefPosUncertainty>
 {
     using type = data_filter::EcefPosUncertainty;
 
+    using Context = DataSetFilter;
+
+    using ParamTypes = std::tuple<
+        decltype(type::pos_uncertainty),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.pos_uncertainty;
+        if constexpr(I == 1) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "pos_uncertainty",
@@ -2416,25 +3246,40 @@ struct MetadataFor<data_filter::EcefPosUncertainty>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_filter::EcefPosUncertainty",
-            /* .title       = */ "ECEF Position Uncertainty",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Filter reported 1-sigma position uncertainty in the ECEF frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_filter::EcefPosUncertainty>::value > { using type = data_filter::EcefPosUncertainty; };
+template<> struct TypeForDescriptor<data_filter::EcefPosUncertainty::DESCRIPTOR.as_u16()> { using type = data_filter::EcefPosUncertainty; };
 
 template<>
 struct MetadataFor<data_filter::EcefVelUncertainty>
 {
     using type = data_filter::EcefVelUncertainty;
 
+    using Context = DataSetFilter;
+
+    using ParamTypes = std::tuple<
+        decltype(type::vel_uncertainty),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.vel_uncertainty;
+        if constexpr(I == 1) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "vel_uncertainty",
@@ -2455,19 +3300,21 @@ struct MetadataFor<data_filter::EcefVelUncertainty>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_filter::EcefVelUncertainty",
-            /* .title       = */ "ECEF Velocity Uncertainty",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Filter reported 1-sigma velocity uncertainties in the ECEF frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_filter::EcefVelUncertainty>::value > { using type = data_filter::EcefVelUncertainty; };
+template<> struct TypeForDescriptor<data_filter::EcefVelUncertainty::DESCRIPTOR.as_u16()> { using type = data_filter::EcefVelUncertainty; };
 
 template<>
 struct MetadataFor<data_filter::FilterAidingMeasurementType>
@@ -2501,6 +3348,8 @@ struct MetadataFor<data_filter::FilterAidingMeasurementType>
 
 };
 
+template<> struct TypeForEnumInfo< &MetadataFor<data_filter::FilterAidingMeasurementType>::value > { using type = data_filter::FilterAidingMeasurementType; };
+
 template<>
 struct MetadataFor<data_filter::FilterMeasurementIndicator>
 {
@@ -2524,11 +3373,30 @@ struct MetadataFor<data_filter::FilterMeasurementIndicator>
 
 };
 
+template<> struct TypeForBitsInfo< &MetadataFor<data_filter::FilterMeasurementIndicator>::value > { using type = data_filter::FilterMeasurementIndicator; };
+
 template<>
 struct MetadataFor<data_filter::AidingMeasurementSummary>
 {
     using type = data_filter::AidingMeasurementSummary;
 
+    using Context = DataSetFilter;
+
+    using ParamTypes = std::tuple<
+        decltype(type::time_of_week),
+        decltype(type::source),
+        decltype(type::type),
+        decltype(type::indicator)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.time_of_week;
+        if constexpr(I == 1) return value_.source;
+        if constexpr(I == 2) return value_.type;
+        if constexpr(I == 3) return value_.indicator;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "time_of_week",
@@ -2567,25 +3435,40 @@ struct MetadataFor<data_filter::AidingMeasurementSummary>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_filter::AidingMeasurementSummary",
-            /* .title       = */ "aiding_measurement_summary",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Filter reported aiding measurement summary. This message contains a summary of the specified aiding measurement over the previous measurement interval ending at the specified time.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_filter::AidingMeasurementSummary>::value > { using type = data_filter::AidingMeasurementSummary; };
+template<> struct TypeForDescriptor<data_filter::AidingMeasurementSummary::DESCRIPTOR.as_u16()> { using type = data_filter::AidingMeasurementSummary; };
 
 template<>
 struct MetadataFor<data_filter::OdometerScaleFactorError>
 {
     using type = data_filter::OdometerScaleFactorError;
 
+    using Context = DataSetFilter;
+
+    using ParamTypes = std::tuple<
+        decltype(type::scale_factor_error),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.scale_factor_error;
+        if constexpr(I == 1) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "scale_factor_error",
@@ -2606,25 +3489,40 @@ struct MetadataFor<data_filter::OdometerScaleFactorError>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_filter::OdometerScaleFactorError",
-            /* .title       = */ "Odometer Scale Factor Error",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Filter reported odometer scale factor error. The total scale factor estimate is the user indicated scale factor, plus the user indicated scale factor times the scale factor error.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_filter::OdometerScaleFactorError>::value > { using type = data_filter::OdometerScaleFactorError; };
+template<> struct TypeForDescriptor<data_filter::OdometerScaleFactorError::DESCRIPTOR.as_u16()> { using type = data_filter::OdometerScaleFactorError; };
 
 template<>
 struct MetadataFor<data_filter::OdometerScaleFactorErrorUncertainty>
 {
     using type = data_filter::OdometerScaleFactorErrorUncertainty;
 
+    using Context = DataSetFilter;
+
+    using ParamTypes = std::tuple<
+        decltype(type::scale_factor_error_uncertainty),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.scale_factor_error_uncertainty;
+        if constexpr(I == 1) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "scale_factor_error_uncertainty",
@@ -2645,19 +3543,21 @@ struct MetadataFor<data_filter::OdometerScaleFactorErrorUncertainty>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_filter::OdometerScaleFactorErrorUncertainty",
-            /* .title       = */ "Odometer Scale Factor Error Uncertainty",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Filter reported odometer scale factor error uncertainty.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_filter::OdometerScaleFactorErrorUncertainty>::value > { using type = data_filter::OdometerScaleFactorErrorUncertainty; };
+template<> struct TypeForDescriptor<data_filter::OdometerScaleFactorErrorUncertainty::DESCRIPTOR.as_u16()> { using type = data_filter::OdometerScaleFactorErrorUncertainty; };
 
 template<>
 struct MetadataFor<data_filter::GnssDualAntennaStatus::FixType>
@@ -2679,6 +3579,8 @@ struct MetadataFor<data_filter::GnssDualAntennaStatus::FixType>
 
 };
 
+template<> struct TypeForEnumInfo< &MetadataFor<data_filter::GnssDualAntennaStatus::FixType>::value > { using type = data_filter::GnssDualAntennaStatus::FixType; };
+
 template<>
 struct MetadataFor<data_filter::GnssDualAntennaStatus::DualAntennaStatusFlags>
 {
@@ -2699,11 +3601,34 @@ struct MetadataFor<data_filter::GnssDualAntennaStatus::DualAntennaStatusFlags>
 
 };
 
+template<> struct TypeForBitsInfo< &MetadataFor<data_filter::GnssDualAntennaStatus::DualAntennaStatusFlags>::value > { using type = data_filter::GnssDualAntennaStatus::DualAntennaStatusFlags; };
+
 template<>
 struct MetadataFor<data_filter::GnssDualAntennaStatus>
 {
     using type = data_filter::GnssDualAntennaStatus;
 
+    using Context = DataSetFilter;
+
+    using ParamTypes = std::tuple<
+        decltype(type::time_of_week),
+        decltype(type::heading),
+        decltype(type::heading_unc),
+        decltype(type::fix_type),
+        decltype(type::status_flags),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.time_of_week;
+        if constexpr(I == 1) return value_.heading;
+        if constexpr(I == 2) return value_.heading_unc;
+        if constexpr(I == 3) return value_.fix_type;
+        if constexpr(I == 4) return value_.status_flags;
+        if constexpr(I == 5) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "time_of_week",
@@ -2760,25 +3685,42 @@ struct MetadataFor<data_filter::GnssDualAntennaStatus>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_filter::GnssDualAntennaStatus",
-            /* .title       = */ "GNSS Dual Antenna Status",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Summary information for status of GNSS dual antenna heading estimate.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_filter::GnssDualAntennaStatus>::value > { using type = data_filter::GnssDualAntennaStatus; };
+template<> struct TypeForDescriptor<data_filter::GnssDualAntennaStatus::DESCRIPTOR.as_u16()> { using type = data_filter::GnssDualAntennaStatus; };
 
 template<>
 struct MetadataFor<data_filter::AidingFrameConfigError>
 {
     using type = data_filter::AidingFrameConfigError;
 
+    using Context = DataSetFilter;
+
+    using ParamTypes = std::tuple<
+        decltype(type::frame_id),
+        decltype(type::translation),
+        decltype(type::attitude)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.frame_id;
+        if constexpr(I == 1) return value_.translation;
+        if constexpr(I == 2) return value_.attitude;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "frame_id",
@@ -2808,25 +3750,42 @@ struct MetadataFor<data_filter::AidingFrameConfigError>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_filter::AidingFrameConfigError",
-            /* .title       = */ "Aiding Frame Configuration Error",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Filter reported aiding source frame configuration error\n\nThese estimates are used to compensate for small errors to the user-supplied aiding frame configurations (set with (0x13, 0x01) command ).",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_filter::AidingFrameConfigError>::value > { using type = data_filter::AidingFrameConfigError; };
+template<> struct TypeForDescriptor<data_filter::AidingFrameConfigError::DESCRIPTOR.as_u16()> { using type = data_filter::AidingFrameConfigError; };
 
 template<>
 struct MetadataFor<data_filter::AidingFrameConfigErrorUncertainty>
 {
     using type = data_filter::AidingFrameConfigErrorUncertainty;
 
+    using Context = DataSetFilter;
+
+    using ParamTypes = std::tuple<
+        decltype(type::frame_id),
+        decltype(type::translation_unc),
+        decltype(type::attitude_unc)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.frame_id;
+        if constexpr(I == 1) return value_.translation_unc;
+        if constexpr(I == 2) return value_.attitude_unc;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "frame_id",
@@ -2856,19 +3815,21 @@ struct MetadataFor<data_filter::AidingFrameConfigErrorUncertainty>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_filter::AidingFrameConfigErrorUncertainty",
-            /* .title       = */ "Aiding Frame Configuration Error Uncertainty",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Filter reported aiding source frame configuration error uncertainty\n\nThese estimates are used to compensate for small errors to the user-supplied aiding frame configurations (set with (0x13, 0x01) command ).",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_filter::AidingFrameConfigErrorUncertainty>::value > { using type = data_filter::AidingFrameConfigErrorUncertainty; };
+template<> struct TypeForDescriptor<data_filter::AidingFrameConfigErrorUncertainty::DESCRIPTOR.as_u16()> { using type = data_filter::AidingFrameConfigErrorUncertainty; };
 
 
 static constexpr inline const FieldInfo* DATA_FILTER_FIELDS[] = {
@@ -2931,11 +3892,87 @@ static constexpr inline const FieldInfo* DATA_FILTER_FIELDS[] = {
     &MetadataFor<data_filter::AidingFrameConfigErrorUncertainty>::value,
 };
 
-static constexpr DescriptorSetInfo DATA_FILTER = {
-    /* .descriptor = */ mip::data_filter::DESCRIPTOR_SET,
-    /* .name       = */ "Filter Data",
-    /* .fields     = */ DATA_FILTER_FIELDS,
+struct DataSetFilter
+{
+    static inline constexpr uint8_t DESCRIPTOR_SET = data_filter::DESCRIPTOR_SET;
+    static inline constexpr CompositeDescriptor DESCRIPTOR = {DESCRIPTOR_SET, INVALID_FIELD_DESCRIPTOR};
+
+    using Fields = std::tuple<
+        ::mip::data_filter::PositionLlh,
+        ::mip::data_filter::VelocityNed,
+        ::mip::data_filter::AttitudeQuaternion,
+        ::mip::data_filter::AttitudeDcm,
+        ::mip::data_filter::EulerAngles,
+        ::mip::data_filter::GyroBias,
+        ::mip::data_filter::AccelBias,
+        ::mip::data_filter::PositionLlhUncertainty,
+        ::mip::data_filter::VelocityNedUncertainty,
+        ::mip::data_filter::EulerAnglesUncertainty,
+        ::mip::data_filter::GyroBiasUncertainty,
+        ::mip::data_filter::AccelBiasUncertainty,
+        ::mip::data_filter::LinearAccel,
+        ::mip::data_filter::CompAngularRate,
+        ::mip::data_filter::Wgs84GravityMag,
+        ::mip::data_filter::Status,
+        ::mip::data_filter::Timestamp,
+        ::mip::data_filter::QuaternionAttitudeUncertainty,
+        ::mip::data_filter::GravityVector,
+        ::mip::data_filter::HeadingUpdateState,
+        ::mip::data_filter::MagneticModel,
+        ::mip::data_filter::GyroScaleFactor,
+        ::mip::data_filter::AccelScaleFactor,
+        ::mip::data_filter::GyroScaleFactorUncertainty,
+        ::mip::data_filter::AccelScaleFactorUncertainty,
+        ::mip::data_filter::MagBias,
+        ::mip::data_filter::MagBiasUncertainty,
+        ::mip::data_filter::CompAccel,
+        ::mip::data_filter::StandardAtmosphere,
+        ::mip::data_filter::PressureAltitude,
+        ::mip::data_filter::DensityAltitude,
+        ::mip::data_filter::MagnetometerOffset,
+        ::mip::data_filter::MagnetometerMatrix,
+        ::mip::data_filter::MagnetometerOffsetUncertainty,
+        ::mip::data_filter::MagnetometerMatrixUncertainty,
+        ::mip::data_filter::MagnetometerCovarianceMatrix,
+        ::mip::data_filter::MagnetometerResidualVector,
+        ::mip::data_filter::AntennaOffsetCorrection,
+        ::mip::data_filter::AntennaOffsetCorrectionUncertainty,
+        ::mip::data_filter::ClockCorrection,
+        ::mip::data_filter::ClockCorrectionUncertainty,
+        ::mip::data_filter::MultiAntennaOffsetCorrection,
+        ::mip::data_filter::MultiAntennaOffsetCorrectionUncertainty,
+        ::mip::data_filter::EcefPosUncertainty,
+        ::mip::data_filter::EcefVelUncertainty,
+        ::mip::data_filter::EcefPos,
+        ::mip::data_filter::EcefVel,
+        ::mip::data_filter::RelPosNed,
+        ::mip::data_filter::GnssPosAidStatus,
+        ::mip::data_filter::GnssAttAidStatus,
+        ::mip::data_filter::HeadAidStatus,
+        ::mip::data_filter::AidingMeasurementSummary,
+        ::mip::data_filter::OdometerScaleFactorError,
+        ::mip::data_filter::OdometerScaleFactorErrorUncertainty,
+        ::mip::data_filter::GnssDualAntennaStatus,
+        ::mip::data_filter::AidingFrameConfigError,
+        ::mip::data_filter::AidingFrameConfigErrorUncertainty
+    >;
 };
+
+template<>
+struct MetadataFor<DataSetFilter>
+{
+    using type = DataSetFilter;
+    
+    static inline constexpr DescriptorSetInfo value = {
+        /* .descriptor = */ data_filter::DESCRIPTOR_SET,
+        /* .name       = */ "data_filter",
+        /* .title      = */ "Filter Data",
+        /* .fields     = */ DATA_FILTER_FIELDS,
+    };
+};
+//template<> struct TypeForDescriptor< (data_filter::DESCRIPTOR_SET << 8) > { using type = DataSetFilter; };
+
+static constexpr const DescriptorSetInfo& DATA_FILTER = MetadataFor<DataSetFilter>::value;
 
 } // namespace mip::metadata
 

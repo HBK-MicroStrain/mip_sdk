@@ -8,12 +8,29 @@
 namespace mip::metadata
 {
 
+struct CommandSet3dm;
+
 
 template<>
 struct MetadataFor<commands_3dm::PollImuMessage>
 {
     using type = commands_3dm::PollImuMessage;
 
+    using Context = CommandSet3dm;
+
+    using ParamTypes = std::tuple<
+        decltype(type::suppress_ack),
+        decltype(type::num_descriptors),
+        decltype(type::descriptors)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.suppress_ack;
+        if constexpr(I == 1) return value_.num_descriptors;
+        if constexpr(I == 2) return value_.descriptors;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "suppress_ack",
@@ -43,25 +60,42 @@ struct MetadataFor<commands_3dm::PollImuMessage>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::PollImuMessage",
-            /* .title       = */ "Poll IMU Message",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Poll the device for an IMU message with the specified format\n\nThis function polls for an IMU message using the provided format. The resulting message\nwill maintain the order of descriptors sent in the command and any unrecognized\ndescriptors are ignored. If the format is not provided, the device will attempt to use the\nstored format (set with the Set IMU Message Format command.) If no format is provided\nand there is no stored format, the device will respond with a NACK. The reply packet contains\nan ACK/NACK field. The polled data packet is sent separately as an IMU Data packet.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::PollImuMessage>::value > { using type = commands_3dm::PollImuMessage; };
+template<> struct TypeForDescriptor<commands_3dm::PollImuMessage::DESCRIPTOR.as_u16()> { using type = commands_3dm::PollImuMessage; };
 
 template<>
 struct MetadataFor<commands_3dm::PollGnssMessage>
 {
     using type = commands_3dm::PollGnssMessage;
 
+    using Context = CommandSet3dm;
+
+    using ParamTypes = std::tuple<
+        decltype(type::suppress_ack),
+        decltype(type::num_descriptors),
+        decltype(type::descriptors)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.suppress_ack;
+        if constexpr(I == 1) return value_.num_descriptors;
+        if constexpr(I == 2) return value_.descriptors;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "suppress_ack",
@@ -91,25 +125,42 @@ struct MetadataFor<commands_3dm::PollGnssMessage>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::PollGnssMessage",
-            /* .title       = */ "Poll GNSS Message",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Poll the device for an GNSS message with the specified format\n\nThis function polls for a GNSS message using the provided format. The resulting message\nwill maintain the order of descriptors sent in the command and any unrecognized\ndescriptors are ignored. If the format is not provided, the device will attempt to use the\nstored format (set with the Set GNSS Message Format command.) If no format is provided\nand there is no stored format, the device will respond with a NACK. The reply packet contains\nan ACK/NACK field. The polled data packet is sent separately as a GNSS Data packet.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::PollGnssMessage>::value > { using type = commands_3dm::PollGnssMessage; };
+template<> struct TypeForDescriptor<commands_3dm::PollGnssMessage::DESCRIPTOR.as_u16()> { using type = commands_3dm::PollGnssMessage; };
 
 template<>
 struct MetadataFor<commands_3dm::PollFilterMessage>
 {
     using type = commands_3dm::PollFilterMessage;
 
+    using Context = CommandSet3dm;
+
+    using ParamTypes = std::tuple<
+        decltype(type::suppress_ack),
+        decltype(type::num_descriptors),
+        decltype(type::descriptors)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.suppress_ack;
+        if constexpr(I == 1) return value_.num_descriptors;
+        if constexpr(I == 2) return value_.descriptors;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "suppress_ack",
@@ -139,19 +190,21 @@ struct MetadataFor<commands_3dm::PollFilterMessage>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::PollFilterMessage",
-            /* .title       = */ "Poll Estimation Filter Message",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Poll the device for an Estimation Filter message with the specified format\n\nThis function polls for an Estimation Filter message using the provided format. The resulting message\nwill maintain the order of descriptors sent in the command and any unrecognized\ndescriptors are ignored. If the format is not provided, the device will attempt to use the\nstored format (set with the Set Estimation Filter Message Format command.) If no format is provided\nand there is no stored format, the device will respond with a NACK. The reply packet contains\nan ACK/NACK field. The polled data packet is sent separately as an Estimation Filter Data packet.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::PollFilterMessage>::value > { using type = commands_3dm::PollFilterMessage; };
+template<> struct TypeForDescriptor<commands_3dm::PollFilterMessage::DESCRIPTOR.as_u16()> { using type = commands_3dm::PollFilterMessage; };
 
 template<>
 struct MetadataFor<commands_3dm::NmeaMessage::MessageID>
@@ -180,6 +233,8 @@ struct MetadataFor<commands_3dm::NmeaMessage::MessageID>
 
 };
 
+template<> struct TypeForEnumInfo< &MetadataFor<commands_3dm::NmeaMessage::MessageID>::value > { using type = commands_3dm::NmeaMessage::MessageID; };
+
 template<>
 struct MetadataFor<commands_3dm::NmeaMessage::TalkerID>
 {
@@ -202,11 +257,30 @@ struct MetadataFor<commands_3dm::NmeaMessage::TalkerID>
 
 };
 
+template<> struct TypeForEnumInfo< &MetadataFor<commands_3dm::NmeaMessage::TalkerID>::value > { using type = commands_3dm::NmeaMessage::TalkerID; };
+
 template<>
 struct MetadataFor<commands_3dm::NmeaMessage>
 {
     using type = commands_3dm::NmeaMessage;
 
+    using Context = CommandSet3dm;
+
+    using ParamTypes = std::tuple<
+        decltype(type::message_id),
+        decltype(type::talker_id),
+        decltype(type::source_desc_set),
+        decltype(type::decimation)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.message_id;
+        if constexpr(I == 1) return value_.talker_id;
+        if constexpr(I == 2) return value_.source_desc_set;
+        if constexpr(I == 3) return value_.decimation;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "message_id",
@@ -245,7 +319,6 @@ struct MetadataFor<commands_3dm::NmeaMessage>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline StructInfo value = {
         /* .name        = */ "NmeaMessage",
         /* .title       = */ "NMEA Message",
@@ -254,11 +327,28 @@ struct MetadataFor<commands_3dm::NmeaMessage>
     };
 };
 
+template<> struct TypeForStructInfo< &MetadataFor<commands_3dm::NmeaMessage>::value > { using type = commands_3dm::NmeaMessage; };
+
 template<>
 struct MetadataFor<commands_3dm::NmeaPollData>
 {
     using type = commands_3dm::NmeaPollData;
 
+    using Context = CommandSet3dm;
+
+    using ParamTypes = std::tuple<
+        decltype(type::suppress_ack),
+        decltype(type::count),
+        decltype(type::format_entries)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.suppress_ack;
+        if constexpr(I == 1) return value_.count;
+        if constexpr(I == 2) return value_.format_entries;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "suppress_ack",
@@ -288,25 +378,38 @@ struct MetadataFor<commands_3dm::NmeaPollData>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::NmeaPollData",
-            /* .title       = */ "Poll NMEA Data",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Poll the device for a NMEA message with the specified format.\n\nThis function polls for a NMEA message using the provided format.\nIf the format is not provided, the device will attempt to use the\nstored format (set with the Set NMEA Message Format command.) If no format is provided\nand there is no stored format, the device will respond with a NACK. The reply packet contains\nan ACK/NACK field. The polled data packet is sent separately as normal NMEA messages.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::NmeaPollData>::value > { using type = commands_3dm::NmeaPollData; };
+template<> struct TypeForDescriptor<commands_3dm::NmeaPollData::DESCRIPTOR.as_u16()> { using type = commands_3dm::NmeaPollData; };
 
 template<>
 struct MetadataFor<commands_3dm::ImuGetBaseRate::Response>
 {
     using type = commands_3dm::ImuGetBaseRate::Response;
 
+    using Context = commands_3dm::ImuGetBaseRate;
+
+    using ParamTypes = std::tuple<
+        decltype(type::rate)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.rate;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "rate",
@@ -318,43 +421,62 @@ struct MetadataFor<commands_3dm::ImuGetBaseRate::Response>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::ImuGetBaseRate::Response",
-            /* .title       = */ "response",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::ImuGetBaseRate::Response>::value > { using type = commands_3dm::ImuGetBaseRate::Response; };
 
 template<>
 struct MetadataFor<commands_3dm::ImuGetBaseRate>
 {
     using type = commands_3dm::ImuGetBaseRate;
 
+    using Context = CommandSet3dm;
+
+    using ParamTypes = std::tuple<>;
+
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::ImuGetBaseRate",
-            /* .title       = */ "Get IMU Data Base Rate",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Get the base rate for the IMU data in Hz\n\nThis is the fastest rate for this type of data available on the device.\nThis is used in conjunction with the IMU Message Format Command to set streaming data at a specified rate.",
             /* .parameters  = */ {},
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::ImuGetBaseRate>::value > { using type = commands_3dm::ImuGetBaseRate; };
+template<> struct TypeForDescriptor<commands_3dm::ImuGetBaseRate::DESCRIPTOR.as_u16()> { using type = commands_3dm::ImuGetBaseRate; };
 
 template<>
 struct MetadataFor<commands_3dm::GnssGetBaseRate::Response>
 {
     using type = commands_3dm::GnssGetBaseRate::Response;
 
+    using Context = commands_3dm::GnssGetBaseRate;
+
+    using ParamTypes = std::tuple<
+        decltype(type::rate)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.rate;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "rate",
@@ -366,43 +488,64 @@ struct MetadataFor<commands_3dm::GnssGetBaseRate::Response>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::GnssGetBaseRate::Response",
-            /* .title       = */ "response",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::GnssGetBaseRate::Response>::value > { using type = commands_3dm::GnssGetBaseRate::Response; };
 
 template<>
 struct MetadataFor<commands_3dm::GnssGetBaseRate>
 {
     using type = commands_3dm::GnssGetBaseRate;
 
+    using Context = CommandSet3dm;
+
+    using ParamTypes = std::tuple<>;
+
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::GnssGetBaseRate",
-            /* .title       = */ "Get GNSS Data Base Rate",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Get the base rate for the GNSS data in Hz\n\nThis is the fastest rate for this type of data available on the device.\nThis is used in conjunction with the GNSS Message Format Command to set streaming data at a specified rate.",
             /* .parameters  = */ {},
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::GnssGetBaseRate>::value > { using type = commands_3dm::GnssGetBaseRate; };
+template<> struct TypeForDescriptor<commands_3dm::GnssGetBaseRate::DESCRIPTOR.as_u16()> { using type = commands_3dm::GnssGetBaseRate; };
 
 template<>
 struct MetadataFor<commands_3dm::ImuMessageFormat::Response>
 {
     using type = commands_3dm::ImuMessageFormat::Response;
 
+    using Context = commands_3dm::ImuMessageFormat;
+
+    using ParamTypes = std::tuple<
+        decltype(type::num_descriptors),
+        decltype(type::descriptors)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.num_descriptors;
+        if constexpr(I == 1) return value_.descriptors;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "num_descriptors",
@@ -423,25 +566,41 @@ struct MetadataFor<commands_3dm::ImuMessageFormat::Response>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::ImuMessageFormat::Response",
-            /* .title       = */ "response",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::ImuMessageFormat::Response>::value > { using type = commands_3dm::ImuMessageFormat::Response; };
 
 template<>
 struct MetadataFor<commands_3dm::ImuMessageFormat>
 {
     using type = commands_3dm::ImuMessageFormat;
 
+    using Context = CommandSet3dm;
+
+    using ParamTypes = std::tuple<
+        decltype(type::function),
+        decltype(type::num_descriptors),
+        decltype(type::descriptors)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.function;
+        if constexpr(I == 1) return value_.num_descriptors;
+        if constexpr(I == 2) return value_.descriptors;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         FUNCTION_SELECTOR_PARAM,
         {
@@ -459,29 +618,44 @@ struct MetadataFor<commands_3dm::ImuMessageFormat>
             /* .type          = */ {Type::STRUCT, &MetadataFor<DescriptorRate>::value},
             /* .accessor      = */ nullptr, //utils::access<type, DescriptorRate, &type::descriptors>,
             /* .attributes    = */ {true, false, false, false, false},
-            /* .count         = */ {82, microstrain::Index(0) /* num_descriptors */},
+            /* .count         = */ {82, microstrain::Index(1) /* num_descriptors */},
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::ImuMessageFormat",
-            /* .title       = */ "IMU Message Format",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Set, read, or save the format of the IMU data packet.\n\nThe resulting data messages will maintain the order of descriptors sent in the command.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::ImuMessageFormat>::value > { using type = commands_3dm::ImuMessageFormat; };
+template<> struct TypeForDescriptor<commands_3dm::ImuMessageFormat::DESCRIPTOR.as_u16()> { using type = commands_3dm::ImuMessageFormat; };
 
 template<>
 struct MetadataFor<commands_3dm::GnssMessageFormat::Response>
 {
     using type = commands_3dm::GnssMessageFormat::Response;
 
+    using Context = commands_3dm::GnssMessageFormat;
+
+    using ParamTypes = std::tuple<
+        decltype(type::num_descriptors),
+        decltype(type::descriptors)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.num_descriptors;
+        if constexpr(I == 1) return value_.descriptors;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "num_descriptors",
@@ -502,25 +676,41 @@ struct MetadataFor<commands_3dm::GnssMessageFormat::Response>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::GnssMessageFormat::Response",
-            /* .title       = */ "response",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::GnssMessageFormat::Response>::value > { using type = commands_3dm::GnssMessageFormat::Response; };
 
 template<>
 struct MetadataFor<commands_3dm::GnssMessageFormat>
 {
     using type = commands_3dm::GnssMessageFormat;
 
+    using Context = CommandSet3dm;
+
+    using ParamTypes = std::tuple<
+        decltype(type::function),
+        decltype(type::num_descriptors),
+        decltype(type::descriptors)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.function;
+        if constexpr(I == 1) return value_.num_descriptors;
+        if constexpr(I == 2) return value_.descriptors;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         FUNCTION_SELECTOR_PARAM,
         {
@@ -538,29 +728,44 @@ struct MetadataFor<commands_3dm::GnssMessageFormat>
             /* .type          = */ {Type::STRUCT, &MetadataFor<DescriptorRate>::value},
             /* .accessor      = */ nullptr, //utils::access<type, DescriptorRate, &type::descriptors>,
             /* .attributes    = */ {true, false, false, false, false},
-            /* .count         = */ {82, microstrain::Index(0) /* num_descriptors */},
+            /* .count         = */ {82, microstrain::Index(1) /* num_descriptors */},
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::GnssMessageFormat",
-            /* .title       = */ "GNSS Message Format",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Set, read, or save the format of the GNSS data packet.\n\nThe resulting data messages will maintain the order of descriptors sent in the command.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::GnssMessageFormat>::value > { using type = commands_3dm::GnssMessageFormat; };
+template<> struct TypeForDescriptor<commands_3dm::GnssMessageFormat::DESCRIPTOR.as_u16()> { using type = commands_3dm::GnssMessageFormat; };
 
 template<>
 struct MetadataFor<commands_3dm::FilterMessageFormat::Response>
 {
     using type = commands_3dm::FilterMessageFormat::Response;
 
+    using Context = commands_3dm::FilterMessageFormat;
+
+    using ParamTypes = std::tuple<
+        decltype(type::num_descriptors),
+        decltype(type::descriptors)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.num_descriptors;
+        if constexpr(I == 1) return value_.descriptors;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "num_descriptors",
@@ -581,25 +786,41 @@ struct MetadataFor<commands_3dm::FilterMessageFormat::Response>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::FilterMessageFormat::Response",
-            /* .title       = */ "response",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::FilterMessageFormat::Response>::value > { using type = commands_3dm::FilterMessageFormat::Response; };
 
 template<>
 struct MetadataFor<commands_3dm::FilterMessageFormat>
 {
     using type = commands_3dm::FilterMessageFormat;
 
+    using Context = CommandSet3dm;
+
+    using ParamTypes = std::tuple<
+        decltype(type::function),
+        decltype(type::num_descriptors),
+        decltype(type::descriptors)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.function;
+        if constexpr(I == 1) return value_.num_descriptors;
+        if constexpr(I == 2) return value_.descriptors;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         FUNCTION_SELECTOR_PARAM,
         {
@@ -617,29 +838,42 @@ struct MetadataFor<commands_3dm::FilterMessageFormat>
             /* .type          = */ {Type::STRUCT, &MetadataFor<DescriptorRate>::value},
             /* .accessor      = */ nullptr, //utils::access<type, DescriptorRate, &type::descriptors>,
             /* .attributes    = */ {true, false, false, false, false},
-            /* .count         = */ {82, microstrain::Index(0) /* num_descriptors */},
+            /* .count         = */ {82, microstrain::Index(1) /* num_descriptors */},
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::FilterMessageFormat",
-            /* .title       = */ "Estimation Filter Message Format",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Set, read, or save the format of the Estimation Filter data packet.\n\nThe resulting data messages will maintain the order of descriptors sent in the command.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::FilterMessageFormat>::value > { using type = commands_3dm::FilterMessageFormat; };
+template<> struct TypeForDescriptor<commands_3dm::FilterMessageFormat::DESCRIPTOR.as_u16()> { using type = commands_3dm::FilterMessageFormat; };
 
 template<>
 struct MetadataFor<commands_3dm::FilterGetBaseRate::Response>
 {
     using type = commands_3dm::FilterGetBaseRate::Response;
 
+    using Context = commands_3dm::FilterGetBaseRate;
+
+    using ParamTypes = std::tuple<
+        decltype(type::rate)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.rate;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "rate",
@@ -651,43 +885,64 @@ struct MetadataFor<commands_3dm::FilterGetBaseRate::Response>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::FilterGetBaseRate::Response",
-            /* .title       = */ "response",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::FilterGetBaseRate::Response>::value > { using type = commands_3dm::FilterGetBaseRate::Response; };
 
 template<>
 struct MetadataFor<commands_3dm::FilterGetBaseRate>
 {
     using type = commands_3dm::FilterGetBaseRate;
 
+    using Context = CommandSet3dm;
+
+    using ParamTypes = std::tuple<>;
+
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::FilterGetBaseRate",
-            /* .title       = */ "Get Estimation Filter Data Base Rate",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Get the base rate for the Estimation Filter data in Hz\n\nThis is the fastest rate for this type of data available on the device.\nThis is used in conjunction with the Estimation Filter Message Format Command to set streaming data at a specified rate.",
             /* .parameters  = */ {},
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::FilterGetBaseRate>::value > { using type = commands_3dm::FilterGetBaseRate; };
+template<> struct TypeForDescriptor<commands_3dm::FilterGetBaseRate::DESCRIPTOR.as_u16()> { using type = commands_3dm::FilterGetBaseRate; };
 
 template<>
 struct MetadataFor<commands_3dm::NmeaMessageFormat::Response>
 {
     using type = commands_3dm::NmeaMessageFormat::Response;
 
+    using Context = commands_3dm::NmeaMessageFormat;
+
+    using ParamTypes = std::tuple<
+        decltype(type::count),
+        decltype(type::format_entries)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.count;
+        if constexpr(I == 1) return value_.format_entries;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "count",
@@ -708,25 +963,41 @@ struct MetadataFor<commands_3dm::NmeaMessageFormat::Response>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::NmeaMessageFormat::Response",
-            /* .title       = */ "response",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::NmeaMessageFormat::Response>::value > { using type = commands_3dm::NmeaMessageFormat::Response; };
 
 template<>
 struct MetadataFor<commands_3dm::NmeaMessageFormat>
 {
     using type = commands_3dm::NmeaMessageFormat;
 
+    using Context = CommandSet3dm;
+
+    using ParamTypes = std::tuple<
+        decltype(type::function),
+        decltype(type::count),
+        decltype(type::format_entries)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.function;
+        if constexpr(I == 1) return value_.count;
+        if constexpr(I == 2) return value_.format_entries;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         FUNCTION_SELECTOR_PARAM,
         {
@@ -744,29 +1015,48 @@ struct MetadataFor<commands_3dm::NmeaMessageFormat>
             /* .type          = */ {Type::STRUCT, &MetadataFor<commands_3dm::NmeaMessage>::value},
             /* .accessor      = */ nullptr, //utils::access<type, commands_3dm::NmeaMessage, &type::format_entries>,
             /* .attributes    = */ {true, false, false, false, false},
-            /* .count         = */ {40, microstrain::Index(0) /* count */},
+            /* .count         = */ {40, microstrain::Index(1) /* count */},
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::NmeaMessageFormat",
-            /* .title       = */ "NMEA Message Format",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Set, read, or save the NMEA message format.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::NmeaMessageFormat>::value > { using type = commands_3dm::NmeaMessageFormat; };
+template<> struct TypeForDescriptor<commands_3dm::NmeaMessageFormat::DESCRIPTOR.as_u16()> { using type = commands_3dm::NmeaMessageFormat; };
 
 template<>
 struct MetadataFor<commands_3dm::PollData>
 {
     using type = commands_3dm::PollData;
 
+    using Context = CommandSet3dm;
+
+    using ParamTypes = std::tuple<
+        decltype(type::desc_set),
+        decltype(type::suppress_ack),
+        decltype(type::num_descriptors),
+        decltype(type::descriptors)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.desc_set;
+        if constexpr(I == 1) return value_.suppress_ack;
+        if constexpr(I == 2) return value_.num_descriptors;
+        if constexpr(I == 3) return value_.descriptors;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "desc_set",
@@ -805,25 +1095,40 @@ struct MetadataFor<commands_3dm::PollData>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::PollData",
-            /* .title       = */ "Poll Data",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Poll the device for a message with the specified descriptor set and format.\n\nThis function polls for a message using the provided format. The resulting message\nwill maintain the order of descriptors sent in the command and any unrecognized\ndescriptors are ignored. If the format is not provided, the device will attempt to use the\nstored format (set with the Set Message Format command.) If no format is provided\nand there is no stored format, the device will respond with a NACK. The reply packet contains\nan ACK/NACK field. The polled data packet is sent separately as a normal Data packet.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::PollData>::value > { using type = commands_3dm::PollData; };
+template<> struct TypeForDescriptor<commands_3dm::PollData::DESCRIPTOR.as_u16()> { using type = commands_3dm::PollData; };
 
 template<>
 struct MetadataFor<commands_3dm::GetBaseRate::Response>
 {
     using type = commands_3dm::GetBaseRate::Response;
 
+    using Context = commands_3dm::GetBaseRate;
+
+    using ParamTypes = std::tuple<
+        decltype(type::desc_set),
+        decltype(type::rate)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.desc_set;
+        if constexpr(I == 1) return value_.rate;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "desc_set",
@@ -844,25 +1149,37 @@ struct MetadataFor<commands_3dm::GetBaseRate::Response>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::GetBaseRate::Response",
-            /* .title       = */ "response",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::GetBaseRate::Response>::value > { using type = commands_3dm::GetBaseRate::Response; };
 
 template<>
 struct MetadataFor<commands_3dm::GetBaseRate>
 {
     using type = commands_3dm::GetBaseRate;
 
+    using Context = CommandSet3dm;
+
+    using ParamTypes = std::tuple<
+        decltype(type::desc_set)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.desc_set;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "desc_set",
@@ -874,25 +1191,42 @@ struct MetadataFor<commands_3dm::GetBaseRate>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::GetBaseRate",
-            /* .title       = */ "Get Data Base Rate",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Get the base rate for the specified descriptor set in Hz.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::GetBaseRate>::value > { using type = commands_3dm::GetBaseRate; };
+template<> struct TypeForDescriptor<commands_3dm::GetBaseRate::DESCRIPTOR.as_u16()> { using type = commands_3dm::GetBaseRate; };
 
 template<>
 struct MetadataFor<commands_3dm::MessageFormat::Response>
 {
     using type = commands_3dm::MessageFormat::Response;
 
+    using Context = commands_3dm::MessageFormat;
+
+    using ParamTypes = std::tuple<
+        decltype(type::desc_set),
+        decltype(type::num_descriptors),
+        decltype(type::descriptors)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.desc_set;
+        if constexpr(I == 1) return value_.num_descriptors;
+        if constexpr(I == 2) return value_.descriptors;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "desc_set",
@@ -922,25 +1256,43 @@ struct MetadataFor<commands_3dm::MessageFormat::Response>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::MessageFormat::Response",
-            /* .title       = */ "response",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::MessageFormat::Response>::value > { using type = commands_3dm::MessageFormat::Response; };
 
 template<>
 struct MetadataFor<commands_3dm::MessageFormat>
 {
     using type = commands_3dm::MessageFormat;
 
+    using Context = CommandSet3dm;
+
+    using ParamTypes = std::tuple<
+        decltype(type::function),
+        decltype(type::desc_set),
+        decltype(type::num_descriptors),
+        decltype(type::descriptors)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.function;
+        if constexpr(I == 1) return value_.desc_set;
+        if constexpr(I == 2) return value_.num_descriptors;
+        if constexpr(I == 3) return value_.descriptors;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         FUNCTION_SELECTOR_PARAM,
         {
@@ -967,23 +1319,25 @@ struct MetadataFor<commands_3dm::MessageFormat>
             /* .type          = */ {Type::STRUCT, &MetadataFor<DescriptorRate>::value},
             /* .accessor      = */ nullptr, //utils::access<type, DescriptorRate, &type::descriptors>,
             /* .attributes    = */ {true, false, false, false, false},
-            /* .count         = */ {82, microstrain::Index(1) /* num_descriptors */},
+            /* .count         = */ {82, microstrain::Index(2) /* num_descriptors */},
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::MessageFormat",
-            /* .title       = */ "Message Format",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Set, read, or save the format for a given data packet.\n\nThe resulting data messages will maintain the order of descriptors sent in the command.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::MessageFormat>::value > { using type = commands_3dm::MessageFormat; };
+template<> struct TypeForDescriptor<commands_3dm::MessageFormat::DESCRIPTOR.as_u16()> { using type = commands_3dm::MessageFormat; };
 
 template<>
 struct MetadataFor<commands_3dm::FactoryStreaming::Action>
@@ -1005,11 +1359,26 @@ struct MetadataFor<commands_3dm::FactoryStreaming::Action>
 
 };
 
+template<> struct TypeForEnumInfo< &MetadataFor<commands_3dm::FactoryStreaming::Action>::value > { using type = commands_3dm::FactoryStreaming::Action; };
+
 template<>
 struct MetadataFor<commands_3dm::FactoryStreaming>
 {
     using type = commands_3dm::FactoryStreaming;
 
+    using Context = CommandSet3dm;
+
+    using ParamTypes = std::tuple<
+        decltype(type::action),
+        decltype(type::reserved)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.action;
+        if constexpr(I == 1) return value_.reserved;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "action",
@@ -1030,25 +1399,40 @@ struct MetadataFor<commands_3dm::FactoryStreaming>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::FactoryStreaming",
-            /* .title       = */ "Factory Streaming",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Configures the device for recording data for technical support.\n\nThis command will configure all available data streams to predefined\nformats designed to be used with technical support.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::FactoryStreaming>::value > { using type = commands_3dm::FactoryStreaming; };
+template<> struct TypeForDescriptor<commands_3dm::FactoryStreaming::DESCRIPTOR.as_u16()> { using type = commands_3dm::FactoryStreaming; };
 
 template<>
 struct MetadataFor<commands_3dm::DatastreamControl::Response>
 {
     using type = commands_3dm::DatastreamControl::Response;
 
+    using Context = commands_3dm::DatastreamControl;
+
+    using ParamTypes = std::tuple<
+        decltype(type::desc_set),
+        decltype(type::enabled)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.desc_set;
+        if constexpr(I == 1) return value_.enabled;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "desc_set",
@@ -1069,25 +1453,41 @@ struct MetadataFor<commands_3dm::DatastreamControl::Response>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::DatastreamControl::Response",
-            /* .title       = */ "response",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::DatastreamControl::Response>::value > { using type = commands_3dm::DatastreamControl::Response; };
 
 template<>
 struct MetadataFor<commands_3dm::DatastreamControl>
 {
     using type = commands_3dm::DatastreamControl;
 
+    using Context = CommandSet3dm;
+
+    using ParamTypes = std::tuple<
+        decltype(type::function),
+        decltype(type::desc_set),
+        decltype(type::enable)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.function;
+        if constexpr(I == 1) return value_.desc_set;
+        if constexpr(I == 2) return value_.enable;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         FUNCTION_SELECTOR_PARAM,
         {
@@ -1109,19 +1509,21 @@ struct MetadataFor<commands_3dm::DatastreamControl>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::DatastreamControl",
-            /* .title       = */ "Data Stream Control",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Enable/disable the selected data stream.\n\nEach data stream (descriptor set) can be enabled or disabled.\nThe default for the device is all streams enabled.\nFor all functions except 0x01 (use new setting),\nthe new enable flag value is ignored and can be omitted.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::DatastreamControl>::value > { using type = commands_3dm::DatastreamControl; };
+template<> struct TypeForDescriptor<commands_3dm::DatastreamControl::DESCRIPTOR.as_u16()> { using type = commands_3dm::DatastreamControl; };
 
 template<>
 struct MetadataFor<commands_3dm::ConstellationSettings::ConstellationId>
@@ -1146,6 +1548,8 @@ struct MetadataFor<commands_3dm::ConstellationSettings::ConstellationId>
 
 };
 
+template<> struct TypeForEnumInfo< &MetadataFor<commands_3dm::ConstellationSettings::ConstellationId>::value > { using type = commands_3dm::ConstellationSettings::ConstellationId; };
+
 template<>
 struct MetadataFor<commands_3dm::ConstellationSettings::OptionFlags>
 {
@@ -1164,11 +1568,32 @@ struct MetadataFor<commands_3dm::ConstellationSettings::OptionFlags>
 
 };
 
+template<> struct TypeForBitsInfo< &MetadataFor<commands_3dm::ConstellationSettings::OptionFlags>::value > { using type = commands_3dm::ConstellationSettings::OptionFlags; };
+
 template<>
 struct MetadataFor<commands_3dm::ConstellationSettings::Settings>
 {
     using type = commands_3dm::ConstellationSettings::Settings;
 
+    using Context = commands_3dm::ConstellationSettings;
+
+    using ParamTypes = std::tuple<
+        decltype(type::constellation_id),
+        decltype(type::enable),
+        decltype(type::reserved_channels),
+        decltype(type::max_channels),
+        decltype(type::option_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.constellation_id;
+        if constexpr(I == 1) return value_.enable;
+        if constexpr(I == 2) return value_.reserved_channels;
+        if constexpr(I == 3) return value_.max_channels;
+        if constexpr(I == 4) return value_.option_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "constellation_id",
@@ -1216,7 +1641,6 @@ struct MetadataFor<commands_3dm::ConstellationSettings::Settings>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline StructInfo value = {
         /* .name        = */ "Settings",
         /* .title       = */ "Settings",
@@ -1225,11 +1649,30 @@ struct MetadataFor<commands_3dm::ConstellationSettings::Settings>
     };
 };
 
+template<> struct TypeForStructInfo< &MetadataFor<commands_3dm::ConstellationSettings::Settings>::value > { using type = commands_3dm::ConstellationSettings::Settings; };
+
 template<>
 struct MetadataFor<commands_3dm::ConstellationSettings::Response>
 {
     using type = commands_3dm::ConstellationSettings::Response;
 
+    using Context = commands_3dm::ConstellationSettings;
+
+    using ParamTypes = std::tuple<
+        decltype(type::max_channels_available),
+        decltype(type::max_channels_use),
+        decltype(type::config_count),
+        decltype(type::settings)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.max_channels_available;
+        if constexpr(I == 1) return value_.max_channels_use;
+        if constexpr(I == 2) return value_.config_count;
+        if constexpr(I == 3) return value_.settings;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "max_channels_available",
@@ -1268,25 +1711,43 @@ struct MetadataFor<commands_3dm::ConstellationSettings::Response>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::ConstellationSettings::Response",
-            /* .title       = */ "response",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::ConstellationSettings::Response>::value > { using type = commands_3dm::ConstellationSettings::Response; };
 
 template<>
 struct MetadataFor<commands_3dm::ConstellationSettings>
 {
     using type = commands_3dm::ConstellationSettings;
 
+    using Context = CommandSet3dm;
+
+    using ParamTypes = std::tuple<
+        decltype(type::function),
+        decltype(type::max_channels),
+        decltype(type::config_count),
+        decltype(type::settings)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.function;
+        if constexpr(I == 1) return value_.max_channels;
+        if constexpr(I == 2) return value_.config_count;
+        if constexpr(I == 3) return value_.settings;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         FUNCTION_SELECTOR_PARAM,
         {
@@ -1313,23 +1774,25 @@ struct MetadataFor<commands_3dm::ConstellationSettings>
             /* .type          = */ {Type::STRUCT, &MetadataFor<commands_3dm::ConstellationSettings::Settings>::value},
             /* .accessor      = */ nullptr, //utils::access<type, commands_3dm::ConstellationSettings::Settings, &type::settings>,
             /* .attributes    = */ {true, false, false, false, false},
-            /* .count         = */ {0, microstrain::Index(1) /* config_count */},
+            /* .count         = */ {0, microstrain::Index(2) /* config_count */},
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::ConstellationSettings",
-            /* .title       = */ "Constellation Settings",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "This command configures which satellite constellations are enabled and how many channels are dedicated to tracking each constellation.\n\nMaximum number of tracking channels to use (total for all constellations):\n0 to max_channels_available (from reply message)\n\nFor each constellation you wish to use, include a ConstellationSettings struct.  Note the following:\n\nTotal number of tracking channels (sum of 'reserved_channels' for all constellations) must be <= 32:\n0 -> 32 Number of reserved channels\n0 -> 32 Max number of channels (>= reserved channels)\n\nThe factory default setting is: GPS and GLONASS enabled.  Min/Max for GPS = 8/16, GLONASS = 8/14, SBAS = 1/3, QZSS = 0/3.\n\nWarning: SBAS functionality shall not be used in 'safety of life' applications!\nWarning: Any setting that causes the total reserved channels to exceed 32 will result in a NACK.\nWarning: You cannot enable GLONASS and BeiDou at the same time.\nNote:    Enabling SBAS and QZSS augments GPS accuracy.\nNote:    It is recommended to disable GLONASS and BeiDou if a GPS-only antenna or GPS-only SAW filter is used.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::ConstellationSettings>::value > { using type = commands_3dm::ConstellationSettings; };
+template<> struct TypeForDescriptor<commands_3dm::ConstellationSettings::DESCRIPTOR.as_u16()> { using type = commands_3dm::ConstellationSettings; };
 
 template<>
 struct MetadataFor<commands_3dm::GnssSbasSettings::SBASOptions>
@@ -1351,11 +1814,30 @@ struct MetadataFor<commands_3dm::GnssSbasSettings::SBASOptions>
 
 };
 
+template<> struct TypeForBitsInfo< &MetadataFor<commands_3dm::GnssSbasSettings::SBASOptions>::value > { using type = commands_3dm::GnssSbasSettings::SBASOptions; };
+
 template<>
 struct MetadataFor<commands_3dm::GnssSbasSettings::Response>
 {
     using type = commands_3dm::GnssSbasSettings::Response;
 
+    using Context = commands_3dm::GnssSbasSettings;
+
+    using ParamTypes = std::tuple<
+        decltype(type::enable_sbas),
+        decltype(type::sbas_options),
+        decltype(type::num_included_prns),
+        decltype(type::included_prns)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.enable_sbas;
+        if constexpr(I == 1) return value_.sbas_options;
+        if constexpr(I == 2) return value_.num_included_prns;
+        if constexpr(I == 3) return value_.included_prns;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "enable_sbas",
@@ -1394,25 +1876,45 @@ struct MetadataFor<commands_3dm::GnssSbasSettings::Response>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::GnssSbasSettings::Response",
-            /* .title       = */ "response",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::GnssSbasSettings::Response>::value > { using type = commands_3dm::GnssSbasSettings::Response; };
 
 template<>
 struct MetadataFor<commands_3dm::GnssSbasSettings>
 {
     using type = commands_3dm::GnssSbasSettings;
 
+    using Context = CommandSet3dm;
+
+    using ParamTypes = std::tuple<
+        decltype(type::function),
+        decltype(type::enable_sbas),
+        decltype(type::sbas_options),
+        decltype(type::num_included_prns),
+        decltype(type::included_prns)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.function;
+        if constexpr(I == 1) return value_.enable_sbas;
+        if constexpr(I == 2) return value_.sbas_options;
+        if constexpr(I == 3) return value_.num_included_prns;
+        if constexpr(I == 4) return value_.included_prns;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         FUNCTION_SELECTOR_PARAM,
         {
@@ -1448,23 +1950,25 @@ struct MetadataFor<commands_3dm::GnssSbasSettings>
             /* .type          = */ {Type::U16, nullptr},
             /* .accessor      = */ nullptr, //utils::access<type, uint16_t, &type::included_prns>,
             /* .attributes    = */ {true, false, false, false, false},
-            /* .count         = */ {39, microstrain::Index(2) /* num_included_prns */},
+            /* .count         = */ {39, microstrain::Index(3) /* num_included_prns */},
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::GnssSbasSettings",
-            /* .title       = */ "GNSS SBAS Settings",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Configure the GNSS SBAS subsystem",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::GnssSbasSettings>::value > { using type = commands_3dm::GnssSbasSettings; };
+template<> struct TypeForDescriptor<commands_3dm::GnssSbasSettings::DESCRIPTOR.as_u16()> { using type = commands_3dm::GnssSbasSettings; };
 
 template<>
 struct MetadataFor<commands_3dm::GnssAssistedFix::AssistedFixOption>
@@ -1485,11 +1989,26 @@ struct MetadataFor<commands_3dm::GnssAssistedFix::AssistedFixOption>
 
 };
 
+template<> struct TypeForEnumInfo< &MetadataFor<commands_3dm::GnssAssistedFix::AssistedFixOption>::value > { using type = commands_3dm::GnssAssistedFix::AssistedFixOption; };
+
 template<>
 struct MetadataFor<commands_3dm::GnssAssistedFix::Response>
 {
     using type = commands_3dm::GnssAssistedFix::Response;
 
+    using Context = commands_3dm::GnssAssistedFix;
+
+    using ParamTypes = std::tuple<
+        decltype(type::option),
+        decltype(type::flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.option;
+        if constexpr(I == 1) return value_.flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "option",
@@ -1510,25 +2029,41 @@ struct MetadataFor<commands_3dm::GnssAssistedFix::Response>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::GnssAssistedFix::Response",
-            /* .title       = */ "response",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::GnssAssistedFix::Response>::value > { using type = commands_3dm::GnssAssistedFix::Response; };
 
 template<>
 struct MetadataFor<commands_3dm::GnssAssistedFix>
 {
     using type = commands_3dm::GnssAssistedFix;
 
+    using Context = CommandSet3dm;
+
+    using ParamTypes = std::tuple<
+        decltype(type::function),
+        decltype(type::option),
+        decltype(type::flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.function;
+        if constexpr(I == 1) return value_.option;
+        if constexpr(I == 2) return value_.flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         FUNCTION_SELECTOR_PARAM,
         {
@@ -1550,25 +2085,42 @@ struct MetadataFor<commands_3dm::GnssAssistedFix>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::GnssAssistedFix",
-            /* .title       = */ "GNSS Assisted Fix Settings",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Set the options for assisted GNSS fix.\n\nDevices that implement this command have a dedicated GNSS flash memory and a non-volatile FRAM.\nThese storage mechanisms are used to retain information about the last good GNSS fix. This can greatly reduces the TTFF (Time To First Fix) depending on the age of the stored information.\nThe TTFF can be as low as one second, or up to the equivalent of a cold start. There is a small increase in power used when enabling assisted fix.\n\nThe fastest fix will be obtained by supplying the device with a GNSS Assist Time Update message containing the current GPS time immediately after subsequent power up.\nThis allows the device to determine if the last GNSS information saved is still fresh enough to improve the TTFF.\n\nNOTE: Non-volatile GNSS memory is cleared when going from an enabled state to a disabled state.\nWARNING: The clearing operation results in an erase operation on the GNSS Flash. The flash has a limited durability of 100,000 write/erase cycles",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::GnssAssistedFix>::value > { using type = commands_3dm::GnssAssistedFix; };
+template<> struct TypeForDescriptor<commands_3dm::GnssAssistedFix::DESCRIPTOR.as_u16()> { using type = commands_3dm::GnssAssistedFix; };
 
 template<>
 struct MetadataFor<commands_3dm::GnssTimeAssistance::Response>
 {
     using type = commands_3dm::GnssTimeAssistance::Response;
 
+    using Context = commands_3dm::GnssTimeAssistance;
+
+    using ParamTypes = std::tuple<
+        decltype(type::tow),
+        decltype(type::week_number),
+        decltype(type::accuracy)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.tow;
+        if constexpr(I == 1) return value_.week_number;
+        if constexpr(I == 2) return value_.accuracy;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "tow",
@@ -1598,25 +2150,43 @@ struct MetadataFor<commands_3dm::GnssTimeAssistance::Response>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::GnssTimeAssistance::Response",
-            /* .title       = */ "response",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::GnssTimeAssistance::Response>::value > { using type = commands_3dm::GnssTimeAssistance::Response; };
 
 template<>
 struct MetadataFor<commands_3dm::GnssTimeAssistance>
 {
     using type = commands_3dm::GnssTimeAssistance;
 
+    using Context = CommandSet3dm;
+
+    using ParamTypes = std::tuple<
+        decltype(type::function),
+        decltype(type::tow),
+        decltype(type::week_number),
+        decltype(type::accuracy)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.function;
+        if constexpr(I == 1) return value_.tow;
+        if constexpr(I == 2) return value_.week_number;
+        if constexpr(I == 3) return value_.accuracy;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         FUNCTION_SELECTOR_PARAM,
         {
@@ -1647,19 +2217,21 @@ struct MetadataFor<commands_3dm::GnssTimeAssistance>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::GnssTimeAssistance",
-            /* .title       = */ "GNSS Time Assistance",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Provide the GNSS subsystem with initial time information.\n\nThis message is required immediately after power up if GNSS Assist was enabled when the device was powered off.\nThis will initialize the subsystem clock to help reduce the time to first fix (TTFF).",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, false, false, false},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, false, false, false},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::GnssTimeAssistance>::value > { using type = commands_3dm::GnssTimeAssistance; };
+template<> struct TypeForDescriptor<commands_3dm::GnssTimeAssistance::DESCRIPTOR.as_u16()> { using type = commands_3dm::GnssTimeAssistance; };
 
 template<>
 struct MetadataFor<commands_3dm::PpsSource::Source>
@@ -1683,11 +2255,24 @@ struct MetadataFor<commands_3dm::PpsSource::Source>
 
 };
 
+template<> struct TypeForEnumInfo< &MetadataFor<commands_3dm::PpsSource::Source>::value > { using type = commands_3dm::PpsSource::Source; };
+
 template<>
 struct MetadataFor<commands_3dm::PpsSource::Response>
 {
     using type = commands_3dm::PpsSource::Response;
 
+    using Context = commands_3dm::PpsSource;
+
+    using ParamTypes = std::tuple<
+        decltype(type::source)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.source;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "source",
@@ -1699,25 +2284,39 @@ struct MetadataFor<commands_3dm::PpsSource::Response>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::PpsSource::Response",
-            /* .title       = */ "response",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::PpsSource::Response>::value > { using type = commands_3dm::PpsSource::Response; };
 
 template<>
 struct MetadataFor<commands_3dm::PpsSource>
 {
     using type = commands_3dm::PpsSource;
 
+    using Context = CommandSet3dm;
+
+    using ParamTypes = std::tuple<
+        decltype(type::function),
+        decltype(type::source)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.function;
+        if constexpr(I == 1) return value_.source;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         FUNCTION_SELECTOR_PARAM,
         {
@@ -1730,19 +2329,21 @@ struct MetadataFor<commands_3dm::PpsSource>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::PpsSource",
-            /* .title       = */ "PPS Source Control",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Controls the Pulse Per Second (PPS) source.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::PpsSource>::value > { using type = commands_3dm::PpsSource; };
+template<> struct TypeForDescriptor<commands_3dm::PpsSource::DESCRIPTOR.as_u16()> { using type = commands_3dm::PpsSource; };
 
 template<>
 struct MetadataFor<commands_3dm::GetEventSupport::Query>
@@ -1763,11 +2364,26 @@ struct MetadataFor<commands_3dm::GetEventSupport::Query>
 
 };
 
+template<> struct TypeForEnumInfo< &MetadataFor<commands_3dm::GetEventSupport::Query>::value > { using type = commands_3dm::GetEventSupport::Query; };
+
 template<>
 struct MetadataFor<commands_3dm::GetEventSupport::Info>
 {
     using type = commands_3dm::GetEventSupport::Info;
 
+    using Context = commands_3dm::GetEventSupport;
+
+    using ParamTypes = std::tuple<
+        decltype(type::type),
+        decltype(type::count)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.type;
+        if constexpr(I == 1) return value_.count;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "type",
@@ -1788,7 +2404,6 @@ struct MetadataFor<commands_3dm::GetEventSupport::Info>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline StructInfo value = {
         /* .name        = */ "Info",
         /* .title       = */ "Event Info",
@@ -1797,11 +2412,30 @@ struct MetadataFor<commands_3dm::GetEventSupport::Info>
     };
 };
 
+template<> struct TypeForStructInfo< &MetadataFor<commands_3dm::GetEventSupport::Info>::value > { using type = commands_3dm::GetEventSupport::Info; };
+
 template<>
 struct MetadataFor<commands_3dm::GetEventSupport::Response>
 {
     using type = commands_3dm::GetEventSupport::Response;
 
+    using Context = commands_3dm::GetEventSupport;
+
+    using ParamTypes = std::tuple<
+        decltype(type::query),
+        decltype(type::max_instances),
+        decltype(type::num_entries),
+        decltype(type::entries)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.query;
+        if constexpr(I == 1) return value_.max_instances;
+        if constexpr(I == 2) return value_.num_entries;
+        if constexpr(I == 3) return value_.entries;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "query",
@@ -1840,25 +2474,37 @@ struct MetadataFor<commands_3dm::GetEventSupport::Response>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::GetEventSupport::Response",
-            /* .title       = */ "response",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::GetEventSupport::Response>::value > { using type = commands_3dm::GetEventSupport::Response; };
 
 template<>
 struct MetadataFor<commands_3dm::GetEventSupport>
 {
     using type = commands_3dm::GetEventSupport;
 
+    using Context = CommandSet3dm;
+
+    using ParamTypes = std::tuple<
+        decltype(type::query)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.query;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "query",
@@ -1870,19 +2516,21 @@ struct MetadataFor<commands_3dm::GetEventSupport>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::GetEventSupport",
-            /* .title       = */ "Get Supported Events",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Lists the available trigger or action types.\n\nThere are a limited number of trigger and action slots available\nin the device. Up to M triggers and N actions can be configured at once\nin slots 1..M and 1..N respectively. M and N are identified by the\nmax_instances field in the response with the appropriate query selector.\n\nEach slot can be configured as one of a variety of different types of\ntriggers or actions. The supported types are enumerated in the response\nto this command. Additionally, there is a limit on the number of a given\ntype. In other words, while the device may support M triggers in total,\nonly a few of them maybe usable as a given type. This limit helps optimize\ndevice resources. The limit is identified in the count field.\n\nAll of the information in this command is available in the user manual.\nThis command provides a programmatic method for obtaining the information.\n",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::GetEventSupport>::value > { using type = commands_3dm::GetEventSupport; };
+template<> struct TypeForDescriptor<commands_3dm::GetEventSupport::DESCRIPTOR.as_u16()> { using type = commands_3dm::GetEventSupport; };
 
 template<>
 struct MetadataFor<commands_3dm::EventControl::Mode>
@@ -1905,11 +2553,26 @@ struct MetadataFor<commands_3dm::EventControl::Mode>
 
 };
 
+template<> struct TypeForEnumInfo< &MetadataFor<commands_3dm::EventControl::Mode>::value > { using type = commands_3dm::EventControl::Mode; };
+
 template<>
 struct MetadataFor<commands_3dm::EventControl::Response>
 {
     using type = commands_3dm::EventControl::Response;
 
+    using Context = commands_3dm::EventControl;
+
+    using ParamTypes = std::tuple<
+        decltype(type::instance),
+        decltype(type::mode)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.instance;
+        if constexpr(I == 1) return value_.mode;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "instance",
@@ -1930,25 +2593,41 @@ struct MetadataFor<commands_3dm::EventControl::Response>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::EventControl::Response",
-            /* .title       = */ "response",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::EventControl::Response>::value > { using type = commands_3dm::EventControl::Response; };
 
 template<>
 struct MetadataFor<commands_3dm::EventControl>
 {
     using type = commands_3dm::EventControl;
 
+    using Context = CommandSet3dm;
+
+    using ParamTypes = std::tuple<
+        decltype(type::function),
+        decltype(type::instance),
+        decltype(type::mode)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.function;
+        if constexpr(I == 1) return value_.instance;
+        if constexpr(I == 2) return value_.mode;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         FUNCTION_SELECTOR_PARAM,
         {
@@ -1970,19 +2649,21 @@ struct MetadataFor<commands_3dm::EventControl>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::EventControl",
-            /* .title       = */ "Event Control",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Enables or disables event triggers.\n\nTriggers can be disabled, enabled, and tested. While disabled, a trigger will\nnot evaluate its logic and effective behave like no trigger is configured.\nA disabled trigger will not activate any actions. Triggers are disabled by default.\n\nUse this command to enable (or disable) a trigger, or to place it into a test mode.\nWhen in test mode, the trigger logic is disabled but the output is forced to\nthe active state, meaning that it will behave as if the trigger logic is satisfied\nand any associated actions will execute.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::EventControl>::value > { using type = commands_3dm::EventControl; };
+template<> struct TypeForDescriptor<commands_3dm::EventControl::DESCRIPTOR.as_u16()> { using type = commands_3dm::EventControl; };
 
 template<>
 struct MetadataFor<commands_3dm::GetEventTriggerStatus::Status>
@@ -2004,11 +2685,26 @@ struct MetadataFor<commands_3dm::GetEventTriggerStatus::Status>
 
 };
 
+template<> struct TypeForBitsInfo< &MetadataFor<commands_3dm::GetEventTriggerStatus::Status>::value > { using type = commands_3dm::GetEventTriggerStatus::Status; };
+
 template<>
 struct MetadataFor<commands_3dm::GetEventTriggerStatus::Entry>
 {
     using type = commands_3dm::GetEventTriggerStatus::Entry;
 
+    using Context = commands_3dm::GetEventTriggerStatus;
+
+    using ParamTypes = std::tuple<
+        decltype(type::type),
+        decltype(type::status)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.type;
+        if constexpr(I == 1) return value_.status;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "type",
@@ -2029,7 +2725,6 @@ struct MetadataFor<commands_3dm::GetEventTriggerStatus::Entry>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline StructInfo value = {
         /* .name        = */ "Entry",
         /* .title       = */ "Trigger Entry",
@@ -2038,11 +2733,26 @@ struct MetadataFor<commands_3dm::GetEventTriggerStatus::Entry>
     };
 };
 
+template<> struct TypeForStructInfo< &MetadataFor<commands_3dm::GetEventTriggerStatus::Entry>::value > { using type = commands_3dm::GetEventTriggerStatus::Entry; };
+
 template<>
 struct MetadataFor<commands_3dm::GetEventTriggerStatus::Response>
 {
     using type = commands_3dm::GetEventTriggerStatus::Response;
 
+    using Context = commands_3dm::GetEventTriggerStatus;
+
+    using ParamTypes = std::tuple<
+        decltype(type::count),
+        decltype(type::triggers)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.count;
+        if constexpr(I == 1) return value_.triggers;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "count",
@@ -2063,25 +2773,39 @@ struct MetadataFor<commands_3dm::GetEventTriggerStatus::Response>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::GetEventTriggerStatus::Response",
-            /* .title       = */ "response",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::GetEventTriggerStatus::Response>::value > { using type = commands_3dm::GetEventTriggerStatus::Response; };
 
 template<>
 struct MetadataFor<commands_3dm::GetEventTriggerStatus>
 {
     using type = commands_3dm::GetEventTriggerStatus;
 
+    using Context = CommandSet3dm;
+
+    using ParamTypes = std::tuple<
+        decltype(type::requested_count),
+        decltype(type::requested_instances)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.requested_count;
+        if constexpr(I == 1) return value_.requested_instances;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "requested_count",
@@ -2102,25 +2826,40 @@ struct MetadataFor<commands_3dm::GetEventTriggerStatus>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::GetEventTriggerStatus",
-            /* .title       = */ "Get Event Trigger Status",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::GetEventTriggerStatus>::value > { using type = commands_3dm::GetEventTriggerStatus; };
+template<> struct TypeForDescriptor<commands_3dm::GetEventTriggerStatus::DESCRIPTOR.as_u16()> { using type = commands_3dm::GetEventTriggerStatus; };
 
 template<>
 struct MetadataFor<commands_3dm::GetEventActionStatus::Entry>
 {
     using type = commands_3dm::GetEventActionStatus::Entry;
 
+    using Context = commands_3dm::GetEventActionStatus;
+
+    using ParamTypes = std::tuple<
+        decltype(type::action_type),
+        decltype(type::trigger_id)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.action_type;
+        if constexpr(I == 1) return value_.trigger_id;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "action_type",
@@ -2141,7 +2880,6 @@ struct MetadataFor<commands_3dm::GetEventActionStatus::Entry>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline StructInfo value = {
         /* .name        = */ "Entry",
         /* .title       = */ "Action Entry",
@@ -2150,11 +2888,26 @@ struct MetadataFor<commands_3dm::GetEventActionStatus::Entry>
     };
 };
 
+template<> struct TypeForStructInfo< &MetadataFor<commands_3dm::GetEventActionStatus::Entry>::value > { using type = commands_3dm::GetEventActionStatus::Entry; };
+
 template<>
 struct MetadataFor<commands_3dm::GetEventActionStatus::Response>
 {
     using type = commands_3dm::GetEventActionStatus::Response;
 
+    using Context = commands_3dm::GetEventActionStatus;
+
+    using ParamTypes = std::tuple<
+        decltype(type::count),
+        decltype(type::actions)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.count;
+        if constexpr(I == 1) return value_.actions;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "count",
@@ -2175,25 +2928,39 @@ struct MetadataFor<commands_3dm::GetEventActionStatus::Response>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::GetEventActionStatus::Response",
-            /* .title       = */ "response",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::GetEventActionStatus::Response>::value > { using type = commands_3dm::GetEventActionStatus::Response; };
 
 template<>
 struct MetadataFor<commands_3dm::GetEventActionStatus>
 {
     using type = commands_3dm::GetEventActionStatus;
 
+    using Context = CommandSet3dm;
+
+    using ParamTypes = std::tuple<
+        decltype(type::requested_count),
+        decltype(type::requested_instances)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.requested_count;
+        if constexpr(I == 1) return value_.requested_instances;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "requested_count",
@@ -2214,19 +2981,21 @@ struct MetadataFor<commands_3dm::GetEventActionStatus>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::GetEventActionStatus",
-            /* .title       = */ "Get Event Action Status",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::GetEventActionStatus>::value > { using type = commands_3dm::GetEventActionStatus; };
+template<> struct TypeForDescriptor<commands_3dm::GetEventActionStatus::DESCRIPTOR.as_u16()> { using type = commands_3dm::GetEventActionStatus; };
 
 template<>
 struct MetadataFor<commands_3dm::EventTrigger::GpioParams::Mode>
@@ -2249,11 +3018,26 @@ struct MetadataFor<commands_3dm::EventTrigger::GpioParams::Mode>
 
 };
 
+template<> struct TypeForEnumInfo< &MetadataFor<commands_3dm::EventTrigger::GpioParams::Mode>::value > { using type = commands_3dm::EventTrigger::GpioParams::Mode; };
+
 template<>
 struct MetadataFor<commands_3dm::EventTrigger::GpioParams>
 {
     using type = commands_3dm::EventTrigger::GpioParams;
 
+    using Context = commands_3dm::EventTrigger;
+
+    using ParamTypes = std::tuple<
+        decltype(type::pin),
+        decltype(type::mode)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.pin;
+        if constexpr(I == 1) return value_.mode;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "pin",
@@ -2274,7 +3058,6 @@ struct MetadataFor<commands_3dm::EventTrigger::GpioParams>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline StructInfo value = {
         /* .name        = */ "GpioParams",
         /* .title       = */ "Trigger GPIO Parameters",
@@ -2282,6 +3065,8 @@ struct MetadataFor<commands_3dm::EventTrigger::GpioParams>
         /* .parameters  = */ parameters,
     };
 };
+
+template<> struct TypeForStructInfo< &MetadataFor<commands_3dm::EventTrigger::GpioParams>::value > { using type = commands_3dm::EventTrigger::GpioParams; };
 
 template<>
 struct MetadataFor<commands_3dm::EventTrigger::ThresholdParams::Type>
@@ -2302,11 +3087,34 @@ struct MetadataFor<commands_3dm::EventTrigger::ThresholdParams::Type>
 
 };
 
+template<> struct TypeForEnumInfo< &MetadataFor<commands_3dm::EventTrigger::ThresholdParams::Type>::value > { using type = commands_3dm::EventTrigger::ThresholdParams::Type; };
+
 template<>
 struct MetadataFor<commands_3dm::EventTrigger::ThresholdParams>
 {
     using type = commands_3dm::EventTrigger::ThresholdParams;
 
+    using Context = commands_3dm::EventTrigger;
+
+    using ParamTypes = std::tuple<
+        decltype(type::desc_set),
+        decltype(type::field_desc),
+        decltype(type::param_id),
+        decltype(type::type),
+        decltype(type::first_thres),
+        decltype(type::second_thres)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.desc_set;
+        if constexpr(I == 1) return value_.field_desc;
+        if constexpr(I == 2) return value_.param_id;
+        if constexpr(I == 3) return value_.type;
+        if constexpr(I == 4) return value_.first_thres;
+        if constexpr(I == 5) return value_.second_thres;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "desc_set",
@@ -2345,43 +3153,24 @@ struct MetadataFor<commands_3dm::EventTrigger::ThresholdParams>
             /* .condition     = */ {},
         },
         {
-            /* .name          = */ "low_thres",
-            /* .docs          = */ "",
+            /* .name          = */ "first_thres",
+            /* .docs          = */ "First threshold.",
             /* .type          = */ {Type::DOUBLE, nullptr},
-            /* .accessor      = */ nullptr, //utils::access<type, double, &type::low_thres>,
+            /* .accessor      = */ nullptr, //utils::access<type, double, &type::first_thres>,
             /* .attributes    = */ NO_FUNCTIONS,
             /* .count         = */ 1,
-            /* .condition     = */ {ParameterInfo::Condition::Type::ENUM, microstrain::Index(3) /* type */, static_cast<uint16_t>(commands_3dm::EventTrigger::ThresholdParams::Type::WINDOW)} /* type == WINDOW */,
+            /* .condition     = */ {},
         },
         {
-            /* .name          = */ "int_thres",
-            /* .docs          = */ "",
+            /* .name          = */ "second_thres",
+            /* .docs          = */ "Second threshold or interval.",
             /* .type          = */ {Type::DOUBLE, nullptr},
-            /* .accessor      = */ nullptr, //utils::access<type, double, &type::int_thres>,
+            /* .accessor      = */ nullptr, //utils::access<type, double, &type::second_thres>,
             /* .attributes    = */ NO_FUNCTIONS,
             /* .count         = */ 1,
-            /* .condition     = */ {ParameterInfo::Condition::Type::ENUM, microstrain::Index(3) /* type */, static_cast<uint16_t>(commands_3dm::EventTrigger::ThresholdParams::Type::INTERVAL)} /* type == INTERVAL */,
-        },
-        {
-            /* .name          = */ "high_thres",
-            /* .docs          = */ "",
-            /* .type          = */ {Type::DOUBLE, nullptr},
-            /* .accessor      = */ nullptr, //utils::access<type, double, &type::high_thres>,
-            /* .attributes    = */ NO_FUNCTIONS,
-            /* .count         = */ 1,
-            /* .condition     = */ {ParameterInfo::Condition::Type::ENUM, microstrain::Index(3) /* type */, static_cast<uint16_t>(commands_3dm::EventTrigger::ThresholdParams::Type::WINDOW)} /* type == WINDOW */,
-        },
-        {
-            /* .name          = */ "interval",
-            /* .docs          = */ "",
-            /* .type          = */ {Type::DOUBLE, nullptr},
-            /* .accessor      = */ nullptr, //utils::access<type, double, &type::interval>,
-            /* .attributes    = */ NO_FUNCTIONS,
-            /* .count         = */ 1,
-            /* .condition     = */ {ParameterInfo::Condition::Type::ENUM, microstrain::Index(3) /* type */, static_cast<uint16_t>(commands_3dm::EventTrigger::ThresholdParams::Type::INTERVAL)} /* type == INTERVAL */,
+            /* .condition     = */ {},
         },
     };
-
     static constexpr inline StructInfo value = {
         /* .name        = */ "ThresholdParams",
         /* .title       = */ "Trigger Threshold Parameters",
@@ -2390,11 +3179,26 @@ struct MetadataFor<commands_3dm::EventTrigger::ThresholdParams>
     };
 };
 
+template<> struct TypeForStructInfo< &MetadataFor<commands_3dm::EventTrigger::ThresholdParams>::value > { using type = commands_3dm::EventTrigger::ThresholdParams; };
+
 template<>
 struct MetadataFor<commands_3dm::EventTrigger::CombinationParams>
 {
     using type = commands_3dm::EventTrigger::CombinationParams;
 
+    using Context = commands_3dm::EventTrigger;
+
+    using ParamTypes = std::tuple<
+        decltype(type::logic_table),
+        decltype(type::input_triggers)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.logic_table;
+        if constexpr(I == 1) return value_.input_triggers;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "logic_table",
@@ -2415,7 +3219,6 @@ struct MetadataFor<commands_3dm::EventTrigger::CombinationParams>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline StructInfo value = {
         /* .name        = */ "CombinationParams",
         /* .title       = */ "Trigger Combination Parameters",
@@ -2423,6 +3226,8 @@ struct MetadataFor<commands_3dm::EventTrigger::CombinationParams>
         /* .parameters  = */ parameters,
     };
 };
+
+template<> struct TypeForStructInfo< &MetadataFor<commands_3dm::EventTrigger::CombinationParams>::value > { using type = commands_3dm::EventTrigger::CombinationParams; };
 
 template<>
 struct MetadataFor<commands_3dm::EventTrigger::Type>
@@ -2445,11 +3250,28 @@ struct MetadataFor<commands_3dm::EventTrigger::Type>
 
 };
 
+template<> struct TypeForEnumInfo< &MetadataFor<commands_3dm::EventTrigger::Type>::value > { using type = commands_3dm::EventTrigger::Type; };
+
 template<>
 struct MetadataFor<commands_3dm::EventTrigger::Parameters>
 {
     using type = commands_3dm::EventTrigger::Parameters;
 
+    using Context = commands_3dm::EventTrigger;
+
+    using ParamTypes = std::tuple<
+        decltype(type::gpio),
+        decltype(type::threshold),
+        decltype(type::combination)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.gpio;
+        if constexpr(I == 1) return value_.threshold;
+        if constexpr(I == 2) return value_.combination;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "gpio",
@@ -2458,7 +3280,7 @@ struct MetadataFor<commands_3dm::EventTrigger::Parameters>
             /* .accessor      = */ nullptr, //utils::access<type, commands_3dm::EventTrigger::GpioParams, &type::gpio>,
             /* .attributes    = */ NO_FUNCTIONS,
             /* .count         = */ 1,
-            /* .condition     = */ {ParameterInfo::Condition::Type::ENUM, microstrain::Index(1) /* type */, static_cast<uint16_t>(commands_3dm::EventTrigger::Type::GPIO)} /* type == GPIO */,
+            /* .condition     = */ {ParameterInfo::Condition::Type::ENUM, microstrain::Index(2) /* type */, static_cast<uint16_t>(commands_3dm::EventTrigger::Type::GPIO)} /* type == GPIO */,
         },
         {
             /* .name          = */ "threshold",
@@ -2467,7 +3289,7 @@ struct MetadataFor<commands_3dm::EventTrigger::Parameters>
             /* .accessor      = */ nullptr, //utils::access<type, commands_3dm::EventTrigger::ThresholdParams, &type::threshold>,
             /* .attributes    = */ NO_FUNCTIONS,
             /* .count         = */ 1,
-            /* .condition     = */ {ParameterInfo::Condition::Type::ENUM, microstrain::Index(1) /* type */, static_cast<uint16_t>(commands_3dm::EventTrigger::Type::THRESHOLD)} /* type == THRESHOLD */,
+            /* .condition     = */ {ParameterInfo::Condition::Type::ENUM, microstrain::Index(2) /* type */, static_cast<uint16_t>(commands_3dm::EventTrigger::Type::THRESHOLD)} /* type == THRESHOLD */,
         },
         {
             /* .name          = */ "combination",
@@ -2476,10 +3298,9 @@ struct MetadataFor<commands_3dm::EventTrigger::Parameters>
             /* .accessor      = */ nullptr, //utils::access<type, commands_3dm::EventTrigger::CombinationParams, &type::combination>,
             /* .attributes    = */ NO_FUNCTIONS,
             /* .count         = */ 1,
-            /* .condition     = */ {ParameterInfo::Condition::Type::ENUM, microstrain::Index(1) /* type */, static_cast<uint16_t>(commands_3dm::EventTrigger::Type::COMBINATION)} /* type == COMBINATION */,
+            /* .condition     = */ {ParameterInfo::Condition::Type::ENUM, microstrain::Index(2) /* type */, static_cast<uint16_t>(commands_3dm::EventTrigger::Type::COMBINATION)} /* type == COMBINATION */,
         },
     };
-
     static constexpr inline StructInfo value = {
         /* .name        = */ "Parameters",
         /* .title       = */ "Parameters",
@@ -2488,11 +3309,28 @@ struct MetadataFor<commands_3dm::EventTrigger::Parameters>
     };
 };
 
+template<> struct TypeForStructInfo< &MetadataFor<commands_3dm::EventTrigger::Parameters>::value > { using type = commands_3dm::EventTrigger::Parameters; };
+
 template<>
 struct MetadataFor<commands_3dm::EventTrigger::Response>
 {
     using type = commands_3dm::EventTrigger::Response;
 
+    using Context = commands_3dm::EventTrigger;
+
+    using ParamTypes = std::tuple<
+        decltype(type::instance),
+        decltype(type::type),
+        decltype(type::parameters)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.instance;
+        if constexpr(I == 1) return value_.type;
+        if constexpr(I == 2) return value_.parameters;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "instance",
@@ -2522,25 +3360,43 @@ struct MetadataFor<commands_3dm::EventTrigger::Response>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::EventTrigger::Response",
-            /* .title       = */ "response",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::EventTrigger::Response>::value > { using type = commands_3dm::EventTrigger::Response; };
 
 template<>
 struct MetadataFor<commands_3dm::EventTrigger>
 {
     using type = commands_3dm::EventTrigger;
 
+    using Context = CommandSet3dm;
+
+    using ParamTypes = std::tuple<
+        decltype(type::function),
+        decltype(type::instance),
+        decltype(type::type),
+        decltype(type::parameters)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.function;
+        if constexpr(I == 1) return value_.instance;
+        if constexpr(I == 2) return value_.type;
+        if constexpr(I == 3) return value_.parameters;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         FUNCTION_SELECTOR_PARAM,
         {
@@ -2571,19 +3427,21 @@ struct MetadataFor<commands_3dm::EventTrigger>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::EventTrigger",
-            /* .title       = */ "Event Trigger Configuration",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Configures various types of event triggers.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::EventTrigger>::value > { using type = commands_3dm::EventTrigger; };
+template<> struct TypeForDescriptor<commands_3dm::EventTrigger::DESCRIPTOR.as_u16()> { using type = commands_3dm::EventTrigger; };
 
 template<>
 struct MetadataFor<commands_3dm::EventAction::GpioParams::Mode>
@@ -2608,11 +3466,26 @@ struct MetadataFor<commands_3dm::EventAction::GpioParams::Mode>
 
 };
 
+template<> struct TypeForEnumInfo< &MetadataFor<commands_3dm::EventAction::GpioParams::Mode>::value > { using type = commands_3dm::EventAction::GpioParams::Mode; };
+
 template<>
 struct MetadataFor<commands_3dm::EventAction::GpioParams>
 {
     using type = commands_3dm::EventAction::GpioParams;
 
+    using Context = commands_3dm::EventAction;
+
+    using ParamTypes = std::tuple<
+        decltype(type::pin),
+        decltype(type::mode)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.pin;
+        if constexpr(I == 1) return value_.mode;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "pin",
@@ -2633,7 +3506,6 @@ struct MetadataFor<commands_3dm::EventAction::GpioParams>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline StructInfo value = {
         /* .name        = */ "GpioParams",
         /* .title       = */ "Action GPIO Parameters",
@@ -2642,11 +3514,30 @@ struct MetadataFor<commands_3dm::EventAction::GpioParams>
     };
 };
 
+template<> struct TypeForStructInfo< &MetadataFor<commands_3dm::EventAction::GpioParams>::value > { using type = commands_3dm::EventAction::GpioParams; };
+
 template<>
 struct MetadataFor<commands_3dm::EventAction::MessageParams>
 {
     using type = commands_3dm::EventAction::MessageParams;
 
+    using Context = commands_3dm::EventAction;
+
+    using ParamTypes = std::tuple<
+        decltype(type::desc_set),
+        decltype(type::decimation),
+        decltype(type::num_fields),
+        decltype(type::descriptors)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.desc_set;
+        if constexpr(I == 1) return value_.decimation;
+        if constexpr(I == 2) return value_.num_fields;
+        if constexpr(I == 3) return value_.descriptors;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "desc_set",
@@ -2685,7 +3576,6 @@ struct MetadataFor<commands_3dm::EventAction::MessageParams>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline StructInfo value = {
         /* .name        = */ "MessageParams",
         /* .title       = */ "Action Message Parameters",
@@ -2693,6 +3583,8 @@ struct MetadataFor<commands_3dm::EventAction::MessageParams>
         /* .parameters  = */ parameters,
     };
 };
+
+template<> struct TypeForStructInfo< &MetadataFor<commands_3dm::EventAction::MessageParams>::value > { using type = commands_3dm::EventAction::MessageParams; };
 
 template<>
 struct MetadataFor<commands_3dm::EventAction::Type>
@@ -2714,11 +3606,26 @@ struct MetadataFor<commands_3dm::EventAction::Type>
 
 };
 
+template<> struct TypeForEnumInfo< &MetadataFor<commands_3dm::EventAction::Type>::value > { using type = commands_3dm::EventAction::Type; };
+
 template<>
 struct MetadataFor<commands_3dm::EventAction::Parameters>
 {
     using type = commands_3dm::EventAction::Parameters;
 
+    using Context = commands_3dm::EventAction;
+
+    using ParamTypes = std::tuple<
+        decltype(type::gpio),
+        decltype(type::message)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.gpio;
+        if constexpr(I == 1) return value_.message;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "gpio",
@@ -2727,7 +3634,7 @@ struct MetadataFor<commands_3dm::EventAction::Parameters>
             /* .accessor      = */ nullptr, //utils::access<type, commands_3dm::EventAction::GpioParams, &type::gpio>,
             /* .attributes    = */ NO_FUNCTIONS,
             /* .count         = */ 1,
-            /* .condition     = */ {ParameterInfo::Condition::Type::ENUM, microstrain::Index(2) /* type */, static_cast<uint16_t>(commands_3dm::EventAction::Type::GPIO)} /* type == GPIO */,
+            /* .condition     = */ {ParameterInfo::Condition::Type::ENUM, microstrain::Index(3) /* type */, static_cast<uint16_t>(commands_3dm::EventAction::Type::GPIO)} /* type == GPIO */,
         },
         {
             /* .name          = */ "message",
@@ -2736,10 +3643,9 @@ struct MetadataFor<commands_3dm::EventAction::Parameters>
             /* .accessor      = */ nullptr, //utils::access<type, commands_3dm::EventAction::MessageParams, &type::message>,
             /* .attributes    = */ NO_FUNCTIONS,
             /* .count         = */ 1,
-            /* .condition     = */ {ParameterInfo::Condition::Type::ENUM, microstrain::Index(2) /* type */, static_cast<uint16_t>(commands_3dm::EventAction::Type::MESSAGE)} /* type == MESSAGE */,
+            /* .condition     = */ {ParameterInfo::Condition::Type::ENUM, microstrain::Index(3) /* type */, static_cast<uint16_t>(commands_3dm::EventAction::Type::MESSAGE)} /* type == MESSAGE */,
         },
     };
-
     static constexpr inline StructInfo value = {
         /* .name        = */ "Parameters",
         /* .title       = */ "Parameters",
@@ -2748,11 +3654,30 @@ struct MetadataFor<commands_3dm::EventAction::Parameters>
     };
 };
 
+template<> struct TypeForStructInfo< &MetadataFor<commands_3dm::EventAction::Parameters>::value > { using type = commands_3dm::EventAction::Parameters; };
+
 template<>
 struct MetadataFor<commands_3dm::EventAction::Response>
 {
     using type = commands_3dm::EventAction::Response;
 
+    using Context = commands_3dm::EventAction;
+
+    using ParamTypes = std::tuple<
+        decltype(type::instance),
+        decltype(type::trigger),
+        decltype(type::type),
+        decltype(type::parameters)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.instance;
+        if constexpr(I == 1) return value_.trigger;
+        if constexpr(I == 2) return value_.type;
+        if constexpr(I == 3) return value_.parameters;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "instance",
@@ -2791,25 +3716,45 @@ struct MetadataFor<commands_3dm::EventAction::Response>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::EventAction::Response",
-            /* .title       = */ "response",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::EventAction::Response>::value > { using type = commands_3dm::EventAction::Response; };
 
 template<>
 struct MetadataFor<commands_3dm::EventAction>
 {
     using type = commands_3dm::EventAction;
 
+    using Context = CommandSet3dm;
+
+    using ParamTypes = std::tuple<
+        decltype(type::function),
+        decltype(type::instance),
+        decltype(type::trigger),
+        decltype(type::type),
+        decltype(type::parameters)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.function;
+        if constexpr(I == 1) return value_.instance;
+        if constexpr(I == 2) return value_.trigger;
+        if constexpr(I == 3) return value_.type;
+        if constexpr(I == 4) return value_.parameters;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         FUNCTION_SELECTOR_PARAM,
         {
@@ -2849,48 +3794,78 @@ struct MetadataFor<commands_3dm::EventAction>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::EventAction",
-            /* .title       = */ "Event Action Configuration",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Configures various types of event actions.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::EventAction>::value > { using type = commands_3dm::EventAction; };
+template<> struct TypeForDescriptor<commands_3dm::EventAction::DESCRIPTOR.as_u16()> { using type = commands_3dm::EventAction; };
 
 template<>
 struct MetadataFor<commands_3dm::DeviceSettings>
 {
     using type = commands_3dm::DeviceSettings;
 
+    using Context = CommandSet3dm;
+
+    using ParamTypes = std::tuple<
+        decltype(type::function)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.function;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         FUNCTION_SELECTOR_PARAM,
 
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::DeviceSettings",
-            /* .title       = */ "Device Start Up Settings",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Save, Load, or Reset to Default the values for all device settings.\n\nWhen a save current settings command is issued, a brief data disturbance may occur while all settings are written to non-volatile memory.\n\nThis command should have a long timeout as it may take up to 1 second to complete.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {false, false, true, true, true},
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {false, false, true, true, true},
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::DeviceSettings>::value > { using type = commands_3dm::DeviceSettings; };
+template<> struct TypeForDescriptor<commands_3dm::DeviceSettings::DESCRIPTOR.as_u16()> { using type = commands_3dm::DeviceSettings; };
 
 template<>
 struct MetadataFor<commands_3dm::Sensor2VehicleTransformEuler::Response>
 {
     using type = commands_3dm::Sensor2VehicleTransformEuler::Response;
 
+    using Context = commands_3dm::Sensor2VehicleTransformEuler;
+
+    using ParamTypes = std::tuple<
+        decltype(type::roll),
+        decltype(type::pitch),
+        decltype(type::yaw)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.roll;
+        if constexpr(I == 1) return value_.pitch;
+        if constexpr(I == 2) return value_.yaw;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "roll",
@@ -2920,25 +3895,43 @@ struct MetadataFor<commands_3dm::Sensor2VehicleTransformEuler::Response>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::Sensor2VehicleTransformEuler::Response",
-            /* .title       = */ "response",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::Sensor2VehicleTransformEuler::Response>::value > { using type = commands_3dm::Sensor2VehicleTransformEuler::Response; };
 
 template<>
 struct MetadataFor<commands_3dm::Sensor2VehicleTransformEuler>
 {
     using type = commands_3dm::Sensor2VehicleTransformEuler;
 
+    using Context = CommandSet3dm;
+
+    using ParamTypes = std::tuple<
+        decltype(type::function),
+        decltype(type::roll),
+        decltype(type::pitch),
+        decltype(type::yaw)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.function;
+        if constexpr(I == 1) return value_.roll;
+        if constexpr(I == 2) return value_.pitch;
+        if constexpr(I == 3) return value_.yaw;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         FUNCTION_SELECTOR_PARAM,
         {
@@ -2969,25 +3962,38 @@ struct MetadataFor<commands_3dm::Sensor2VehicleTransformEuler>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::Sensor2VehicleTransformEuler",
-            /* .title       = */ "Sensor-to-Vehicle Frame Transformation Euler",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Sets the sensor-to-vehicle frame transformation using Yaw, Pitch, and Roll Euler angles.\n\nThese are the Yaw, Pitch, and Roll mounting angles of the sensor with respect to vehicle frame of reference,\nand describe the transformation of vectors from the sensor body frame to the vehicle frame.<br/>\n\nNote: This is the transformation, the inverse of the rotation defined in our legacy products.<br/>\n\nThe transformation may be stored in the device as a matrix or quaternion.  When Euler angles are read back from the device, they may not\nbe exactly equal to the Euler angles used to set the transformation, but they are functionally equivalent, such that they result in the same transformation.<br/>\n<br/><br/>\nThis transformation to the vehicle frame will be applied to the following output quantities:<br/><br/>\nIMU:<br/>\nScaled Acceleration<br/>\nScaled Gyro<br/>\nScaled Magnetometer<br/>\nDelta Theta<br/>\nDelta Velocity<br/>\nComplementary Filter Orientation<br/>\n<br/><br/>\nEstimation Filter:<br/>\nEstimated Orientation, Quaternion<br/>\nEstimated Orientation, Matrix<br/>\nEstimated Orientation, Euler Angles<br/>\nEstimated Linear Acceleration<br/>\nEstimated Angular Rate<br/>\nEstimated Gravity Vector<br/>\n<br/>\nChanging this setting will force all low-pass filters, the complementary filter, and the estimation filter to reset.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::Sensor2VehicleTransformEuler>::value > { using type = commands_3dm::Sensor2VehicleTransformEuler; };
+template<> struct TypeForDescriptor<commands_3dm::Sensor2VehicleTransformEuler::DESCRIPTOR.as_u16()> { using type = commands_3dm::Sensor2VehicleTransformEuler; };
 
 template<>
 struct MetadataFor<commands_3dm::Sensor2VehicleTransformQuaternion::Response>
 {
     using type = commands_3dm::Sensor2VehicleTransformQuaternion::Response;
 
+    using Context = commands_3dm::Sensor2VehicleTransformQuaternion;
+
+    using ParamTypes = std::tuple<
+        decltype(type::q)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.q;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "q",
@@ -2999,25 +4005,39 @@ struct MetadataFor<commands_3dm::Sensor2VehicleTransformQuaternion::Response>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::Sensor2VehicleTransformQuaternion::Response",
-            /* .title       = */ "response",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::Sensor2VehicleTransformQuaternion::Response>::value > { using type = commands_3dm::Sensor2VehicleTransformQuaternion::Response; };
 
 template<>
 struct MetadataFor<commands_3dm::Sensor2VehicleTransformQuaternion>
 {
     using type = commands_3dm::Sensor2VehicleTransformQuaternion;
 
+    using Context = CommandSet3dm;
+
+    using ParamTypes = std::tuple<
+        decltype(type::function),
+        decltype(type::q)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.function;
+        if constexpr(I == 1) return value_.q;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         FUNCTION_SELECTOR_PARAM,
         {
@@ -3030,25 +4050,38 @@ struct MetadataFor<commands_3dm::Sensor2VehicleTransformQuaternion>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::Sensor2VehicleTransformQuaternion",
-            /* .title       = */ "Sensor-to-Vehicle Frame Transformation Quaternion",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Set the sensor-to-vehicle frame transformation using unit length quaternion.\n\nNote: This is the transformation, the inverse of the rotation.\n\nThis quaternion describes the transformation of vectors from the sensor body frame to the vehicle frame of reference, and satisfies the following relationship:<br/>\n\nEQSTART p^{veh} = q^{-1} p^{sen} q EQEND<br/>\n\nWhere:<br/>\nEQSTART q = (q_w, q_x, q_y, q_z) EQEND is the quaternion describing the transformation. <br/>\nEQSTART p^{sen} = (0, v^{sen}_x, v^{sen}_y, v^{sen}_z) EQEND and EQSTART v^{sen} EQEND is a 3-element vector expressed in the sensor body frame.<br/>\nEQSTART p^{veh} = (0, v^{veh}_x, v^{veh}_y, v^{veh}_z) EQEND and EQSTART v^{veh} EQEND is a 3-element vector expressed in the vehicle frame.<br/>\n\nThe transformation may be stored in the device as a matrix or a quaternion.  When the quaternion is read back from the device, it may not\nbe exactly equal to the quaternion used to set the transformation, but it is functionally equivalent.<br/>\n<br/><br/>\nThis transformation affects the following output quantities:<br/><br/>\nIMU:<br/>\nScaled Acceleration<br/>\nScaled Gyro<br/>\nScaled Magnetometer<br/>\nDelta Theta<br/>\nDelta Velocity<br/>\n<br/><br/>\nEstimation Filter:<br/>\nEstimated Orientation, Quaternion<br/>\nEstimated Orientation, Matrix<br/>\nEstimated Orientation, Euler Angles<br/>\nEstimated Linear Acceleration<br/>\nEstimated Angular Rate<br/>\nEstimated Gravity Vector<br/>\n<br/>\nChanging this setting will force all low-pass filters, the complementary filter, and the estimation filter to reset.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::Sensor2VehicleTransformQuaternion>::value > { using type = commands_3dm::Sensor2VehicleTransformQuaternion; };
+template<> struct TypeForDescriptor<commands_3dm::Sensor2VehicleTransformQuaternion::DESCRIPTOR.as_u16()> { using type = commands_3dm::Sensor2VehicleTransformQuaternion; };
 
 template<>
 struct MetadataFor<commands_3dm::Sensor2VehicleTransformDcm::Response>
 {
     using type = commands_3dm::Sensor2VehicleTransformDcm::Response;
 
+    using Context = commands_3dm::Sensor2VehicleTransformDcm;
+
+    using ParamTypes = std::tuple<
+        decltype(type::dcm)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.dcm;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "dcm",
@@ -3060,25 +4093,39 @@ struct MetadataFor<commands_3dm::Sensor2VehicleTransformDcm::Response>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::Sensor2VehicleTransformDcm::Response",
-            /* .title       = */ "response",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::Sensor2VehicleTransformDcm::Response>::value > { using type = commands_3dm::Sensor2VehicleTransformDcm::Response; };
 
 template<>
 struct MetadataFor<commands_3dm::Sensor2VehicleTransformDcm>
 {
     using type = commands_3dm::Sensor2VehicleTransformDcm;
 
+    using Context = CommandSet3dm;
+
+    using ParamTypes = std::tuple<
+        decltype(type::function),
+        decltype(type::dcm)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.function;
+        if constexpr(I == 1) return value_.dcm;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         FUNCTION_SELECTOR_PARAM,
         {
@@ -3091,25 +4138,38 @@ struct MetadataFor<commands_3dm::Sensor2VehicleTransformDcm>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::Sensor2VehicleTransformDcm",
-            /* .title       = */ "Sensor-to-Vehicle Frame Transformation Direction Cosine Matrix",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Set the sensor to vehicle frame transformation using a using a 3 x 3 direction cosine matrix EQSTART M_{ned}^{veh} EQEND, stored in row-major order in a 9-element array.\n\nThese angles define the transformation of vectors from the sensor body frame to the fixed vehicle frame, according to:<br/>\nEQSTART v^{veh} = M_{sen}^{veh} v^{sen} EQEND<br/>\n\nWhere:<br/>\n\nEQSTART v^{sen} EQEND is a 3-element vector expressed in the sensor body frame. <br/>\nEQSTART v^{veh} EQEND is the same 3-element vector expressed in the vehicle frame.  <br/>\n<br/>\nThe matrix elements are stored is row-major order: EQSTART M_{sen}^{veh} = \\begin{bmatrix} M_{11}, M_{12}, M_{13}, M_{21}, M_{22}, M_{23}, M_{31}, M_{32}, M_{33} \\end{bmatrix} EQEND\n\nThe transformation may be stored in the device as a matrix or a quaternion. When EQSTART M_{sen}^{veh} EQEND is read back from the device, it may not\nbe exactly equal to array used to set the transformation, but it is functionally equivalent.<br/>\n<br/><br/>\nThis transformation affects the following output quantities:<br/><br/>\nIMU:<br/>\nScaled Acceleration<br/>\nScaled Gyro<br/>\nScaled Magnetometer<br/>\nDelta Theta<br/>\nDelta Velocity<br/>\n<br/><br/>\nEstimation Filter:<br/>\nEstimated Orientation, Quaternion<br/>\nEstimated Orientation, Matrix<br/>\nEstimated Orientation, Euler Angles<br/>\nEstimated Linear Acceleration<br/>\nEstimated Angular Rate<br/>\nEstimated Gravity Vector<br/>\n<br/>\nChanging this setting will force all low-pass filters, the complementary filter, and the estimation filter to reset.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::Sensor2VehicleTransformDcm>::value > { using type = commands_3dm::Sensor2VehicleTransformDcm; };
+template<> struct TypeForDescriptor<commands_3dm::Sensor2VehicleTransformDcm::DESCRIPTOR.as_u16()> { using type = commands_3dm::Sensor2VehicleTransformDcm; };
 
 template<>
 struct MetadataFor<commands_3dm::AccelBias::Response>
 {
     using type = commands_3dm::AccelBias::Response;
 
+    using Context = commands_3dm::AccelBias;
+
+    using ParamTypes = std::tuple<
+        decltype(type::bias)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.bias;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "bias",
@@ -3121,25 +4181,39 @@ struct MetadataFor<commands_3dm::AccelBias::Response>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::AccelBias::Response",
-            /* .title       = */ "response",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::AccelBias::Response>::value > { using type = commands_3dm::AccelBias::Response; };
 
 template<>
 struct MetadataFor<commands_3dm::AccelBias>
 {
     using type = commands_3dm::AccelBias;
 
+    using Context = CommandSet3dm;
+
+    using ParamTypes = std::tuple<
+        decltype(type::function),
+        decltype(type::bias)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.function;
+        if constexpr(I == 1) return value_.bias;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         FUNCTION_SELECTOR_PARAM,
         {
@@ -3152,25 +4226,38 @@ struct MetadataFor<commands_3dm::AccelBias>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::AccelBias",
-            /* .title       = */ "Accelerometer Bias Configuration",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Configures the user specified accelerometer bias\n\nThe user specified bias is subtracted from the calibrated accelerometer output.  Value is input in the sensor frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::AccelBias>::value > { using type = commands_3dm::AccelBias; };
+template<> struct TypeForDescriptor<commands_3dm::AccelBias::DESCRIPTOR.as_u16()> { using type = commands_3dm::AccelBias; };
 
 template<>
 struct MetadataFor<commands_3dm::GyroBias::Response>
 {
     using type = commands_3dm::GyroBias::Response;
 
+    using Context = commands_3dm::GyroBias;
+
+    using ParamTypes = std::tuple<
+        decltype(type::bias)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.bias;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "bias",
@@ -3182,25 +4269,39 @@ struct MetadataFor<commands_3dm::GyroBias::Response>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::GyroBias::Response",
-            /* .title       = */ "response",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::GyroBias::Response>::value > { using type = commands_3dm::GyroBias::Response; };
 
 template<>
 struct MetadataFor<commands_3dm::GyroBias>
 {
     using type = commands_3dm::GyroBias;
 
+    using Context = CommandSet3dm;
+
+    using ParamTypes = std::tuple<
+        decltype(type::function),
+        decltype(type::bias)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.function;
+        if constexpr(I == 1) return value_.bias;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         FUNCTION_SELECTOR_PARAM,
         {
@@ -3213,25 +4314,38 @@ struct MetadataFor<commands_3dm::GyroBias>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::GyroBias",
-            /* .title       = */ "Gyroscope Bias Configuration",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Configures the user specified gyroscope bias\n\nThe user specified bias is subtracted from the calibrated angular rate output.  Value is input in the sensor frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::GyroBias>::value > { using type = commands_3dm::GyroBias; };
+template<> struct TypeForDescriptor<commands_3dm::GyroBias::DESCRIPTOR.as_u16()> { using type = commands_3dm::GyroBias; };
 
 template<>
 struct MetadataFor<commands_3dm::CaptureGyroBias::Response>
 {
     using type = commands_3dm::CaptureGyroBias::Response;
 
+    using Context = commands_3dm::CaptureGyroBias;
+
+    using ParamTypes = std::tuple<
+        decltype(type::bias)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.bias;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "bias",
@@ -3243,25 +4357,37 @@ struct MetadataFor<commands_3dm::CaptureGyroBias::Response>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::CaptureGyroBias::Response",
-            /* .title       = */ "response",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::CaptureGyroBias::Response>::value > { using type = commands_3dm::CaptureGyroBias::Response; };
 
 template<>
 struct MetadataFor<commands_3dm::CaptureGyroBias>
 {
     using type = commands_3dm::CaptureGyroBias;
 
+    using Context = CommandSet3dm;
+
+    using ParamTypes = std::tuple<
+        decltype(type::averaging_time_ms)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.averaging_time_ms;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "averaging_time_ms",
@@ -3273,25 +4399,38 @@ struct MetadataFor<commands_3dm::CaptureGyroBias>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::CaptureGyroBias",
-            /* .title       = */ "Capture Gyroscope Bias",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Samples gyro for a specified time range and writes the averaged result to the Gyro Bias vector in RAM\n\nThe device will average the gyro output for the duration of 'averaging_time_ms.' To store the resulting vector\nin non-volatile memory, use the Set Gyro Bias command.\nIMPORTANT: The device must be stationary and experiencing minimum vibration for the duration of 'averaging_time_ms'\nAveraging Time range: 1000 to 30,000",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::CaptureGyroBias>::value > { using type = commands_3dm::CaptureGyroBias; };
+template<> struct TypeForDescriptor<commands_3dm::CaptureGyroBias::DESCRIPTOR.as_u16()> { using type = commands_3dm::CaptureGyroBias; };
 
 template<>
 struct MetadataFor<commands_3dm::MagHardIronOffset::Response>
 {
     using type = commands_3dm::MagHardIronOffset::Response;
 
+    using Context = commands_3dm::MagHardIronOffset;
+
+    using ParamTypes = std::tuple<
+        decltype(type::offset)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.offset;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "offset",
@@ -3303,25 +4442,39 @@ struct MetadataFor<commands_3dm::MagHardIronOffset::Response>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::MagHardIronOffset::Response",
-            /* .title       = */ "response",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::MagHardIronOffset::Response>::value > { using type = commands_3dm::MagHardIronOffset::Response; };
 
 template<>
 struct MetadataFor<commands_3dm::MagHardIronOffset>
 {
     using type = commands_3dm::MagHardIronOffset;
 
+    using Context = CommandSet3dm;
+
+    using ParamTypes = std::tuple<
+        decltype(type::function),
+        decltype(type::offset)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.function;
+        if constexpr(I == 1) return value_.offset;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         FUNCTION_SELECTOR_PARAM,
         {
@@ -3334,25 +4487,38 @@ struct MetadataFor<commands_3dm::MagHardIronOffset>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::MagHardIronOffset",
-            /* .title       = */ "Magnetometer Hard Iron Offset",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Configure the user specified magnetometer hard iron offset vector\n\nThe values for this offset are determined empirically by external software algorithms\nbased on calibration data taken after the device is installed in its application. These values\ncan be obtained and set by using Microstrain software tools.\nAlternatively, on some systems, the auto-mag calibration feature may be used to capture these values in-run.\nThe offset is applied to the scaled magnetometer vector prior to output.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::MagHardIronOffset>::value > { using type = commands_3dm::MagHardIronOffset; };
+template<> struct TypeForDescriptor<commands_3dm::MagHardIronOffset::DESCRIPTOR.as_u16()> { using type = commands_3dm::MagHardIronOffset; };
 
 template<>
 struct MetadataFor<commands_3dm::MagSoftIronMatrix::Response>
 {
     using type = commands_3dm::MagSoftIronMatrix::Response;
 
+    using Context = commands_3dm::MagSoftIronMatrix;
+
+    using ParamTypes = std::tuple<
+        decltype(type::offset)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.offset;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "offset",
@@ -3364,25 +4530,39 @@ struct MetadataFor<commands_3dm::MagSoftIronMatrix::Response>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::MagSoftIronMatrix::Response",
-            /* .title       = */ "response",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::MagSoftIronMatrix::Response>::value > { using type = commands_3dm::MagSoftIronMatrix::Response; };
 
 template<>
 struct MetadataFor<commands_3dm::MagSoftIronMatrix>
 {
     using type = commands_3dm::MagSoftIronMatrix;
 
+    using Context = CommandSet3dm;
+
+    using ParamTypes = std::tuple<
+        decltype(type::function),
+        decltype(type::offset)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.function;
+        if constexpr(I == 1) return value_.offset;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         FUNCTION_SELECTOR_PARAM,
         {
@@ -3395,25 +4575,38 @@ struct MetadataFor<commands_3dm::MagSoftIronMatrix>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::MagSoftIronMatrix",
-            /* .title       = */ "Magnetometer Soft Iron Matrix",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Configure the user specified magnetometer soft iron offset matrix\n\nThe values for this matrix are determined empirically by external software algorithms\nbased on calibration data taken after the device is installed in its application. These values\ncan be obtained and set by using Microstrain software tools.\nAlternatively, on some systems, the auto-mag calibration feature may be used to capture these values in-run.\nThe matrix is applied to the scaled magnetometer vector prior to output.\n\nThe matrix is in row major order:\nEQSTART M = \\begin{bmatrix} 0 &amp; 1 &amp; 2 \\\\ 3 &amp; 4 &amp; 5 \\\\ 6 &amp; 7 &amp; 8 \\end{bmatrix} EQEND",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::MagSoftIronMatrix>::value > { using type = commands_3dm::MagSoftIronMatrix; };
+template<> struct TypeForDescriptor<commands_3dm::MagSoftIronMatrix::DESCRIPTOR.as_u16()> { using type = commands_3dm::MagSoftIronMatrix; };
 
 template<>
 struct MetadataFor<commands_3dm::ConingScullingEnable::Response>
 {
     using type = commands_3dm::ConingScullingEnable::Response;
 
+    using Context = commands_3dm::ConingScullingEnable;
+
+    using ParamTypes = std::tuple<
+        decltype(type::enable)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.enable;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "enable",
@@ -3425,25 +4618,39 @@ struct MetadataFor<commands_3dm::ConingScullingEnable::Response>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::ConingScullingEnable::Response",
-            /* .title       = */ "response",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::ConingScullingEnable::Response>::value > { using type = commands_3dm::ConingScullingEnable::Response; };
 
 template<>
 struct MetadataFor<commands_3dm::ConingScullingEnable>
 {
     using type = commands_3dm::ConingScullingEnable;
 
+    using Context = CommandSet3dm;
+
+    using ParamTypes = std::tuple<
+        decltype(type::function),
+        decltype(type::enable)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.function;
+        if constexpr(I == 1) return value_.enable;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         FUNCTION_SELECTOR_PARAM,
         {
@@ -3456,25 +4663,38 @@ struct MetadataFor<commands_3dm::ConingScullingEnable>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::ConingScullingEnable",
-            /* .title       = */ "Coning and Sculling Enable",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Controls the Coning and Sculling Compenstation setting.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::ConingScullingEnable>::value > { using type = commands_3dm::ConingScullingEnable; };
+template<> struct TypeForDescriptor<commands_3dm::ConingScullingEnable::DESCRIPTOR.as_u16()> { using type = commands_3dm::ConingScullingEnable; };
 
 template<>
 struct MetadataFor<commands_3dm::UartBaudrate::Response>
 {
     using type = commands_3dm::UartBaudrate::Response;
 
+    using Context = commands_3dm::UartBaudrate;
+
+    using ParamTypes = std::tuple<
+        decltype(type::baud)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.baud;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "baud",
@@ -3486,25 +4706,39 @@ struct MetadataFor<commands_3dm::UartBaudrate::Response>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::UartBaudrate::Response",
-            /* .title       = */ "response",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::UartBaudrate::Response>::value > { using type = commands_3dm::UartBaudrate::Response; };
 
 template<>
 struct MetadataFor<commands_3dm::UartBaudrate>
 {
     using type = commands_3dm::UartBaudrate;
 
+    using Context = CommandSet3dm;
+
+    using ParamTypes = std::tuple<
+        decltype(type::function),
+        decltype(type::baud)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.function;
+        if constexpr(I == 1) return value_.baud;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         FUNCTION_SELECTOR_PARAM,
         {
@@ -3517,19 +4751,21 @@ struct MetadataFor<commands_3dm::UartBaudrate>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::UartBaudrate",
-            /* .title       = */ "UART Baudrate",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Read, Save, Load, or Reset to Default the baud rate of the main communication channel.\n\nFor all functions except 0x01 (use new settings), the new baud rate value is ignored.\nPlease see the device user manual for supported baud rates.\n\nThe device will wait until all incoming and outgoing data has been sent, up\nto a maximum of 250 ms, before applying any change.\n\nNo guarantee is provided as to what happens to commands issued during this\ndelay period; They may or may not be processed and any responses aren't\nguaranteed to be at one rate or the other. The same applies to data packets.\n\nIt is highly recommended that the device be idle before issuing this command\nand that it be issued in its own packet. Users should wait 250 ms after\nsending this command before further interaction.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::UartBaudrate>::value > { using type = commands_3dm::UartBaudrate; };
+template<> struct TypeForDescriptor<commands_3dm::UartBaudrate::DESCRIPTOR.as_u16()> { using type = commands_3dm::UartBaudrate; };
 
 template<>
 struct MetadataFor<commands_3dm::GpioConfig::Feature>
@@ -3553,6 +4789,8 @@ struct MetadataFor<commands_3dm::GpioConfig::Feature>
     };
 
 };
+
+template<> struct TypeForEnumInfo< &MetadataFor<commands_3dm::GpioConfig::Feature>::value > { using type = commands_3dm::GpioConfig::Feature; };
 
 template<>
 struct MetadataFor<commands_3dm::GpioConfig::Behavior>
@@ -3586,6 +4824,8 @@ struct MetadataFor<commands_3dm::GpioConfig::Behavior>
 
 };
 
+template<> struct TypeForEnumInfo< &MetadataFor<commands_3dm::GpioConfig::Behavior>::value > { using type = commands_3dm::GpioConfig::Behavior; };
+
 template<>
 struct MetadataFor<commands_3dm::GpioConfig::PinMode>
 {
@@ -3606,11 +4846,30 @@ struct MetadataFor<commands_3dm::GpioConfig::PinMode>
 
 };
 
+template<> struct TypeForBitsInfo< &MetadataFor<commands_3dm::GpioConfig::PinMode>::value > { using type = commands_3dm::GpioConfig::PinMode; };
+
 template<>
 struct MetadataFor<commands_3dm::GpioConfig::Response>
 {
     using type = commands_3dm::GpioConfig::Response;
 
+    using Context = commands_3dm::GpioConfig;
+
+    using ParamTypes = std::tuple<
+        decltype(type::pin),
+        decltype(type::feature),
+        decltype(type::behavior),
+        decltype(type::pin_mode)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.pin;
+        if constexpr(I == 1) return value_.feature;
+        if constexpr(I == 2) return value_.behavior;
+        if constexpr(I == 3) return value_.pin_mode;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "pin",
@@ -3649,25 +4908,45 @@ struct MetadataFor<commands_3dm::GpioConfig::Response>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::GpioConfig::Response",
-            /* .title       = */ "response",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::GpioConfig::Response>::value > { using type = commands_3dm::GpioConfig::Response; };
 
 template<>
 struct MetadataFor<commands_3dm::GpioConfig>
 {
     using type = commands_3dm::GpioConfig;
 
+    using Context = CommandSet3dm;
+
+    using ParamTypes = std::tuple<
+        decltype(type::function),
+        decltype(type::pin),
+        decltype(type::feature),
+        decltype(type::behavior),
+        decltype(type::pin_mode)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.function;
+        if constexpr(I == 1) return value_.pin;
+        if constexpr(I == 2) return value_.feature;
+        if constexpr(I == 3) return value_.behavior;
+        if constexpr(I == 4) return value_.pin_mode;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         FUNCTION_SELECTOR_PARAM,
         {
@@ -3707,25 +4986,40 @@ struct MetadataFor<commands_3dm::GpioConfig>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::GpioConfig",
-            /* .title       = */ "GPIO Configuration",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Configures the user GPIO pins on the connector for use with several built-in functions or for general input or output.\n\nGPIO pins are device-dependent. Some features are only available on\ncertain pins. Some behaviors require specific configurations.\nConsult the device user manual for restrictions and default settings.\n\nTo avoid glitches on GPIOs configured as an output in a mode other than\nGPIO, always configure the relevant function before setting up the pin\nwith this command. Otherwise, the pin state will be undefined between\nthis command and the one to set up the feature. For input pins, use\nthis command first so the state is well-defined when the feature is\ninitialized.\n\nSome configurations can only be active on one pin at a time. If such\nconfiguration is applied to a second pin, the second one will take\nprecedence and the original pin's configuration will be reset.\n",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::GpioConfig>::value > { using type = commands_3dm::GpioConfig; };
+template<> struct TypeForDescriptor<commands_3dm::GpioConfig::DESCRIPTOR.as_u16()> { using type = commands_3dm::GpioConfig; };
 
 template<>
 struct MetadataFor<commands_3dm::GpioState::Response>
 {
     using type = commands_3dm::GpioState::Response;
 
+    using Context = commands_3dm::GpioState;
+
+    using ParamTypes = std::tuple<
+        decltype(type::pin),
+        decltype(type::state)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.pin;
+        if constexpr(I == 1) return value_.state;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "pin",
@@ -3746,25 +5040,41 @@ struct MetadataFor<commands_3dm::GpioState::Response>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::GpioState::Response",
-            /* .title       = */ "response",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::GpioState::Response>::value > { using type = commands_3dm::GpioState::Response; };
 
 template<>
 struct MetadataFor<commands_3dm::GpioState>
 {
     using type = commands_3dm::GpioState;
 
+    using Context = CommandSet3dm;
+
+    using ParamTypes = std::tuple<
+        decltype(type::function),
+        decltype(type::pin),
+        decltype(type::state)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.function;
+        if constexpr(I == 1) return value_.pin;
+        if constexpr(I == 2) return value_.state;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         FUNCTION_SELECTOR_PARAM,
         {
@@ -3786,19 +5096,21 @@ struct MetadataFor<commands_3dm::GpioState>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::GpioState",
-            /* .title       = */ "GPIO State",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Allows the state of the pin to be read or controlled.\n\nThis command serves two purposes: 1) To allow reading the state of a pin via command,\nrather than polling a data quantity, and 2) to provide a way to set the output state\nwithout also having to specify the operating mode.\n\nThe state read back from the pin is the physical state of the pin, rather than a\nconfiguration value. The state can be read regardless of its configuration as long as\nthe device supports GPIO input on that pin. If the pin is set to an output, the read\nvalue would match the output value.\n\nWhile the state of a pin can always be set, it will only have an observable effect if\nthe pin is set to output mode.\n\nThis command does not support saving, loading, or resetting the state. Instead, use the\nGPIO Configuration command, which allows the initial state to be configured.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, false, false, false},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, false, false, false},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::GpioState>::value > { using type = commands_3dm::GpioState; };
+template<> struct TypeForDescriptor<commands_3dm::GpioState::DESCRIPTOR.as_u16()> { using type = commands_3dm::GpioState; };
 
 template<>
 struct MetadataFor<commands_3dm::Odometer::Mode>
@@ -3819,11 +5131,28 @@ struct MetadataFor<commands_3dm::Odometer::Mode>
 
 };
 
+template<> struct TypeForEnumInfo< &MetadataFor<commands_3dm::Odometer::Mode>::value > { using type = commands_3dm::Odometer::Mode; };
+
 template<>
 struct MetadataFor<commands_3dm::Odometer::Response>
 {
     using type = commands_3dm::Odometer::Response;
 
+    using Context = commands_3dm::Odometer;
+
+    using ParamTypes = std::tuple<
+        decltype(type::mode),
+        decltype(type::scaling),
+        decltype(type::uncertainty)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.mode;
+        if constexpr(I == 1) return value_.scaling;
+        if constexpr(I == 2) return value_.uncertainty;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "mode",
@@ -3853,25 +5182,43 @@ struct MetadataFor<commands_3dm::Odometer::Response>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::Odometer::Response",
-            /* .title       = */ "response",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::Odometer::Response>::value > { using type = commands_3dm::Odometer::Response; };
 
 template<>
 struct MetadataFor<commands_3dm::Odometer>
 {
     using type = commands_3dm::Odometer;
 
+    using Context = CommandSet3dm;
+
+    using ParamTypes = std::tuple<
+        decltype(type::function),
+        decltype(type::mode),
+        decltype(type::scaling),
+        decltype(type::uncertainty)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.function;
+        if constexpr(I == 1) return value_.mode;
+        if constexpr(I == 2) return value_.scaling;
+        if constexpr(I == 3) return value_.uncertainty;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         FUNCTION_SELECTOR_PARAM,
         {
@@ -3902,25 +5249,46 @@ struct MetadataFor<commands_3dm::Odometer>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::Odometer",
-            /* .title       = */ "Odometer Configuration",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Configures the hardware odometer interface.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::Odometer>::value > { using type = commands_3dm::Odometer; };
+template<> struct TypeForDescriptor<commands_3dm::Odometer::DESCRIPTOR.as_u16()> { using type = commands_3dm::Odometer; };
 
 template<>
 struct MetadataFor<commands_3dm::ImuLowpassFilter::Response>
 {
     using type = commands_3dm::ImuLowpassFilter::Response;
 
+    using Context = commands_3dm::ImuLowpassFilter;
+
+    using ParamTypes = std::tuple<
+        decltype(type::target_descriptor),
+        decltype(type::enable),
+        decltype(type::manual),
+        decltype(type::frequency),
+        decltype(type::reserved)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.target_descriptor;
+        if constexpr(I == 1) return value_.enable;
+        if constexpr(I == 2) return value_.manual;
+        if constexpr(I == 3) return value_.frequency;
+        if constexpr(I == 4) return value_.reserved;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "target_descriptor",
@@ -3968,25 +5336,47 @@ struct MetadataFor<commands_3dm::ImuLowpassFilter::Response>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::ImuLowpassFilter::Response",
-            /* .title       = */ "response",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::ImuLowpassFilter::Response>::value > { using type = commands_3dm::ImuLowpassFilter::Response; };
 
 template<>
 struct MetadataFor<commands_3dm::ImuLowpassFilter>
 {
     using type = commands_3dm::ImuLowpassFilter;
 
+    using Context = CommandSet3dm;
+
+    using ParamTypes = std::tuple<
+        decltype(type::function),
+        decltype(type::target_descriptor),
+        decltype(type::enable),
+        decltype(type::manual),
+        decltype(type::frequency),
+        decltype(type::reserved)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.function;
+        if constexpr(I == 1) return value_.target_descriptor;
+        if constexpr(I == 2) return value_.enable;
+        if constexpr(I == 3) return value_.manual;
+        if constexpr(I == 4) return value_.frequency;
+        if constexpr(I == 5) return value_.reserved;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         FUNCTION_SELECTOR_PARAM,
         {
@@ -4035,25 +5425,44 @@ struct MetadataFor<commands_3dm::ImuLowpassFilter>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::ImuLowpassFilter",
-            /* .title       = */ "Advanced Low-Pass Filter Settings",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Advanced configuration for the IMU data quantity low-pass filters.\n\nDeprecated, use the lowpass filter (0x0C,0x54) command instead.\n\nThe scaled data quantities are by default filtered through a single-pole IIR low-pass filter\nwhich is configured with a -3dB cutoff frequency of half the reporting frequency (set by\ndecimation factor in the IMU Message Format command) to prevent aliasing on a per data\nquantity basis. This advanced configuration command allows for the cutoff frequency to\nbe configured independently of the data reporting frequency as well as allowing for a\ncomplete bypass of the digital low-pass filter.\n\nPossible data descriptors:\n0x04 - Scaled accelerometer data\n0x05 - Scaled gyro data\n0x06 - Scaled magnetometer data (if applicable)\n0x17 - Scaled pressure data (if applicable)",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::ImuLowpassFilter>::value > { using type = commands_3dm::ImuLowpassFilter; };
+template<> struct TypeForDescriptor<commands_3dm::ImuLowpassFilter::DESCRIPTOR.as_u16()> { using type = commands_3dm::ImuLowpassFilter; };
 
 template<>
 struct MetadataFor<commands_3dm::ComplementaryFilter::Response>
 {
     using type = commands_3dm::ComplementaryFilter::Response;
 
+    using Context = commands_3dm::ComplementaryFilter;
+
+    using ParamTypes = std::tuple<
+        decltype(type::pitch_roll_enable),
+        decltype(type::heading_enable),
+        decltype(type::pitch_roll_time_constant),
+        decltype(type::heading_time_constant)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.pitch_roll_enable;
+        if constexpr(I == 1) return value_.heading_enable;
+        if constexpr(I == 2) return value_.pitch_roll_time_constant;
+        if constexpr(I == 3) return value_.heading_time_constant;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "pitch_roll_enable",
@@ -4092,25 +5501,45 @@ struct MetadataFor<commands_3dm::ComplementaryFilter::Response>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::ComplementaryFilter::Response",
-            /* .title       = */ "response",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::ComplementaryFilter::Response>::value > { using type = commands_3dm::ComplementaryFilter::Response; };
 
 template<>
 struct MetadataFor<commands_3dm::ComplementaryFilter>
 {
     using type = commands_3dm::ComplementaryFilter;
 
+    using Context = CommandSet3dm;
+
+    using ParamTypes = std::tuple<
+        decltype(type::function),
+        decltype(type::pitch_roll_enable),
+        decltype(type::heading_enable),
+        decltype(type::pitch_roll_time_constant),
+        decltype(type::heading_time_constant)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.function;
+        if constexpr(I == 1) return value_.pitch_roll_enable;
+        if constexpr(I == 2) return value_.heading_enable;
+        if constexpr(I == 3) return value_.pitch_roll_time_constant;
+        if constexpr(I == 4) return value_.heading_time_constant;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         FUNCTION_SELECTOR_PARAM,
         {
@@ -4150,19 +5579,21 @@ struct MetadataFor<commands_3dm::ComplementaryFilter>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::ComplementaryFilter",
-            /* .title       = */ "Complementary Filter Configuration",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Configure the settings for the complementary filter which produces the following (0x80) descriptor set values: attitude matrix (0x80,09), quaternion (0x80,0A), and  Euler angle (0x80,0C) outputs.\n\nThe filter can be configured to correct for pitch and roll using the accelerometer (with the assumption that linear acceleration is minimal),\nand to correct for heading using the magnetometer (with the assumption that the local magnetic field is dominated by the Earth's own magnetic field).\nPitch/roll and heading corrections each have their own configurable time constants, with a valid range of 1-1000 seconds. The default time constant is 10 seconds.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::ComplementaryFilter>::value > { using type = commands_3dm::ComplementaryFilter; };
+template<> struct TypeForDescriptor<commands_3dm::ComplementaryFilter::DESCRIPTOR.as_u16()> { using type = commands_3dm::ComplementaryFilter; };
 
 template<>
 struct MetadataFor<commands_3dm::SensorRangeType>
@@ -4186,11 +5617,26 @@ struct MetadataFor<commands_3dm::SensorRangeType>
 
 };
 
+template<> struct TypeForEnumInfo< &MetadataFor<commands_3dm::SensorRangeType>::value > { using type = commands_3dm::SensorRangeType; };
+
 template<>
 struct MetadataFor<commands_3dm::SensorRange::Response>
 {
     using type = commands_3dm::SensorRange::Response;
 
+    using Context = commands_3dm::SensorRange;
+
+    using ParamTypes = std::tuple<
+        decltype(type::sensor),
+        decltype(type::setting)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.sensor;
+        if constexpr(I == 1) return value_.setting;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "sensor",
@@ -4211,25 +5657,41 @@ struct MetadataFor<commands_3dm::SensorRange::Response>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::SensorRange::Response",
-            /* .title       = */ "response",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::SensorRange::Response>::value > { using type = commands_3dm::SensorRange::Response; };
 
 template<>
 struct MetadataFor<commands_3dm::SensorRange>
 {
     using type = commands_3dm::SensorRange;
 
+    using Context = CommandSet3dm;
+
+    using ParamTypes = std::tuple<
+        decltype(type::function),
+        decltype(type::sensor),
+        decltype(type::setting)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.function;
+        if constexpr(I == 1) return value_.sensor;
+        if constexpr(I == 2) return value_.setting;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         FUNCTION_SELECTOR_PARAM,
         {
@@ -4251,25 +5713,40 @@ struct MetadataFor<commands_3dm::SensorRange>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::SensorRange",
-            /* .title       = */ "Sensor Range",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Changes the IMU sensor gain.\n\nThis allows you to optimize the range to get the best accuracy and performance\nwhile minimizing over-range events.\n\nUse the 3DM Get Calibrated Sensor Ranges (0x0C,0x53) command to determine\nthe appropriate setting value for your application. Using values other than\nthose specified may result in a NACK or inaccurate measurement data.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::SensorRange>::value > { using type = commands_3dm::SensorRange; };
+template<> struct TypeForDescriptor<commands_3dm::SensorRange::DESCRIPTOR.as_u16()> { using type = commands_3dm::SensorRange; };
 
 template<>
 struct MetadataFor<commands_3dm::CalibratedSensorRanges::Entry>
 {
     using type = commands_3dm::CalibratedSensorRanges::Entry;
 
+    using Context = commands_3dm::CalibratedSensorRanges;
+
+    using ParamTypes = std::tuple<
+        decltype(type::setting),
+        decltype(type::range)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.setting;
+        if constexpr(I == 1) return value_.range;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "setting",
@@ -4290,7 +5767,6 @@ struct MetadataFor<commands_3dm::CalibratedSensorRanges::Entry>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline StructInfo value = {
         /* .name        = */ "Entry",
         /* .title       = */ "Sensor Range Entry",
@@ -4299,11 +5775,28 @@ struct MetadataFor<commands_3dm::CalibratedSensorRanges::Entry>
     };
 };
 
+template<> struct TypeForStructInfo< &MetadataFor<commands_3dm::CalibratedSensorRanges::Entry>::value > { using type = commands_3dm::CalibratedSensorRanges::Entry; };
+
 template<>
 struct MetadataFor<commands_3dm::CalibratedSensorRanges::Response>
 {
     using type = commands_3dm::CalibratedSensorRanges::Response;
 
+    using Context = commands_3dm::CalibratedSensorRanges;
+
+    using ParamTypes = std::tuple<
+        decltype(type::sensor),
+        decltype(type::num_ranges),
+        decltype(type::ranges)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.sensor;
+        if constexpr(I == 1) return value_.num_ranges;
+        if constexpr(I == 2) return value_.ranges;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "sensor",
@@ -4333,25 +5826,37 @@ struct MetadataFor<commands_3dm::CalibratedSensorRanges::Response>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::CalibratedSensorRanges::Response",
-            /* .title       = */ "response",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::CalibratedSensorRanges::Response>::value > { using type = commands_3dm::CalibratedSensorRanges::Response; };
 
 template<>
 struct MetadataFor<commands_3dm::CalibratedSensorRanges>
 {
     using type = commands_3dm::CalibratedSensorRanges;
 
+    using Context = CommandSet3dm;
+
+    using ParamTypes = std::tuple<
+        decltype(type::sensor)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.sensor;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "sensor",
@@ -4363,25 +5868,46 @@ struct MetadataFor<commands_3dm::CalibratedSensorRanges>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::CalibratedSensorRanges",
-            /* .title       = */ "Get Calibrated Sensor Ranges",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Returns the supported sensor ranges which may be used with the 3DM Sensor Range (0x0C,0x52) command.\n\nThe response includes an array of (u8, float) pairs which map each allowed setting\nto the corresponding maximum range in physical units. See SensorRangeType for units.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::CalibratedSensorRanges>::value > { using type = commands_3dm::CalibratedSensorRanges; };
+template<> struct TypeForDescriptor<commands_3dm::CalibratedSensorRanges::DESCRIPTOR.as_u16()> { using type = commands_3dm::CalibratedSensorRanges; };
 
 template<>
 struct MetadataFor<commands_3dm::LowpassFilter::Response>
 {
     using type = commands_3dm::LowpassFilter::Response;
 
+    using Context = commands_3dm::LowpassFilter;
+
+    using ParamTypes = std::tuple<
+        decltype(type::desc_set),
+        decltype(type::field_desc),
+        decltype(type::enable),
+        decltype(type::manual),
+        decltype(type::frequency)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.desc_set;
+        if constexpr(I == 1) return value_.field_desc;
+        if constexpr(I == 2) return value_.enable;
+        if constexpr(I == 3) return value_.manual;
+        if constexpr(I == 4) return value_.frequency;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "desc_set",
@@ -4429,25 +5955,47 @@ struct MetadataFor<commands_3dm::LowpassFilter::Response>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::LowpassFilter::Response",
-            /* .title       = */ "response",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::LowpassFilter::Response>::value > { using type = commands_3dm::LowpassFilter::Response; };
 
 template<>
 struct MetadataFor<commands_3dm::LowpassFilter>
 {
     using type = commands_3dm::LowpassFilter;
 
+    using Context = CommandSet3dm;
+
+    using ParamTypes = std::tuple<
+        decltype(type::function),
+        decltype(type::desc_set),
+        decltype(type::field_desc),
+        decltype(type::enable),
+        decltype(type::manual),
+        decltype(type::frequency)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.function;
+        if constexpr(I == 1) return value_.desc_set;
+        if constexpr(I == 2) return value_.field_desc;
+        if constexpr(I == 3) return value_.enable;
+        if constexpr(I == 4) return value_.manual;
+        if constexpr(I == 5) return value_.frequency;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         FUNCTION_SELECTOR_PARAM,
         {
@@ -4496,19 +6044,21 @@ struct MetadataFor<commands_3dm::LowpassFilter>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_3dm::LowpassFilter",
-            /* .title       = */ "Low-Pass Anti-Aliasing Filter",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "This command controls the low-pass anti-aliasing filter supported data quantities.\n\nSee the device user manual for data quantities which support the anti-aliasing filter.\n\nIf set to automatic mode, the frequency will track half of the transmission rate\nof the target descriptor according to the configured message format (0x0C,0x0F).\nFor example, if scaled accel (0x80,0x04) is set to stream at 100 Hz, the filter would\nbe set to 50 Hz. Changing the message format to 200 Hz would automatically adjust the\nfilter to 100 Hz.\n\nFor WRITE, SAVE, LOAD, and DEFAULT function selectors, the descriptor set and/or field descriptor\nmay be 0x00 to set, save, load, or reset the setting for all supported descriptors. The\nfield descriptor must be 0x00 if the descriptor set is 0x00.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_3dm::LowpassFilter>::value > { using type = commands_3dm::LowpassFilter; };
+template<> struct TypeForDescriptor<commands_3dm::LowpassFilter::DESCRIPTOR.as_u16()> { using type = commands_3dm::LowpassFilter; };
 
 
 static constexpr inline const FieldInfo* COMMANDS_3DM_FIELDS[] = {
@@ -4599,11 +6149,115 @@ static constexpr inline const FieldInfo* COMMANDS_3DM_FIELDS[] = {
     &MetadataFor<commands_3dm::LowpassFilter::Response>::value,
 };
 
-static constexpr DescriptorSetInfo COMMANDS_3DM = {
-    /* .descriptor = */ mip::commands_3dm::DESCRIPTOR_SET,
-    /* .name       = */ "3dm Commands",
-    /* .fields     = */ COMMANDS_3DM_FIELDS,
+struct CommandSet3dm
+{
+    static inline constexpr uint8_t DESCRIPTOR_SET = commands_3dm::DESCRIPTOR_SET;
+    static inline constexpr CompositeDescriptor DESCRIPTOR = {DESCRIPTOR_SET, INVALID_FIELD_DESCRIPTOR};
+
+    using Fields = std::tuple<
+        ::mip::commands_3dm::PollImuMessage,
+        ::mip::commands_3dm::PollGnssMessage,
+        ::mip::commands_3dm::PollFilterMessage,
+        ::mip::commands_3dm::NmeaPollData,
+        ::mip::commands_3dm::ImuGetBaseRate,
+        ::mip::commands_3dm::GnssGetBaseRate,
+        ::mip::commands_3dm::ImuMessageFormat,
+        ::mip::commands_3dm::GnssMessageFormat,
+        ::mip::commands_3dm::FilterMessageFormat,
+        ::mip::commands_3dm::FilterGetBaseRate,
+        ::mip::commands_3dm::NmeaMessageFormat,
+        ::mip::commands_3dm::PollData,
+        ::mip::commands_3dm::GetBaseRate,
+        ::mip::commands_3dm::MessageFormat,
+        ::mip::commands_3dm::FactoryStreaming,
+        ::mip::commands_3dm::DatastreamControl,
+        ::mip::commands_3dm::ConstellationSettings,
+        ::mip::commands_3dm::GnssSbasSettings,
+        ::mip::commands_3dm::GnssAssistedFix,
+        ::mip::commands_3dm::GnssTimeAssistance,
+        ::mip::commands_3dm::PpsSource,
+        ::mip::commands_3dm::GetEventSupport,
+        ::mip::commands_3dm::EventControl,
+        ::mip::commands_3dm::GetEventTriggerStatus,
+        ::mip::commands_3dm::GetEventActionStatus,
+        ::mip::commands_3dm::EventTrigger,
+        ::mip::commands_3dm::EventAction,
+        ::mip::commands_3dm::DeviceSettings,
+        ::mip::commands_3dm::Sensor2VehicleTransformEuler,
+        ::mip::commands_3dm::Sensor2VehicleTransformQuaternion,
+        ::mip::commands_3dm::Sensor2VehicleTransformDcm,
+        ::mip::commands_3dm::AccelBias,
+        ::mip::commands_3dm::GyroBias,
+        ::mip::commands_3dm::CaptureGyroBias,
+        ::mip::commands_3dm::MagHardIronOffset,
+        ::mip::commands_3dm::MagSoftIronMatrix,
+        ::mip::commands_3dm::ConingScullingEnable,
+        ::mip::commands_3dm::UartBaudrate,
+        ::mip::commands_3dm::GpioConfig,
+        ::mip::commands_3dm::GpioState,
+        ::mip::commands_3dm::Odometer,
+        ::mip::commands_3dm::ImuLowpassFilter,
+        ::mip::commands_3dm::ComplementaryFilter,
+        ::mip::commands_3dm::SensorRange,
+        ::mip::commands_3dm::CalibratedSensorRanges,
+        ::mip::commands_3dm::LowpassFilter,
+        ::mip::commands_3dm::ImuMessageFormat::Response,
+        ::mip::commands_3dm::GnssMessageFormat::Response,
+        ::mip::commands_3dm::FilterMessageFormat::Response,
+        ::mip::commands_3dm::ImuGetBaseRate::Response,
+        ::mip::commands_3dm::GnssGetBaseRate::Response,
+        ::mip::commands_3dm::DatastreamControl::Response,
+        ::mip::commands_3dm::UartBaudrate::Response,
+        ::mip::commands_3dm::FilterGetBaseRate::Response,
+        ::mip::commands_3dm::ImuLowpassFilter::Response,
+        ::mip::commands_3dm::NmeaMessageFormat::Response,
+        ::mip::commands_3dm::GetBaseRate::Response,
+        ::mip::commands_3dm::MessageFormat::Response,
+        ::mip::commands_3dm::ComplementaryFilter::Response,
+        ::mip::commands_3dm::AccelBias::Response,
+        ::mip::commands_3dm::GyroBias::Response,
+        ::mip::commands_3dm::CaptureGyroBias::Response,
+        ::mip::commands_3dm::MagHardIronOffset::Response,
+        ::mip::commands_3dm::MagSoftIronMatrix::Response,
+        ::mip::commands_3dm::ConingScullingEnable::Response,
+        ::mip::commands_3dm::ConstellationSettings::Response,
+        ::mip::commands_3dm::GnssSbasSettings::Response,
+        ::mip::commands_3dm::GnssAssistedFix::Response,
+        ::mip::commands_3dm::GnssTimeAssistance::Response,
+        ::mip::commands_3dm::PpsSource::Response,
+        ::mip::commands_3dm::Sensor2VehicleTransformEuler::Response,
+        ::mip::commands_3dm::Sensor2VehicleTransformQuaternion::Response,
+        ::mip::commands_3dm::Sensor2VehicleTransformDcm::Response,
+        ::mip::commands_3dm::GetEventSupport::Response,
+        ::mip::commands_3dm::EventControl::Response,
+        ::mip::commands_3dm::GetEventTriggerStatus::Response,
+        ::mip::commands_3dm::GetEventActionStatus::Response,
+        ::mip::commands_3dm::EventTrigger::Response,
+        ::mip::commands_3dm::EventAction::Response,
+        ::mip::commands_3dm::GpioConfig::Response,
+        ::mip::commands_3dm::GpioState::Response,
+        ::mip::commands_3dm::Odometer::Response,
+        ::mip::commands_3dm::SensorRange::Response,
+        ::mip::commands_3dm::CalibratedSensorRanges::Response,
+        ::mip::commands_3dm::LowpassFilter::Response
+    >;
 };
+
+template<>
+struct MetadataFor<CommandSet3dm>
+{
+    using type = CommandSet3dm;
+    
+    static inline constexpr DescriptorSetInfo value = {
+        /* .descriptor = */ commands_3dm::DESCRIPTOR_SET,
+        /* .name       = */ "commands_3dm",
+        /* .title      = */ "3dm Commands",
+        /* .fields     = */ COMMANDS_3DM_FIELDS,
+    };
+};
+//template<> struct TypeForDescriptor< (commands_3dm::DESCRIPTOR_SET << 8) > { using type = CommandSet3dm; };
+
+static constexpr const DescriptorSetInfo& COMMANDS_3DM = MetadataFor<CommandSet3dm>::value;
 
 } // namespace mip::metadata
 

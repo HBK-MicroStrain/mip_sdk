@@ -8,6 +8,8 @@
 namespace mip::metadata
 {
 
+struct DataSetGnss;
+
 
 template<>
 struct MetadataFor<data_gnss::PosLlh::ValidFlags>
@@ -32,11 +34,36 @@ struct MetadataFor<data_gnss::PosLlh::ValidFlags>
 
 };
 
+template<> struct TypeForBitsInfo< &MetadataFor<data_gnss::PosLlh::ValidFlags>::value > { using type = data_gnss::PosLlh::ValidFlags; };
+
 template<>
 struct MetadataFor<data_gnss::PosLlh>
 {
     using type = data_gnss::PosLlh;
 
+    using Context = DataSetGnss;
+
+    using ParamTypes = std::tuple<
+        decltype(type::latitude),
+        decltype(type::longitude),
+        decltype(type::ellipsoid_height),
+        decltype(type::msl_height),
+        decltype(type::horizontal_accuracy),
+        decltype(type::vertical_accuracy),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.latitude;
+        if constexpr(I == 1) return value_.longitude;
+        if constexpr(I == 2) return value_.ellipsoid_height;
+        if constexpr(I == 3) return value_.msl_height;
+        if constexpr(I == 4) return value_.horizontal_accuracy;
+        if constexpr(I == 5) return value_.vertical_accuracy;
+        if constexpr(I == 6) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "latitude",
@@ -102,19 +129,21 @@ struct MetadataFor<data_gnss::PosLlh>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_gnss::PosLlh",
-            /* .title       = */ "GNSS LLH Position",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "GNSS reported position in the WGS84 geodetic frame",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_gnss::PosLlh>::value > { using type = data_gnss::PosLlh; };
+template<> struct TypeForDescriptor<data_gnss::PosLlh::DESCRIPTOR.as_u16()> { using type = data_gnss::PosLlh; };
 
 template<>
 struct MetadataFor<data_gnss::PosEcef::ValidFlags>
@@ -136,11 +165,28 @@ struct MetadataFor<data_gnss::PosEcef::ValidFlags>
 
 };
 
+template<> struct TypeForBitsInfo< &MetadataFor<data_gnss::PosEcef::ValidFlags>::value > { using type = data_gnss::PosEcef::ValidFlags; };
+
 template<>
 struct MetadataFor<data_gnss::PosEcef>
 {
     using type = data_gnss::PosEcef;
 
+    using Context = DataSetGnss;
+
+    using ParamTypes = std::tuple<
+        decltype(type::x),
+        decltype(type::x_accuracy),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.x;
+        if constexpr(I == 1) return value_.x_accuracy;
+        if constexpr(I == 2) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "x",
@@ -170,19 +216,21 @@ struct MetadataFor<data_gnss::PosEcef>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_gnss::PosEcef",
-            /* .title       = */ "GNSS ECEF Position",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "GNSS reported position in the Earth-centered, Earth-Fixed (ECEF) frame",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_gnss::PosEcef>::value > { using type = data_gnss::PosEcef; };
+template<> struct TypeForDescriptor<data_gnss::PosEcef::DESCRIPTOR.as_u16()> { using type = data_gnss::PosEcef; };
 
 template<>
 struct MetadataFor<data_gnss::VelNed::ValidFlags>
@@ -208,11 +256,36 @@ struct MetadataFor<data_gnss::VelNed::ValidFlags>
 
 };
 
+template<> struct TypeForBitsInfo< &MetadataFor<data_gnss::VelNed::ValidFlags>::value > { using type = data_gnss::VelNed::ValidFlags; };
+
 template<>
 struct MetadataFor<data_gnss::VelNed>
 {
     using type = data_gnss::VelNed;
 
+    using Context = DataSetGnss;
+
+    using ParamTypes = std::tuple<
+        decltype(type::v),
+        decltype(type::speed),
+        decltype(type::ground_speed),
+        decltype(type::heading),
+        decltype(type::speed_accuracy),
+        decltype(type::heading_accuracy),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.v;
+        if constexpr(I == 1) return value_.speed;
+        if constexpr(I == 2) return value_.ground_speed;
+        if constexpr(I == 3) return value_.heading;
+        if constexpr(I == 4) return value_.speed_accuracy;
+        if constexpr(I == 5) return value_.heading_accuracy;
+        if constexpr(I == 6) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "v",
@@ -278,19 +351,21 @@ struct MetadataFor<data_gnss::VelNed>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_gnss::VelNed",
-            /* .title       = */ "NED Velocity",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "GNSS reported velocity in the NED frame",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_gnss::VelNed>::value > { using type = data_gnss::VelNed; };
+template<> struct TypeForDescriptor<data_gnss::VelNed::DESCRIPTOR.as_u16()> { using type = data_gnss::VelNed; };
 
 template<>
 struct MetadataFor<data_gnss::VelEcef::ValidFlags>
@@ -312,11 +387,28 @@ struct MetadataFor<data_gnss::VelEcef::ValidFlags>
 
 };
 
+template<> struct TypeForBitsInfo< &MetadataFor<data_gnss::VelEcef::ValidFlags>::value > { using type = data_gnss::VelEcef::ValidFlags; };
+
 template<>
 struct MetadataFor<data_gnss::VelEcef>
 {
     using type = data_gnss::VelEcef;
 
+    using Context = DataSetGnss;
+
+    using ParamTypes = std::tuple<
+        decltype(type::v),
+        decltype(type::v_accuracy),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.v;
+        if constexpr(I == 1) return value_.v_accuracy;
+        if constexpr(I == 2) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "v",
@@ -346,19 +438,21 @@ struct MetadataFor<data_gnss::VelEcef>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_gnss::VelEcef",
-            /* .title       = */ "GNSS ECEF Velocity",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "GNSS reported velocity in the Earth-centered, Earth-Fixed (ECEF) frame",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_gnss::VelEcef>::value > { using type = data_gnss::VelEcef; };
+template<> struct TypeForDescriptor<data_gnss::VelEcef::DESCRIPTOR.as_u16()> { using type = data_gnss::VelEcef; };
 
 template<>
 struct MetadataFor<data_gnss::Dop::ValidFlags>
@@ -385,11 +479,38 @@ struct MetadataFor<data_gnss::Dop::ValidFlags>
 
 };
 
+template<> struct TypeForBitsInfo< &MetadataFor<data_gnss::Dop::ValidFlags>::value > { using type = data_gnss::Dop::ValidFlags; };
+
 template<>
 struct MetadataFor<data_gnss::Dop>
 {
     using type = data_gnss::Dop;
 
+    using Context = DataSetGnss;
+
+    using ParamTypes = std::tuple<
+        decltype(type::gdop),
+        decltype(type::pdop),
+        decltype(type::hdop),
+        decltype(type::vdop),
+        decltype(type::tdop),
+        decltype(type::ndop),
+        decltype(type::edop),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.gdop;
+        if constexpr(I == 1) return value_.pdop;
+        if constexpr(I == 2) return value_.hdop;
+        if constexpr(I == 3) return value_.vdop;
+        if constexpr(I == 4) return value_.tdop;
+        if constexpr(I == 5) return value_.ndop;
+        if constexpr(I == 6) return value_.edop;
+        if constexpr(I == 7) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "gdop",
@@ -464,19 +585,21 @@ struct MetadataFor<data_gnss::Dop>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_gnss::Dop",
-            /* .title       = */ "dop",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "GNSS reported dilution of precision information.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_gnss::Dop>::value > { using type = data_gnss::Dop; };
+template<> struct TypeForDescriptor<data_gnss::Dop::DESCRIPTOR.as_u16()> { using type = data_gnss::Dop; };
 
 template<>
 struct MetadataFor<data_gnss::UtcTime::ValidFlags>
@@ -498,11 +621,38 @@ struct MetadataFor<data_gnss::UtcTime::ValidFlags>
 
 };
 
+template<> struct TypeForBitsInfo< &MetadataFor<data_gnss::UtcTime::ValidFlags>::value > { using type = data_gnss::UtcTime::ValidFlags; };
+
 template<>
 struct MetadataFor<data_gnss::UtcTime>
 {
     using type = data_gnss::UtcTime;
 
+    using Context = DataSetGnss;
+
+    using ParamTypes = std::tuple<
+        decltype(type::year),
+        decltype(type::month),
+        decltype(type::day),
+        decltype(type::hour),
+        decltype(type::min),
+        decltype(type::sec),
+        decltype(type::msec),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.year;
+        if constexpr(I == 1) return value_.month;
+        if constexpr(I == 2) return value_.day;
+        if constexpr(I == 3) return value_.hour;
+        if constexpr(I == 4) return value_.min;
+        if constexpr(I == 5) return value_.sec;
+        if constexpr(I == 6) return value_.msec;
+        if constexpr(I == 7) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "year",
@@ -577,19 +727,21 @@ struct MetadataFor<data_gnss::UtcTime>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_gnss::UtcTime",
-            /* .title       = */ "utc_time",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "GNSS reported Coordinated Universal Time",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_gnss::UtcTime>::value > { using type = data_gnss::UtcTime; };
+template<> struct TypeForDescriptor<data_gnss::UtcTime::DESCRIPTOR.as_u16()> { using type = data_gnss::UtcTime; };
 
 template<>
 struct MetadataFor<data_gnss::GpsTime::ValidFlags>
@@ -611,11 +763,28 @@ struct MetadataFor<data_gnss::GpsTime::ValidFlags>
 
 };
 
+template<> struct TypeForBitsInfo< &MetadataFor<data_gnss::GpsTime::ValidFlags>::value > { using type = data_gnss::GpsTime::ValidFlags; };
+
 template<>
 struct MetadataFor<data_gnss::GpsTime>
 {
     using type = data_gnss::GpsTime;
 
+    using Context = DataSetGnss;
+
+    using ParamTypes = std::tuple<
+        decltype(type::tow),
+        decltype(type::week_number),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.tow;
+        if constexpr(I == 1) return value_.week_number;
+        if constexpr(I == 2) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "tow",
@@ -645,19 +814,21 @@ struct MetadataFor<data_gnss::GpsTime>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_gnss::GpsTime",
-            /* .title       = */ "gps_time",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "GNSS reported GPS Time",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_gnss::GpsTime>::value > { using type = data_gnss::GpsTime; };
+template<> struct TypeForDescriptor<data_gnss::GpsTime::DESCRIPTOR.as_u16()> { using type = data_gnss::GpsTime; };
 
 template<>
 struct MetadataFor<data_gnss::ClockInfo::ValidFlags>
@@ -680,11 +851,30 @@ struct MetadataFor<data_gnss::ClockInfo::ValidFlags>
 
 };
 
+template<> struct TypeForBitsInfo< &MetadataFor<data_gnss::ClockInfo::ValidFlags>::value > { using type = data_gnss::ClockInfo::ValidFlags; };
+
 template<>
 struct MetadataFor<data_gnss::ClockInfo>
 {
     using type = data_gnss::ClockInfo;
 
+    using Context = DataSetGnss;
+
+    using ParamTypes = std::tuple<
+        decltype(type::bias),
+        decltype(type::drift),
+        decltype(type::accuracy_estimate),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.bias;
+        if constexpr(I == 1) return value_.drift;
+        if constexpr(I == 2) return value_.accuracy_estimate;
+        if constexpr(I == 3) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "bias",
@@ -723,19 +913,21 @@ struct MetadataFor<data_gnss::ClockInfo>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_gnss::ClockInfo",
-            /* .title       = */ "clock_info",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "GNSS reported receiver clock parameters",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_gnss::ClockInfo>::value > { using type = data_gnss::ClockInfo; };
+template<> struct TypeForDescriptor<data_gnss::ClockInfo::DESCRIPTOR.as_u16()> { using type = data_gnss::ClockInfo; };
 
 template<>
 struct MetadataFor<data_gnss::FixInfo::FixType>
@@ -762,6 +954,8 @@ struct MetadataFor<data_gnss::FixInfo::FixType>
 
 };
 
+template<> struct TypeForEnumInfo< &MetadataFor<data_gnss::FixInfo::FixType>::value > { using type = data_gnss::FixInfo::FixType; };
+
 template<>
 struct MetadataFor<data_gnss::FixInfo::FixFlags>
 {
@@ -780,6 +974,8 @@ struct MetadataFor<data_gnss::FixInfo::FixFlags>
     };
 
 };
+
+template<> struct TypeForBitsInfo< &MetadataFor<data_gnss::FixInfo::FixFlags>::value > { using type = data_gnss::FixInfo::FixFlags; };
 
 template<>
 struct MetadataFor<data_gnss::FixInfo::ValidFlags>
@@ -802,11 +998,30 @@ struct MetadataFor<data_gnss::FixInfo::ValidFlags>
 
 };
 
+template<> struct TypeForBitsInfo< &MetadataFor<data_gnss::FixInfo::ValidFlags>::value > { using type = data_gnss::FixInfo::ValidFlags; };
+
 template<>
 struct MetadataFor<data_gnss::FixInfo>
 {
     using type = data_gnss::FixInfo;
 
+    using Context = DataSetGnss;
+
+    using ParamTypes = std::tuple<
+        decltype(type::fix_type),
+        decltype(type::num_sv),
+        decltype(type::fix_flags),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.fix_type;
+        if constexpr(I == 1) return value_.num_sv;
+        if constexpr(I == 2) return value_.fix_flags;
+        if constexpr(I == 3) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "fix_type",
@@ -845,19 +1060,21 @@ struct MetadataFor<data_gnss::FixInfo>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_gnss::FixInfo",
-            /* .title       = */ "fix_info",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "GNSS reported position fix type",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_gnss::FixInfo>::value > { using type = data_gnss::FixInfo; };
+template<> struct TypeForDescriptor<data_gnss::FixInfo::DESCRIPTOR.as_u16()> { using type = data_gnss::FixInfo; };
 
 template<>
 struct MetadataFor<data_gnss::SvInfo::SVFlags>
@@ -877,6 +1094,8 @@ struct MetadataFor<data_gnss::SvInfo::SVFlags>
     };
 
 };
+
+template<> struct TypeForBitsInfo< &MetadataFor<data_gnss::SvInfo::SVFlags>::value > { using type = data_gnss::SvInfo::SVFlags; };
 
 template<>
 struct MetadataFor<data_gnss::SvInfo::ValidFlags>
@@ -902,11 +1121,36 @@ struct MetadataFor<data_gnss::SvInfo::ValidFlags>
 
 };
 
+template<> struct TypeForBitsInfo< &MetadataFor<data_gnss::SvInfo::ValidFlags>::value > { using type = data_gnss::SvInfo::ValidFlags; };
+
 template<>
 struct MetadataFor<data_gnss::SvInfo>
 {
     using type = data_gnss::SvInfo;
 
+    using Context = DataSetGnss;
+
+    using ParamTypes = std::tuple<
+        decltype(type::channel),
+        decltype(type::sv_id),
+        decltype(type::carrier_noise_ratio),
+        decltype(type::azimuth),
+        decltype(type::elevation),
+        decltype(type::sv_flags),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.channel;
+        if constexpr(I == 1) return value_.sv_id;
+        if constexpr(I == 2) return value_.carrier_noise_ratio;
+        if constexpr(I == 3) return value_.azimuth;
+        if constexpr(I == 4) return value_.elevation;
+        if constexpr(I == 5) return value_.sv_flags;
+        if constexpr(I == 6) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "channel",
@@ -972,19 +1216,21 @@ struct MetadataFor<data_gnss::SvInfo>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_gnss::SvInfo",
-            /* .title       = */ "sv_info",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "GNSS reported space vehicle information\n\nWhen enabled, these fields will arrive in separate MIP packets",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_gnss::SvInfo>::value > { using type = data_gnss::SvInfo; };
+template<> struct TypeForDescriptor<data_gnss::SvInfo::DESCRIPTOR.as_u16()> { using type = data_gnss::SvInfo; };
 
 template<>
 struct MetadataFor<data_gnss::HwStatus::ReceiverState>
@@ -1005,6 +1251,8 @@ struct MetadataFor<data_gnss::HwStatus::ReceiverState>
     };
 
 };
+
+template<> struct TypeForEnumInfo< &MetadataFor<data_gnss::HwStatus::ReceiverState>::value > { using type = data_gnss::HwStatus::ReceiverState; };
 
 template<>
 struct MetadataFor<data_gnss::HwStatus::AntennaState>
@@ -1028,6 +1276,8 @@ struct MetadataFor<data_gnss::HwStatus::AntennaState>
 
 };
 
+template<> struct TypeForEnumInfo< &MetadataFor<data_gnss::HwStatus::AntennaState>::value > { using type = data_gnss::HwStatus::AntennaState; };
+
 template<>
 struct MetadataFor<data_gnss::HwStatus::AntennaPower>
 {
@@ -1047,6 +1297,8 @@ struct MetadataFor<data_gnss::HwStatus::AntennaPower>
     };
 
 };
+
+template<> struct TypeForEnumInfo< &MetadataFor<data_gnss::HwStatus::AntennaPower>::value > { using type = data_gnss::HwStatus::AntennaPower; };
 
 template<>
 struct MetadataFor<data_gnss::HwStatus::ValidFlags>
@@ -1069,11 +1321,30 @@ struct MetadataFor<data_gnss::HwStatus::ValidFlags>
 
 };
 
+template<> struct TypeForBitsInfo< &MetadataFor<data_gnss::HwStatus::ValidFlags>::value > { using type = data_gnss::HwStatus::ValidFlags; };
+
 template<>
 struct MetadataFor<data_gnss::HwStatus>
 {
     using type = data_gnss::HwStatus;
 
+    using Context = DataSetGnss;
+
+    using ParamTypes = std::tuple<
+        decltype(type::receiver_state),
+        decltype(type::antenna_state),
+        decltype(type::antenna_power),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.receiver_state;
+        if constexpr(I == 1) return value_.antenna_state;
+        if constexpr(I == 2) return value_.antenna_power;
+        if constexpr(I == 3) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "receiver_state",
@@ -1112,19 +1383,21 @@ struct MetadataFor<data_gnss::HwStatus>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_gnss::HwStatus",
-            /* .title       = */ "GNSS Hardware Status",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "GNSS reported hardware status",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_gnss::HwStatus>::value > { using type = data_gnss::HwStatus; };
+template<> struct TypeForDescriptor<data_gnss::HwStatus::DESCRIPTOR.as_u16()> { using type = data_gnss::HwStatus; };
 
 template<>
 struct MetadataFor<data_gnss::DgpsInfo::ValidFlags>
@@ -1148,11 +1421,32 @@ struct MetadataFor<data_gnss::DgpsInfo::ValidFlags>
 
 };
 
+template<> struct TypeForBitsInfo< &MetadataFor<data_gnss::DgpsInfo::ValidFlags>::value > { using type = data_gnss::DgpsInfo::ValidFlags; };
+
 template<>
 struct MetadataFor<data_gnss::DgpsInfo>
 {
     using type = data_gnss::DgpsInfo;
 
+    using Context = DataSetGnss;
+
+    using ParamTypes = std::tuple<
+        decltype(type::sv_id),
+        decltype(type::age),
+        decltype(type::range_correction),
+        decltype(type::range_rate_correction),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.sv_id;
+        if constexpr(I == 1) return value_.age;
+        if constexpr(I == 2) return value_.range_correction;
+        if constexpr(I == 3) return value_.range_rate_correction;
+        if constexpr(I == 4) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "sv_id",
@@ -1200,19 +1494,21 @@ struct MetadataFor<data_gnss::DgpsInfo>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_gnss::DgpsInfo",
-            /* .title       = */ "dgps_info",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "GNSS reported DGNSS status\n\n<pre>Possible Base Station Status Values:</pre>\n<pre>  0 - UDRE Scale Factor = 1.0</pre>\n<pre>  1 - UDRE Scale Factor = 0.75</pre>\n<pre>  2 - UDRE Scale Factor = 0.5</pre>\n<pre>  3 - UDRE Scale Factor = 0.3</pre>\n<pre>  4 - UDRE Scale Factor = 0.2</pre>\n<pre>  5 - UDRE Scale Factor = 0.1</pre>\n<pre>  6 - Reference Station Transmission Not Monitored</pre>\n<pre>  7 - Reference Station Not Working</pre>\n\n(UDRE = User Differential Range Error)",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_gnss::DgpsInfo>::value > { using type = data_gnss::DgpsInfo; };
+template<> struct TypeForDescriptor<data_gnss::DgpsInfo::DESCRIPTOR.as_u16()> { using type = data_gnss::DgpsInfo; };
 
 template<>
 struct MetadataFor<data_gnss::DgpsChannel::ValidFlags>
@@ -1236,11 +1532,32 @@ struct MetadataFor<data_gnss::DgpsChannel::ValidFlags>
 
 };
 
+template<> struct TypeForBitsInfo< &MetadataFor<data_gnss::DgpsChannel::ValidFlags>::value > { using type = data_gnss::DgpsChannel::ValidFlags; };
+
 template<>
 struct MetadataFor<data_gnss::DgpsChannel>
 {
     using type = data_gnss::DgpsChannel;
 
+    using Context = DataSetGnss;
+
+    using ParamTypes = std::tuple<
+        decltype(type::sv_id),
+        decltype(type::age),
+        decltype(type::range_correction),
+        decltype(type::range_rate_correction),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.sv_id;
+        if constexpr(I == 1) return value_.age;
+        if constexpr(I == 2) return value_.range_correction;
+        if constexpr(I == 3) return value_.range_rate_correction;
+        if constexpr(I == 4) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "sv_id",
@@ -1288,19 +1605,21 @@ struct MetadataFor<data_gnss::DgpsChannel>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_gnss::DgpsChannel",
-            /* .title       = */ "dgps_channel",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "GNSS reported DGPS Channel Status status\n\nWhen enabled, a separate field for each active space vehicle will be sent in the packet.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_gnss::DgpsChannel>::value > { using type = data_gnss::DgpsChannel; };
+template<> struct TypeForDescriptor<data_gnss::DgpsChannel::DESCRIPTOR.as_u16()> { using type = data_gnss::DgpsChannel; };
 
 template<>
 struct MetadataFor<data_gnss::ClockInfo2::ValidFlags>
@@ -1324,11 +1643,32 @@ struct MetadataFor<data_gnss::ClockInfo2::ValidFlags>
 
 };
 
+template<> struct TypeForBitsInfo< &MetadataFor<data_gnss::ClockInfo2::ValidFlags>::value > { using type = data_gnss::ClockInfo2::ValidFlags; };
+
 template<>
 struct MetadataFor<data_gnss::ClockInfo2>
 {
     using type = data_gnss::ClockInfo2;
 
+    using Context = DataSetGnss;
+
+    using ParamTypes = std::tuple<
+        decltype(type::bias),
+        decltype(type::drift),
+        decltype(type::bias_accuracy_estimate),
+        decltype(type::drift_accuracy_estimate),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.bias;
+        if constexpr(I == 1) return value_.drift;
+        if constexpr(I == 2) return value_.bias_accuracy_estimate;
+        if constexpr(I == 3) return value_.drift_accuracy_estimate;
+        if constexpr(I == 4) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "bias",
@@ -1376,19 +1716,21 @@ struct MetadataFor<data_gnss::ClockInfo2>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_gnss::ClockInfo2",
-            /* .title       = */ "clock_info_2",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "GNSS reported receiver clock parameters\n\nThis supersedes MIP_DATA_DESC_GNSS_CLOCK_INFO with additional information.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_gnss::ClockInfo2>::value > { using type = data_gnss::ClockInfo2; };
+template<> struct TypeForDescriptor<data_gnss::ClockInfo2::DESCRIPTOR.as_u16()> { using type = data_gnss::ClockInfo2; };
 
 template<>
 struct MetadataFor<data_gnss::GpsLeapSeconds::ValidFlags>
@@ -1408,11 +1750,26 @@ struct MetadataFor<data_gnss::GpsLeapSeconds::ValidFlags>
 
 };
 
+template<> struct TypeForBitsInfo< &MetadataFor<data_gnss::GpsLeapSeconds::ValidFlags>::value > { using type = data_gnss::GpsLeapSeconds::ValidFlags; };
+
 template<>
 struct MetadataFor<data_gnss::GpsLeapSeconds>
 {
     using type = data_gnss::GpsLeapSeconds;
 
+    using Context = DataSetGnss;
+
+    using ParamTypes = std::tuple<
+        decltype(type::leap_seconds),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.leap_seconds;
+        if constexpr(I == 1) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "leap_seconds",
@@ -1433,19 +1790,21 @@ struct MetadataFor<data_gnss::GpsLeapSeconds>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_gnss::GpsLeapSeconds",
-            /* .title       = */ "gps_leap_seconds",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "GNSS reported leap seconds (difference between GPS and UTC Time)",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_gnss::GpsLeapSeconds>::value > { using type = data_gnss::GpsLeapSeconds; };
+template<> struct TypeForDescriptor<data_gnss::GpsLeapSeconds::DESCRIPTOR.as_u16()> { using type = data_gnss::GpsLeapSeconds; };
 
 template<>
 struct MetadataFor<data_gnss::SbasSystem>
@@ -1469,6 +1828,8 @@ struct MetadataFor<data_gnss::SbasSystem>
 
 };
 
+template<> struct TypeForEnumInfo< &MetadataFor<data_gnss::SbasSystem>::value > { using type = data_gnss::SbasSystem; };
+
 template<>
 struct MetadataFor<data_gnss::SbasInfo::SbasStatus>
 {
@@ -1489,6 +1850,8 @@ struct MetadataFor<data_gnss::SbasInfo::SbasStatus>
     };
 
 };
+
+template<> struct TypeForBitsInfo< &MetadataFor<data_gnss::SbasInfo::SbasStatus>::value > { using type = data_gnss::SbasInfo::SbasStatus; };
 
 template<>
 struct MetadataFor<data_gnss::SbasInfo::ValidFlags>
@@ -1514,11 +1877,36 @@ struct MetadataFor<data_gnss::SbasInfo::ValidFlags>
 
 };
 
+template<> struct TypeForBitsInfo< &MetadataFor<data_gnss::SbasInfo::ValidFlags>::value > { using type = data_gnss::SbasInfo::ValidFlags; };
+
 template<>
 struct MetadataFor<data_gnss::SbasInfo>
 {
     using type = data_gnss::SbasInfo;
 
+    using Context = DataSetGnss;
+
+    using ParamTypes = std::tuple<
+        decltype(type::time_of_week),
+        decltype(type::week_number),
+        decltype(type::sbas_system),
+        decltype(type::sbas_id),
+        decltype(type::count),
+        decltype(type::sbas_status),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.time_of_week;
+        if constexpr(I == 1) return value_.week_number;
+        if constexpr(I == 2) return value_.sbas_system;
+        if constexpr(I == 3) return value_.sbas_id;
+        if constexpr(I == 4) return value_.count;
+        if constexpr(I == 5) return value_.sbas_status;
+        if constexpr(I == 6) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "time_of_week",
@@ -1584,19 +1972,21 @@ struct MetadataFor<data_gnss::SbasInfo>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_gnss::SbasInfo",
-            /* .title       = */ "sbas_info",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "GNSS SBAS status",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_gnss::SbasInfo>::value > { using type = data_gnss::SbasInfo; };
+template<> struct TypeForDescriptor<data_gnss::SbasInfo::DESCRIPTOR.as_u16()> { using type = data_gnss::SbasInfo; };
 
 template<>
 struct MetadataFor<data_gnss::GnssConstellationId>
@@ -1621,6 +2011,8 @@ struct MetadataFor<data_gnss::GnssConstellationId>
 
 };
 
+template<> struct TypeForEnumInfo< &MetadataFor<data_gnss::GnssConstellationId>::value > { using type = data_gnss::GnssConstellationId; };
+
 template<>
 struct MetadataFor<data_gnss::SbasCorrection::ValidFlags>
 {
@@ -1642,11 +2034,42 @@ struct MetadataFor<data_gnss::SbasCorrection::ValidFlags>
 
 };
 
+template<> struct TypeForBitsInfo< &MetadataFor<data_gnss::SbasCorrection::ValidFlags>::value > { using type = data_gnss::SbasCorrection::ValidFlags; };
+
 template<>
 struct MetadataFor<data_gnss::SbasCorrection>
 {
     using type = data_gnss::SbasCorrection;
 
+    using Context = DataSetGnss;
+
+    using ParamTypes = std::tuple<
+        decltype(type::index),
+        decltype(type::count),
+        decltype(type::time_of_week),
+        decltype(type::week_number),
+        decltype(type::gnss_id),
+        decltype(type::sv_id),
+        decltype(type::udrei),
+        decltype(type::pseudorange_correction),
+        decltype(type::iono_correction),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.index;
+        if constexpr(I == 1) return value_.count;
+        if constexpr(I == 2) return value_.time_of_week;
+        if constexpr(I == 3) return value_.week_number;
+        if constexpr(I == 4) return value_.gnss_id;
+        if constexpr(I == 5) return value_.sv_id;
+        if constexpr(I == 6) return value_.udrei;
+        if constexpr(I == 7) return value_.pseudorange_correction;
+        if constexpr(I == 8) return value_.iono_correction;
+        if constexpr(I == 9) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "index",
@@ -1739,19 +2162,21 @@ struct MetadataFor<data_gnss::SbasCorrection>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_gnss::SbasCorrection",
-            /* .title       = */ "sbas_correction",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "GNSS calculated SBAS Correction\n\nUDREI - the variance of a normal distribution associated with the user differential range errors for a\nsatellite after application of fast and long-term corrections, excluding atmospheric effects\n\n<pre>UDREI  Variance</pre>\n<pre>-----------------------</pre>\n<pre>0      0.0520 m^2</pre>\n<pre>1      0.0924 m^2</pre>\n<pre>2      0.1444 m^2</pre>\n<pre>3      0.2830 m^2</pre>\n<pre>4      0.4678 m^2</pre>\n<pre>5      0.8315 m^2</pre>\n<pre>6      1.2992 m^2</pre>\n<pre>7      1.8709 m^2</pre>\n<pre>8      2.5465 m^2</pre>\n<pre>9      3.3260 m^2</pre>\n<pre>10     5.1968 m^2</pre>\n<pre>11     20.7870 m^2</pre>\n<pre>12     230.9661 m^2</pre>\n<pre>13     2078.695 m^2</pre>\n<pre>14     'Not Monitored'</pre>\n<pre>15     'Do Not Use'</pre>",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_gnss::SbasCorrection>::value > { using type = data_gnss::SbasCorrection; };
+template<> struct TypeForDescriptor<data_gnss::SbasCorrection::DESCRIPTOR.as_u16()> { using type = data_gnss::SbasCorrection; };
 
 template<>
 struct MetadataFor<data_gnss::RfErrorDetection::RFBand>
@@ -1774,6 +2199,8 @@ struct MetadataFor<data_gnss::RfErrorDetection::RFBand>
 
 };
 
+template<> struct TypeForEnumInfo< &MetadataFor<data_gnss::RfErrorDetection::RFBand>::value > { using type = data_gnss::RfErrorDetection::RFBand; };
+
 template<>
 struct MetadataFor<data_gnss::RfErrorDetection::JammingState>
 {
@@ -1794,6 +2221,8 @@ struct MetadataFor<data_gnss::RfErrorDetection::JammingState>
     };
 
 };
+
+template<> struct TypeForEnumInfo< &MetadataFor<data_gnss::RfErrorDetection::JammingState>::value > { using type = data_gnss::RfErrorDetection::JammingState; };
 
 template<>
 struct MetadataFor<data_gnss::RfErrorDetection::SpoofingState>
@@ -1816,6 +2245,8 @@ struct MetadataFor<data_gnss::RfErrorDetection::SpoofingState>
 
 };
 
+template<> struct TypeForEnumInfo< &MetadataFor<data_gnss::RfErrorDetection::SpoofingState>::value > { using type = data_gnss::RfErrorDetection::SpoofingState; };
+
 template<>
 struct MetadataFor<data_gnss::RfErrorDetection::ValidFlags>
 {
@@ -1825,7 +2256,7 @@ struct MetadataFor<data_gnss::RfErrorDetection::ValidFlags>
         { uint32_t(1), "rf_band", "" },
         { uint32_t(2), "jamming_state", "" },
         { uint32_t(4), "spoofing_state", "" },
-        { uint32_t(7), "flags", "" },
+        { uint32_t(8), "frequency", "" },
     };
 
     static constexpr inline BitfieldInfo value = {
@@ -1837,11 +2268,34 @@ struct MetadataFor<data_gnss::RfErrorDetection::ValidFlags>
 
 };
 
+template<> struct TypeForBitsInfo< &MetadataFor<data_gnss::RfErrorDetection::ValidFlags>::value > { using type = data_gnss::RfErrorDetection::ValidFlags; };
+
 template<>
 struct MetadataFor<data_gnss::RfErrorDetection>
 {
     using type = data_gnss::RfErrorDetection;
 
+    using Context = DataSetGnss;
+
+    using ParamTypes = std::tuple<
+        decltype(type::rf_band),
+        decltype(type::jamming_state),
+        decltype(type::spoofing_state),
+        decltype(type::frequency),
+        decltype(type::reserved),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.rf_band;
+        if constexpr(I == 1) return value_.jamming_state;
+        if constexpr(I == 2) return value_.spoofing_state;
+        if constexpr(I == 3) return value_.frequency;
+        if constexpr(I == 4) return value_.reserved;
+        if constexpr(I == 5) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "rf_band",
@@ -1871,12 +2325,21 @@ struct MetadataFor<data_gnss::RfErrorDetection>
             /* .condition     = */ {},
         },
         {
+            /* .name          = */ "frequency",
+            /* .docs          = */ "Center frequency of the RF band in MHz",
+            /* .type          = */ {Type::U16, nullptr},
+            /* .accessor      = */ nullptr, //utils::access<type, uint16_t, &type::frequency>,
+            /* .attributes    = */ {true, false, false, false, false},
+            /* .count         = */ 1,
+            /* .condition     = */ {},
+        },
+        {
             /* .name          = */ "reserved",
             /* .docs          = */ "Reserved for future use",
             /* .type          = */ {Type::U8, nullptr},
             /* .accessor      = */ nullptr, //utils::access<type, uint8_t, &type::reserved>,
             /* .attributes    = */ {true, false, false, false, false},
-            /* .count         = */ 4,
+            /* .count         = */ 2,
             /* .condition     = */ {},
         },
         {
@@ -1889,19 +2352,141 @@ struct MetadataFor<data_gnss::RfErrorDetection>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_gnss::RfErrorDetection",
-            /* .title       = */ "rf_error_detection",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "GNSS Error Detection subsystem status",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_gnss::RfErrorDetection>::value > { using type = data_gnss::RfErrorDetection; };
+template<> struct TypeForDescriptor<data_gnss::RfErrorDetection::DESCRIPTOR.as_u16()> { using type = data_gnss::RfErrorDetection; };
+
+template<>
+struct MetadataFor<data_gnss::Heading::ValidFlags>
+{
+    using type = data_gnss::Heading::ValidFlags;
+
+    static constexpr inline BitfieldInfo::Entry entries[] = {
+        { uint32_t(1), "heading", "" },
+        { uint32_t(2), "uncertainty", "" },
+        { uint32_t(4), "fix_type", "" },
+    };
+
+    static constexpr inline BitfieldInfo value = {
+        /* .name    = */ "ValidFlags",
+        /* .docs    = */ "",
+        /* .type    = */ Type::U16,
+        /* .entries = */ entries,
+    };
+
+};
+
+template<> struct TypeForBitsInfo< &MetadataFor<data_gnss::Heading::ValidFlags>::value > { using type = data_gnss::Heading::ValidFlags; };
+
+template<>
+struct MetadataFor<data_gnss::Heading::FixType>
+{
+    using type = data_gnss::Heading::FixType;
+
+    static constexpr inline EnumInfo::Entry entries[] = {
+        { uint32_t(0), "UNKNOWN", "" },
+        { uint32_t(1), "FLOAT", "" },
+        { uint32_t(2), "FIXED", "" },
+    };
+
+    static constexpr inline EnumInfo value = {
+        /* .name    = */ "FixType",
+        /* .docs    = */ "",
+        /* .type    = */ Type::U8,
+        /* .entries = */ entries,
+    };
+
+};
+
+template<> struct TypeForEnumInfo< &MetadataFor<data_gnss::Heading::FixType>::value > { using type = data_gnss::Heading::FixType; };
+
+template<>
+struct MetadataFor<data_gnss::Heading>
+{
+    using type = data_gnss::Heading;
+
+    using Context = DataSetGnss;
+
+    using ParamTypes = std::tuple<
+        decltype(type::heading),
+        decltype(type::uncertainty),
+        decltype(type::fix_type),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.heading;
+        if constexpr(I == 1) return value_.uncertainty;
+        if constexpr(I == 2) return value_.fix_type;
+        if constexpr(I == 3) return value_.valid_flags;
+    }
+    
+    static constexpr inline ParameterInfo parameters[] = {
+        {
+            /* .name          = */ "heading",
+            /* .docs          = */ "Heading [degrees]",
+            /* .type          = */ {Type::FLOAT, nullptr},
+            /* .accessor      = */ nullptr, //utils::access<type, float, &type::heading>,
+            /* .attributes    = */ {true, false, false, false, false},
+            /* .count         = */ 1,
+            /* .condition     = */ {},
+        },
+        {
+            /* .name          = */ "uncertainty",
+            /* .docs          = */ "Heading uncertainty [degrees]",
+            /* .type          = */ {Type::FLOAT, nullptr},
+            /* .accessor      = */ nullptr, //utils::access<type, float, &type::uncertainty>,
+            /* .attributes    = */ {true, false, false, false, false},
+            /* .count         = */ 1,
+            /* .condition     = */ {},
+        },
+        {
+            /* .name          = */ "fix_type",
+            /* .docs          = */ "Heading fix type",
+            /* .type          = */ {Type::ENUM, &MetadataFor<data_gnss::Heading::FixType>::value},
+            /* .accessor      = */ nullptr, //utils::access<type, data_gnss::Heading::FixType, &type::fix_type>,
+            /* .attributes    = */ {true, false, false, false, false},
+            /* .count         = */ 1,
+            /* .condition     = */ {},
+        },
+        {
+            /* .name          = */ "valid_flags",
+            /* .docs          = */ "",
+            /* .type          = */ {Type::BITS, &MetadataFor<data_gnss::Heading::ValidFlags>::value},
+            /* .accessor      = */ nullptr, //utils::access<type, data_gnss::Heading::ValidFlags, &type::valid_flags>,
+            /* .attributes    = */ {true, false, false, false, false},
+            /* .count         = */ 1,
+            /* .condition     = */ {},
+        },
+    };
+    static constexpr inline FieldInfo value = {
+        {
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
+            /* .docs        = */ "GNSS Heading",
+            /* .parameters  = */ parameters,
+        },
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
+    };
+};
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_gnss::Heading>::value > { using type = data_gnss::Heading; };
+template<> struct TypeForDescriptor<data_gnss::Heading::DESCRIPTOR.as_u16()> { using type = data_gnss::Heading; };
 
 template<>
 struct MetadataFor<data_gnss::BaseStationInfo::IndicatorFlags>
@@ -1929,6 +2514,8 @@ struct MetadataFor<data_gnss::BaseStationInfo::IndicatorFlags>
 
 };
 
+template<> struct TypeForBitsInfo< &MetadataFor<data_gnss::BaseStationInfo::IndicatorFlags>::value > { using type = data_gnss::BaseStationInfo::IndicatorFlags; };
+
 template<>
 struct MetadataFor<data_gnss::BaseStationInfo::ValidFlags>
 {
@@ -1953,11 +2540,36 @@ struct MetadataFor<data_gnss::BaseStationInfo::ValidFlags>
 
 };
 
+template<> struct TypeForBitsInfo< &MetadataFor<data_gnss::BaseStationInfo::ValidFlags>::value > { using type = data_gnss::BaseStationInfo::ValidFlags; };
+
 template<>
 struct MetadataFor<data_gnss::BaseStationInfo>
 {
     using type = data_gnss::BaseStationInfo;
 
+    using Context = DataSetGnss;
+
+    using ParamTypes = std::tuple<
+        decltype(type::time_of_week),
+        decltype(type::week_number),
+        decltype(type::ecef_pos),
+        decltype(type::height),
+        decltype(type::station_id),
+        decltype(type::indicators),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.time_of_week;
+        if constexpr(I == 1) return value_.week_number;
+        if constexpr(I == 2) return value_.ecef_pos;
+        if constexpr(I == 3) return value_.height;
+        if constexpr(I == 4) return value_.station_id;
+        if constexpr(I == 5) return value_.indicators;
+        if constexpr(I == 6) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "time_of_week",
@@ -2023,19 +2635,21 @@ struct MetadataFor<data_gnss::BaseStationInfo>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_gnss::BaseStationInfo",
-            /* .title       = */ "base_station_info",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "RTCM reported base station information (sourced from RTCM Message 1005 or 1006)\n\nValid Flag Mapping:",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_gnss::BaseStationInfo>::value > { using type = data_gnss::BaseStationInfo; };
+template<> struct TypeForDescriptor<data_gnss::BaseStationInfo::DESCRIPTOR.as_u16()> { using type = data_gnss::BaseStationInfo; };
 
 template<>
 struct MetadataFor<data_gnss::RtkCorrectionsStatus::ValidFlags>
@@ -2063,6 +2677,8 @@ struct MetadataFor<data_gnss::RtkCorrectionsStatus::ValidFlags>
 
 };
 
+template<> struct TypeForBitsInfo< &MetadataFor<data_gnss::RtkCorrectionsStatus::ValidFlags>::value > { using type = data_gnss::RtkCorrectionsStatus::ValidFlags; };
+
 template<>
 struct MetadataFor<data_gnss::RtkCorrectionsStatus::EpochStatus>
 {
@@ -2089,11 +2705,42 @@ struct MetadataFor<data_gnss::RtkCorrectionsStatus::EpochStatus>
 
 };
 
+template<> struct TypeForBitsInfo< &MetadataFor<data_gnss::RtkCorrectionsStatus::EpochStatus>::value > { using type = data_gnss::RtkCorrectionsStatus::EpochStatus; };
+
 template<>
 struct MetadataFor<data_gnss::RtkCorrectionsStatus>
 {
     using type = data_gnss::RtkCorrectionsStatus;
 
+    using Context = DataSetGnss;
+
+    using ParamTypes = std::tuple<
+        decltype(type::time_of_week),
+        decltype(type::week_number),
+        decltype(type::epoch_status),
+        decltype(type::dongle_status),
+        decltype(type::gps_correction_latency),
+        decltype(type::glonass_correction_latency),
+        decltype(type::galileo_correction_latency),
+        decltype(type::beidou_correction_latency),
+        decltype(type::reserved),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.time_of_week;
+        if constexpr(I == 1) return value_.week_number;
+        if constexpr(I == 2) return value_.epoch_status;
+        if constexpr(I == 3) return value_.dongle_status;
+        if constexpr(I == 4) return value_.gps_correction_latency;
+        if constexpr(I == 5) return value_.glonass_correction_latency;
+        if constexpr(I == 6) return value_.galileo_correction_latency;
+        if constexpr(I == 7) return value_.beidou_correction_latency;
+        if constexpr(I == 8) return value_.reserved;
+        if constexpr(I == 9) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "time_of_week",
@@ -2186,19 +2833,21 @@ struct MetadataFor<data_gnss::RtkCorrectionsStatus>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_gnss::RtkCorrectionsStatus",
-            /* .title       = */ "rtk_corrections_status",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_gnss::RtkCorrectionsStatus>::value > { using type = data_gnss::RtkCorrectionsStatus; };
+template<> struct TypeForDescriptor<data_gnss::RtkCorrectionsStatus::DESCRIPTOR.as_u16()> { using type = data_gnss::RtkCorrectionsStatus; };
 
 template<>
 struct MetadataFor<data_gnss::SatelliteStatus::ValidFlags>
@@ -2225,11 +2874,42 @@ struct MetadataFor<data_gnss::SatelliteStatus::ValidFlags>
 
 };
 
+template<> struct TypeForBitsInfo< &MetadataFor<data_gnss::SatelliteStatus::ValidFlags>::value > { using type = data_gnss::SatelliteStatus::ValidFlags; };
+
 template<>
 struct MetadataFor<data_gnss::SatelliteStatus>
 {
     using type = data_gnss::SatelliteStatus;
 
+    using Context = DataSetGnss;
+
+    using ParamTypes = std::tuple<
+        decltype(type::index),
+        decltype(type::count),
+        decltype(type::time_of_week),
+        decltype(type::week_number),
+        decltype(type::gnss_id),
+        decltype(type::satellite_id),
+        decltype(type::elevation),
+        decltype(type::azimuth),
+        decltype(type::health),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.index;
+        if constexpr(I == 1) return value_.count;
+        if constexpr(I == 2) return value_.time_of_week;
+        if constexpr(I == 3) return value_.week_number;
+        if constexpr(I == 4) return value_.gnss_id;
+        if constexpr(I == 5) return value_.satellite_id;
+        if constexpr(I == 6) return value_.elevation;
+        if constexpr(I == 7) return value_.azimuth;
+        if constexpr(I == 8) return value_.health;
+        if constexpr(I == 9) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "index",
@@ -2322,19 +3002,21 @@ struct MetadataFor<data_gnss::SatelliteStatus>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_gnss::SatelliteStatus",
-            /* .title       = */ "satellite_status",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Status information for a GNSS satellite.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_gnss::SatelliteStatus>::value > { using type = data_gnss::SatelliteStatus; };
+template<> struct TypeForDescriptor<data_gnss::SatelliteStatus::DESCRIPTOR.as_u16()> { using type = data_gnss::SatelliteStatus; };
 
 template<>
 struct MetadataFor<data_gnss::GnssSignalId>
@@ -2419,6 +3101,8 @@ struct MetadataFor<data_gnss::GnssSignalId>
 
 };
 
+template<> struct TypeForEnumInfo< &MetadataFor<data_gnss::GnssSignalId>::value > { using type = data_gnss::GnssSignalId; };
+
 template<>
 struct MetadataFor<data_gnss::Raw::GnssSignalQuality>
 {
@@ -2441,6 +3125,8 @@ struct MetadataFor<data_gnss::Raw::GnssSignalQuality>
     };
 
 };
+
+template<> struct TypeForEnumInfo< &MetadataFor<data_gnss::Raw::GnssSignalQuality>::value > { using type = data_gnss::Raw::GnssSignalQuality; };
 
 template<>
 struct MetadataFor<data_gnss::Raw::ValidFlags>
@@ -2476,11 +3162,60 @@ struct MetadataFor<data_gnss::Raw::ValidFlags>
 
 };
 
+template<> struct TypeForBitsInfo< &MetadataFor<data_gnss::Raw::ValidFlags>::value > { using type = data_gnss::Raw::ValidFlags; };
+
 template<>
 struct MetadataFor<data_gnss::Raw>
 {
     using type = data_gnss::Raw;
 
+    using Context = DataSetGnss;
+
+    using ParamTypes = std::tuple<
+        decltype(type::index),
+        decltype(type::count),
+        decltype(type::time_of_week),
+        decltype(type::week_number),
+        decltype(type::receiver_id),
+        decltype(type::tracking_channel),
+        decltype(type::gnss_id),
+        decltype(type::satellite_id),
+        decltype(type::signal_id),
+        decltype(type::signal_strength),
+        decltype(type::quality),
+        decltype(type::pseudorange),
+        decltype(type::carrier_phase),
+        decltype(type::doppler),
+        decltype(type::range_uncert),
+        decltype(type::phase_uncert),
+        decltype(type::doppler_uncert),
+        decltype(type::lock_time),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.index;
+        if constexpr(I == 1) return value_.count;
+        if constexpr(I == 2) return value_.time_of_week;
+        if constexpr(I == 3) return value_.week_number;
+        if constexpr(I == 4) return value_.receiver_id;
+        if constexpr(I == 5) return value_.tracking_channel;
+        if constexpr(I == 6) return value_.gnss_id;
+        if constexpr(I == 7) return value_.satellite_id;
+        if constexpr(I == 8) return value_.signal_id;
+        if constexpr(I == 9) return value_.signal_strength;
+        if constexpr(I == 10) return value_.quality;
+        if constexpr(I == 11) return value_.pseudorange;
+        if constexpr(I == 12) return value_.carrier_phase;
+        if constexpr(I == 13) return value_.doppler;
+        if constexpr(I == 14) return value_.range_uncert;
+        if constexpr(I == 15) return value_.phase_uncert;
+        if constexpr(I == 16) return value_.doppler_uncert;
+        if constexpr(I == 17) return value_.lock_time;
+        if constexpr(I == 18) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "index",
@@ -2654,19 +3389,21 @@ struct MetadataFor<data_gnss::Raw>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_gnss::Raw",
-            /* .title       = */ "raw",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "GNSS Raw observation.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_gnss::Raw>::value > { using type = data_gnss::Raw; };
+template<> struct TypeForDescriptor<data_gnss::Raw::DESCRIPTOR.as_u16()> { using type = data_gnss::Raw; };
 
 template<>
 struct MetadataFor<data_gnss::GpsEphemeris::ValidFlags>
@@ -2689,11 +3426,90 @@ struct MetadataFor<data_gnss::GpsEphemeris::ValidFlags>
 
 };
 
+template<> struct TypeForBitsInfo< &MetadataFor<data_gnss::GpsEphemeris::ValidFlags>::value > { using type = data_gnss::GpsEphemeris::ValidFlags; };
+
 template<>
 struct MetadataFor<data_gnss::GpsEphemeris>
 {
     using type = data_gnss::GpsEphemeris;
 
+    using Context = DataSetGnss;
+
+    using ParamTypes = std::tuple<
+        decltype(type::index),
+        decltype(type::count),
+        decltype(type::time_of_week),
+        decltype(type::week_number),
+        decltype(type::satellite_id),
+        decltype(type::health),
+        decltype(type::iodc),
+        decltype(type::iode),
+        decltype(type::t_oc),
+        decltype(type::af0),
+        decltype(type::af1),
+        decltype(type::af2),
+        decltype(type::t_gd),
+        decltype(type::ISC_L1CA),
+        decltype(type::ISC_L2C),
+        decltype(type::t_oe),
+        decltype(type::a),
+        decltype(type::a_dot),
+        decltype(type::mean_anomaly),
+        decltype(type::delta_mean_motion),
+        decltype(type::delta_mean_motion_dot),
+        decltype(type::eccentricity),
+        decltype(type::argument_of_perigee),
+        decltype(type::omega),
+        decltype(type::omega_dot),
+        decltype(type::inclination),
+        decltype(type::inclination_dot),
+        decltype(type::c_ic),
+        decltype(type::c_is),
+        decltype(type::c_uc),
+        decltype(type::c_us),
+        decltype(type::c_rc),
+        decltype(type::c_rs),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.index;
+        if constexpr(I == 1) return value_.count;
+        if constexpr(I == 2) return value_.time_of_week;
+        if constexpr(I == 3) return value_.week_number;
+        if constexpr(I == 4) return value_.satellite_id;
+        if constexpr(I == 5) return value_.health;
+        if constexpr(I == 6) return value_.iodc;
+        if constexpr(I == 7) return value_.iode;
+        if constexpr(I == 8) return value_.t_oc;
+        if constexpr(I == 9) return value_.af0;
+        if constexpr(I == 10) return value_.af1;
+        if constexpr(I == 11) return value_.af2;
+        if constexpr(I == 12) return value_.t_gd;
+        if constexpr(I == 13) return value_.ISC_L1CA;
+        if constexpr(I == 14) return value_.ISC_L2C;
+        if constexpr(I == 15) return value_.t_oe;
+        if constexpr(I == 16) return value_.a;
+        if constexpr(I == 17) return value_.a_dot;
+        if constexpr(I == 18) return value_.mean_anomaly;
+        if constexpr(I == 19) return value_.delta_mean_motion;
+        if constexpr(I == 20) return value_.delta_mean_motion_dot;
+        if constexpr(I == 21) return value_.eccentricity;
+        if constexpr(I == 22) return value_.argument_of_perigee;
+        if constexpr(I == 23) return value_.omega;
+        if constexpr(I == 24) return value_.omega_dot;
+        if constexpr(I == 25) return value_.inclination;
+        if constexpr(I == 26) return value_.inclination_dot;
+        if constexpr(I == 27) return value_.c_ic;
+        if constexpr(I == 28) return value_.c_is;
+        if constexpr(I == 29) return value_.c_uc;
+        if constexpr(I == 30) return value_.c_us;
+        if constexpr(I == 31) return value_.c_rc;
+        if constexpr(I == 32) return value_.c_rs;
+        if constexpr(I == 33) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "index",
@@ -3002,19 +3818,21 @@ struct MetadataFor<data_gnss::GpsEphemeris>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_gnss::GpsEphemeris",
-            /* .title       = */ "GPS Ephemeris",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "GPS Ephemeris Data",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_gnss::GpsEphemeris>::value > { using type = data_gnss::GpsEphemeris; };
+template<> struct TypeForDescriptor<data_gnss::GpsEphemeris::DESCRIPTOR.as_u16()> { using type = data_gnss::GpsEphemeris; };
 
 template<>
 struct MetadataFor<data_gnss::GalileoEphemeris::ValidFlags>
@@ -3037,11 +3855,90 @@ struct MetadataFor<data_gnss::GalileoEphemeris::ValidFlags>
 
 };
 
+template<> struct TypeForBitsInfo< &MetadataFor<data_gnss::GalileoEphemeris::ValidFlags>::value > { using type = data_gnss::GalileoEphemeris::ValidFlags; };
+
 template<>
 struct MetadataFor<data_gnss::GalileoEphemeris>
 {
     using type = data_gnss::GalileoEphemeris;
 
+    using Context = DataSetGnss;
+
+    using ParamTypes = std::tuple<
+        decltype(type::index),
+        decltype(type::count),
+        decltype(type::time_of_week),
+        decltype(type::week_number),
+        decltype(type::satellite_id),
+        decltype(type::health),
+        decltype(type::iodc),
+        decltype(type::iode),
+        decltype(type::t_oc),
+        decltype(type::af0),
+        decltype(type::af1),
+        decltype(type::af2),
+        decltype(type::t_gd),
+        decltype(type::ISC_L1CA),
+        decltype(type::ISC_L2C),
+        decltype(type::t_oe),
+        decltype(type::a),
+        decltype(type::a_dot),
+        decltype(type::mean_anomaly),
+        decltype(type::delta_mean_motion),
+        decltype(type::delta_mean_motion_dot),
+        decltype(type::eccentricity),
+        decltype(type::argument_of_perigee),
+        decltype(type::omega),
+        decltype(type::omega_dot),
+        decltype(type::inclination),
+        decltype(type::inclination_dot),
+        decltype(type::c_ic),
+        decltype(type::c_is),
+        decltype(type::c_uc),
+        decltype(type::c_us),
+        decltype(type::c_rc),
+        decltype(type::c_rs),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.index;
+        if constexpr(I == 1) return value_.count;
+        if constexpr(I == 2) return value_.time_of_week;
+        if constexpr(I == 3) return value_.week_number;
+        if constexpr(I == 4) return value_.satellite_id;
+        if constexpr(I == 5) return value_.health;
+        if constexpr(I == 6) return value_.iodc;
+        if constexpr(I == 7) return value_.iode;
+        if constexpr(I == 8) return value_.t_oc;
+        if constexpr(I == 9) return value_.af0;
+        if constexpr(I == 10) return value_.af1;
+        if constexpr(I == 11) return value_.af2;
+        if constexpr(I == 12) return value_.t_gd;
+        if constexpr(I == 13) return value_.ISC_L1CA;
+        if constexpr(I == 14) return value_.ISC_L2C;
+        if constexpr(I == 15) return value_.t_oe;
+        if constexpr(I == 16) return value_.a;
+        if constexpr(I == 17) return value_.a_dot;
+        if constexpr(I == 18) return value_.mean_anomaly;
+        if constexpr(I == 19) return value_.delta_mean_motion;
+        if constexpr(I == 20) return value_.delta_mean_motion_dot;
+        if constexpr(I == 21) return value_.eccentricity;
+        if constexpr(I == 22) return value_.argument_of_perigee;
+        if constexpr(I == 23) return value_.omega;
+        if constexpr(I == 24) return value_.omega_dot;
+        if constexpr(I == 25) return value_.inclination;
+        if constexpr(I == 26) return value_.inclination_dot;
+        if constexpr(I == 27) return value_.c_ic;
+        if constexpr(I == 28) return value_.c_is;
+        if constexpr(I == 29) return value_.c_uc;
+        if constexpr(I == 30) return value_.c_us;
+        if constexpr(I == 31) return value_.c_rc;
+        if constexpr(I == 32) return value_.c_rs;
+        if constexpr(I == 33) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "index",
@@ -3350,19 +4247,21 @@ struct MetadataFor<data_gnss::GalileoEphemeris>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_gnss::GalileoEphemeris",
-            /* .title       = */ "Galileo Ephemeris",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Galileo Ephemeris Data",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_gnss::GalileoEphemeris>::value > { using type = data_gnss::GalileoEphemeris; };
+template<> struct TypeForDescriptor<data_gnss::GalileoEphemeris::DESCRIPTOR.as_u16()> { using type = data_gnss::GalileoEphemeris; };
 
 template<>
 struct MetadataFor<data_gnss::GloEphemeris::ValidFlags>
@@ -3383,11 +4282,72 @@ struct MetadataFor<data_gnss::GloEphemeris::ValidFlags>
 
 };
 
+template<> struct TypeForBitsInfo< &MetadataFor<data_gnss::GloEphemeris::ValidFlags>::value > { using type = data_gnss::GloEphemeris::ValidFlags; };
+
 template<>
 struct MetadataFor<data_gnss::GloEphemeris>
 {
     using type = data_gnss::GloEphemeris;
 
+    using Context = DataSetGnss;
+
+    using ParamTypes = std::tuple<
+        decltype(type::index),
+        decltype(type::count),
+        decltype(type::time_of_week),
+        decltype(type::week_number),
+        decltype(type::satellite_id),
+        decltype(type::freq_number),
+        decltype(type::tk),
+        decltype(type::tb),
+        decltype(type::sat_type),
+        decltype(type::gamma),
+        decltype(type::tau_n),
+        decltype(type::x),
+        decltype(type::v),
+        decltype(type::a),
+        decltype(type::health),
+        decltype(type::P),
+        decltype(type::NT),
+        decltype(type::delta_tau_n),
+        decltype(type::Ft),
+        decltype(type::En),
+        decltype(type::P1),
+        decltype(type::P2),
+        decltype(type::P3),
+        decltype(type::P4),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.index;
+        if constexpr(I == 1) return value_.count;
+        if constexpr(I == 2) return value_.time_of_week;
+        if constexpr(I == 3) return value_.week_number;
+        if constexpr(I == 4) return value_.satellite_id;
+        if constexpr(I == 5) return value_.freq_number;
+        if constexpr(I == 6) return value_.tk;
+        if constexpr(I == 7) return value_.tb;
+        if constexpr(I == 8) return value_.sat_type;
+        if constexpr(I == 9) return value_.gamma;
+        if constexpr(I == 10) return value_.tau_n;
+        if constexpr(I == 11) return value_.x;
+        if constexpr(I == 12) return value_.v;
+        if constexpr(I == 13) return value_.a;
+        if constexpr(I == 14) return value_.health;
+        if constexpr(I == 15) return value_.P;
+        if constexpr(I == 16) return value_.NT;
+        if constexpr(I == 17) return value_.delta_tau_n;
+        if constexpr(I == 18) return value_.Ft;
+        if constexpr(I == 19) return value_.En;
+        if constexpr(I == 20) return value_.P1;
+        if constexpr(I == 21) return value_.P2;
+        if constexpr(I == 22) return value_.P3;
+        if constexpr(I == 23) return value_.P4;
+        if constexpr(I == 24) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "index",
@@ -3615,19 +4575,21 @@ struct MetadataFor<data_gnss::GloEphemeris>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_gnss::GloEphemeris",
-            /* .title       = */ "Glonass Ephemeris",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Glonass Ephemeris Data",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_gnss::GloEphemeris>::value > { using type = data_gnss::GloEphemeris; };
+template<> struct TypeForDescriptor<data_gnss::GloEphemeris::DESCRIPTOR.as_u16()> { using type = data_gnss::GloEphemeris; };
 
 template<>
 struct MetadataFor<data_gnss::BeidouEphemeris::ValidFlags>
@@ -3650,11 +4612,90 @@ struct MetadataFor<data_gnss::BeidouEphemeris::ValidFlags>
 
 };
 
+template<> struct TypeForBitsInfo< &MetadataFor<data_gnss::BeidouEphemeris::ValidFlags>::value > { using type = data_gnss::BeidouEphemeris::ValidFlags; };
+
 template<>
 struct MetadataFor<data_gnss::BeidouEphemeris>
 {
     using type = data_gnss::BeidouEphemeris;
 
+    using Context = DataSetGnss;
+
+    using ParamTypes = std::tuple<
+        decltype(type::index),
+        decltype(type::count),
+        decltype(type::time_of_week),
+        decltype(type::week_number),
+        decltype(type::satellite_id),
+        decltype(type::health),
+        decltype(type::iodc),
+        decltype(type::iode),
+        decltype(type::t_oc),
+        decltype(type::af0),
+        decltype(type::af1),
+        decltype(type::af2),
+        decltype(type::t_gd),
+        decltype(type::ISC_L1CA),
+        decltype(type::ISC_L2C),
+        decltype(type::t_oe),
+        decltype(type::a),
+        decltype(type::a_dot),
+        decltype(type::mean_anomaly),
+        decltype(type::delta_mean_motion),
+        decltype(type::delta_mean_motion_dot),
+        decltype(type::eccentricity),
+        decltype(type::argument_of_perigee),
+        decltype(type::omega),
+        decltype(type::omega_dot),
+        decltype(type::inclination),
+        decltype(type::inclination_dot),
+        decltype(type::c_ic),
+        decltype(type::c_is),
+        decltype(type::c_uc),
+        decltype(type::c_us),
+        decltype(type::c_rc),
+        decltype(type::c_rs),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.index;
+        if constexpr(I == 1) return value_.count;
+        if constexpr(I == 2) return value_.time_of_week;
+        if constexpr(I == 3) return value_.week_number;
+        if constexpr(I == 4) return value_.satellite_id;
+        if constexpr(I == 5) return value_.health;
+        if constexpr(I == 6) return value_.iodc;
+        if constexpr(I == 7) return value_.iode;
+        if constexpr(I == 8) return value_.t_oc;
+        if constexpr(I == 9) return value_.af0;
+        if constexpr(I == 10) return value_.af1;
+        if constexpr(I == 11) return value_.af2;
+        if constexpr(I == 12) return value_.t_gd;
+        if constexpr(I == 13) return value_.ISC_L1CA;
+        if constexpr(I == 14) return value_.ISC_L2C;
+        if constexpr(I == 15) return value_.t_oe;
+        if constexpr(I == 16) return value_.a;
+        if constexpr(I == 17) return value_.a_dot;
+        if constexpr(I == 18) return value_.mean_anomaly;
+        if constexpr(I == 19) return value_.delta_mean_motion;
+        if constexpr(I == 20) return value_.delta_mean_motion_dot;
+        if constexpr(I == 21) return value_.eccentricity;
+        if constexpr(I == 22) return value_.argument_of_perigee;
+        if constexpr(I == 23) return value_.omega;
+        if constexpr(I == 24) return value_.omega_dot;
+        if constexpr(I == 25) return value_.inclination;
+        if constexpr(I == 26) return value_.inclination_dot;
+        if constexpr(I == 27) return value_.c_ic;
+        if constexpr(I == 28) return value_.c_is;
+        if constexpr(I == 29) return value_.c_uc;
+        if constexpr(I == 30) return value_.c_us;
+        if constexpr(I == 31) return value_.c_rc;
+        if constexpr(I == 32) return value_.c_rs;
+        if constexpr(I == 33) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "index",
@@ -3963,19 +5004,21 @@ struct MetadataFor<data_gnss::BeidouEphemeris>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_gnss::BeidouEphemeris",
-            /* .title       = */ "BeiDou Ephemeris",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "BeiDou Ephemeris Data",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_gnss::BeidouEphemeris>::value > { using type = data_gnss::BeidouEphemeris; };
+template<> struct TypeForDescriptor<data_gnss::BeidouEphemeris::DESCRIPTOR.as_u16()> { using type = data_gnss::BeidouEphemeris; };
 
 template<>
 struct MetadataFor<data_gnss::GpsIonoCorr::ValidFlags>
@@ -3999,11 +5042,32 @@ struct MetadataFor<data_gnss::GpsIonoCorr::ValidFlags>
 
 };
 
+template<> struct TypeForBitsInfo< &MetadataFor<data_gnss::GpsIonoCorr::ValidFlags>::value > { using type = data_gnss::GpsIonoCorr::ValidFlags; };
+
 template<>
 struct MetadataFor<data_gnss::GpsIonoCorr>
 {
     using type = data_gnss::GpsIonoCorr;
 
+    using Context = DataSetGnss;
+
+    using ParamTypes = std::tuple<
+        decltype(type::time_of_week),
+        decltype(type::week_number),
+        decltype(type::alpha),
+        decltype(type::beta),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.time_of_week;
+        if constexpr(I == 1) return value_.week_number;
+        if constexpr(I == 2) return value_.alpha;
+        if constexpr(I == 3) return value_.beta;
+        if constexpr(I == 4) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "time_of_week",
@@ -4051,19 +5115,21 @@ struct MetadataFor<data_gnss::GpsIonoCorr>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_gnss::GpsIonoCorr",
-            /* .title       = */ "GPS Ionospheric Correction",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Ionospheric Correction Terms for GNSS",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_gnss::GpsIonoCorr>::value > { using type = data_gnss::GpsIonoCorr; };
+template<> struct TypeForDescriptor<data_gnss::GpsIonoCorr::DESCRIPTOR.as_u16()> { using type = data_gnss::GpsIonoCorr; };
 
 template<>
 struct MetadataFor<data_gnss::GalileoIonoCorr::ValidFlags>
@@ -4087,11 +5153,32 @@ struct MetadataFor<data_gnss::GalileoIonoCorr::ValidFlags>
 
 };
 
+template<> struct TypeForBitsInfo< &MetadataFor<data_gnss::GalileoIonoCorr::ValidFlags>::value > { using type = data_gnss::GalileoIonoCorr::ValidFlags; };
+
 template<>
 struct MetadataFor<data_gnss::GalileoIonoCorr>
 {
     using type = data_gnss::GalileoIonoCorr;
 
+    using Context = DataSetGnss;
+
+    using ParamTypes = std::tuple<
+        decltype(type::time_of_week),
+        decltype(type::week_number),
+        decltype(type::alpha),
+        decltype(type::disturbance_flags),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.time_of_week;
+        if constexpr(I == 1) return value_.week_number;
+        if constexpr(I == 2) return value_.alpha;
+        if constexpr(I == 3) return value_.disturbance_flags;
+        if constexpr(I == 4) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "time_of_week",
@@ -4139,19 +5226,21 @@ struct MetadataFor<data_gnss::GalileoIonoCorr>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_gnss::GalileoIonoCorr",
-            /* .title       = */ "Galileo Ionospheric Correction",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Ionospheric Correction Terms for Galileo",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_gnss::GalileoIonoCorr>::value > { using type = data_gnss::GalileoIonoCorr; };
+template<> struct TypeForDescriptor<data_gnss::GalileoIonoCorr::DESCRIPTOR.as_u16()> { using type = data_gnss::GalileoIonoCorr; };
 
 template<>
 struct MetadataFor<data_gnss::BeidouIonoCorr::ValidFlags>
@@ -4176,11 +5265,34 @@ struct MetadataFor<data_gnss::BeidouIonoCorr::ValidFlags>
 
 };
 
+template<> struct TypeForBitsInfo< &MetadataFor<data_gnss::BeidouIonoCorr::ValidFlags>::value > { using type = data_gnss::BeidouIonoCorr::ValidFlags; };
+
 template<>
 struct MetadataFor<data_gnss::BeidouIonoCorr>
 {
     using type = data_gnss::BeidouIonoCorr;
 
+    using Context = DataSetGnss;
+
+    using ParamTypes = std::tuple<
+        decltype(type::time_of_week),
+        decltype(type::week_number),
+        decltype(type::alpha),
+        decltype(type::beta),
+        decltype(type::alpha_corr),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.time_of_week;
+        if constexpr(I == 1) return value_.week_number;
+        if constexpr(I == 2) return value_.alpha;
+        if constexpr(I == 3) return value_.beta;
+        if constexpr(I == 4) return value_.alpha_corr;
+        if constexpr(I == 5) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "time_of_week",
@@ -4237,19 +5349,21 @@ struct MetadataFor<data_gnss::BeidouIonoCorr>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_gnss::BeidouIonoCorr",
-            /* .title       = */ "BeiDou Ionospheric Correction",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Ionospheric Correction Terms for BeiDou",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_gnss::BeidouIonoCorr>::value > { using type = data_gnss::BeidouIonoCorr; };
+template<> struct TypeForDescriptor<data_gnss::BeidouIonoCorr::DESCRIPTOR.as_u16()> { using type = data_gnss::BeidouIonoCorr; };
 
 
 static constexpr inline const FieldInfo* DATA_GNSS_FIELDS[] = {
@@ -4271,6 +5385,7 @@ static constexpr inline const FieldInfo* DATA_GNSS_FIELDS[] = {
     &MetadataFor<data_gnss::SbasInfo>::value,
     &MetadataFor<data_gnss::SbasCorrection>::value,
     &MetadataFor<data_gnss::RfErrorDetection>::value,
+    &MetadataFor<data_gnss::Heading>::value,
     &MetadataFor<data_gnss::SatelliteStatus>::value,
     &MetadataFor<data_gnss::Raw>::value,
     &MetadataFor<data_gnss::BaseStationInfo>::value,
@@ -4284,11 +5399,60 @@ static constexpr inline const FieldInfo* DATA_GNSS_FIELDS[] = {
     &MetadataFor<data_gnss::BeidouIonoCorr>::value,
 };
 
-static constexpr DescriptorSetInfo DATA_GNSS = {
-    /* .descriptor = */ mip::data_gnss::DESCRIPTOR_SET,
-    /* .name       = */ "Gnss Data",
-    /* .fields     = */ DATA_GNSS_FIELDS,
+struct DataSetGnss
+{
+    static inline constexpr uint8_t DESCRIPTOR_SET = data_gnss::DESCRIPTOR_SET;
+    static inline constexpr CompositeDescriptor DESCRIPTOR = {DESCRIPTOR_SET, INVALID_FIELD_DESCRIPTOR};
+
+    using Fields = std::tuple<
+        ::mip::data_gnss::PosLlh,
+        ::mip::data_gnss::PosEcef,
+        ::mip::data_gnss::VelNed,
+        ::mip::data_gnss::VelEcef,
+        ::mip::data_gnss::Dop,
+        ::mip::data_gnss::UtcTime,
+        ::mip::data_gnss::GpsTime,
+        ::mip::data_gnss::ClockInfo,
+        ::mip::data_gnss::FixInfo,
+        ::mip::data_gnss::SvInfo,
+        ::mip::data_gnss::HwStatus,
+        ::mip::data_gnss::DgpsInfo,
+        ::mip::data_gnss::DgpsChannel,
+        ::mip::data_gnss::ClockInfo2,
+        ::mip::data_gnss::GpsLeapSeconds,
+        ::mip::data_gnss::SbasInfo,
+        ::mip::data_gnss::SbasCorrection,
+        ::mip::data_gnss::RfErrorDetection,
+        ::mip::data_gnss::Heading,
+        ::mip::data_gnss::SatelliteStatus,
+        ::mip::data_gnss::Raw,
+        ::mip::data_gnss::BaseStationInfo,
+        ::mip::data_gnss::RtkCorrectionsStatus,
+        ::mip::data_gnss::GpsEphemeris,
+        ::mip::data_gnss::GloEphemeris,
+        ::mip::data_gnss::GalileoEphemeris,
+        ::mip::data_gnss::BeidouEphemeris,
+        ::mip::data_gnss::GpsIonoCorr,
+        ::mip::data_gnss::GalileoIonoCorr,
+        ::mip::data_gnss::BeidouIonoCorr
+    >;
 };
+
+template<>
+struct MetadataFor<DataSetGnss>
+{
+    using type = DataSetGnss;
+    
+    static inline constexpr DescriptorSetInfo value = {
+        /* .descriptor = */ data_gnss::DESCRIPTOR_SET,
+        /* .name       = */ "data_gnss",
+        /* .title      = */ "Gnss Data",
+        /* .fields     = */ DATA_GNSS_FIELDS,
+    };
+};
+//template<> struct TypeForDescriptor< (data_gnss::DESCRIPTOR_SET << 8) > { using type = DataSetGnss; };
+
+static constexpr const DescriptorSetInfo& DATA_GNSS = MetadataFor<DataSetGnss>::value;
 
 } // namespace mip::metadata
 

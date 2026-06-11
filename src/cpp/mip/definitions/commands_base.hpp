@@ -302,7 +302,7 @@ struct GetDeviceInfo
         static constexpr const uint8_t DESCRIPTOR_SET = ::mip::commands_base::DESCRIPTOR_SET;
         static constexpr const uint8_t FIELD_DESCRIPTOR = ::mip::commands_base::REPLY_DEVICE_INFO;
         static constexpr const CompositeDescriptor DESCRIPTOR = {DESCRIPTOR_SET, FIELD_DESCRIPTOR};
-        static constexpr const char* NAME = "GetDeviceInfo::Response";
+        static constexpr const char* NAME = "GetDeviceInfoResponse";
         static constexpr const char* DOC_NAME = "Get device information Response";
         static constexpr const bool HAS_FUNCTION_SELECTOR = false;
         
@@ -369,7 +369,7 @@ struct GetDeviceDescriptors
         static constexpr const uint8_t DESCRIPTOR_SET = ::mip::commands_base::DESCRIPTOR_SET;
         static constexpr const uint8_t FIELD_DESCRIPTOR = ::mip::commands_base::REPLY_DEVICE_DESCRIPTORS;
         static constexpr const CompositeDescriptor DESCRIPTOR = {DESCRIPTOR_SET, FIELD_DESCRIPTOR};
-        static constexpr const char* NAME = "GetDeviceDescriptors::Response";
+        static constexpr const char* NAME = "GetDeviceDescriptorsResponse";
         static constexpr const char* DOC_NAME = "Get device descriptors Response";
         static constexpr const bool HAS_FUNCTION_SELECTOR = false;
         
@@ -437,7 +437,7 @@ struct BuiltInTest
         static constexpr const uint8_t DESCRIPTOR_SET = ::mip::commands_base::DESCRIPTOR_SET;
         static constexpr const uint8_t FIELD_DESCRIPTOR = ::mip::commands_base::REPLY_BUILT_IN_TEST;
         static constexpr const CompositeDescriptor DESCRIPTOR = {DESCRIPTOR_SET, FIELD_DESCRIPTOR};
-        static constexpr const char* NAME = "BuiltInTest::Response";
+        static constexpr const char* NAME = "BuiltInTestResponse";
         static constexpr const char* DOC_NAME = "Built in test Response";
         static constexpr const bool HAS_FUNCTION_SELECTOR = false;
         
@@ -542,7 +542,7 @@ struct GetExtendedDescriptors
         static constexpr const uint8_t DESCRIPTOR_SET = ::mip::commands_base::DESCRIPTOR_SET;
         static constexpr const uint8_t FIELD_DESCRIPTOR = ::mip::commands_base::REPLY_GET_EXTENDED_DESCRIPTORS;
         static constexpr const CompositeDescriptor DESCRIPTOR = {DESCRIPTOR_SET, FIELD_DESCRIPTOR};
-        static constexpr const char* NAME = "GetExtendedDescriptors::Response";
+        static constexpr const char* NAME = "GetExtendedDescriptorsResponse";
         static constexpr const char* DOC_NAME = "Get device descriptors (extended) Response";
         static constexpr const bool HAS_FUNCTION_SELECTOR = false;
         
@@ -607,7 +607,7 @@ struct ContinuousBit
         static constexpr const uint8_t DESCRIPTOR_SET = ::mip::commands_base::DESCRIPTOR_SET;
         static constexpr const uint8_t FIELD_DESCRIPTOR = ::mip::commands_base::REPLY_CONTINUOUS_BIT;
         static constexpr const CompositeDescriptor DESCRIPTOR = {DESCRIPTOR_SET, FIELD_DESCRIPTOR};
-        static constexpr const char* NAME = "ContinuousBit::Response";
+        static constexpr const char* NAME = "ContinuousBitResponse";
         static constexpr const char* DOC_NAME = "Continuous built-in test Response";
         static constexpr const bool HAS_FUNCTION_SELECTOR = false;
         
@@ -698,7 +698,7 @@ struct CommSpeed
         static constexpr const uint8_t DESCRIPTOR_SET = ::mip::commands_base::DESCRIPTOR_SET;
         static constexpr const uint8_t FIELD_DESCRIPTOR = ::mip::commands_base::REPLY_COMM_SPEED;
         static constexpr const CompositeDescriptor DESCRIPTOR = {DESCRIPTOR_SET, FIELD_DESCRIPTOR};
-        static constexpr const char* NAME = "CommSpeed::Response";
+        static constexpr const char* NAME = "CommSpeedResponse";
         static constexpr const char* DOC_NAME = "Comm Port Speed Response";
         static constexpr const bool HAS_FUNCTION_SELECTOR = false;
         

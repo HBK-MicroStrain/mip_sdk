@@ -8,48 +8,85 @@
 namespace mip::metadata
 {
 
+struct CommandSetBase;
+
 
 template<>
 struct MetadataFor<commands_base::Ping>
 {
     using type = commands_base::Ping;
 
+    using Context = CommandSetBase;
+
+    using ParamTypes = std::tuple<>;
+
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_base::Ping",
-            /* .title       = */ "Ping",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Test Communications with a device.\n\nThe Device will respond with an ACK, if present and operating correctly.\n\nIf the device is not in a normal operating mode, it may NACK.",
             /* .parameters  = */ {},
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_base::Ping>::value > { using type = commands_base::Ping; };
+template<> struct TypeForDescriptor<commands_base::Ping::DESCRIPTOR.as_u16()> { using type = commands_base::Ping; };
 
 template<>
 struct MetadataFor<commands_base::SetIdle>
 {
     using type = commands_base::SetIdle;
 
+    using Context = CommandSetBase;
+
+    using ParamTypes = std::tuple<>;
+
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_base::SetIdle",
-            /* .title       = */ "Set to idle",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Turn off all device data streams.\n\nThe Device will respond with an ACK, if present and operating correctly.\nThis command will suspend streaming (if enabled) or wake the device from sleep (if sleeping) to allow it to respond to status and setup commands.\nYou may restore the device mode by issuing the Resume command.",
             /* .parameters  = */ {},
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_base::SetIdle>::value > { using type = commands_base::SetIdle; };
+template<> struct TypeForDescriptor<commands_base::SetIdle::DESCRIPTOR.as_u16()> { using type = commands_base::SetIdle; };
 
 template<>
 struct MetadataFor<commands_base::BaseDeviceInfo>
 {
     using type = commands_base::BaseDeviceInfo;
 
+    using Context = CommandSetBase;
+
+    using ParamTypes = std::tuple<
+        decltype(type::firmware_version),
+        decltype(type::model_name),
+        decltype(type::model_number),
+        decltype(type::serial_number),
+        decltype(type::lot_number),
+        decltype(type::device_options)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.firmware_version;
+        if constexpr(I == 1) return value_.model_name;
+        if constexpr(I == 2) return value_.model_number;
+        if constexpr(I == 3) return value_.serial_number;
+        if constexpr(I == 4) return value_.lot_number;
+        if constexpr(I == 5) return value_.device_options;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "firmware_version",
@@ -106,7 +143,6 @@ struct MetadataFor<commands_base::BaseDeviceInfo>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline StructInfo value = {
         /* .name        = */ "BaseDeviceInfo",
         /* .title       = */ "Base Device Info",
@@ -115,11 +151,24 @@ struct MetadataFor<commands_base::BaseDeviceInfo>
     };
 };
 
+template<> struct TypeForStructInfo< &MetadataFor<commands_base::BaseDeviceInfo>::value > { using type = commands_base::BaseDeviceInfo; };
+
 template<>
 struct MetadataFor<commands_base::GetDeviceInfo::Response>
 {
     using type = commands_base::GetDeviceInfo::Response;
 
+    using Context = commands_base::GetDeviceInfo;
+
+    using ParamTypes = std::tuple<
+        decltype(type::device_info)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.device_info;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "device_info",
@@ -131,43 +180,64 @@ struct MetadataFor<commands_base::GetDeviceInfo::Response>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_base::GetDeviceInfo::Response",
-            /* .title       = */ "response",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_base::GetDeviceInfo::Response>::value > { using type = commands_base::GetDeviceInfo::Response; };
 
 template<>
 struct MetadataFor<commands_base::GetDeviceInfo>
 {
     using type = commands_base::GetDeviceInfo;
 
+    using Context = CommandSetBase;
+
+    using ParamTypes = std::tuple<>;
+
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_base::GetDeviceInfo",
-            /* .title       = */ "Get device information",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Get the device ID strings and firmware version number.",
             /* .parameters  = */ {},
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_base::GetDeviceInfo>::value > { using type = commands_base::GetDeviceInfo; };
+template<> struct TypeForDescriptor<commands_base::GetDeviceInfo::DESCRIPTOR.as_u16()> { using type = commands_base::GetDeviceInfo; };
 
 template<>
 struct MetadataFor<commands_base::GetDeviceDescriptors::Response>
 {
     using type = commands_base::GetDeviceDescriptors::Response;
 
+    using Context = commands_base::GetDeviceDescriptors;
+
+    using ParamTypes = std::tuple<
+        decltype(type::descriptors),
+        decltype(type::descriptors_count)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.descriptors;
+        if constexpr(I == 1) return value_.descriptors_count;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "descriptors",
@@ -188,43 +258,62 @@ struct MetadataFor<commands_base::GetDeviceDescriptors::Response>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_base::GetDeviceDescriptors::Response",
-            /* .title       = */ "response",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_base::GetDeviceDescriptors::Response>::value > { using type = commands_base::GetDeviceDescriptors::Response; };
 
 template<>
 struct MetadataFor<commands_base::GetDeviceDescriptors>
 {
     using type = commands_base::GetDeviceDescriptors;
 
+    using Context = CommandSetBase;
+
+    using ParamTypes = std::tuple<>;
+
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_base::GetDeviceDescriptors",
-            /* .title       = */ "Get device descriptors",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Get the command and data descriptors supported by the device.\n\nReply has two fields: 'ACK/NACK' and 'Descriptors'. The 'Descriptors' field is an array of 16 bit values.\nThe MSB specifies the descriptor set and the LSB specifies the descriptor.",
             /* .parameters  = */ {},
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_base::GetDeviceDescriptors>::value > { using type = commands_base::GetDeviceDescriptors; };
+template<> struct TypeForDescriptor<commands_base::GetDeviceDescriptors::DESCRIPTOR.as_u16()> { using type = commands_base::GetDeviceDescriptors; };
 
 template<>
 struct MetadataFor<commands_base::BuiltInTest::Response>
 {
     using type = commands_base::BuiltInTest::Response;
 
+    using Context = commands_base::BuiltInTest;
+
+    using ParamTypes = std::tuple<
+        decltype(type::result)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.result;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "result",
@@ -236,61 +325,89 @@ struct MetadataFor<commands_base::BuiltInTest::Response>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_base::BuiltInTest::Response",
-            /* .title       = */ "response",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_base::BuiltInTest::Response>::value > { using type = commands_base::BuiltInTest::Response; };
 
 template<>
 struct MetadataFor<commands_base::BuiltInTest>
 {
     using type = commands_base::BuiltInTest;
 
+    using Context = CommandSetBase;
+
+    using ParamTypes = std::tuple<>;
+
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_base::BuiltInTest",
-            /* .title       = */ "Built in test",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Run the device Built-In Test (BIT).\n\nThe Built-In Test command always returns a 32 bit value.\nA value of 0 means that all tests passed.\nA non-zero value indicates that not all tests passed.\nReference the device user manual to decode the result.",
             /* .parameters  = */ {},
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_base::BuiltInTest>::value > { using type = commands_base::BuiltInTest; };
+template<> struct TypeForDescriptor<commands_base::BuiltInTest::DESCRIPTOR.as_u16()> { using type = commands_base::BuiltInTest; };
 
 template<>
 struct MetadataFor<commands_base::Resume>
 {
     using type = commands_base::Resume;
 
+    using Context = CommandSetBase;
+
+    using ParamTypes = std::tuple<>;
+
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_base::Resume",
-            /* .title       = */ "Resume",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Take the device out of idle mode.\n\nThe device responds with ACK upon success.",
             /* .parameters  = */ {},
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_base::Resume>::value > { using type = commands_base::Resume; };
+template<> struct TypeForDescriptor<commands_base::Resume::DESCRIPTOR.as_u16()> { using type = commands_base::Resume; };
 
 template<>
 struct MetadataFor<commands_base::GetExtendedDescriptors::Response>
 {
     using type = commands_base::GetExtendedDescriptors::Response;
 
+    using Context = commands_base::GetExtendedDescriptors;
+
+    using ParamTypes = std::tuple<
+        decltype(type::descriptors),
+        decltype(type::descriptors_count)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.descriptors;
+        if constexpr(I == 1) return value_.descriptors_count;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "descriptors",
@@ -311,43 +428,62 @@ struct MetadataFor<commands_base::GetExtendedDescriptors::Response>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_base::GetExtendedDescriptors::Response",
-            /* .title       = */ "response",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_base::GetExtendedDescriptors::Response>::value > { using type = commands_base::GetExtendedDescriptors::Response; };
 
 template<>
 struct MetadataFor<commands_base::GetExtendedDescriptors>
 {
     using type = commands_base::GetExtendedDescriptors;
 
+    using Context = CommandSetBase;
+
+    using ParamTypes = std::tuple<>;
+
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_base::GetExtendedDescriptors",
-            /* .title       = */ "Get device descriptors (extended)",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Get the command and data descriptors supported by the device.\n\nReply has two fields: 'ACK/NACK' and 'Descriptors'. The 'Descriptors' field is an array of 16 bit values.\nThe MSB specifies the descriptor set and the LSB specifies the descriptor.",
             /* .parameters  = */ {},
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_base::GetExtendedDescriptors>::value > { using type = commands_base::GetExtendedDescriptors; };
+template<> struct TypeForDescriptor<commands_base::GetExtendedDescriptors::DESCRIPTOR.as_u16()> { using type = commands_base::GetExtendedDescriptors; };
 
 template<>
 struct MetadataFor<commands_base::ContinuousBit::Response>
 {
     using type = commands_base::ContinuousBit::Response;
 
+    using Context = commands_base::ContinuousBit;
+
+    using ParamTypes = std::tuple<
+        decltype(type::result)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.result;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "result",
@@ -359,43 +495,64 @@ struct MetadataFor<commands_base::ContinuousBit::Response>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_base::ContinuousBit::Response",
-            /* .title       = */ "response",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_base::ContinuousBit::Response>::value > { using type = commands_base::ContinuousBit::Response; };
 
 template<>
 struct MetadataFor<commands_base::ContinuousBit>
 {
     using type = commands_base::ContinuousBit;
 
+    using Context = CommandSetBase;
+
+    using ParamTypes = std::tuple<>;
+
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_base::ContinuousBit",
-            /* .title       = */ "Continuous built-in test",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Report result of continuous built-in test.\n\nThis test is non-disruptive but is not as thorough as the commanded BIT.",
             /* .parameters  = */ {},
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_base::ContinuousBit>::value > { using type = commands_base::ContinuousBit; };
+template<> struct TypeForDescriptor<commands_base::ContinuousBit::DESCRIPTOR.as_u16()> { using type = commands_base::ContinuousBit; };
 
 template<>
 struct MetadataFor<commands_base::CommSpeed::Response>
 {
     using type = commands_base::CommSpeed::Response;
 
+    using Context = commands_base::CommSpeed;
+
+    using ParamTypes = std::tuple<
+        decltype(type::port),
+        decltype(type::baud)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.port;
+        if constexpr(I == 1) return value_.baud;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "port",
@@ -416,25 +573,41 @@ struct MetadataFor<commands_base::CommSpeed::Response>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_base::CommSpeed::Response",
-            /* .title       = */ "response",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_base::CommSpeed::Response>::value > { using type = commands_base::CommSpeed::Response; };
 
 template<>
 struct MetadataFor<commands_base::CommSpeed>
 {
     using type = commands_base::CommSpeed;
 
+    using Context = CommandSetBase;
+
+    using ParamTypes = std::tuple<
+        decltype(type::function),
+        decltype(type::port),
+        decltype(type::baud)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.function;
+        if constexpr(I == 1) return value_.port;
+        if constexpr(I == 2) return value_.baud;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         FUNCTION_SELECTOR_PARAM,
         {
@@ -456,19 +629,21 @@ struct MetadataFor<commands_base::CommSpeed>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_base::CommSpeed",
-            /* .title       = */ "Comm Port Speed",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Controls the baud rate of a specific port on the device.\n\nPlease see the device user manual for supported baud rates on each port.\n\nThe device will wait until all incoming and outgoing data has been sent, up\nto a maximum of 250 ms, before applying any change.\n\nNo guarantee is provided as to what happens to commands issued during this\ndelay period; They may or may not be processed and any responses aren't\nguaranteed to be at one rate or the other. The same applies to data packets.\n\nIt is highly recommended that the device be idle before issuing this command\nand that it be issued in its own packet. Users should wait 250 ms after\nsending this command before further interaction.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_base::CommSpeed>::value > { using type = commands_base::CommSpeed; };
+template<> struct TypeForDescriptor<commands_base::CommSpeed::DESCRIPTOR.as_u16()> { using type = commands_base::CommSpeed; };
 
 template<>
 struct MetadataFor<commands_base::GpsTimeUpdate::FieldId>
@@ -489,11 +664,28 @@ struct MetadataFor<commands_base::GpsTimeUpdate::FieldId>
 
 };
 
+template<> struct TypeForEnumInfo< &MetadataFor<commands_base::GpsTimeUpdate::FieldId>::value > { using type = commands_base::GpsTimeUpdate::FieldId; };
+
 template<>
 struct MetadataFor<commands_base::GpsTimeUpdate>
 {
     using type = commands_base::GpsTimeUpdate;
 
+    using Context = CommandSetBase;
+
+    using ParamTypes = std::tuple<
+        decltype(type::function),
+        decltype(type::field_id),
+        decltype(type::value)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.function;
+        if constexpr(I == 1) return value_.field_id;
+        if constexpr(I == 2) return value_.value;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         FUNCTION_SELECTOR_PARAM,
         {
@@ -515,37 +707,46 @@ struct MetadataFor<commands_base::GpsTimeUpdate>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_base::GpsTimeUpdate",
-            /* .title       = */ "GPS Time Update Command",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Set device internal GPS time\nWhen combined with a PPS input signal applied to the I/O connector, this command enables complete synchronization of data outputs\nwith an external time base, such as GPS system time. Since the hardware PPS synchronization can only detect the fractional number of seconds when pulses arrive,\ncomplete synchronization requires that the user provide the whole number of seconds via this command. After achieving PPS synchronization, this command should be sent twice: once to set the time-of-week and once to set the week number. PPS synchronization can be verified by monitoring the time sync status message (0xA0, 0x02) or the valid flags of any shared external timestamp (0x--, D7) data field.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, false, false, false, false},
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, false, false, false, false},
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_base::GpsTimeUpdate>::value > { using type = commands_base::GpsTimeUpdate; };
+template<> struct TypeForDescriptor<commands_base::GpsTimeUpdate::DESCRIPTOR.as_u16()> { using type = commands_base::GpsTimeUpdate; };
 
 template<>
 struct MetadataFor<commands_base::SoftReset>
 {
     using type = commands_base::SoftReset;
 
+    using Context = CommandSetBase;
+
+    using ParamTypes = std::tuple<>;
+
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_base::SoftReset",
-            /* .title       = */ "Reset device",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Resets the device.\n\nDevice responds with ACK and immediately resets.",
             /* .parameters  = */ {},
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_base::SoftReset>::value > { using type = commands_base::SoftReset; };
+template<> struct TypeForDescriptor<commands_base::SoftReset::DESCRIPTOR.as_u16()> { using type = commands_base::SoftReset; };
 
 
 static constexpr inline const FieldInfo* COMMANDS_BASE_FIELDS[] = {
@@ -568,11 +769,47 @@ static constexpr inline const FieldInfo* COMMANDS_BASE_FIELDS[] = {
     &MetadataFor<commands_base::CommSpeed::Response>::value,
 };
 
-static constexpr DescriptorSetInfo COMMANDS_BASE = {
-    /* .descriptor = */ mip::commands_base::DESCRIPTOR_SET,
-    /* .name       = */ "Base Commands",
-    /* .fields     = */ COMMANDS_BASE_FIELDS,
+struct CommandSetBase
+{
+    static inline constexpr uint8_t DESCRIPTOR_SET = commands_base::DESCRIPTOR_SET;
+    static inline constexpr CompositeDescriptor DESCRIPTOR = {DESCRIPTOR_SET, INVALID_FIELD_DESCRIPTOR};
+
+    using Fields = std::tuple<
+        ::mip::commands_base::Ping,
+        ::mip::commands_base::SetIdle,
+        ::mip::commands_base::GetDeviceInfo,
+        ::mip::commands_base::GetDeviceDescriptors,
+        ::mip::commands_base::BuiltInTest,
+        ::mip::commands_base::Resume,
+        ::mip::commands_base::GetExtendedDescriptors,
+        ::mip::commands_base::ContinuousBit,
+        ::mip::commands_base::CommSpeed,
+        ::mip::commands_base::GpsTimeUpdate,
+        ::mip::commands_base::SoftReset,
+        ::mip::commands_base::GetDeviceInfo::Response,
+        ::mip::commands_base::GetDeviceDescriptors::Response,
+        ::mip::commands_base::BuiltInTest::Response,
+        ::mip::commands_base::GetExtendedDescriptors::Response,
+        ::mip::commands_base::ContinuousBit::Response,
+        ::mip::commands_base::CommSpeed::Response
+    >;
 };
+
+template<>
+struct MetadataFor<CommandSetBase>
+{
+    using type = CommandSetBase;
+    
+    static inline constexpr DescriptorSetInfo value = {
+        /* .descriptor = */ commands_base::DESCRIPTOR_SET,
+        /* .name       = */ "commands_base",
+        /* .title      = */ "Base Commands",
+        /* .fields     = */ COMMANDS_BASE_FIELDS,
+    };
+};
+//template<> struct TypeForDescriptor< (commands_base::DESCRIPTOR_SET << 8) > { using type = CommandSetBase; };
+
+static constexpr const DescriptorSetInfo& COMMANDS_BASE = MetadataFor<CommandSetBase>::value;
 
 } // namespace mip::metadata
 

@@ -8,12 +8,29 @@
 namespace mip::metadata
 {
 
+struct CommandSetGnss;
+
 
 template<>
 struct MetadataFor<commands_gnss::ReceiverInfo::Info>
 {
     using type = commands_gnss::ReceiverInfo::Info;
 
+    using Context = commands_gnss::ReceiverInfo;
+
+    using ParamTypes = std::tuple<
+        decltype(type::receiver_id),
+        decltype(type::mip_data_descriptor_set),
+        decltype(type::description)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.receiver_id;
+        if constexpr(I == 1) return value_.mip_data_descriptor_set;
+        if constexpr(I == 2) return value_.description;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "receiver_id",
@@ -43,7 +60,6 @@ struct MetadataFor<commands_gnss::ReceiverInfo::Info>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline StructInfo value = {
         /* .name        = */ "Info",
         /* .title       = */ "Info",
@@ -52,11 +68,26 @@ struct MetadataFor<commands_gnss::ReceiverInfo::Info>
     };
 };
 
+template<> struct TypeForStructInfo< &MetadataFor<commands_gnss::ReceiverInfo::Info>::value > { using type = commands_gnss::ReceiverInfo::Info; };
+
 template<>
 struct MetadataFor<commands_gnss::ReceiverInfo::Response>
 {
     using type = commands_gnss::ReceiverInfo::Response;
 
+    using Context = commands_gnss::ReceiverInfo;
+
+    using ParamTypes = std::tuple<
+        decltype(type::num_receivers),
+        decltype(type::receiver_info)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.num_receivers;
+        if constexpr(I == 1) return value_.receiver_info;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "num_receivers",
@@ -77,43 +108,70 @@ struct MetadataFor<commands_gnss::ReceiverInfo::Response>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_gnss::ReceiverInfo::Response",
-            /* .title       = */ "response",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_gnss::ReceiverInfo::Response>::value > { using type = commands_gnss::ReceiverInfo::Response; };
 
 template<>
 struct MetadataFor<commands_gnss::ReceiverInfo>
 {
     using type = commands_gnss::ReceiverInfo;
 
+    using Context = CommandSetGnss;
+
+    using ParamTypes = std::tuple<>;
+
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_gnss::ReceiverInfo",
-            /* .title       = */ "receiver_info",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Return information about the GNSS receivers in the device.\n",
             /* .parameters  = */ {},
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_gnss::ReceiverInfo>::value > { using type = commands_gnss::ReceiverInfo; };
+template<> struct TypeForDescriptor<commands_gnss::ReceiverInfo::DESCRIPTOR.as_u16()> { using type = commands_gnss::ReceiverInfo; };
 
 template<>
 struct MetadataFor<commands_gnss::SignalConfiguration::Response>
 {
     using type = commands_gnss::SignalConfiguration::Response;
 
+    using Context = commands_gnss::SignalConfiguration;
+
+    using ParamTypes = std::tuple<
+        decltype(type::gps_enable),
+        decltype(type::glonass_enable),
+        decltype(type::galileo_enable),
+        decltype(type::beidou_enable),
+        decltype(type::reserved)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.gps_enable;
+        if constexpr(I == 1) return value_.glonass_enable;
+        if constexpr(I == 2) return value_.galileo_enable;
+        if constexpr(I == 3) return value_.beidou_enable;
+        if constexpr(I == 4) return value_.reserved;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "gps_enable",
@@ -161,25 +219,47 @@ struct MetadataFor<commands_gnss::SignalConfiguration::Response>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_gnss::SignalConfiguration::Response",
-            /* .title       = */ "response",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_gnss::SignalConfiguration::Response>::value > { using type = commands_gnss::SignalConfiguration::Response; };
 
 template<>
 struct MetadataFor<commands_gnss::SignalConfiguration>
 {
     using type = commands_gnss::SignalConfiguration;
 
+    using Context = CommandSetGnss;
+
+    using ParamTypes = std::tuple<
+        decltype(type::function),
+        decltype(type::gps_enable),
+        decltype(type::glonass_enable),
+        decltype(type::galileo_enable),
+        decltype(type::beidou_enable),
+        decltype(type::reserved)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.function;
+        if constexpr(I == 1) return value_.gps_enable;
+        if constexpr(I == 2) return value_.glonass_enable;
+        if constexpr(I == 3) return value_.galileo_enable;
+        if constexpr(I == 4) return value_.beidou_enable;
+        if constexpr(I == 5) return value_.reserved;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         FUNCTION_SELECTOR_PARAM,
         {
@@ -228,25 +308,153 @@ struct MetadataFor<commands_gnss::SignalConfiguration>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_gnss::SignalConfiguration",
-            /* .title       = */ "signal_configuration",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Configure the GNSS signals used by the device.\n",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_gnss::SignalConfiguration>::value > { using type = commands_gnss::SignalConfiguration; };
+template<> struct TypeForDescriptor<commands_gnss::SignalConfiguration::DESCRIPTOR.as_u16()> { using type = commands_gnss::SignalConfiguration; };
+
+template<>
+struct MetadataFor<commands_gnss::GnssReceiverId>
+{
+    using type = commands_gnss::GnssReceiverId;
+
+    static constexpr inline EnumInfo::Entry entries[] = {
+        { uint32_t(0), "ALL", "All receivers (for commands which support this)" },
+        { uint32_t(1), "INTERNAL_RECV_1", "" },
+        { uint32_t(2), "INTERNAL_RECV_2", "" },
+        { uint32_t(4), "USER_RECV_1", "" },
+        { uint32_t(5), "USER_RECV_2", "" },
+    };
+
+    static constexpr inline EnumInfo value = {
+        /* .name    = */ "GnssReceiverId",
+        /* .docs    = */ "",
+        /* .type    = */ Type::U8,
+        /* .entries = */ entries,
+    };
+
+};
+
+template<> struct TypeForEnumInfo< &MetadataFor<commands_gnss::GnssReceiverId>::value > { using type = commands_gnss::GnssReceiverId; };
+
+template<>
+struct MetadataFor<commands_gnss::ReceiverReset::ResetType>
+{
+    using type = commands_gnss::ReceiverReset::ResetType;
+
+    static constexpr inline EnumInfo::Entry entries[] = {
+        { uint32_t(1), "HARDWARE", "Hardware-level reset of the gnss receiver." },
+        { uint32_t(2), "COLD", "Full gnss receiver software reset." },
+        { uint32_t(3), "WARM", "Only restarts receiver positioning engine." },
+        { uint32_t(4), "HOT", "Restarts receiver positioning and clears satellite data (ephemeris/almanac)." },
+    };
+
+    static constexpr inline EnumInfo value = {
+        /* .name    = */ "ResetType",
+        /* .docs    = */ "",
+        /* .type    = */ Type::U8,
+        /* .entries = */ entries,
+    };
+
+};
+
+template<> struct TypeForEnumInfo< &MetadataFor<commands_gnss::ReceiverReset::ResetType>::value > { using type = commands_gnss::ReceiverReset::ResetType; };
+
+template<>
+struct MetadataFor<commands_gnss::ReceiverReset>
+{
+    using type = commands_gnss::ReceiverReset;
+
+    using Context = CommandSetGnss;
+
+    using ParamTypes = std::tuple<
+        decltype(type::receiver_id),
+        decltype(type::reset_type)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.receiver_id;
+        if constexpr(I == 1) return value_.reset_type;
+    }
+    
+    static constexpr inline ParameterInfo parameters[] = {
+        {
+            /* .name          = */ "receiver_id",
+            /* .docs          = */ "Receiver ID - Only internal receivers are supported.",
+            /* .type          = */ {Type::ENUM, &MetadataFor<commands_gnss::GnssReceiverId>::value},
+            /* .accessor      = */ nullptr, //utils::access<type, commands_gnss::GnssReceiverId, &type::receiver_id>,
+            /* .attributes    = */ {true, false, false, false, false},
+            /* .count         = */ 1,
+            /* .condition     = */ {},
+        },
+        {
+            /* .name          = */ "reset_type",
+            /* .docs          = */ "Reset level - Some devices may not support certain ResetType options.",
+            /* .type          = */ {Type::ENUM, &MetadataFor<commands_gnss::ReceiverReset::ResetType>::value},
+            /* .accessor      = */ nullptr, //utils::access<type, commands_gnss::ReceiverReset::ResetType, &type::reset_type>,
+            /* .attributes    = */ {true, false, false, false, false},
+            /* .count         = */ 1,
+            /* .condition     = */ {},
+        },
+    };
+    static constexpr inline FieldInfo value = {
+        {
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
+            /* .docs        = */ "Reset GNSS receiver(s).\n",
+            /* .parameters  = */ parameters,
+        },
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
+    };
+};
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_gnss::ReceiverReset>::value > { using type = commands_gnss::ReceiverReset; };
+template<> struct TypeForDescriptor<commands_gnss::ReceiverReset::DESCRIPTOR.as_u16()> { using type = commands_gnss::ReceiverReset; };
 
 template<>
 struct MetadataFor<commands_gnss::SpartnConfiguration::Response>
 {
     using type = commands_gnss::SpartnConfiguration::Response;
 
+    using Context = commands_gnss::SpartnConfiguration;
+
+    using ParamTypes = std::tuple<
+        decltype(type::enable),
+        decltype(type::type),
+        decltype(type::current_key_tow),
+        decltype(type::current_key_week),
+        decltype(type::current_key),
+        decltype(type::next_key_tow),
+        decltype(type::next_key_week),
+        decltype(type::next_key)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.enable;
+        if constexpr(I == 1) return value_.type;
+        if constexpr(I == 2) return value_.current_key_tow;
+        if constexpr(I == 3) return value_.current_key_week;
+        if constexpr(I == 4) return value_.current_key;
+        if constexpr(I == 5) return value_.next_key_tow;
+        if constexpr(I == 6) return value_.next_key_week;
+        if constexpr(I == 7) return value_.next_key;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "enable",
@@ -321,25 +529,53 @@ struct MetadataFor<commands_gnss::SpartnConfiguration::Response>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_gnss::SpartnConfiguration::Response",
-            /* .title       = */ "response",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_gnss::SpartnConfiguration::Response>::value > { using type = commands_gnss::SpartnConfiguration::Response; };
 
 template<>
 struct MetadataFor<commands_gnss::SpartnConfiguration>
 {
     using type = commands_gnss::SpartnConfiguration;
 
+    using Context = CommandSetGnss;
+
+    using ParamTypes = std::tuple<
+        decltype(type::function),
+        decltype(type::enable),
+        decltype(type::type),
+        decltype(type::current_key_tow),
+        decltype(type::current_key_week),
+        decltype(type::current_key),
+        decltype(type::next_key_tow),
+        decltype(type::next_key_week),
+        decltype(type::next_key)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.function;
+        if constexpr(I == 1) return value_.enable;
+        if constexpr(I == 2) return value_.type;
+        if constexpr(I == 3) return value_.current_key_tow;
+        if constexpr(I == 4) return value_.current_key_week;
+        if constexpr(I == 5) return value_.current_key;
+        if constexpr(I == 6) return value_.next_key_tow;
+        if constexpr(I == 7) return value_.next_key_week;
+        if constexpr(I == 8) return value_.next_key;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         FUNCTION_SELECTOR_PARAM,
         {
@@ -415,25 +651,40 @@ struct MetadataFor<commands_gnss::SpartnConfiguration>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_gnss::SpartnConfiguration",
-            /* .title       = */ "spartn_configuration",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Configure the SPARTN corrections service parameters.\nNotes:<br/>\n- Enable and type settings will only update after a power cycle <br/>\n- Type settings will only take effect after a power cycle <br/>\n- Key information can be updated while running",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_gnss::SpartnConfiguration>::value > { using type = commands_gnss::SpartnConfiguration; };
+template<> struct TypeForDescriptor<commands_gnss::SpartnConfiguration::DESCRIPTOR.as_u16()> { using type = commands_gnss::SpartnConfiguration; };
 
 template<>
 struct MetadataFor<commands_gnss::RtkDongleConfiguration::Response>
 {
     using type = commands_gnss::RtkDongleConfiguration::Response;
 
+    using Context = commands_gnss::RtkDongleConfiguration;
+
+    using ParamTypes = std::tuple<
+        decltype(type::enable),
+        decltype(type::reserved)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.enable;
+        if constexpr(I == 1) return value_.reserved;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "enable",
@@ -454,25 +705,41 @@ struct MetadataFor<commands_gnss::RtkDongleConfiguration::Response>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_gnss::RtkDongleConfiguration::Response",
-            /* .title       = */ "response",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_gnss::RtkDongleConfiguration::Response>::value > { using type = commands_gnss::RtkDongleConfiguration::Response; };
 
 template<>
 struct MetadataFor<commands_gnss::RtkDongleConfiguration>
 {
     using type = commands_gnss::RtkDongleConfiguration;
 
+    using Context = CommandSetGnss;
+
+    using ParamTypes = std::tuple<
+        decltype(type::function),
+        decltype(type::enable),
+        decltype(type::reserved)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.function;
+        if constexpr(I == 1) return value_.enable;
+        if constexpr(I == 2) return value_.reserved;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         FUNCTION_SELECTOR_PARAM,
         {
@@ -494,37 +761,205 @@ struct MetadataFor<commands_gnss::RtkDongleConfiguration>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_gnss::RtkDongleConfiguration",
-            /* .title       = */ "rtk_dongle_configuration",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Configure the communications with the RTK Dongle connected to the device.\n",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_gnss::RtkDongleConfiguration>::value > { using type = commands_gnss::RtkDongleConfiguration; };
+template<> struct TypeForDescriptor<commands_gnss::RtkDongleConfiguration::DESCRIPTOR.as_u16()> { using type = commands_gnss::RtkDongleConfiguration; };
+
+template<>
+struct MetadataFor<commands_gnss::RtkConfiguration::AmbiguityFixMode>
+{
+    using type = commands_gnss::RtkConfiguration::AmbiguityFixMode;
+
+    static constexpr inline EnumInfo::Entry entries[] = {
+        { uint32_t(1), "OFF", "No attempt is made to fix RTK integer ambiguity" },
+        { uint32_t(2), "CONSERVATIVE", "Conservative ambiguity resolution." },
+        { uint32_t(3), "MODERATE", "Moderate ambiguity resolution." },
+        { uint32_t(4), "AGGRESSIVE", "Ambiguities are fixed whenever possible." },
+    };
+
+    static constexpr inline EnumInfo value = {
+        /* .name    = */ "AmbiguityFixMode",
+        /* .docs    = */ "",
+        /* .type    = */ Type::U8,
+        /* .entries = */ entries,
+    };
+
+};
+
+template<> struct TypeForEnumInfo< &MetadataFor<commands_gnss::RtkConfiguration::AmbiguityFixMode>::value > { using type = commands_gnss::RtkConfiguration::AmbiguityFixMode; };
+
+template<>
+struct MetadataFor<commands_gnss::RtkConfiguration::Response>
+{
+    using type = commands_gnss::RtkConfiguration::Response;
+
+    using Context = commands_gnss::RtkConfiguration;
+
+    using ParamTypes = std::tuple<
+        decltype(type::ambiguity_fix_mode),
+        decltype(type::reserved)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.ambiguity_fix_mode;
+        if constexpr(I == 1) return value_.reserved;
+    }
+    
+    static constexpr inline ParameterInfo parameters[] = {
+        {
+            /* .name          = */ "ambiguity_fix_mode",
+            /* .docs          = */ "Ambiguity fix mode, see device user manual for specific details on supported modes.",
+            /* .type          = */ {Type::ENUM, &MetadataFor<commands_gnss::RtkConfiguration::AmbiguityFixMode>::value},
+            /* .accessor      = */ nullptr, //utils::access<type, commands_gnss::RtkConfiguration::AmbiguityFixMode, &type::ambiguity_fix_mode>,
+            /* .attributes    = */ {true, false, false, false, false},
+            /* .count         = */ 1,
+            /* .condition     = */ {},
+        },
+        {
+            /* .name          = */ "reserved",
+            /* .docs          = */ "",
+            /* .type          = */ {Type::U8, nullptr},
+            /* .accessor      = */ nullptr, //utils::access<type, uint8_t, &type::reserved>,
+            /* .attributes    = */ {true, false, false, false, false},
+            /* .count         = */ 4,
+            /* .condition     = */ {},
+        },
+    };
+    static constexpr inline FieldInfo value = {
+        {
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
+            /* .docs        = */ "",
+            /* .parameters  = */ parameters,
+        },
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
+    };
+};
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_gnss::RtkConfiguration::Response>::value > { using type = commands_gnss::RtkConfiguration::Response; };
+
+template<>
+struct MetadataFor<commands_gnss::RtkConfiguration>
+{
+    using type = commands_gnss::RtkConfiguration;
+
+    using Context = CommandSetGnss;
+
+    using ParamTypes = std::tuple<
+        decltype(type::function),
+        decltype(type::ambiguity_fix_mode),
+        decltype(type::reserved)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.function;
+        if constexpr(I == 1) return value_.ambiguity_fix_mode;
+        if constexpr(I == 2) return value_.reserved;
+    }
+    
+    static constexpr inline ParameterInfo parameters[] = {
+        FUNCTION_SELECTOR_PARAM,
+        {
+            /* .name          = */ "ambiguity_fix_mode",
+            /* .docs          = */ "Ambiguity fix mode, see device user manual for specific details on supported modes.",
+            /* .type          = */ {Type::ENUM, &MetadataFor<commands_gnss::RtkConfiguration::AmbiguityFixMode>::value},
+            /* .accessor      = */ nullptr, //utils::access<type, commands_gnss::RtkConfiguration::AmbiguityFixMode, &type::ambiguity_fix_mode>,
+            /* .attributes    = */ {true, false, false, false, false},
+            /* .count         = */ 1,
+            /* .condition     = */ {},
+        },
+        {
+            /* .name          = */ "reserved",
+            /* .docs          = */ "",
+            /* .type          = */ {Type::U8, nullptr},
+            /* .accessor      = */ nullptr, //utils::access<type, uint8_t, &type::reserved>,
+            /* .attributes    = */ {true, false, false, false, false},
+            /* .count         = */ 4,
+            /* .condition     = */ {},
+        },
+    };
+    static constexpr inline FieldInfo value = {
+        {
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
+            /* .docs        = */ "Configure the RTK settings used by the device.\n",
+            /* .parameters  = */ parameters,
+        },
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
+    };
+};
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_gnss::RtkConfiguration>::value > { using type = commands_gnss::RtkConfiguration; };
+template<> struct TypeForDescriptor<commands_gnss::RtkConfiguration::DESCRIPTOR.as_u16()> { using type = commands_gnss::RtkConfiguration; };
 
 
 static constexpr inline const FieldInfo* COMMANDS_GNSS_FIELDS[] = {
     &MetadataFor<commands_gnss::ReceiverInfo>::value,
     &MetadataFor<commands_gnss::SignalConfiguration>::value,
+    &MetadataFor<commands_gnss::ReceiverReset>::value,
+    &MetadataFor<commands_gnss::RtkConfiguration>::value,
     &MetadataFor<commands_gnss::RtkDongleConfiguration>::value,
     &MetadataFor<commands_gnss::SpartnConfiguration>::value,
     &MetadataFor<commands_gnss::ReceiverInfo::Response>::value,
     &MetadataFor<commands_gnss::SignalConfiguration::Response>::value,
+    &MetadataFor<commands_gnss::RtkConfiguration::Response>::value,
     &MetadataFor<commands_gnss::RtkDongleConfiguration::Response>::value,
     &MetadataFor<commands_gnss::SpartnConfiguration::Response>::value,
 };
 
-static constexpr DescriptorSetInfo COMMANDS_GNSS = {
-    /* .descriptor = */ mip::commands_gnss::DESCRIPTOR_SET,
-    /* .name       = */ "Gnss Commands",
-    /* .fields     = */ COMMANDS_GNSS_FIELDS,
+struct CommandSetGnss
+{
+    static inline constexpr uint8_t DESCRIPTOR_SET = commands_gnss::DESCRIPTOR_SET;
+    static inline constexpr CompositeDescriptor DESCRIPTOR = {DESCRIPTOR_SET, INVALID_FIELD_DESCRIPTOR};
+
+    using Fields = std::tuple<
+        ::mip::commands_gnss::ReceiverInfo,
+        ::mip::commands_gnss::SignalConfiguration,
+        ::mip::commands_gnss::ReceiverReset,
+        ::mip::commands_gnss::RtkConfiguration,
+        ::mip::commands_gnss::RtkDongleConfiguration,
+        ::mip::commands_gnss::SpartnConfiguration,
+        ::mip::commands_gnss::ReceiverInfo::Response,
+        ::mip::commands_gnss::SignalConfiguration::Response,
+        ::mip::commands_gnss::RtkConfiguration::Response,
+        ::mip::commands_gnss::RtkDongleConfiguration::Response,
+        ::mip::commands_gnss::SpartnConfiguration::Response
+    >;
 };
+
+template<>
+struct MetadataFor<CommandSetGnss>
+{
+    using type = CommandSetGnss;
+    
+    static inline constexpr DescriptorSetInfo value = {
+        /* .descriptor = */ commands_gnss::DESCRIPTOR_SET,
+        /* .name       = */ "commands_gnss",
+        /* .title      = */ "Gnss Commands",
+        /* .fields     = */ COMMANDS_GNSS_FIELDS,
+    };
+};
+//template<> struct TypeForDescriptor< (commands_gnss::DESCRIPTOR_SET << 8) > { using type = CommandSetGnss; };
+
+static constexpr const DescriptorSetInfo& COMMANDS_GNSS = MetadataFor<CommandSetGnss>::value;
 
 } // namespace mip::metadata
 

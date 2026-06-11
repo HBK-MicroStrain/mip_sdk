@@ -8,12 +8,25 @@
 namespace mip::metadata
 {
 
+struct DataSetSensor;
+
 
 template<>
 struct MetadataFor<data_sensor::RawAccel>
 {
     using type = data_sensor::RawAccel;
 
+    using Context = DataSetSensor;
+
+    using ParamTypes = std::tuple<
+        decltype(type::raw_accel)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.raw_accel;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "raw_accel",
@@ -25,25 +38,38 @@ struct MetadataFor<data_sensor::RawAccel>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_sensor::RawAccel",
-            /* .title       = */ "raw_accel",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Three element vector representing the sensed acceleration.\nThis quantity is temperature compensated and expressed in the sensor body frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_sensor::RawAccel>::value > { using type = data_sensor::RawAccel; };
+template<> struct TypeForDescriptor<data_sensor::RawAccel::DESCRIPTOR.as_u16()> { using type = data_sensor::RawAccel; };
 
 template<>
 struct MetadataFor<data_sensor::RawGyro>
 {
     using type = data_sensor::RawGyro;
 
+    using Context = DataSetSensor;
+
+    using ParamTypes = std::tuple<
+        decltype(type::raw_gyro)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.raw_gyro;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "raw_gyro",
@@ -55,25 +81,38 @@ struct MetadataFor<data_sensor::RawGyro>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_sensor::RawGyro",
-            /* .title       = */ "raw_gyro",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Three element vector representing the sensed angular rate.\nThis quantity is temperature compensated and expressed in the sensor body frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_sensor::RawGyro>::value > { using type = data_sensor::RawGyro; };
+template<> struct TypeForDescriptor<data_sensor::RawGyro::DESCRIPTOR.as_u16()> { using type = data_sensor::RawGyro; };
 
 template<>
 struct MetadataFor<data_sensor::RawMag>
 {
     using type = data_sensor::RawMag;
 
+    using Context = DataSetSensor;
+
+    using ParamTypes = std::tuple<
+        decltype(type::raw_mag)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.raw_mag;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "raw_mag",
@@ -85,25 +124,38 @@ struct MetadataFor<data_sensor::RawMag>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_sensor::RawMag",
-            /* .title       = */ "raw_mag",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Three element vector representing the sensed magnetic field.\nThis quantity is temperature compensated and expressed in the vehicle frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_sensor::RawMag>::value > { using type = data_sensor::RawMag; };
+template<> struct TypeForDescriptor<data_sensor::RawMag::DESCRIPTOR.as_u16()> { using type = data_sensor::RawMag; };
 
 template<>
 struct MetadataFor<data_sensor::RawPressure>
 {
     using type = data_sensor::RawPressure;
 
+    using Context = DataSetSensor;
+
+    using ParamTypes = std::tuple<
+        decltype(type::raw_pressure)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.raw_pressure;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "raw_pressure",
@@ -115,25 +167,38 @@ struct MetadataFor<data_sensor::RawPressure>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_sensor::RawPressure",
-            /* .title       = */ "raw_pressure",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Scalar value representing the sensed ambient pressure.\nThis quantity is temperature compensated.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_sensor::RawPressure>::value > { using type = data_sensor::RawPressure; };
+template<> struct TypeForDescriptor<data_sensor::RawPressure::DESCRIPTOR.as_u16()> { using type = data_sensor::RawPressure; };
 
 template<>
 struct MetadataFor<data_sensor::ScaledAccel>
 {
     using type = data_sensor::ScaledAccel;
 
+    using Context = DataSetSensor;
+
+    using ParamTypes = std::tuple<
+        decltype(type::scaled_accel)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.scaled_accel;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "scaled_accel",
@@ -145,25 +210,38 @@ struct MetadataFor<data_sensor::ScaledAccel>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_sensor::ScaledAccel",
-            /* .title       = */ "scaled_accel",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "3-element vector representing the sensed acceleration.\nThis quantity is temperature compensated and expressed in the vehicle frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_sensor::ScaledAccel>::value > { using type = data_sensor::ScaledAccel; };
+template<> struct TypeForDescriptor<data_sensor::ScaledAccel::DESCRIPTOR.as_u16()> { using type = data_sensor::ScaledAccel; };
 
 template<>
 struct MetadataFor<data_sensor::ScaledGyro>
 {
     using type = data_sensor::ScaledGyro;
 
+    using Context = DataSetSensor;
+
+    using ParamTypes = std::tuple<
+        decltype(type::scaled_gyro)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.scaled_gyro;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "scaled_gyro",
@@ -175,25 +253,38 @@ struct MetadataFor<data_sensor::ScaledGyro>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_sensor::ScaledGyro",
-            /* .title       = */ "scaled_gyro",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "3-element vector representing the sensed angular rate.\nThis quantity is temperature compensated and expressed in the vehicle frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_sensor::ScaledGyro>::value > { using type = data_sensor::ScaledGyro; };
+template<> struct TypeForDescriptor<data_sensor::ScaledGyro::DESCRIPTOR.as_u16()> { using type = data_sensor::ScaledGyro; };
 
 template<>
 struct MetadataFor<data_sensor::ScaledMag>
 {
     using type = data_sensor::ScaledMag;
 
+    using Context = DataSetSensor;
+
+    using ParamTypes = std::tuple<
+        decltype(type::scaled_mag)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.scaled_mag;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "scaled_mag",
@@ -205,25 +296,38 @@ struct MetadataFor<data_sensor::ScaledMag>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_sensor::ScaledMag",
-            /* .title       = */ "scaled_mag",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "3-element vector representing the sensed magnetic field.\nThis quantity is temperature compensated and expressed in the vehicle frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_sensor::ScaledMag>::value > { using type = data_sensor::ScaledMag; };
+template<> struct TypeForDescriptor<data_sensor::ScaledMag::DESCRIPTOR.as_u16()> { using type = data_sensor::ScaledMag; };
 
 template<>
 struct MetadataFor<data_sensor::ScaledPressure>
 {
     using type = data_sensor::ScaledPressure;
 
+    using Context = DataSetSensor;
+
+    using ParamTypes = std::tuple<
+        decltype(type::scaled_pressure)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.scaled_pressure;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "scaled_pressure",
@@ -235,25 +339,38 @@ struct MetadataFor<data_sensor::ScaledPressure>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_sensor::ScaledPressure",
-            /* .title       = */ "scaled_pressure",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Scalar value representing the sensed ambient pressure.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_sensor::ScaledPressure>::value > { using type = data_sensor::ScaledPressure; };
+template<> struct TypeForDescriptor<data_sensor::ScaledPressure::DESCRIPTOR.as_u16()> { using type = data_sensor::ScaledPressure; };
 
 template<>
 struct MetadataFor<data_sensor::DeltaTheta>
 {
     using type = data_sensor::DeltaTheta;
 
+    using Context = DataSetSensor;
+
+    using ParamTypes = std::tuple<
+        decltype(type::delta_theta)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.delta_theta;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "delta_theta",
@@ -265,25 +382,38 @@ struct MetadataFor<data_sensor::DeltaTheta>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_sensor::DeltaTheta",
-            /* .title       = */ "delta_theta",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "3-element vector representing the time integral of angular rate.\nThis quantity is the integral of sensed angular rate over the period set by the IMU message format.  It is expressed in the vehicle frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_sensor::DeltaTheta>::value > { using type = data_sensor::DeltaTheta; };
+template<> struct TypeForDescriptor<data_sensor::DeltaTheta::DESCRIPTOR.as_u16()> { using type = data_sensor::DeltaTheta; };
 
 template<>
 struct MetadataFor<data_sensor::DeltaVelocity>
 {
     using type = data_sensor::DeltaVelocity;
 
+    using Context = DataSetSensor;
+
+    using ParamTypes = std::tuple<
+        decltype(type::delta_velocity)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.delta_velocity;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "delta_velocity",
@@ -295,25 +425,38 @@ struct MetadataFor<data_sensor::DeltaVelocity>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_sensor::DeltaVelocity",
-            /* .title       = */ "delta_velocity",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "3-element vector representing the time integral of acceleration.\nThis quantity is the integral of sensed acceleration over the period set by the IMU message format.  It is expressed in the vehicle frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_sensor::DeltaVelocity>::value > { using type = data_sensor::DeltaVelocity; };
+template<> struct TypeForDescriptor<data_sensor::DeltaVelocity::DESCRIPTOR.as_u16()> { using type = data_sensor::DeltaVelocity; };
 
 template<>
 struct MetadataFor<data_sensor::CompOrientationMatrix>
 {
     using type = data_sensor::CompOrientationMatrix;
 
+    using Context = DataSetSensor;
+
+    using ParamTypes = std::tuple<
+        decltype(type::m)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.m;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "m",
@@ -325,25 +468,38 @@ struct MetadataFor<data_sensor::CompOrientationMatrix>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_sensor::CompOrientationMatrix",
-            /* .title       = */ "Complementary Filter Orientation Matrix",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "3x3 Direction Cosine Matrix EQSTART M_{ned}^{veh} EQEND describing the orientation of the device with respect to the NED local-level frame.\nThis matrix satisfies the following relationship:\n\nEQSTART v^{veh} = M_{ned}^{veh} v^{ned} EQEND<br/>\n\nWhere:<br/>\n\nEQSTART v^{ned} EQEND is a 3-element vector expressed in the NED frame. <br/>\nEQSTART v^{veh} EQEND is the same 3-element vector expressed in the vehicle frame.  <br/>\n<br/>\nThe matrix elements are stored is row-major order: EQSTART M = \\begin{bmatrix} M_{11}, M_{12}, M_{13}, M_{21}, M_{22}, M_{23}, M_{31}, M_{32}, M_{33} \\end{bmatrix} EQEND",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_sensor::CompOrientationMatrix>::value > { using type = data_sensor::CompOrientationMatrix; };
+template<> struct TypeForDescriptor<data_sensor::CompOrientationMatrix::DESCRIPTOR.as_u16()> { using type = data_sensor::CompOrientationMatrix; };
 
 template<>
 struct MetadataFor<data_sensor::CompQuaternion>
 {
     using type = data_sensor::CompQuaternion;
 
+    using Context = DataSetSensor;
+
+    using ParamTypes = std::tuple<
+        decltype(type::q)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.q;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "q",
@@ -355,25 +511,42 @@ struct MetadataFor<data_sensor::CompQuaternion>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_sensor::CompQuaternion",
-            /* .title       = */ "Complementary Filter Quaternion",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "4x1 vector representation of the quaternion describing the orientation of the device with respect to the NED local-level frame.\nThis quaternion satisfies the following relationship:\n\nEQSTART p^{veh} = q^{-1} p^{ned} q EQEND<br/>\n\nWhere:<br/>\nEQSTART q = (q_w, q_x, q_y, q_z) EQEND is the quaternion describing the rotation. <br/>\nEQSTART p^ned = (0, v^{ned}_x, v^{ned}_y, v^{ned}_z) EQEND and EQSTART v^{ned} EQEND is a 3-element vector expressed in the NED frame.<br/>\nEQSTART p^veh = (0, v^{veh}_x, v^{veh}_y, v^{veh}_z) EQEND and EQSTART v^{veh} EQEND is a 3-element vector expressed in the vehicle frame.<br/>",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_sensor::CompQuaternion>::value > { using type = data_sensor::CompQuaternion; };
+template<> struct TypeForDescriptor<data_sensor::CompQuaternion::DESCRIPTOR.as_u16()> { using type = data_sensor::CompQuaternion; };
 
 template<>
 struct MetadataFor<data_sensor::CompEulerAngles>
 {
     using type = data_sensor::CompEulerAngles;
 
+    using Context = DataSetSensor;
+
+    using ParamTypes = std::tuple<
+        decltype(type::roll),
+        decltype(type::pitch),
+        decltype(type::yaw)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.roll;
+        if constexpr(I == 1) return value_.pitch;
+        if constexpr(I == 2) return value_.yaw;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "roll",
@@ -403,25 +576,38 @@ struct MetadataFor<data_sensor::CompEulerAngles>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_sensor::CompEulerAngles",
-            /* .title       = */ "Complementary Filter Euler Angles",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Euler angles describing the orientation of the device with respect to the NED local-level frame.\nThe Euler angles are reported in 3-2-1 (Yaw-Pitch-Roll, AKA Aircraft) order.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_sensor::CompEulerAngles>::value > { using type = data_sensor::CompEulerAngles; };
+template<> struct TypeForDescriptor<data_sensor::CompEulerAngles::DESCRIPTOR.as_u16()> { using type = data_sensor::CompEulerAngles; };
 
 template<>
 struct MetadataFor<data_sensor::CompOrientationUpdateMatrix>
 {
     using type = data_sensor::CompOrientationUpdateMatrix;
 
+    using Context = DataSetSensor;
+
+    using ParamTypes = std::tuple<
+        decltype(type::m)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.m;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "m",
@@ -433,25 +619,38 @@ struct MetadataFor<data_sensor::CompOrientationUpdateMatrix>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_sensor::CompOrientationUpdateMatrix",
-            /* .title       = */ "Complementary Filter Orientation Update Matrix",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "DEPRECATED!",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_sensor::CompOrientationUpdateMatrix>::value > { using type = data_sensor::CompOrientationUpdateMatrix; };
+template<> struct TypeForDescriptor<data_sensor::CompOrientationUpdateMatrix::DESCRIPTOR.as_u16()> { using type = data_sensor::CompOrientationUpdateMatrix; };
 
 template<>
 struct MetadataFor<data_sensor::OrientationRawTemp>
 {
     using type = data_sensor::OrientationRawTemp;
 
+    using Context = DataSetSensor;
+
+    using ParamTypes = std::tuple<
+        decltype(type::raw_temp)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.raw_temp;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "raw_temp",
@@ -463,25 +662,38 @@ struct MetadataFor<data_sensor::OrientationRawTemp>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_sensor::OrientationRawTemp",
-            /* .title       = */ "orientation_raw_temp",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "DEPRECATED!",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_sensor::OrientationRawTemp>::value > { using type = data_sensor::OrientationRawTemp; };
+template<> struct TypeForDescriptor<data_sensor::OrientationRawTemp::DESCRIPTOR.as_u16()> { using type = data_sensor::OrientationRawTemp; };
 
 template<>
 struct MetadataFor<data_sensor::InternalTimestamp>
 {
     using type = data_sensor::InternalTimestamp;
 
+    using Context = DataSetSensor;
+
+    using ParamTypes = std::tuple<
+        decltype(type::counts)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.counts;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "counts",
@@ -493,25 +705,40 @@ struct MetadataFor<data_sensor::InternalTimestamp>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_sensor::InternalTimestamp",
-            /* .title       = */ "internal_timestamp",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "DEPRECATED!",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_sensor::InternalTimestamp>::value > { using type = data_sensor::InternalTimestamp; };
+template<> struct TypeForDescriptor<data_sensor::InternalTimestamp::DESCRIPTOR.as_u16()> { using type = data_sensor::InternalTimestamp; };
 
 template<>
 struct MetadataFor<data_sensor::PpsTimestamp>
 {
     using type = data_sensor::PpsTimestamp;
 
+    using Context = DataSetSensor;
+
+    using ParamTypes = std::tuple<
+        decltype(type::seconds),
+        decltype(type::useconds)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.seconds;
+        if constexpr(I == 1) return value_.useconds;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "seconds",
@@ -532,19 +759,21 @@ struct MetadataFor<data_sensor::PpsTimestamp>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_sensor::PpsTimestamp",
-            /* .title       = */ "PPS Timestamp",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "DEPRECATED!",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_sensor::PpsTimestamp>::value > { using type = data_sensor::PpsTimestamp; };
+template<> struct TypeForDescriptor<data_sensor::PpsTimestamp::DESCRIPTOR.as_u16()> { using type = data_sensor::PpsTimestamp; };
 
 template<>
 struct MetadataFor<data_sensor::GpsTimestamp::ValidFlags>
@@ -568,11 +797,28 @@ struct MetadataFor<data_sensor::GpsTimestamp::ValidFlags>
 
 };
 
+template<> struct TypeForBitsInfo< &MetadataFor<data_sensor::GpsTimestamp::ValidFlags>::value > { using type = data_sensor::GpsTimestamp::ValidFlags; };
+
 template<>
 struct MetadataFor<data_sensor::GpsTimestamp>
 {
     using type = data_sensor::GpsTimestamp;
 
+    using Context = DataSetSensor;
+
+    using ParamTypes = std::tuple<
+        decltype(type::tow),
+        decltype(type::week_number),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.tow;
+        if constexpr(I == 1) return value_.week_number;
+        if constexpr(I == 2) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "tow",
@@ -602,25 +848,42 @@ struct MetadataFor<data_sensor::GpsTimestamp>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_sensor::GpsTimestamp",
-            /* .title       = */ "gps_timestamp",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "GPS timestamp of the SENSOR data\n\nShould the PPS become unavailable, the device will revert to its internal clock, which will cause the reported time to drift from true GPS time.\nUpon recovering from a PPS outage, the user should expect a jump in the reported GPS time due to the accumulation of internal clock error.\nIf synchronization to an external clock or onboard GNSS receiver (for products that have one) is disabled, this time is equivalent to internal system time.\n\nNote: this data field may be deprecated in the future. The more flexible shared data field (0x80, 0xD3) should be used instead.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_sensor::GpsTimestamp>::value > { using type = data_sensor::GpsTimestamp; };
+template<> struct TypeForDescriptor<data_sensor::GpsTimestamp::DESCRIPTOR.as_u16()> { using type = data_sensor::GpsTimestamp; };
 
 template<>
 struct MetadataFor<data_sensor::TemperatureAbs>
 {
     using type = data_sensor::TemperatureAbs;
 
+    using Context = DataSetSensor;
+
+    using ParamTypes = std::tuple<
+        decltype(type::min_temp),
+        decltype(type::max_temp),
+        decltype(type::mean_temp)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.min_temp;
+        if constexpr(I == 1) return value_.max_temp;
+        if constexpr(I == 2) return value_.mean_temp;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "min_temp",
@@ -650,25 +913,38 @@ struct MetadataFor<data_sensor::TemperatureAbs>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_sensor::TemperatureAbs",
-            /* .title       = */ "Temperature Statistics",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "SENSOR reported temperature statistics\n\nTemperature may originate from the MEMS sensors, or be calculated in combination with board temperature sensors.\nAll quantities are calculated with respect to the last power on or reset, whichever is later.\n",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_sensor::TemperatureAbs>::value > { using type = data_sensor::TemperatureAbs; };
+template<> struct TypeForDescriptor<data_sensor::TemperatureAbs::DESCRIPTOR.as_u16()> { using type = data_sensor::TemperatureAbs; };
 
 template<>
 struct MetadataFor<data_sensor::UpVector>
 {
     using type = data_sensor::UpVector;
 
+    using Context = DataSetSensor;
+
+    using ParamTypes = std::tuple<
+        decltype(type::up)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.up;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "up",
@@ -680,25 +956,38 @@ struct MetadataFor<data_sensor::UpVector>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_sensor::UpVector",
-            /* .title       = */ "up_vector",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Gyro-stabilized 3-element vector representing the complementary filter's estimated vertical direction.\nThis quantity is expressed in the vehicle frame.\n\nThis quantity is sensitive to non-gravitational accelerations, which may cause notable deviations from the true vertical direction.\n\nFor legacy reasons, this vector is the inverse of the gravity vector.\n",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_sensor::UpVector>::value > { using type = data_sensor::UpVector; };
+template<> struct TypeForDescriptor<data_sensor::UpVector::DESCRIPTOR.as_u16()> { using type = data_sensor::UpVector; };
 
 template<>
 struct MetadataFor<data_sensor::NorthVector>
 {
     using type = data_sensor::NorthVector;
 
+    using Context = DataSetSensor;
+
+    using ParamTypes = std::tuple<
+        decltype(type::north)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.north;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "north",
@@ -710,19 +999,21 @@ struct MetadataFor<data_sensor::NorthVector>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_sensor::NorthVector",
-            /* .title       = */ "north_vector",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Gyro-stabilized 3-element vector representing the complementary filter's estimate of magnetic north.\nThis quantity is expressed in the vehicle frame.\n\nThis quantity is sensitive to local magnetic field perturbations, which may cause notable deviations from true magnetic north.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_sensor::NorthVector>::value > { using type = data_sensor::NorthVector; };
+template<> struct TypeForDescriptor<data_sensor::NorthVector::DESCRIPTOR.as_u16()> { using type = data_sensor::NorthVector; };
 
 template<>
 struct MetadataFor<data_sensor::OverrangeStatus::Status>
@@ -751,11 +1042,24 @@ struct MetadataFor<data_sensor::OverrangeStatus::Status>
 
 };
 
+template<> struct TypeForBitsInfo< &MetadataFor<data_sensor::OverrangeStatus::Status>::value > { using type = data_sensor::OverrangeStatus::Status; };
+
 template<>
 struct MetadataFor<data_sensor::OverrangeStatus>
 {
     using type = data_sensor::OverrangeStatus;
 
+    using Context = DataSetSensor;
+
+    using ParamTypes = std::tuple<
+        decltype(type::status)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.status;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "status",
@@ -767,25 +1071,42 @@ struct MetadataFor<data_sensor::OverrangeStatus>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_sensor::OverrangeStatus",
-            /* .title       = */ "overrange_status",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_sensor::OverrangeStatus>::value > { using type = data_sensor::OverrangeStatus; };
+template<> struct TypeForDescriptor<data_sensor::OverrangeStatus::DESCRIPTOR.as_u16()> { using type = data_sensor::OverrangeStatus; };
 
 template<>
 struct MetadataFor<data_sensor::OdometerData>
 {
     using type = data_sensor::OdometerData;
 
+    using Context = DataSetSensor;
+
+    using ParamTypes = std::tuple<
+        decltype(type::speed),
+        decltype(type::uncertainty),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.speed;
+        if constexpr(I == 1) return value_.uncertainty;
+        if constexpr(I == 2) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "speed",
@@ -815,19 +1136,21 @@ struct MetadataFor<data_sensor::OdometerData>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "data_sensor::OdometerData",
-            /* .title       = */ "odometer_data",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<data_sensor::OdometerData>::value > { using type = data_sensor::OdometerData; };
+template<> struct TypeForDescriptor<data_sensor::OdometerData::DESCRIPTOR.as_u16()> { using type = data_sensor::OdometerData; };
 
 
 static constexpr inline const FieldInfo* DATA_SENSOR_FIELDS[] = {
@@ -856,11 +1179,53 @@ static constexpr inline const FieldInfo* DATA_SENSOR_FIELDS[] = {
     &MetadataFor<data_sensor::OdometerData>::value,
 };
 
-static constexpr DescriptorSetInfo DATA_SENSOR = {
-    /* .descriptor = */ mip::data_sensor::DESCRIPTOR_SET,
-    /* .name       = */ "Sensor Data",
-    /* .fields     = */ DATA_SENSOR_FIELDS,
+struct DataSetSensor
+{
+    static inline constexpr uint8_t DESCRIPTOR_SET = data_sensor::DESCRIPTOR_SET;
+    static inline constexpr CompositeDescriptor DESCRIPTOR = {DESCRIPTOR_SET, INVALID_FIELD_DESCRIPTOR};
+
+    using Fields = std::tuple<
+        ::mip::data_sensor::RawAccel,
+        ::mip::data_sensor::RawGyro,
+        ::mip::data_sensor::RawMag,
+        ::mip::data_sensor::ScaledAccel,
+        ::mip::data_sensor::ScaledGyro,
+        ::mip::data_sensor::ScaledMag,
+        ::mip::data_sensor::DeltaTheta,
+        ::mip::data_sensor::DeltaVelocity,
+        ::mip::data_sensor::CompOrientationMatrix,
+        ::mip::data_sensor::CompQuaternion,
+        ::mip::data_sensor::CompOrientationUpdateMatrix,
+        ::mip::data_sensor::CompEulerAngles,
+        ::mip::data_sensor::OrientationRawTemp,
+        ::mip::data_sensor::InternalTimestamp,
+        ::mip::data_sensor::PpsTimestamp,
+        ::mip::data_sensor::NorthVector,
+        ::mip::data_sensor::UpVector,
+        ::mip::data_sensor::GpsTimestamp,
+        ::mip::data_sensor::TemperatureAbs,
+        ::mip::data_sensor::RawPressure,
+        ::mip::data_sensor::ScaledPressure,
+        ::mip::data_sensor::OverrangeStatus,
+        ::mip::data_sensor::OdometerData
+    >;
 };
+
+template<>
+struct MetadataFor<DataSetSensor>
+{
+    using type = DataSetSensor;
+    
+    static inline constexpr DescriptorSetInfo value = {
+        /* .descriptor = */ data_sensor::DESCRIPTOR_SET,
+        /* .name       = */ "data_sensor",
+        /* .title      = */ "Sensor Data",
+        /* .fields     = */ DATA_SENSOR_FIELDS,
+    };
+};
+//template<> struct TypeForDescriptor< (data_sensor::DESCRIPTOR_SET << 8) > { using type = DataSetSensor; };
+
+static constexpr const DescriptorSetInfo& DATA_SENSOR = MetadataFor<DataSetSensor>::value;
 
 } // namespace mip::metadata
 

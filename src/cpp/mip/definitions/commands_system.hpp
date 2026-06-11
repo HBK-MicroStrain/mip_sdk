@@ -160,7 +160,7 @@ struct CommMode
         static constexpr const uint8_t DESCRIPTOR_SET = ::mip::commands_system::DESCRIPTOR_SET;
         static constexpr const uint8_t FIELD_DESCRIPTOR = ::mip::commands_system::REPLY_COM_MODE;
         static constexpr const CompositeDescriptor DESCRIPTOR = {DESCRIPTOR_SET, FIELD_DESCRIPTOR};
-        static constexpr const char* NAME = "CommMode::Response";
+        static constexpr const char* NAME = "CommModeResponse";
         static constexpr const char* DOC_NAME = "CommMode Response";
         static constexpr const bool HAS_FUNCTION_SELECTOR = false;
         
@@ -254,7 +254,7 @@ struct InterfaceControl
         static constexpr const uint8_t DESCRIPTOR_SET = ::mip::commands_system::DESCRIPTOR_SET;
         static constexpr const uint8_t FIELD_DESCRIPTOR = ::mip::commands_system::REPLY_INTERFACE_CONTROL;
         static constexpr const CompositeDescriptor DESCRIPTOR = {DESCRIPTOR_SET, FIELD_DESCRIPTOR};
-        static constexpr const char* NAME = "InterfaceControl::Response";
+        static constexpr const char* NAME = "InterfaceControlResponse";
         static constexpr const char* DOC_NAME = "Interface Control Response";
         static constexpr const bool HAS_FUNCTION_SELECTOR = false;
         

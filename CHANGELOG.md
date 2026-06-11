@@ -21,9 +21,20 @@ REMOVED - A function/class has been removed.
 Forthcoming
 -----------
 ### New Features
+* Metadata:
+  * Added descriptor set support
+  * Added type lists (tuples) to metadata
+  * Added metadata functions to access struct/field members by index
+  * Added parent context information to metadata types
 ### Interface Changes
+* Improved ArrayView and Index usability, especially in constexpr contexts.
+* Metadata:
+  * Removed :: in field response names (FieldAbc::Response is now FieldAbcResponse)
 ### Bug Fixes
-* Fixes names of matrix types in metadata to have the right type specifier
+* Fixed names of matrix types in metadata to have the right type specifier
+* Fixed metadata type of CmdResult.
+* Fixed Parser::setCallback making a copy of lambdas.
+* Fixed some potential compilation errors in certain template functions.
 
 V4.0.0
 -----------

@@ -1,3 +1,5 @@
+#if __cplusplus >= 201703L  // This module requires string_view support
+
 #include "mip/extras/platform_connection.hpp"
 
 #if defined MIP_USE_SERIAL
@@ -81,3 +83,5 @@ namespace mip
         }
     } // namespace platform
 } // namespace mip
+
+#endif // Requires string_view support

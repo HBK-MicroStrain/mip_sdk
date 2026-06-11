@@ -8,6 +8,8 @@
 namespace mip::metadata
 {
 
+struct CommandSetAiding;
+
 
 template<>
 struct MetadataFor<commands_aiding::FrameConfig::Format>
@@ -28,11 +30,26 @@ struct MetadataFor<commands_aiding::FrameConfig::Format>
 
 };
 
+template<> struct TypeForEnumInfo< &MetadataFor<commands_aiding::FrameConfig::Format>::value > { using type = commands_aiding::FrameConfig::Format; };
+
 template<>
 struct MetadataFor<commands_aiding::FrameConfig::Rotation>
 {
     using type = commands_aiding::FrameConfig::Rotation;
 
+    using Context = commands_aiding::FrameConfig;
+
+    using ParamTypes = std::tuple<
+        decltype(type::euler),
+        decltype(type::quaternion)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.euler;
+        if constexpr(I == 1) return value_.quaternion;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "euler",
@@ -41,7 +58,7 @@ struct MetadataFor<commands_aiding::FrameConfig::Rotation>
             /* .accessor      = */ nullptr, //utils::access<type, Vector3f, &type::euler>,
             /* .attributes    = */ NO_FUNCTIONS,
             /* .count         = */ 1,
-            /* .condition     = */ {ParameterInfo::Condition::Type::ENUM, microstrain::Index(1) /* format */, static_cast<uint16_t>(commands_aiding::FrameConfig::Format::EULER)} /* format == EULER */,
+            /* .condition     = */ {ParameterInfo::Condition::Type::ENUM, microstrain::Index(2) /* format */, static_cast<uint16_t>(commands_aiding::FrameConfig::Format::EULER)} /* format == EULER */,
         },
         {
             /* .name          = */ "quaternion",
@@ -50,10 +67,9 @@ struct MetadataFor<commands_aiding::FrameConfig::Rotation>
             /* .accessor      = */ nullptr, //utils::access<type, Quatf, &type::quaternion>,
             /* .attributes    = */ NO_FUNCTIONS,
             /* .count         = */ 1,
-            /* .condition     = */ {ParameterInfo::Condition::Type::ENUM, microstrain::Index(1) /* format */, static_cast<uint16_t>(commands_aiding::FrameConfig::Format::QUATERNION)} /* format == QUATERNION */,
+            /* .condition     = */ {ParameterInfo::Condition::Type::ENUM, microstrain::Index(2) /* format */, static_cast<uint16_t>(commands_aiding::FrameConfig::Format::QUATERNION)} /* format == QUATERNION */,
         },
     };
-
     static constexpr inline StructInfo value = {
         /* .name        = */ "Rotation",
         /* .title       = */ "Rotation",
@@ -62,11 +78,32 @@ struct MetadataFor<commands_aiding::FrameConfig::Rotation>
     };
 };
 
+template<> struct TypeForStructInfo< &MetadataFor<commands_aiding::FrameConfig::Rotation>::value > { using type = commands_aiding::FrameConfig::Rotation; };
+
 template<>
 struct MetadataFor<commands_aiding::FrameConfig::Response>
 {
     using type = commands_aiding::FrameConfig::Response;
 
+    using Context = commands_aiding::FrameConfig;
+
+    using ParamTypes = std::tuple<
+        decltype(type::frame_id),
+        decltype(type::format),
+        decltype(type::tracking_enabled),
+        decltype(type::translation),
+        decltype(type::rotation)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.frame_id;
+        if constexpr(I == 1) return value_.format;
+        if constexpr(I == 2) return value_.tracking_enabled;
+        if constexpr(I == 3) return value_.translation;
+        if constexpr(I == 4) return value_.rotation;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "frame_id",
@@ -114,25 +151,47 @@ struct MetadataFor<commands_aiding::FrameConfig::Response>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_aiding::FrameConfig::Response",
-            /* .title       = */ "response",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_aiding::FrameConfig::Response>::value > { using type = commands_aiding::FrameConfig::Response; };
 
 template<>
 struct MetadataFor<commands_aiding::FrameConfig>
 {
     using type = commands_aiding::FrameConfig;
 
+    using Context = CommandSetAiding;
+
+    using ParamTypes = std::tuple<
+        decltype(type::function),
+        decltype(type::frame_id),
+        decltype(type::format),
+        decltype(type::tracking_enabled),
+        decltype(type::translation),
+        decltype(type::rotation)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.function;
+        if constexpr(I == 1) return value_.frame_id;
+        if constexpr(I == 2) return value_.format;
+        if constexpr(I == 3) return value_.tracking_enabled;
+        if constexpr(I == 4) return value_.translation;
+        if constexpr(I == 5) return value_.rotation;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         FUNCTION_SELECTOR_PARAM,
         {
@@ -181,19 +240,21 @@ struct MetadataFor<commands_aiding::FrameConfig>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_aiding::FrameConfig",
-            /* .title       = */ "Frame Configuration",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Defines an aiding frame associated with a specific sensor frame ID.\nThe frame ID used in this command should mirror the frame ID used in the aiding command\n(if that aiding measurement is measured in this reference frame).\n\nThis transform satisfies the following relationship:\n\nEQSTART p^{veh} = R p^{sensor_frame} + t EQEND<br/>\n\nWhere:<br/>\nEQSTART R EQEND is rotation matrix defined by the rotation component and EQSTART t EQEND is the translation vector<br/><br/>\nEQSTART p^{sensor_frame} EQEND is a 3-element position vector expressed in the external sensor frame<br/>\nEQSTART p^{veh} EQEND is a 3-element position vector expressed in the vehicle frame<br/>\n\nRotation can be defined using Euler angles OR quaternions.  If Format selector is set to Euler Angles, the fourth element\nin the rotation vector is ignored and should be set to 0.\n\nWhen the tracking_enabled flag is 1, the Kalman filter will track errors in the provided frame definition; when 0, no errors are tracked.\n\nExample: GNSS antenna lever arm\n\nFrame ID: 1\nFormat: 1 (Euler)\nTranslation: [0,1,] (GNSS with a 1 meter Y offset in the vehicle frame)\nRotation: [0,0,0,0] (Rotational component is not relevant for GNSS measurements, set to zero)",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_aiding::FrameConfig>::value > { using type = commands_aiding::FrameConfig; };
+template<> struct TypeForDescriptor<commands_aiding::FrameConfig::DESCRIPTOR.as_u16()> { using type = commands_aiding::FrameConfig; };
 
 template<>
 struct MetadataFor<commands_aiding::EchoControl::Mode>
@@ -215,11 +276,24 @@ struct MetadataFor<commands_aiding::EchoControl::Mode>
 
 };
 
+template<> struct TypeForEnumInfo< &MetadataFor<commands_aiding::EchoControl::Mode>::value > { using type = commands_aiding::EchoControl::Mode; };
+
 template<>
 struct MetadataFor<commands_aiding::EchoControl::Response>
 {
     using type = commands_aiding::EchoControl::Response;
 
+    using Context = commands_aiding::EchoControl;
+
+    using ParamTypes = std::tuple<
+        decltype(type::mode)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.mode;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "mode",
@@ -231,25 +305,39 @@ struct MetadataFor<commands_aiding::EchoControl::Response>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_aiding::EchoControl::Response",
-            /* .title       = */ "response",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_aiding::EchoControl::Response>::value > { using type = commands_aiding::EchoControl::Response; };
 
 template<>
 struct MetadataFor<commands_aiding::EchoControl>
 {
     using type = commands_aiding::EchoControl;
 
+    using Context = CommandSetAiding;
+
+    using ParamTypes = std::tuple<
+        decltype(type::function),
+        decltype(type::mode)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.function;
+        if constexpr(I == 1) return value_.mode;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         FUNCTION_SELECTOR_PARAM,
         {
@@ -262,19 +350,21 @@ struct MetadataFor<commands_aiding::EchoControl>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_aiding::EchoControl",
-            /* .title       = */ "Echo Control",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Controls command response behavior to external aiding commands",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_aiding::EchoControl>::value > { using type = commands_aiding::EchoControl; };
+template<> struct TypeForDescriptor<commands_aiding::EchoControl::DESCRIPTOR.as_u16()> { using type = commands_aiding::EchoControl; };
 
 template<>
 struct MetadataFor<commands_aiding::Time::Timebase>
@@ -296,11 +386,28 @@ struct MetadataFor<commands_aiding::Time::Timebase>
 
 };
 
+template<> struct TypeForEnumInfo< &MetadataFor<commands_aiding::Time::Timebase>::value > { using type = commands_aiding::Time::Timebase; };
+
 template<>
 struct MetadataFor<commands_aiding::Time>
 {
     using type = commands_aiding::Time;
 
+    using Context = CommandSetAiding;
+
+    using ParamTypes = std::tuple<
+        decltype(type::timebase),
+        decltype(type::reserved),
+        decltype(type::nanoseconds)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.timebase;
+        if constexpr(I == 1) return value_.reserved;
+        if constexpr(I == 2) return value_.nanoseconds;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "timebase",
@@ -330,7 +437,6 @@ struct MetadataFor<commands_aiding::Time>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline StructInfo value = {
         /* .name        = */ "Time",
         /* .title       = */ "Time",
@@ -338,6 +444,8 @@ struct MetadataFor<commands_aiding::Time>
         /* .parameters  = */ parameters,
     };
 };
+
+template<> struct TypeForStructInfo< &MetadataFor<commands_aiding::Time>::value > { using type = commands_aiding::Time; };
 
 template<>
 struct MetadataFor<commands_aiding::PosEcef::ValidFlags>
@@ -359,11 +467,32 @@ struct MetadataFor<commands_aiding::PosEcef::ValidFlags>
 
 };
 
+template<> struct TypeForBitsInfo< &MetadataFor<commands_aiding::PosEcef::ValidFlags>::value > { using type = commands_aiding::PosEcef::ValidFlags; };
+
 template<>
 struct MetadataFor<commands_aiding::PosEcef>
 {
     using type = commands_aiding::PosEcef;
 
+    using Context = CommandSetAiding;
+
+    using ParamTypes = std::tuple<
+        decltype(type::time),
+        decltype(type::frame_id),
+        decltype(type::position),
+        decltype(type::uncertainty),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.time;
+        if constexpr(I == 1) return value_.frame_id;
+        if constexpr(I == 2) return value_.position;
+        if constexpr(I == 3) return value_.uncertainty;
+        if constexpr(I == 4) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "time",
@@ -411,19 +540,21 @@ struct MetadataFor<commands_aiding::PosEcef>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_aiding::PosEcef",
-            /* .title       = */ "ECEF Position",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Cartesian vector position aiding command. Coordinates are given in the WGS84 ECEF system.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_aiding::PosEcef>::value > { using type = commands_aiding::PosEcef; };
+template<> struct TypeForDescriptor<commands_aiding::PosEcef::DESCRIPTOR.as_u16()> { using type = commands_aiding::PosEcef; };
 
 template<>
 struct MetadataFor<commands_aiding::PosLlh::ValidFlags>
@@ -445,11 +576,36 @@ struct MetadataFor<commands_aiding::PosLlh::ValidFlags>
 
 };
 
+template<> struct TypeForBitsInfo< &MetadataFor<commands_aiding::PosLlh::ValidFlags>::value > { using type = commands_aiding::PosLlh::ValidFlags; };
+
 template<>
 struct MetadataFor<commands_aiding::PosLlh>
 {
     using type = commands_aiding::PosLlh;
 
+    using Context = CommandSetAiding;
+
+    using ParamTypes = std::tuple<
+        decltype(type::time),
+        decltype(type::frame_id),
+        decltype(type::latitude),
+        decltype(type::longitude),
+        decltype(type::height),
+        decltype(type::uncertainty),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.time;
+        if constexpr(I == 1) return value_.frame_id;
+        if constexpr(I == 2) return value_.latitude;
+        if constexpr(I == 3) return value_.longitude;
+        if constexpr(I == 4) return value_.height;
+        if constexpr(I == 5) return value_.uncertainty;
+        if constexpr(I == 6) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "time",
@@ -515,25 +671,46 @@ struct MetadataFor<commands_aiding::PosLlh>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_aiding::PosLlh",
-            /* .title       = */ "LLH Position",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Geodetic position aiding command.\nCoordinates are given in WGS84 geodetic latitude, longitude, and height above the ellipsoid.\nUncertainty is given in NED coordinates, which are parallel to incremental changes in latitude, longitude, and height.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_aiding::PosLlh>::value > { using type = commands_aiding::PosLlh; };
+template<> struct TypeForDescriptor<commands_aiding::PosLlh::DESCRIPTOR.as_u16()> { using type = commands_aiding::PosLlh; };
 
 template<>
 struct MetadataFor<commands_aiding::HeightAboveEllipsoid>
 {
     using type = commands_aiding::HeightAboveEllipsoid;
 
+    using Context = CommandSetAiding;
+
+    using ParamTypes = std::tuple<
+        decltype(type::time),
+        decltype(type::frame_id),
+        decltype(type::height),
+        decltype(type::uncertainty),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.time;
+        if constexpr(I == 1) return value_.frame_id;
+        if constexpr(I == 2) return value_.height;
+        if constexpr(I == 3) return value_.uncertainty;
+        if constexpr(I == 4) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "time",
@@ -581,19 +758,21 @@ struct MetadataFor<commands_aiding::HeightAboveEllipsoid>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_aiding::HeightAboveEllipsoid",
-            /* .title       = */ "Height Above Ellipsoid",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Estimated value of the height above ellipsoid.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_aiding::HeightAboveEllipsoid>::value > { using type = commands_aiding::HeightAboveEllipsoid; };
+template<> struct TypeForDescriptor<commands_aiding::HeightAboveEllipsoid::DESCRIPTOR.as_u16()> { using type = commands_aiding::HeightAboveEllipsoid; };
 
 template<>
 struct MetadataFor<commands_aiding::VelEcef::ValidFlags>
@@ -615,11 +794,32 @@ struct MetadataFor<commands_aiding::VelEcef::ValidFlags>
 
 };
 
+template<> struct TypeForBitsInfo< &MetadataFor<commands_aiding::VelEcef::ValidFlags>::value > { using type = commands_aiding::VelEcef::ValidFlags; };
+
 template<>
 struct MetadataFor<commands_aiding::VelEcef>
 {
     using type = commands_aiding::VelEcef;
 
+    using Context = CommandSetAiding;
+
+    using ParamTypes = std::tuple<
+        decltype(type::time),
+        decltype(type::frame_id),
+        decltype(type::velocity),
+        decltype(type::uncertainty),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.time;
+        if constexpr(I == 1) return value_.frame_id;
+        if constexpr(I == 2) return value_.velocity;
+        if constexpr(I == 3) return value_.uncertainty;
+        if constexpr(I == 4) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "time",
@@ -667,19 +867,21 @@ struct MetadataFor<commands_aiding::VelEcef>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_aiding::VelEcef",
-            /* .title       = */ "ECEF Velocity",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "ECEF velocity aiding command. Coordinates are given in the WGS84 ECEF frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_aiding::VelEcef>::value > { using type = commands_aiding::VelEcef; };
+template<> struct TypeForDescriptor<commands_aiding::VelEcef::DESCRIPTOR.as_u16()> { using type = commands_aiding::VelEcef; };
 
 template<>
 struct MetadataFor<commands_aiding::VelNed::ValidFlags>
@@ -701,11 +903,32 @@ struct MetadataFor<commands_aiding::VelNed::ValidFlags>
 
 };
 
+template<> struct TypeForBitsInfo< &MetadataFor<commands_aiding::VelNed::ValidFlags>::value > { using type = commands_aiding::VelNed::ValidFlags; };
+
 template<>
 struct MetadataFor<commands_aiding::VelNed>
 {
     using type = commands_aiding::VelNed;
 
+    using Context = CommandSetAiding;
+
+    using ParamTypes = std::tuple<
+        decltype(type::time),
+        decltype(type::frame_id),
+        decltype(type::velocity),
+        decltype(type::uncertainty),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.time;
+        if constexpr(I == 1) return value_.frame_id;
+        if constexpr(I == 2) return value_.velocity;
+        if constexpr(I == 3) return value_.uncertainty;
+        if constexpr(I == 4) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "time",
@@ -753,19 +976,21 @@ struct MetadataFor<commands_aiding::VelNed>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_aiding::VelNed",
-            /* .title       = */ "NED Velocity",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "NED velocity aiding command. Coordinates are given in the local North East Down frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_aiding::VelNed>::value > { using type = commands_aiding::VelNed; };
+template<> struct TypeForDescriptor<commands_aiding::VelNed::DESCRIPTOR.as_u16()> { using type = commands_aiding::VelNed; };
 
 template<>
 struct MetadataFor<commands_aiding::VelBodyFrame::ValidFlags>
@@ -787,11 +1012,32 @@ struct MetadataFor<commands_aiding::VelBodyFrame::ValidFlags>
 
 };
 
+template<> struct TypeForBitsInfo< &MetadataFor<commands_aiding::VelBodyFrame::ValidFlags>::value > { using type = commands_aiding::VelBodyFrame::ValidFlags; };
+
 template<>
 struct MetadataFor<commands_aiding::VelBodyFrame>
 {
     using type = commands_aiding::VelBodyFrame;
 
+    using Context = CommandSetAiding;
+
+    using ParamTypes = std::tuple<
+        decltype(type::time),
+        decltype(type::frame_id),
+        decltype(type::velocity),
+        decltype(type::uncertainty),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.time;
+        if constexpr(I == 1) return value_.frame_id;
+        if constexpr(I == 2) return value_.velocity;
+        if constexpr(I == 3) return value_.uncertainty;
+        if constexpr(I == 4) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "time",
@@ -839,25 +1085,46 @@ struct MetadataFor<commands_aiding::VelBodyFrame>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_aiding::VelBodyFrame",
-            /* .title       = */ "Body Frame Velocity",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Estimated of velocity of the vehicle in the frame associated with the given sensor ID, relative to the vehicle frame.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_aiding::VelBodyFrame>::value > { using type = commands_aiding::VelBodyFrame; };
+template<> struct TypeForDescriptor<commands_aiding::VelBodyFrame::DESCRIPTOR.as_u16()> { using type = commands_aiding::VelBodyFrame; };
 
 template<>
 struct MetadataFor<commands_aiding::HeadingTrue>
 {
     using type = commands_aiding::HeadingTrue;
 
+    using Context = CommandSetAiding;
+
+    using ParamTypes = std::tuple<
+        decltype(type::time),
+        decltype(type::frame_id),
+        decltype(type::heading),
+        decltype(type::uncertainty),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.time;
+        if constexpr(I == 1) return value_.frame_id;
+        if constexpr(I == 2) return value_.heading;
+        if constexpr(I == 3) return value_.uncertainty;
+        if constexpr(I == 4) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "time",
@@ -905,19 +1172,21 @@ struct MetadataFor<commands_aiding::HeadingTrue>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_aiding::HeadingTrue",
-            /* .title       = */ "True Heading",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_aiding::HeadingTrue>::value > { using type = commands_aiding::HeadingTrue; };
+template<> struct TypeForDescriptor<commands_aiding::HeadingTrue::DESCRIPTOR.as_u16()> { using type = commands_aiding::HeadingTrue; };
 
 template<>
 struct MetadataFor<commands_aiding::MagneticField::ValidFlags>
@@ -939,11 +1208,32 @@ struct MetadataFor<commands_aiding::MagneticField::ValidFlags>
 
 };
 
+template<> struct TypeForBitsInfo< &MetadataFor<commands_aiding::MagneticField::ValidFlags>::value > { using type = commands_aiding::MagneticField::ValidFlags; };
+
 template<>
 struct MetadataFor<commands_aiding::MagneticField>
 {
     using type = commands_aiding::MagneticField;
 
+    using Context = CommandSetAiding;
+
+    using ParamTypes = std::tuple<
+        decltype(type::time),
+        decltype(type::frame_id),
+        decltype(type::magnetic_field),
+        decltype(type::uncertainty),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.time;
+        if constexpr(I == 1) return value_.frame_id;
+        if constexpr(I == 2) return value_.magnetic_field;
+        if constexpr(I == 3) return value_.uncertainty;
+        if constexpr(I == 4) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "time",
@@ -991,25 +1281,46 @@ struct MetadataFor<commands_aiding::MagneticField>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_aiding::MagneticField",
-            /* .title       = */ "Magnetic Field",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Estimate of magnetic field in the frame associated with the given sensor ID.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_aiding::MagneticField>::value > { using type = commands_aiding::MagneticField; };
+template<> struct TypeForDescriptor<commands_aiding::MagneticField::DESCRIPTOR.as_u16()> { using type = commands_aiding::MagneticField; };
 
 template<>
 struct MetadataFor<commands_aiding::Pressure>
 {
     using type = commands_aiding::Pressure;
 
+    using Context = CommandSetAiding;
+
+    using ParamTypes = std::tuple<
+        decltype(type::time),
+        decltype(type::frame_id),
+        decltype(type::pressure),
+        decltype(type::uncertainty),
+        decltype(type::valid_flags)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.time;
+        if constexpr(I == 1) return value_.frame_id;
+        if constexpr(I == 2) return value_.pressure;
+        if constexpr(I == 3) return value_.uncertainty;
+        if constexpr(I == 4) return value_.valid_flags;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "time",
@@ -1057,19 +1368,21 @@ struct MetadataFor<commands_aiding::Pressure>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_aiding::Pressure",
-            /* .title       = */ "Pressure",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Estimated value of air pressure.",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_aiding::Pressure>::value > { using type = commands_aiding::Pressure; };
+template<> struct TypeForDescriptor<commands_aiding::Pressure::DESCRIPTOR.as_u16()> { using type = commands_aiding::Pressure; };
 
 
 static constexpr inline const FieldInfo* COMMANDS_AIDING_FIELDS[] = {
@@ -1088,11 +1401,43 @@ static constexpr inline const FieldInfo* COMMANDS_AIDING_FIELDS[] = {
     &MetadataFor<commands_aiding::EchoControl::Response>::value,
 };
 
-static constexpr DescriptorSetInfo COMMANDS_AIDING = {
-    /* .descriptor = */ mip::commands_aiding::DESCRIPTOR_SET,
-    /* .name       = */ "Aiding Commands",
-    /* .fields     = */ COMMANDS_AIDING_FIELDS,
+struct CommandSetAiding
+{
+    static inline constexpr uint8_t DESCRIPTOR_SET = commands_aiding::DESCRIPTOR_SET;
+    static inline constexpr CompositeDescriptor DESCRIPTOR = {DESCRIPTOR_SET, INVALID_FIELD_DESCRIPTOR};
+
+    using Fields = std::tuple<
+        ::mip::commands_aiding::FrameConfig,
+        ::mip::commands_aiding::EchoControl,
+        ::mip::commands_aiding::PosEcef,
+        ::mip::commands_aiding::PosLlh,
+        ::mip::commands_aiding::HeightAboveEllipsoid,
+        ::mip::commands_aiding::VelEcef,
+        ::mip::commands_aiding::VelNed,
+        ::mip::commands_aiding::VelBodyFrame,
+        ::mip::commands_aiding::HeadingTrue,
+        ::mip::commands_aiding::MagneticField,
+        ::mip::commands_aiding::Pressure,
+        ::mip::commands_aiding::FrameConfig::Response,
+        ::mip::commands_aiding::EchoControl::Response
+    >;
 };
+
+template<>
+struct MetadataFor<CommandSetAiding>
+{
+    using type = CommandSetAiding;
+    
+    static inline constexpr DescriptorSetInfo value = {
+        /* .descriptor = */ commands_aiding::DESCRIPTOR_SET,
+        /* .name       = */ "commands_aiding",
+        /* .title      = */ "Aiding Commands",
+        /* .fields     = */ COMMANDS_AIDING_FIELDS,
+    };
+};
+//template<> struct TypeForDescriptor< (commands_aiding::DESCRIPTOR_SET << 8) > { using type = CommandSetAiding; };
+
+static constexpr const DescriptorSetInfo& COMMANDS_AIDING = MetadataFor<CommandSetAiding>::value;
 
 } // namespace mip::metadata
 

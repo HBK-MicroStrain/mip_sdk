@@ -8,12 +8,25 @@
 namespace mip::metadata
 {
 
+struct CommandSetSystem;
+
 
 template<>
 struct MetadataFor<commands_system::CommMode::Response>
 {
     using type = commands_system::CommMode::Response;
 
+    using Context = commands_system::CommMode;
+
+    using ParamTypes = std::tuple<
+        decltype(type::mode)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.mode;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "mode",
@@ -25,25 +38,39 @@ struct MetadataFor<commands_system::CommMode::Response>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_system::CommMode::Response",
-            /* .title       = */ "response",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_system::CommMode::Response>::value > { using type = commands_system::CommMode::Response; };
 
 template<>
 struct MetadataFor<commands_system::CommMode>
 {
     using type = commands_system::CommMode;
 
+    using Context = CommandSetSystem;
+
+    using ParamTypes = std::tuple<
+        decltype(type::function),
+        decltype(type::mode)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.function;
+        if constexpr(I == 1) return value_.mode;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         FUNCTION_SELECTOR_PARAM,
         {
@@ -56,19 +83,21 @@ struct MetadataFor<commands_system::CommMode>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_system::CommMode",
-            /* .title       = */ "comm_mode",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Advanced specialized communication modes.\n\nThis command allows the user to communicate directly with various subsystems which may be present in MIP devices (i.e. IMU, GNSS, etc.)\nPlease see the specific device's user manual for possible modes.\n\nThis command responds with an ACK/NACK just prior to switching to the new protocol.\nFor all functions except 0x01 (use new settings), the new communications mode value is ignored.\n\n",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, false, false, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, false, false, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_system::CommMode>::value > { using type = commands_system::CommMode; };
+template<> struct TypeForDescriptor<commands_system::CommMode::DESCRIPTOR.as_u16()> { using type = commands_system::CommMode; };
 
 template<>
 struct MetadataFor<commands_system::CommsInterface>
@@ -79,8 +108,8 @@ struct MetadataFor<commands_system::CommsInterface>
         { uint32_t(0), "ALL", "" },
         { uint32_t(1), "MAIN", "An alias that directs to Main USB if it's connected, or Main UART otherwise" },
         { uint32_t(17), "UART_1", "Depending on your device, this may mean either the first UART *currently configured*, or the first port on which UART *can be configured*. Refer to your device manual." },
-        { uint32_t(18), "UART_2", "" },
-        { uint32_t(19), "UART_3", "" },
+        { uint32_t(18), "UART_2", "GPIO UART port using GPIOs 1/2, availiable on CV7/GV7 variants." },
+        { uint32_t(19), "UART_3", "GPIO UART port using GPIOs 3/4, available on CV7 variants." },
         { uint32_t(33), "USB_1", "The first virtual serial port over USB (ie. COM5)" },
         { uint32_t(34), "USB_2", "The second virtual serial port over USB (ie. COM6), only available on GNSS/INS devices. Recommended for NMEA/RTCM." },
     };
@@ -94,6 +123,8 @@ struct MetadataFor<commands_system::CommsInterface>
 
 };
 
+template<> struct TypeForEnumInfo< &MetadataFor<commands_system::CommsInterface>::value > { using type = commands_system::CommsInterface; };
+
 template<>
 struct MetadataFor<commands_system::CommsProtocol>
 {
@@ -101,9 +132,10 @@ struct MetadataFor<commands_system::CommsProtocol>
 
     static constexpr inline BitfieldInfo::Entry entries[] = {
         { uint32_t(1), "MIP", "Microstrain Inertial Protocol" },
-        { uint32_t(256), "NMEA", "" },
-        { uint32_t(512), "RTCM", "" },
-        { uint32_t(16777216), "SPARTN", "" },
+        { uint32_t(256), "NMEA", "NMEA-0183 GNSS Protocol" },
+        { uint32_t(512), "RTCM", "GNSS Correction Protocol" },
+        { uint32_t(16777216), "SPARTN", "GNSS Correction Protocol" },
+        { uint32_t(536870912), "SBF", "Septentrio Binary Format" },
     };
 
     static constexpr inline BitfieldInfo value = {
@@ -115,11 +147,28 @@ struct MetadataFor<commands_system::CommsProtocol>
 
 };
 
+template<> struct TypeForBitsInfo< &MetadataFor<commands_system::CommsProtocol>::value > { using type = commands_system::CommsProtocol; };
+
 template<>
 struct MetadataFor<commands_system::InterfaceControl::Response>
 {
     using type = commands_system::InterfaceControl::Response;
 
+    using Context = commands_system::InterfaceControl;
+
+    using ParamTypes = std::tuple<
+        decltype(type::port),
+        decltype(type::protocols_incoming),
+        decltype(type::protocols_outgoing)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.port;
+        if constexpr(I == 1) return value_.protocols_incoming;
+        if constexpr(I == 2) return value_.protocols_outgoing;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         {
             /* .name          = */ "port",
@@ -149,25 +198,43 @@ struct MetadataFor<commands_system::InterfaceControl::Response>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_system::InterfaceControl::Response",
-            /* .title       = */ "response",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ NO_FUNCTIONS,
-            /* .response    = */ nullptr,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_system::InterfaceControl::Response>::value > { using type = commands_system::InterfaceControl::Response; };
 
 template<>
 struct MetadataFor<commands_system::InterfaceControl>
 {
     using type = commands_system::InterfaceControl;
 
+    using Context = CommandSetSystem;
+
+    using ParamTypes = std::tuple<
+        decltype(type::function),
+        decltype(type::port),
+        decltype(type::protocols_incoming),
+        decltype(type::protocols_outgoing)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.function;
+        if constexpr(I == 1) return value_.port;
+        if constexpr(I == 2) return value_.protocols_incoming;
+        if constexpr(I == 3) return value_.protocols_outgoing;
+    }
+    
     static constexpr inline ParameterInfo parameters[] = {
         FUNCTION_SELECTOR_PARAM,
         {
@@ -198,19 +265,21 @@ struct MetadataFor<commands_system::InterfaceControl>
             /* .condition     = */ {},
         },
     };
-
     static constexpr inline FieldInfo value = {
         {
-            /* .name        = */ "commands_system::InterfaceControl",
-            /* .title       = */ "Interface Control",
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
             /* .docs        = */ "Reassign data protocols, both incoming and outgoing.\n\nResponds over the port that sent the command with an ACK/NACK immediately after the operation is complete. It is the user's responsibility to not\nsend any critical information or commands while awaiting a response! Doing so while this command processes may cause those packets to be dropped.\n\nConstraints:\n- Limited parsers and data streams are available. Refer to your device manual for more information.\n- The Main port always has a MIP parser and MIP data stream bound. Additionally, Main is the only port that can process interface control commands.\n\nIf response is NACK, no change was made. Here's what can cause a NACK:\n- The requested protocol isn't supported on this device, or on this port, or this device doesn't support that many parsers.\n- The request would break the general constraints listed above, or a device-specific constraint.\n\n",
             /* .parameters  = */ parameters,
         },
-            /* .descriptor  = */ type::DESCRIPTOR,
-            /* .functions   = */ {true, true, true, true, true},
-            /* .response    = */ &MetadataFor<type::Response>::value,
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
     };
 };
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_system::InterfaceControl>::value > { using type = commands_system::InterfaceControl; };
+template<> struct TypeForDescriptor<commands_system::InterfaceControl::DESCRIPTOR.as_u16()> { using type = commands_system::InterfaceControl; };
 
 
 static constexpr inline const FieldInfo* COMMANDS_SYSTEM_FIELDS[] = {
@@ -220,11 +289,34 @@ static constexpr inline const FieldInfo* COMMANDS_SYSTEM_FIELDS[] = {
     &MetadataFor<commands_system::CommMode::Response>::value,
 };
 
-static constexpr DescriptorSetInfo COMMANDS_SYSTEM = {
-    /* .descriptor = */ mip::commands_system::DESCRIPTOR_SET,
-    /* .name       = */ "System Commands",
-    /* .fields     = */ COMMANDS_SYSTEM_FIELDS,
+struct CommandSetSystem
+{
+    static inline constexpr uint8_t DESCRIPTOR_SET = commands_system::DESCRIPTOR_SET;
+    static inline constexpr CompositeDescriptor DESCRIPTOR = {DESCRIPTOR_SET, INVALID_FIELD_DESCRIPTOR};
+
+    using Fields = std::tuple<
+        ::mip::commands_system::InterfaceControl,
+        ::mip::commands_system::CommMode,
+        ::mip::commands_system::InterfaceControl::Response,
+        ::mip::commands_system::CommMode::Response
+    >;
 };
+
+template<>
+struct MetadataFor<CommandSetSystem>
+{
+    using type = CommandSetSystem;
+    
+    static inline constexpr DescriptorSetInfo value = {
+        /* .descriptor = */ commands_system::DESCRIPTOR_SET,
+        /* .name       = */ "commands_system",
+        /* .title      = */ "System Commands",
+        /* .fields     = */ COMMANDS_SYSTEM_FIELDS,
+    };
+};
+//template<> struct TypeForDescriptor< (commands_system::DESCRIPTOR_SET << 8) > { using type = CommandSetSystem; };
+
+static constexpr const DescriptorSetInfo& COMMANDS_SYSTEM = MetadataFor<CommandSetSystem>::value;
 
 } // namespace mip::metadata
 
