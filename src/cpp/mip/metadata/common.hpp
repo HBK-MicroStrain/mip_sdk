@@ -14,6 +14,8 @@ namespace mip::metadata
 
         using ParamTypes = std::tuple<uint8_t>;
 
+        using Context = void;
+
         template<size_t I, typename T>
         static auto& access(T& result)
         {
@@ -81,6 +83,8 @@ namespace mip::metadata
 
         using ParamTypes = std::tuple<uint8_t, CmdResult>;
 
+        using Context = void;
+
         template<size_t I, typename T>
         static auto& access(T& value_)
         {
@@ -128,6 +132,8 @@ namespace mip::metadata
 
         using ParamTypes = std::tuple<uint8_t, uint16_t>;
 
+        using Context = void;
+
         template<size_t I, typename T>
         static auto& access(T& value_)
         {
@@ -171,6 +177,8 @@ namespace mip::metadata
         using type = Vector<T,N>;
 
         using ParamTypes = std::array<T, N>;
+
+        using Context = void;
 
         template<size_t I>
         static T& access(type& value_) { return value_[I]; }

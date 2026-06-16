@@ -23,6 +23,8 @@ namespace mip::metadata
     {
         using type = FunctionSelector;
 
+        using Context = void;
+
         static constexpr EnumInfo::Entry entries[] = {
             { (uint8_t)FunctionSelector::WRITE, "WRITE",   "Applies a new setting." },
             { (uint8_t)FunctionSelector::READ,  "READ",    "Reads the current setting." },

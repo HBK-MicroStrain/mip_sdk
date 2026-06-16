@@ -780,6 +780,8 @@ struct MetadataFor<data_sensor::GpsTimestamp::ValidFlags>
 {
     using type = data_sensor::GpsTimestamp::ValidFlags;
 
+    using Context = data_sensor::GpsTimestamp;
+
     static constexpr inline BitfieldInfo::Entry entries[] = {
         { uint32_t(1), "pps_valid", "True when the PPS signal is present." },
         { uint32_t(2), "time_refresh", "Toggles each time the time is updated via internal GPS or the GPS Time Update command (0x01, 0x72)." },
@@ -1019,6 +1021,8 @@ template<>
 struct MetadataFor<data_sensor::OverrangeStatus::Status>
 {
     using type = data_sensor::OverrangeStatus::Status;
+
+    using Context = data_sensor::OverrangeStatus;
 
     static constexpr inline BitfieldInfo::Entry entries[] = {
         { uint32_t(1), "accel_x", "" },

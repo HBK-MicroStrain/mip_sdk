@@ -211,6 +211,8 @@ struct MetadataFor<commands_3dm::NmeaMessage::MessageID>
 {
     using type = commands_3dm::NmeaMessage::MessageID;
 
+    using Context = commands_3dm::NmeaMessage;
+
     static constexpr inline EnumInfo::Entry entries[] = {
         { uint32_t(1), "GGA", "GPS System Fix Data. Source can be the Filter or GNSS1/2 datasets." },
         { uint32_t(2), "GLL", "Geographic Position Lat/Lon. Source can be the Filter or GNSS1/2 datasets." },
@@ -239,6 +241,8 @@ template<>
 struct MetadataFor<commands_3dm::NmeaMessage::TalkerID>
 {
     using type = commands_3dm::NmeaMessage::TalkerID;
+
+    using Context = commands_3dm::NmeaMessage;
 
     static constexpr inline EnumInfo::Entry entries[] = {
         { uint32_t(0), "IGNORED", "Talker ID cannot be changed." },
@@ -1344,6 +1348,8 @@ struct MetadataFor<commands_3dm::FactoryStreaming::Action>
 {
     using type = commands_3dm::FactoryStreaming::Action;
 
+    using Context = commands_3dm::FactoryStreaming;
+
     static constexpr inline EnumInfo::Entry entries[] = {
         { uint32_t(0), "OVERWRITE", "Replaces the message format(s), removing any existing descriptors." },
         { uint32_t(1), "MERGE", "Merges support descriptors into existing format(s). May reorder descriptors." },
@@ -1530,6 +1536,8 @@ struct MetadataFor<commands_3dm::ConstellationSettings::ConstellationId>
 {
     using type = commands_3dm::ConstellationSettings::ConstellationId;
 
+    using Context = commands_3dm::ConstellationSettings;
+
     static constexpr inline EnumInfo::Entry entries[] = {
         { uint32_t(0), "GPS", "GPS (G1-G32)" },
         { uint32_t(1), "SBAS", "SBAS (S120-S158)" },
@@ -1554,6 +1562,8 @@ template<>
 struct MetadataFor<commands_3dm::ConstellationSettings::OptionFlags>
 {
     using type = commands_3dm::ConstellationSettings::OptionFlags;
+
+    using Context = commands_3dm::ConstellationSettings;
 
     static constexpr inline BitfieldInfo::Entry entries[] = {
         { uint32_t(1), "L1SAIF", "Available only for QZSS" },
@@ -1799,6 +1809,8 @@ struct MetadataFor<commands_3dm::GnssSbasSettings::SBASOptions>
 {
     using type = commands_3dm::GnssSbasSettings::SBASOptions;
 
+    using Context = commands_3dm::GnssSbasSettings;
+
     static constexpr inline BitfieldInfo::Entry entries[] = {
         { uint32_t(1), "enable_ranging", "Use SBAS pseudoranges in position solution" },
         { uint32_t(2), "enable_corrections", "Use SBAS differential corrections" },
@@ -1974,6 +1986,8 @@ template<>
 struct MetadataFor<commands_3dm::GnssAssistedFix::AssistedFixOption>
 {
     using type = commands_3dm::GnssAssistedFix::AssistedFixOption;
+
+    using Context = commands_3dm::GnssAssistedFix;
 
     static constexpr inline EnumInfo::Entry entries[] = {
         { uint32_t(0), "NONE", "No assisted fix (default)" },
@@ -2238,6 +2252,8 @@ struct MetadataFor<commands_3dm::PpsSource::Source>
 {
     using type = commands_3dm::PpsSource::Source;
 
+    using Context = commands_3dm::PpsSource;
+
     static constexpr inline EnumInfo::Entry entries[] = {
         { uint32_t(0), "DISABLED", "PPS output is disabled. Not valid for PPS source command." },
         { uint32_t(1), "RECEIVER_1", "PPS is provided by GNSS receiver 1." },
@@ -2349,6 +2365,8 @@ template<>
 struct MetadataFor<commands_3dm::GetEventSupport::Query>
 {
     using type = commands_3dm::GetEventSupport::Query;
+
+    using Context = commands_3dm::GetEventSupport;
 
     static constexpr inline EnumInfo::Entry entries[] = {
         { uint32_t(1), "TRIGGER_TYPES", "Query the supported trigger types and max count for each." },
@@ -2537,6 +2555,8 @@ struct MetadataFor<commands_3dm::EventControl::Mode>
 {
     using type = commands_3dm::EventControl::Mode;
 
+    using Context = commands_3dm::EventControl;
+
     static constexpr inline EnumInfo::Entry entries[] = {
         { uint32_t(0), "DISABLED", "Trigger is disabled." },
         { uint32_t(1), "ENABLED", "Trigger is enabled and will work normally." },
@@ -2669,6 +2689,8 @@ template<>
 struct MetadataFor<commands_3dm::GetEventTriggerStatus::Status>
 {
     using type = commands_3dm::GetEventTriggerStatus::Status;
+
+    using Context = commands_3dm::GetEventTriggerStatus;
 
     static constexpr inline BitfieldInfo::Entry entries[] = {
         { uint32_t(1), "active", "True if the trigger is currently active (either due to its logic or being in test mode)." },
@@ -3002,6 +3024,8 @@ struct MetadataFor<commands_3dm::EventTrigger::GpioParams::Mode>
 {
     using type = commands_3dm::EventTrigger::GpioParams::Mode;
 
+    using Context = commands_3dm::EventTrigger::GpioParams;
+
     static constexpr inline EnumInfo::Entry entries[] = {
         { uint32_t(0), "DISABLED", "The pin will have no effect and the trigger will never activate." },
         { uint32_t(1), "WHILE_HIGH", "The trigger will be active while the pin is high." },
@@ -3072,6 +3096,8 @@ template<>
 struct MetadataFor<commands_3dm::EventTrigger::ThresholdParams::Type>
 {
     using type = commands_3dm::EventTrigger::ThresholdParams::Type;
+
+    using Context = commands_3dm::EventTrigger::ThresholdParams;
 
     static constexpr inline EnumInfo::Entry entries[] = {
         { uint32_t(1), "WINDOW", "Window comparison. Trigger is active if low_thres &lt;= value &lt;= high_thres. If the thresholds are reversed, the trigger is active when value &lt; high_thres or value &gt; low_thres." },
@@ -3233,6 +3259,8 @@ template<>
 struct MetadataFor<commands_3dm::EventTrigger::Type>
 {
     using type = commands_3dm::EventTrigger::Type;
+
+    using Context = commands_3dm::EventTrigger;
 
     static constexpr inline EnumInfo::Entry entries[] = {
         { uint32_t(0), "NONE", "No trigger selected. The state will always be inactive." },
@@ -3448,6 +3476,8 @@ struct MetadataFor<commands_3dm::EventAction::GpioParams::Mode>
 {
     using type = commands_3dm::EventAction::GpioParams::Mode;
 
+    using Context = commands_3dm::EventAction::GpioParams;
+
     static constexpr inline EnumInfo::Entry entries[] = {
         { uint32_t(0), "DISABLED", "Pin state will not be changed." },
         { uint32_t(1), "ACTIVE_HIGH", "Pin will be set high when the trigger is active and low otherwise." },
@@ -3590,6 +3620,8 @@ template<>
 struct MetadataFor<commands_3dm::EventAction::Type>
 {
     using type = commands_3dm::EventAction::Type;
+
+    using Context = commands_3dm::EventAction;
 
     static constexpr inline EnumInfo::Entry entries[] = {
         { uint32_t(0), "NONE", "No action. Parameters should be empty." },
@@ -4772,6 +4804,8 @@ struct MetadataFor<commands_3dm::GpioConfig::Feature>
 {
     using type = commands_3dm::GpioConfig::Feature;
 
+    using Context = commands_3dm::GpioConfig;
+
     static constexpr inline EnumInfo::Entry entries[] = {
         { uint32_t(0), "UNUSED", "The pin is not used. It may be technically possible to read the pin state in this mode, but this is not guaranteed to be true of all devices or pins." },
         { uint32_t(1), "GPIO", "General purpose input or output. Use this for direct control of pin output state or to stream the state of the pin." },
@@ -4796,6 +4830,8 @@ template<>
 struct MetadataFor<commands_3dm::GpioConfig::Behavior>
 {
     using type = commands_3dm::GpioConfig::Behavior;
+
+    using Context = commands_3dm::GpioConfig;
 
     static constexpr inline EnumInfo::Entry entries[] = {
         { uint32_t(0), "UNUSED", "Use 0 unless otherwise specified." },
@@ -4830,6 +4866,8 @@ template<>
 struct MetadataFor<commands_3dm::GpioConfig::PinMode>
 {
     using type = commands_3dm::GpioConfig::PinMode;
+
+    using Context = commands_3dm::GpioConfig;
 
     static constexpr inline BitfieldInfo::Entry entries[] = {
         { uint32_t(1), "open_drain", "The pin will be an open-drain output. The state will be either LOW or FLOATING instead of LOW or HIGH, respectively. This is used to connect multiple open-drain outputs from several devices. An internal or external pull-up resistor is typically used in combination. The maximum voltage of an open drain output is subject to the device maximum input voltage range found in the specifications." },
@@ -5116,6 +5154,8 @@ template<>
 struct MetadataFor<commands_3dm::Odometer::Mode>
 {
     using type = commands_3dm::Odometer::Mode;
+
+    using Context = commands_3dm::Odometer;
 
     static constexpr inline EnumInfo::Entry entries[] = {
         { uint32_t(0), "DISABLED", "Encoder is disabled." },
@@ -5599,6 +5639,8 @@ template<>
 struct MetadataFor<commands_3dm::SensorRangeType>
 {
     using type = commands_3dm::SensorRangeType;
+
+    using Context = CommandSet3dm;
 
     static constexpr inline EnumInfo::Entry entries[] = {
         { uint32_t(0), "ALL", "Only allowed for SAVE, LOAD, and DEFAULT function selectors." },
