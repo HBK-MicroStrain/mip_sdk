@@ -145,6 +145,8 @@ struct MetadataFor<data_shared::GpsTimestamp::ValidFlags>
 {
     using type = data_shared::GpsTimestamp::ValidFlags;
 
+    using Context = data_shared::GpsTimestamp;
+
     static constexpr inline BitfieldInfo::Entry entries[] = {
         { uint32_t(1), "tow", "Whole number seconds TOW has been set" },
         { uint32_t(2), "week_number", "Week number has been set" },
@@ -361,6 +363,8 @@ struct MetadataFor<data_shared::ExternalTimestamp::ValidFlags>
 {
     using type = data_shared::ExternalTimestamp::ValidFlags;
 
+    using Context = data_shared::ExternalTimestamp;
+
     static constexpr inline BitfieldInfo::Entry entries[] = {
         { uint32_t(1), "nanoseconds", "" },
     };
@@ -434,6 +438,8 @@ template<>
 struct MetadataFor<data_shared::ExternalTimeDelta::ValidFlags>
 {
     using type = data_shared::ExternalTimeDelta::ValidFlags;
+
+    using Context = data_shared::ExternalTimeDelta;
 
     static constexpr inline BitfieldInfo::Entry entries[] = {
         { uint32_t(1), "dt_nanos", "" },

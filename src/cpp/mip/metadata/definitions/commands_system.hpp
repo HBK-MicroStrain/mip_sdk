@@ -104,6 +104,8 @@ struct MetadataFor<commands_system::CommsInterface>
 {
     using type = commands_system::CommsInterface;
 
+    using Context = CommandSetSystem;
+
     static constexpr inline EnumInfo::Entry entries[] = {
         { uint32_t(0), "ALL", "" },
         { uint32_t(1), "MAIN", "An alias that directs to Main USB if it's connected, or Main UART otherwise" },
@@ -129,6 +131,8 @@ template<>
 struct MetadataFor<commands_system::CommsProtocol>
 {
     using type = commands_system::CommsProtocol;
+
+    using Context = CommandSetSystem;
 
     static constexpr inline BitfieldInfo::Entry entries[] = {
         { uint32_t(1), "MIP", "Microstrain Inertial Protocol" },

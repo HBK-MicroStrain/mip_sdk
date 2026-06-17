@@ -650,6 +650,8 @@ struct MetadataFor<commands_base::GpsTimeUpdate::FieldId>
 {
     using type = commands_base::GpsTimeUpdate::FieldId;
 
+    using Context = commands_base::GpsTimeUpdate;
+
     static constexpr inline EnumInfo::Entry entries[] = {
         { uint32_t(1), "WEEK_NUMBER", "Week number." },
         { uint32_t(2), "TIME_OF_WEEK", "Time of week in seconds." },

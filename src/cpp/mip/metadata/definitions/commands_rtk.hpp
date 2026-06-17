@@ -16,6 +16,8 @@ struct MetadataFor<commands_rtk::GetStatusFlags::StatusFlagsLegacy>
 {
     using type = commands_rtk::GetStatusFlags::StatusFlagsLegacy;
 
+    using Context = commands_rtk::GetStatusFlags;
+
     static constexpr inline BitfieldInfo::Entry entries[] = {
         { uint32_t(7), "controllerState", "" },
         { uint32_t(248), "platformState", "" },
@@ -45,6 +47,8 @@ template<>
 struct MetadataFor<commands_rtk::GetStatusFlags::StatusFlags>
 {
     using type = commands_rtk::GetStatusFlags::StatusFlags;
+
+    using Context = commands_rtk::GetStatusFlags;
 
     static constexpr inline BitfieldInfo::Entry entries[] = {
         { uint32_t(15), "modem_state", "" },
@@ -344,6 +348,8 @@ template<>
 struct MetadataFor<commands_rtk::ConnectedDeviceType::Type>
 {
     using type = commands_rtk::ConnectedDeviceType::Type;
+
+    using Context = commands_rtk::ConnectedDeviceType;
 
     static constexpr inline EnumInfo::Entry entries[] = {
         { uint32_t(0), "GENERIC", "" },
@@ -677,6 +683,8 @@ struct MetadataFor<commands_rtk::ServiceStatus::ServiceFlags>
 {
     using type = commands_rtk::ServiceStatus::ServiceFlags;
 
+    using Context = commands_rtk::ServiceStatus;
+
     static constexpr inline BitfieldInfo::Entry entries[] = {
         { uint32_t(1), "throttle", "" },
         { uint32_t(2), "corrections_unavailable", "" },
@@ -828,6 +836,8 @@ struct MetadataFor<commands_rtk::MediaSelector>
 {
     using type = commands_rtk::MediaSelector;
 
+    using Context = CommandSetRtk;
+
     static constexpr inline EnumInfo::Entry entries[] = {
         { uint32_t(0), "MEDIA_ExternalFlash", "" },
         { uint32_t(1), "MEDIA_SD", "" },
@@ -891,6 +901,8 @@ template<>
 struct MetadataFor<commands_rtk::LedAction>
 {
     using type = commands_rtk::LedAction;
+
+    using Context = CommandSetRtk;
 
     static constexpr inline EnumInfo::Entry entries[] = {
         { uint32_t(0), "LED_NONE", "" },

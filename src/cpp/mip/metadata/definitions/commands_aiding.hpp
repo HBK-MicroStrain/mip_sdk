@@ -16,6 +16,8 @@ struct MetadataFor<commands_aiding::FrameConfig::Format>
 {
     using type = commands_aiding::FrameConfig::Format;
 
+    using Context = commands_aiding::FrameConfig;
+
     static constexpr inline EnumInfo::Entry entries[] = {
         { uint32_t(1), "EULER", "Translation vector followed by euler angles (roll, pitch, yaw)." },
         { uint32_t(2), "QUATERNION", "Translation vector followed by quaternion (w, x, y, z)." },
@@ -261,6 +263,8 @@ struct MetadataFor<commands_aiding::EchoControl::Mode>
 {
     using type = commands_aiding::EchoControl::Mode;
 
+    using Context = commands_aiding::EchoControl;
+
     static constexpr inline EnumInfo::Entry entries[] = {
         { uint32_t(0), "SUPPRESS_ACK", "Suppresses the usual command ack field for aiding messages." },
         { uint32_t(1), "STANDARD", "Normal ack/nack behavior." },
@@ -371,6 +375,8 @@ struct MetadataFor<commands_aiding::Time::Timebase>
 {
     using type = commands_aiding::Time::Timebase;
 
+    using Context = commands_aiding::Time;
+
     static constexpr inline EnumInfo::Entry entries[] = {
         { uint32_t(1), "INTERNAL_REFERENCE", "Timestamp provided is with respect to internal clock." },
         { uint32_t(2), "EXTERNAL_TIME", "Timestamp provided is with respect to external clock, synced by PPS source." },
@@ -451,6 +457,8 @@ template<>
 struct MetadataFor<commands_aiding::PosEcef::ValidFlags>
 {
     using type = commands_aiding::PosEcef::ValidFlags;
+
+    using Context = commands_aiding::PosEcef;
 
     static constexpr inline BitfieldInfo::Entry entries[] = {
         { uint32_t(1), "X", "" },
@@ -560,6 +568,8 @@ template<>
 struct MetadataFor<commands_aiding::PosLlh::ValidFlags>
 {
     using type = commands_aiding::PosLlh::ValidFlags;
+
+    using Context = commands_aiding::PosLlh;
 
     static constexpr inline BitfieldInfo::Entry entries[] = {
         { uint32_t(1), "Latitude", "" },
@@ -779,6 +789,8 @@ struct MetadataFor<commands_aiding::VelEcef::ValidFlags>
 {
     using type = commands_aiding::VelEcef::ValidFlags;
 
+    using Context = commands_aiding::VelEcef;
+
     static constexpr inline BitfieldInfo::Entry entries[] = {
         { uint32_t(1), "X", "" },
         { uint32_t(2), "Y", "" },
@@ -888,6 +900,8 @@ struct MetadataFor<commands_aiding::VelNed::ValidFlags>
 {
     using type = commands_aiding::VelNed::ValidFlags;
 
+    using Context = commands_aiding::VelNed;
+
     static constexpr inline BitfieldInfo::Entry entries[] = {
         { uint32_t(1), "X", "" },
         { uint32_t(2), "Y", "" },
@@ -996,6 +1010,8 @@ template<>
 struct MetadataFor<commands_aiding::VelBodyFrame::ValidFlags>
 {
     using type = commands_aiding::VelBodyFrame::ValidFlags;
+
+    using Context = commands_aiding::VelBodyFrame;
 
     static constexpr inline BitfieldInfo::Entry entries[] = {
         { uint32_t(1), "X", "" },
@@ -1192,6 +1208,8 @@ template<>
 struct MetadataFor<commands_aiding::MagneticField::ValidFlags>
 {
     using type = commands_aiding::MagneticField::ValidFlags;
+
+    using Context = commands_aiding::MagneticField;
 
     static constexpr inline BitfieldInfo::Entry entries[] = {
         { uint32_t(1), "X", "" },

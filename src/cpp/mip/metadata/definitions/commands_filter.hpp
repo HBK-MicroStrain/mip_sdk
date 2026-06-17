@@ -106,6 +106,8 @@ struct MetadataFor<commands_filter::EstimationControl::EnableFlags>
 {
     using type = commands_filter::EstimationControl::EnableFlags;
 
+    using Context = commands_filter::EstimationControl;
+
     static constexpr inline BitfieldInfo::Entry entries[] = {
         { uint32_t(1), "gyro_bias", "" },
         { uint32_t(2), "accel_bias", "" },
@@ -492,6 +494,8 @@ struct MetadataFor<commands_filter::TareOrientation::MipTareAxes>
 {
     using type = commands_filter::TareOrientation::MipTareAxes;
 
+    using Context = commands_filter::TareOrientation;
+
     static constexpr inline BitfieldInfo::Entry entries[] = {
         { uint32_t(1), "roll", "" },
         { uint32_t(2), "pitch", "" },
@@ -601,6 +605,8 @@ template<>
 struct MetadataFor<commands_filter::VehicleDynamicsMode::DynamicsMode>
 {
     using type = commands_filter::VehicleDynamicsMode::DynamicsMode;
+
+    using Context = commands_filter::VehicleDynamicsMode;
 
     static constexpr inline EnumInfo::Entry entries[] = {
         { uint32_t(1), "PORTABLE", "" },
@@ -1197,6 +1203,8 @@ struct MetadataFor<commands_filter::GnssSource::Source>
 {
     using type = commands_filter::GnssSource::Source;
 
+    using Context = commands_filter::GnssSource;
+
     static constexpr inline EnumInfo::Entry entries[] = {
         { uint32_t(1), "ALL_INT", "All internal receivers" },
         { uint32_t(2), "EXT", "External GNSS messages provided by user" },
@@ -1307,6 +1315,8 @@ template<>
 struct MetadataFor<commands_filter::HeadingSource::Source>
 {
     using type = commands_filter::HeadingSource::Source;
+
+    using Context = commands_filter::HeadingSource;
 
     static constexpr inline EnumInfo::Entry entries[] = {
         { uint32_t(0), "NONE", "See note 3" },
@@ -1907,6 +1917,8 @@ struct MetadataFor<commands_filter::AltitudeAiding::AidingSelector>
 {
     using type = commands_filter::AltitudeAiding::AidingSelector;
 
+    using Context = commands_filter::AltitudeAiding;
+
     static constexpr inline EnumInfo::Entry entries[] = {
         { uint32_t(0), "NONE", "No altitude aiding" },
         { uint32_t(1), "PRESURE", "Enable pressure sensor aiding" },
@@ -2015,6 +2027,8 @@ template<>
 struct MetadataFor<commands_filter::PitchRollAiding::AidingSource>
 {
     using type = commands_filter::PitchRollAiding::AidingSource;
+
+    using Context = commands_filter::PitchRollAiding;
 
     static constexpr inline EnumInfo::Entry entries[] = {
         { uint32_t(0), "NONE", "No pitch/roll aiding" },
@@ -2871,6 +2885,8 @@ struct MetadataFor<commands_filter::FilterMagParamSource>
 {
     using type = commands_filter::FilterMagParamSource;
 
+    using Context = CommandSetFilter;
+
     static constexpr inline EnumInfo::Entry entries[] = {
         { uint32_t(1), "NONE", "No source. See command documentation for default behavior" },
         { uint32_t(2), "WMM", "Magnetic field is assumed to conform to the World Magnetic Model, calculated using current location estimate as an input to the model." },
@@ -3376,6 +3392,8 @@ template<>
 struct MetadataFor<commands_filter::FilterAdaptiveMeasurement>
 {
     using type = commands_filter::FilterAdaptiveMeasurement;
+
+    using Context = CommandSetFilter;
 
     static constexpr inline EnumInfo::Entry entries[] = {
         { uint32_t(0), "DISABLED", "No adaptive measurement" },
@@ -4015,6 +4033,8 @@ struct MetadataFor<commands_filter::AidingMeasurementEnable::AidingSource>
 {
     using type = commands_filter::AidingMeasurementEnable::AidingSource;
 
+    using Context = commands_filter::AidingMeasurementEnable;
+
     static constexpr inline EnumInfo::Entry entries[] = {
         { uint32_t(0), "GNSS_POS_VEL", "GNSS Position and Velocity" },
         { uint32_t(1), "GNSS_HEADING", "GNSS Heading (dual antenna)" },
@@ -4311,6 +4331,8 @@ struct MetadataFor<commands_filter::FilterReferenceFrame>
 {
     using type = commands_filter::FilterReferenceFrame;
 
+    using Context = CommandSetFilter;
+
     static constexpr inline EnumInfo::Entry entries[] = {
         { uint32_t(1), "ECEF", "WGS84 Earth-fixed, earth centered coordinates" },
         { uint32_t(2), "LLH", "WGS84 Latitude, longitude, and height above ellipsoid" },
@@ -4331,6 +4353,8 @@ template<>
 struct MetadataFor<commands_filter::InitializationConfiguration::AlignmentSelector>
 {
     using type = commands_filter::InitializationConfiguration::AlignmentSelector;
+
+    using Context = commands_filter::InitializationConfiguration;
 
     static constexpr inline BitfieldInfo::Entry entries[] = {
         { uint32_t(1), "dual_antenna", "Dual-antenna GNSS alignment" },
@@ -4354,6 +4378,8 @@ template<>
 struct MetadataFor<commands_filter::InitializationConfiguration::InitialConditionSource>
 {
     using type = commands_filter::InitializationConfiguration::InitialConditionSource;
+
+    using Context = commands_filter::InitializationConfiguration;
 
     static constexpr inline EnumInfo::Entry entries[] = {
         { uint32_t(0), "AUTO_POS_VEL_ATT", "Automatic position, velocity and attitude" },
@@ -4993,6 +5019,8 @@ template<>
 struct MetadataFor<commands_filter::RefPointLeverArm::ReferencePointSelector>
 {
     using type = commands_filter::RefPointLeverArm::ReferencePointSelector;
+
+    using Context = commands_filter::RefPointLeverArm;
 
     static constexpr inline EnumInfo::Entry entries[] = {
         { uint32_t(1), "VEH", "Defines the origin of the vehicle" },

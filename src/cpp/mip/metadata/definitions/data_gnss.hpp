@@ -16,6 +16,8 @@ struct MetadataFor<data_gnss::PosLlh::ValidFlags>
 {
     using type = data_gnss::PosLlh::ValidFlags;
 
+    using Context = data_gnss::PosLlh;
+
     static constexpr inline BitfieldInfo::Entry entries[] = {
         { uint32_t(1), "lat_lon", "" },
         { uint32_t(2), "ellipsoid_height", "" },
@@ -150,6 +152,8 @@ struct MetadataFor<data_gnss::PosEcef::ValidFlags>
 {
     using type = data_gnss::PosEcef::ValidFlags;
 
+    using Context = data_gnss::PosEcef;
+
     static constexpr inline BitfieldInfo::Entry entries[] = {
         { uint32_t(1), "position", "" },
         { uint32_t(2), "position_accuracy", "" },
@@ -236,6 +240,8 @@ template<>
 struct MetadataFor<data_gnss::VelNed::ValidFlags>
 {
     using type = data_gnss::VelNed::ValidFlags;
+
+    using Context = data_gnss::VelNed;
 
     static constexpr inline BitfieldInfo::Entry entries[] = {
         { uint32_t(1), "velocity", "" },
@@ -372,6 +378,8 @@ struct MetadataFor<data_gnss::VelEcef::ValidFlags>
 {
     using type = data_gnss::VelEcef::ValidFlags;
 
+    using Context = data_gnss::VelEcef;
+
     static constexpr inline BitfieldInfo::Entry entries[] = {
         { uint32_t(1), "velocity", "" },
         { uint32_t(2), "velocity_accuracy", "" },
@@ -458,6 +466,8 @@ template<>
 struct MetadataFor<data_gnss::Dop::ValidFlags>
 {
     using type = data_gnss::Dop::ValidFlags;
+
+    using Context = data_gnss::Dop;
 
     static constexpr inline BitfieldInfo::Entry entries[] = {
         { uint32_t(1), "gdop", "" },
@@ -606,6 +616,8 @@ struct MetadataFor<data_gnss::UtcTime::ValidFlags>
 {
     using type = data_gnss::UtcTime::ValidFlags;
 
+    using Context = data_gnss::UtcTime;
+
     static constexpr inline BitfieldInfo::Entry entries[] = {
         { uint32_t(1), "gnss_date_time", "" },
         { uint32_t(2), "leap_seconds_known", "" },
@@ -748,6 +760,8 @@ struct MetadataFor<data_gnss::GpsTime::ValidFlags>
 {
     using type = data_gnss::GpsTime::ValidFlags;
 
+    using Context = data_gnss::GpsTime;
+
     static constexpr inline BitfieldInfo::Entry entries[] = {
         { uint32_t(1), "tow", "" },
         { uint32_t(2), "week_number", "" },
@@ -834,6 +848,8 @@ template<>
 struct MetadataFor<data_gnss::ClockInfo::ValidFlags>
 {
     using type = data_gnss::ClockInfo::ValidFlags;
+
+    using Context = data_gnss::ClockInfo;
 
     static constexpr inline BitfieldInfo::Entry entries[] = {
         { uint32_t(1), "bias", "" },
@@ -934,6 +950,8 @@ struct MetadataFor<data_gnss::FixInfo::FixType>
 {
     using type = data_gnss::FixInfo::FixType;
 
+    using Context = data_gnss::FixInfo;
+
     static constexpr inline EnumInfo::Entry entries[] = {
         { uint32_t(0), "FIX_3D", "" },
         { uint32_t(1), "FIX_2D", "" },
@@ -961,6 +979,8 @@ struct MetadataFor<data_gnss::FixInfo::FixFlags>
 {
     using type = data_gnss::FixInfo::FixFlags;
 
+    using Context = data_gnss::FixInfo;
+
     static constexpr inline BitfieldInfo::Entry entries[] = {
         { uint32_t(1), "sbas_used", "" },
         { uint32_t(2), "dgnss_used", "" },
@@ -981,6 +1001,8 @@ template<>
 struct MetadataFor<data_gnss::FixInfo::ValidFlags>
 {
     using type = data_gnss::FixInfo::ValidFlags;
+
+    using Context = data_gnss::FixInfo;
 
     static constexpr inline BitfieldInfo::Entry entries[] = {
         { uint32_t(1), "fix_type", "" },
@@ -1081,6 +1103,8 @@ struct MetadataFor<data_gnss::SvInfo::SVFlags>
 {
     using type = data_gnss::SvInfo::SVFlags;
 
+    using Context = data_gnss::SvInfo;
+
     static constexpr inline BitfieldInfo::Entry entries[] = {
         { uint32_t(1), "used_for_navigation", "" },
         { uint32_t(2), "healthy", "" },
@@ -1101,6 +1125,8 @@ template<>
 struct MetadataFor<data_gnss::SvInfo::ValidFlags>
 {
     using type = data_gnss::SvInfo::ValidFlags;
+
+    using Context = data_gnss::SvInfo;
 
     static constexpr inline BitfieldInfo::Entry entries[] = {
         { uint32_t(1), "channel", "" },
@@ -1237,6 +1263,8 @@ struct MetadataFor<data_gnss::HwStatus::ReceiverState>
 {
     using type = data_gnss::HwStatus::ReceiverState;
 
+    using Context = data_gnss::HwStatus;
+
     static constexpr inline EnumInfo::Entry entries[] = {
         { uint32_t(0), "OFF", "" },
         { uint32_t(1), "ON", "" },
@@ -1258,6 +1286,8 @@ template<>
 struct MetadataFor<data_gnss::HwStatus::AntennaState>
 {
     using type = data_gnss::HwStatus::AntennaState;
+
+    using Context = data_gnss::HwStatus;
 
     static constexpr inline EnumInfo::Entry entries[] = {
         { uint32_t(1), "INIT", "" },
@@ -1283,6 +1313,8 @@ struct MetadataFor<data_gnss::HwStatus::AntennaPower>
 {
     using type = data_gnss::HwStatus::AntennaPower;
 
+    using Context = data_gnss::HwStatus;
+
     static constexpr inline EnumInfo::Entry entries[] = {
         { uint32_t(0), "OFF", "" },
         { uint32_t(1), "ON", "" },
@@ -1304,6 +1336,8 @@ template<>
 struct MetadataFor<data_gnss::HwStatus::ValidFlags>
 {
     using type = data_gnss::HwStatus::ValidFlags;
+
+    using Context = data_gnss::HwStatus;
 
     static constexpr inline BitfieldInfo::Entry entries[] = {
         { uint32_t(1), "sensor_state", "" },
@@ -1403,6 +1437,8 @@ template<>
 struct MetadataFor<data_gnss::DgpsInfo::ValidFlags>
 {
     using type = data_gnss::DgpsInfo::ValidFlags;
+
+    using Context = data_gnss::DgpsInfo;
 
     static constexpr inline BitfieldInfo::Entry entries[] = {
         { uint32_t(1), "age", "" },
@@ -1515,6 +1551,8 @@ struct MetadataFor<data_gnss::DgpsChannel::ValidFlags>
 {
     using type = data_gnss::DgpsChannel::ValidFlags;
 
+    using Context = data_gnss::DgpsChannel;
+
     static constexpr inline BitfieldInfo::Entry entries[] = {
         { uint32_t(1), "id", "" },
         { uint32_t(2), "age", "" },
@@ -1625,6 +1663,8 @@ template<>
 struct MetadataFor<data_gnss::ClockInfo2::ValidFlags>
 {
     using type = data_gnss::ClockInfo2::ValidFlags;
+
+    using Context = data_gnss::ClockInfo2;
 
     static constexpr inline BitfieldInfo::Entry entries[] = {
         { uint32_t(1), "bias", "" },
@@ -1737,6 +1777,8 @@ struct MetadataFor<data_gnss::GpsLeapSeconds::ValidFlags>
 {
     using type = data_gnss::GpsLeapSeconds::ValidFlags;
 
+    using Context = data_gnss::GpsLeapSeconds;
+
     static constexpr inline BitfieldInfo::Entry entries[] = {
         { uint32_t(2), "leap_seconds", "" },
     };
@@ -1811,6 +1853,8 @@ struct MetadataFor<data_gnss::SbasSystem>
 {
     using type = data_gnss::SbasSystem;
 
+    using Context = DataSetGnss;
+
     static constexpr inline EnumInfo::Entry entries[] = {
         { uint32_t(0), "UNKNOWN", "" },
         { uint32_t(1), "WAAS", "" },
@@ -1835,6 +1879,8 @@ struct MetadataFor<data_gnss::SbasInfo::SbasStatus>
 {
     using type = data_gnss::SbasInfo::SbasStatus;
 
+    using Context = data_gnss::SbasInfo;
+
     static constexpr inline BitfieldInfo::Entry entries[] = {
         { uint32_t(1), "range_available", "" },
         { uint32_t(2), "corrections_available", "" },
@@ -1857,6 +1903,8 @@ template<>
 struct MetadataFor<data_gnss::SbasInfo::ValidFlags>
 {
     using type = data_gnss::SbasInfo::ValidFlags;
+
+    using Context = data_gnss::SbasInfo;
 
     static constexpr inline BitfieldInfo::Entry entries[] = {
         { uint32_t(1), "tow", "" },
@@ -1993,6 +2041,8 @@ struct MetadataFor<data_gnss::GnssConstellationId>
 {
     using type = data_gnss::GnssConstellationId;
 
+    using Context = DataSetGnss;
+
     static constexpr inline EnumInfo::Entry entries[] = {
         { uint32_t(0), "UNKNOWN", "" },
         { uint32_t(1), "GPS", "" },
@@ -2017,6 +2067,8 @@ template<>
 struct MetadataFor<data_gnss::SbasCorrection::ValidFlags>
 {
     using type = data_gnss::SbasCorrection::ValidFlags;
+
+    using Context = data_gnss::SbasCorrection;
 
     static constexpr inline BitfieldInfo::Entry entries[] = {
         { uint32_t(1), "udrei", "" },
@@ -2183,6 +2235,8 @@ struct MetadataFor<data_gnss::RfErrorDetection::RFBand>
 {
     using type = data_gnss::RfErrorDetection::RFBand;
 
+    using Context = data_gnss::RfErrorDetection;
+
     static constexpr inline EnumInfo::Entry entries[] = {
         { uint32_t(0), "UNKNOWN", "" },
         { uint32_t(1), "L1", "" },
@@ -2205,6 +2259,8 @@ template<>
 struct MetadataFor<data_gnss::RfErrorDetection::JammingState>
 {
     using type = data_gnss::RfErrorDetection::JammingState;
+
+    using Context = data_gnss::RfErrorDetection;
 
     static constexpr inline EnumInfo::Entry entries[] = {
         { uint32_t(0), "UNKNOWN", "" },
@@ -2229,6 +2285,8 @@ struct MetadataFor<data_gnss::RfErrorDetection::SpoofingState>
 {
     using type = data_gnss::RfErrorDetection::SpoofingState;
 
+    using Context = data_gnss::RfErrorDetection;
+
     static constexpr inline EnumInfo::Entry entries[] = {
         { uint32_t(0), "UNKNOWN", "" },
         { uint32_t(1), "NONE", "" },
@@ -2251,6 +2309,8 @@ template<>
 struct MetadataFor<data_gnss::RfErrorDetection::ValidFlags>
 {
     using type = data_gnss::RfErrorDetection::ValidFlags;
+
+    using Context = data_gnss::RfErrorDetection;
 
     static constexpr inline BitfieldInfo::Entry entries[] = {
         { uint32_t(1), "rf_band", "" },
@@ -2373,6 +2433,8 @@ struct MetadataFor<data_gnss::Heading::ValidFlags>
 {
     using type = data_gnss::Heading::ValidFlags;
 
+    using Context = data_gnss::Heading;
+
     static constexpr inline BitfieldInfo::Entry entries[] = {
         { uint32_t(1), "heading", "" },
         { uint32_t(2), "uncertainty", "" },
@@ -2394,6 +2456,8 @@ template<>
 struct MetadataFor<data_gnss::Heading::FixType>
 {
     using type = data_gnss::Heading::FixType;
+
+    using Context = data_gnss::Heading;
 
     static constexpr inline EnumInfo::Entry entries[] = {
         { uint32_t(0), "UNKNOWN", "" },
@@ -2493,6 +2557,8 @@ struct MetadataFor<data_gnss::BaseStationInfo::IndicatorFlags>
 {
     using type = data_gnss::BaseStationInfo::IndicatorFlags;
 
+    using Context = data_gnss::BaseStationInfo;
+
     static constexpr inline BitfieldInfo::Entry entries[] = {
         { uint32_t(1), "gps", "" },
         { uint32_t(2), "glonass", "" },
@@ -2520,6 +2586,8 @@ template<>
 struct MetadataFor<data_gnss::BaseStationInfo::ValidFlags>
 {
     using type = data_gnss::BaseStationInfo::ValidFlags;
+
+    using Context = data_gnss::BaseStationInfo;
 
     static constexpr inline BitfieldInfo::Entry entries[] = {
         { uint32_t(1), "tow", "" },
@@ -2656,6 +2724,8 @@ struct MetadataFor<data_gnss::RtkCorrectionsStatus::ValidFlags>
 {
     using type = data_gnss::RtkCorrectionsStatus::ValidFlags;
 
+    using Context = data_gnss::RtkCorrectionsStatus;
+
     static constexpr inline BitfieldInfo::Entry entries[] = {
         { uint32_t(1), "tow", "" },
         { uint32_t(2), "week_number", "" },
@@ -2683,6 +2753,8 @@ template<>
 struct MetadataFor<data_gnss::RtkCorrectionsStatus::EpochStatus>
 {
     using type = data_gnss::RtkCorrectionsStatus::EpochStatus;
+
+    using Context = data_gnss::RtkCorrectionsStatus;
 
     static constexpr inline BitfieldInfo::Entry entries[] = {
         { uint32_t(1), "antenna_location_received", "" },
@@ -2854,6 +2926,8 @@ struct MetadataFor<data_gnss::SatelliteStatus::ValidFlags>
 {
     using type = data_gnss::SatelliteStatus::ValidFlags;
 
+    using Context = data_gnss::SatelliteStatus;
+
     static constexpr inline BitfieldInfo::Entry entries[] = {
         { uint32_t(1), "tow", "" },
         { uint32_t(2), "week_number", "" },
@@ -3023,6 +3097,8 @@ struct MetadataFor<data_gnss::GnssSignalId>
 {
     using type = data_gnss::GnssSignalId;
 
+    using Context = DataSetGnss;
+
     static constexpr inline EnumInfo::Entry entries[] = {
         { uint32_t(0), "UNKNOWN", "" },
         { uint32_t(1), "GPS_L1CA", "" },
@@ -3108,6 +3184,8 @@ struct MetadataFor<data_gnss::Raw::GnssSignalQuality>
 {
     using type = data_gnss::Raw::GnssSignalQuality;
 
+    using Context = data_gnss::Raw;
+
     static constexpr inline EnumInfo::Entry entries[] = {
         { uint32_t(0), "NONE", "" },
         { uint32_t(1), "SEARCHING", "" },
@@ -3132,6 +3210,8 @@ template<>
 struct MetadataFor<data_gnss::Raw::ValidFlags>
 {
     using type = data_gnss::Raw::ValidFlags;
+
+    using Context = data_gnss::Raw;
 
     static constexpr inline BitfieldInfo::Entry entries[] = {
         { uint32_t(1), "tow", "" },
@@ -3409,6 +3489,8 @@ template<>
 struct MetadataFor<data_gnss::GpsEphemeris::ValidFlags>
 {
     using type = data_gnss::GpsEphemeris::ValidFlags;
+
+    using Context = data_gnss::GpsEphemeris;
 
     static constexpr inline BitfieldInfo::Entry entries[] = {
         { uint32_t(1), "ephemeris", "" },
@@ -3839,6 +3921,8 @@ struct MetadataFor<data_gnss::GalileoEphemeris::ValidFlags>
 {
     using type = data_gnss::GalileoEphemeris::ValidFlags;
 
+    using Context = data_gnss::GalileoEphemeris;
+
     static constexpr inline BitfieldInfo::Entry entries[] = {
         { uint32_t(1), "ephemeris", "" },
         { uint32_t(2), "modern_data", "" },
@@ -4268,6 +4352,8 @@ struct MetadataFor<data_gnss::GloEphemeris::ValidFlags>
 {
     using type = data_gnss::GloEphemeris::ValidFlags;
 
+    using Context = data_gnss::GloEphemeris;
+
     static constexpr inline BitfieldInfo::Entry entries[] = {
         { uint32_t(1), "ephemeris", "" },
         { uint32_t(1), "flags", "" },
@@ -4595,6 +4681,8 @@ template<>
 struct MetadataFor<data_gnss::BeidouEphemeris::ValidFlags>
 {
     using type = data_gnss::BeidouEphemeris::ValidFlags;
+
+    using Context = data_gnss::BeidouEphemeris;
 
     static constexpr inline BitfieldInfo::Entry entries[] = {
         { uint32_t(1), "ephemeris", "" },
@@ -5025,6 +5113,8 @@ struct MetadataFor<data_gnss::GpsIonoCorr::ValidFlags>
 {
     using type = data_gnss::GpsIonoCorr::ValidFlags;
 
+    using Context = data_gnss::GpsIonoCorr;
+
     static constexpr inline BitfieldInfo::Entry entries[] = {
         { uint32_t(1), "tow", "" },
         { uint32_t(2), "week_number", "" },
@@ -5136,6 +5226,8 @@ struct MetadataFor<data_gnss::GalileoIonoCorr::ValidFlags>
 {
     using type = data_gnss::GalileoIonoCorr::ValidFlags;
 
+    using Context = data_gnss::GalileoIonoCorr;
+
     static constexpr inline BitfieldInfo::Entry entries[] = {
         { uint32_t(1), "tow", "" },
         { uint32_t(2), "week_number", "" },
@@ -5246,6 +5338,8 @@ template<>
 struct MetadataFor<data_gnss::BeidouIonoCorr::ValidFlags>
 {
     using type = data_gnss::BeidouIonoCorr::ValidFlags;
+
+    using Context = data_gnss::BeidouIonoCorr;
 
     static constexpr inline BitfieldInfo::Entry entries[] = {
         { uint32_t(1), "tow", "" },

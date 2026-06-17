@@ -329,6 +329,8 @@ struct MetadataFor<commands_gnss::GnssReceiverId>
 {
     using type = commands_gnss::GnssReceiverId;
 
+    using Context = CommandSetGnss;
+
     static constexpr inline EnumInfo::Entry entries[] = {
         { uint32_t(0), "ALL", "All receivers (for commands which support this)" },
         { uint32_t(1), "INTERNAL_RECV_1", "" },
@@ -352,6 +354,8 @@ template<>
 struct MetadataFor<commands_gnss::ReceiverReset::ResetType>
 {
     using type = commands_gnss::ReceiverReset::ResetType;
+
+    using Context = commands_gnss::ReceiverReset;
 
     static constexpr inline EnumInfo::Entry entries[] = {
         { uint32_t(1), "HARDWARE", "Hardware-level reset of the gnss receiver." },
@@ -781,6 +785,8 @@ template<>
 struct MetadataFor<commands_gnss::RtkConfiguration::AmbiguityFixMode>
 {
     using type = commands_gnss::RtkConfiguration::AmbiguityFixMode;
+
+    using Context = commands_gnss::RtkConfiguration;
 
     static constexpr inline EnumInfo::Entry entries[] = {
         { uint32_t(1), "OFF", "No attempt is made to fix RTK integer ambiguity" },

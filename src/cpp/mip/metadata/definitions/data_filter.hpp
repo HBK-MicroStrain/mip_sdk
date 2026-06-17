@@ -861,6 +861,8 @@ struct MetadataFor<data_filter::FilterMode>
 {
     using type = data_filter::FilterMode;
 
+    using Context = DataSetFilter;
+
     static constexpr inline EnumInfo::Entry entries[] = {
         { uint32_t(0), "GX5_STARTUP", "" },
         { uint32_t(1), "GX5_INIT", "" },
@@ -888,6 +890,8 @@ struct MetadataFor<data_filter::FilterDynamicsMode>
 {
     using type = data_filter::FilterDynamicsMode;
 
+    using Context = DataSetFilter;
+
     static constexpr inline EnumInfo::Entry entries[] = {
         { uint32_t(1), "GX5_PORTABLE", "" },
         { uint32_t(2), "GX5_AUTOMOTIVE", "" },
@@ -910,6 +914,8 @@ template<>
 struct MetadataFor<data_filter::FilterStatusFlags>
 {
     using type = data_filter::FilterStatusFlags;
+
+    using Context = DataSetFilter;
 
     static constexpr inline BitfieldInfo::Entry entries[] = {
         { uint32_t(4096), "gx5_init_no_attitude", "" },
@@ -1346,6 +1352,8 @@ template<>
 struct MetadataFor<data_filter::HeadingUpdateState::HeadingSource>
 {
     using type = data_filter::HeadingUpdateState::HeadingSource;
+
+    using Context = data_filter::HeadingUpdateState;
 
     static constexpr inline EnumInfo::Entry entries[] = {
         { uint32_t(0), "NONE", "" },
@@ -2789,6 +2797,8 @@ struct MetadataFor<data_filter::GnssAidStatusFlags>
 {
     using type = data_filter::GnssAidStatusFlags;
 
+    using Context = DataSetFilter;
+
     static constexpr inline BitfieldInfo::Entry entries[] = {
         { uint32_t(1), "tight_coupling", "If 1, the Kalman filter is processing raw range information from this GNSS module" },
         { uint32_t(2), "differential", "If 1, the Kalman filter is processing RTK corrections from this GNSS module" },
@@ -2964,6 +2974,8 @@ template<>
 struct MetadataFor<data_filter::HeadAidStatus::HeadingAidType>
 {
     using type = data_filter::HeadAidStatus::HeadingAidType;
+
+    using Context = data_filter::HeadAidStatus;
 
     static constexpr inline EnumInfo::Entry entries[] = {
         { uint32_t(1), "DUAL_ANTENNA", "" },
@@ -3321,6 +3333,8 @@ struct MetadataFor<data_filter::FilterAidingMeasurementType>
 {
     using type = data_filter::FilterAidingMeasurementType;
 
+    using Context = DataSetFilter;
+
     static constexpr inline EnumInfo::Entry entries[] = {
         { uint32_t(1), "GNSS", "" },
         { uint32_t(2), "DUAL_ANTENNA", "" },
@@ -3354,6 +3368,8 @@ template<>
 struct MetadataFor<data_filter::FilterMeasurementIndicator>
 {
     using type = data_filter::FilterMeasurementIndicator;
+
+    using Context = DataSetFilter;
 
     static constexpr inline BitfieldInfo::Entry entries[] = {
         { uint32_t(1), "enabled", "" },
@@ -3564,6 +3580,8 @@ struct MetadataFor<data_filter::GnssDualAntennaStatus::FixType>
 {
     using type = data_filter::GnssDualAntennaStatus::FixType;
 
+    using Context = data_filter::GnssDualAntennaStatus;
+
     static constexpr inline EnumInfo::Entry entries[] = {
         { uint32_t(0), "FIX_NONE", "" },
         { uint32_t(1), "FIX_DA_FLOAT", "" },
@@ -3585,6 +3603,8 @@ template<>
 struct MetadataFor<data_filter::GnssDualAntennaStatus::DualAntennaStatusFlags>
 {
     using type = data_filter::GnssDualAntennaStatus::DualAntennaStatusFlags;
+
+    using Context = data_filter::GnssDualAntennaStatus;
 
     static constexpr inline BitfieldInfo::Entry entries[] = {
         { uint32_t(1), "rcv_1_data_valid", "" },
