@@ -49,7 +49,10 @@ enum mip_model_number
     MODEL_3DM_GV7_AR        = 6289,
     MODEL_3DM_GV7_INS       = 6290,
     MODEL_3DM_CV7_INS       = 6291,
-    MODEL_3DM_CV7_GNSS_INS  = 6292
+    MODEL_3DM_CV7_GNSS_INS  = 6292,
+    MODEL_3DM_CX7_AR        = 6700,
+    MODEL_3DM_CX7_AHRS      = 6701,
+    MODEL_3DM_CX7_INS       = 6702
 };
 #ifndef __cplusplus
 typedef enum mip_model_number mip_model_number;

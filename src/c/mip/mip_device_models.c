@@ -103,6 +103,9 @@ const char* get_model_name_from_number(mip_model_number model)
     case MODEL_3DM_GV7_AR:        return "3DM-GV7-AR";
     case MODEL_3DM_GV7_AHRS:      return "3DM-GV7-AHRS";
     case MODEL_3DM_GV7_INS:       return "3DM-GV7-INS";
+    case MODEL_3DM_CX7_AR:        return "3DM-CX7-AR";
+    case MODEL_3DM_CX7_AHRS:      return "3DM-CX7-AHRS";
+    case MODEL_3DM_CX7_INS:       return "3DM-CX7-INS";
 
     default:
     case MODEL_UNKNOWN: return "";
