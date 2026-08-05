@@ -28,7 +28,7 @@ namespace microstrain
     class Index
     {
     private:
-        unsigned int INVALID = UINT_MAX;
+        static constexpr unsigned int INVALID = UINT_MAX;
 
     public:
         constexpr explicit Index(unsigned int index) : m_index(index) {}
@@ -75,7 +75,7 @@ namespace microstrain
     class Id
     {
     private:
-        unsigned int INVALID = 0;
+        static constexpr unsigned int INVALID = 0;
 
     public:
         constexpr explicit Id(unsigned int id) : m_id(id) {}
