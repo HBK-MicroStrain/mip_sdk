@@ -46,7 +46,7 @@ struct CmdResult
 
     constexpr CmdResult() : value(C::MIP_ACK_OK) {}
     constexpr CmdResult(C::mip_cmd_result result) : value(result) {}
-    ~CmdResult() = default;
+    //constexpr ~CmdResult() = default;
 
     CmdResult& operator=(const CmdResult& other) = default;
     CmdResult& operator=(C::mip_cmd_result other) { value = other; return *this; }
