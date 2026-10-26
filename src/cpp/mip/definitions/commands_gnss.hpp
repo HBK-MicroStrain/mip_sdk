@@ -36,12 +36,14 @@ enum
     CMD_CONFIGURATION              = 0x04,
     CMD_RTK_DONGLE_CONFIGURATION   = 0x10,
     CMD_SPARTN_CONFIGURATION       = 0x20,
+    CMD_SBAS_SETTINGS              = 0x22,
     
     REPLY_LIST_RECEIVERS           = 0x81,
     REPLY_SIGNAL_CONFIGURATION     = 0x82,
     REPLY_SPARTN_CONFIGURATION     = 0xA0,
     REPLY_RTK_DONGLE_CONFIGURATION = 0x90,
     REPLY_CONFIGURATION            = 0x84,
+    REPLY_SBAS_SETTINGS            = 0xA2,
 };
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -549,6 +551,120 @@ TypedResult<RtkConfiguration> readRtkConfiguration(C::mip_interface& device, Rtk
 TypedResult<RtkConfiguration> saveRtkConfiguration(C::mip_interface& device);
 TypedResult<RtkConfiguration> loadRtkConfiguration(C::mip_interface& device);
 TypedResult<RtkConfiguration> defaultRtkConfiguration(C::mip_interface& device);
+
+///@}
+///
+////////////////////////////////////////////////////////////////////////////////
+///@defgroup gnss_sbas_settings_cpp  (0x0E,0x22) Sbas Settings
+/// Configure the GNSS SBAS subsystem
+///
+///@{
+
+struct SbasSettings
+{
+    struct Options : Bitfield<Options>
+    {
+        typedef uint16_t Type;
+        enum _enumType : uint16_t
+        {
+            NONE               = 0x0000,
+            ENABLE_RANGING     = 0x0001,  ///<  Use SBAS pseudoranges in position solution
+            ENABLE_CORRECTIONS = 0x0002,  ///<  Use SBAS differential corrections
+            APPLY_INTEGRITY    = 0x0004,  ///<  Use SBAS integrity information.  If enabled, only GPS satellites for which integrity information is available will be used.
+            ALL                = 0x0007,
+        };
+        uint16_t value = NONE;
+        
+        constexpr Options() : value(NONE) {}
+        constexpr Options(int val) : value((uint16_t)val) {}
+        constexpr operator uint16_t() const { return value; }
+        constexpr Options& operator=(uint16_t val) { value = val; return *this; }
+        constexpr Options& operator=(int val) { value = uint16_t(val); return *this; }
+        constexpr Options& operator|=(uint16_t val) { return *this = value | val; }
+        constexpr Options& operator&=(uint16_t val) { return *this = value & val; }
+        
+        constexpr bool enableRanging() const { return (value & ENABLE_RANGING) > 0; }
+        constexpr void enableRanging(bool val) { value &= ~ENABLE_RANGING; if(val) value |= ENABLE_RANGING; }
+        constexpr bool enableCorrections() const { return (value & ENABLE_CORRECTIONS) > 0; }
+        constexpr void enableCorrections(bool val) { value &= ~ENABLE_CORRECTIONS; if(val) value |= ENABLE_CORRECTIONS; }
+        constexpr bool applyIntegrity() const { return (value & APPLY_INTEGRITY) > 0; }
+        constexpr void applyIntegrity(bool val) { value &= ~APPLY_INTEGRITY; if(val) value |= APPLY_INTEGRITY; }
+        constexpr bool allSet() const { return value == ALL; }
+        constexpr void setAll() { value |= ALL; }
+    };
+    /// Parameters
+    FunctionSelector function = static_cast<FunctionSelector>(0);
+    uint8_t enable_sbas = 0; ///< 0 - SBAS Disabled, 1 - SBAS enabled
+    Options sbas_options; ///< SBAS options, see definition
+    uint8_t num_included_prns = 0; ///< Number of SBAS PRNs to include in search (0 = include all)
+    uint16_t included_prns[39] = {0}; ///< List of specific SBAS PRNs to search for
+    
+    /// Descriptors
+    static constexpr const uint8_t DESCRIPTOR_SET = ::mip::commands_gnss::DESCRIPTOR_SET;
+    static constexpr const uint8_t FIELD_DESCRIPTOR = ::mip::commands_gnss::CMD_SBAS_SETTINGS;
+    static constexpr const CompositeDescriptor DESCRIPTOR = {DESCRIPTOR_SET, FIELD_DESCRIPTOR};
+    static constexpr const char* NAME = "SbasSettings";
+    static constexpr const char* DOC_NAME = "SBAS Settings";
+    static constexpr const bool HAS_FUNCTION_SELECTOR = true;
+    
+    auto asTuple() const
+    {
+        return std::make_tuple(enable_sbas,sbas_options,num_included_prns,included_prns);
+    }
+    
+    auto asTuple()
+    {
+        return std::make_tuple(std::ref(enable_sbas),std::ref(sbas_options),std::ref(num_included_prns),std::ref(included_prns));
+    }
+    
+    static SbasSettings create_sld_all(::mip::FunctionSelector function)
+    {
+        SbasSettings cmd;
+        cmd.function = function;
+        return cmd;
+    }
+    
+    /// Serialization
+    void insert(Serializer& serializer) const;
+    void extract(Serializer& serializer);
+    
+    struct Response
+    {
+        /// Parameters
+        uint8_t enable_sbas = 0; ///< 0 - SBAS Disabled, 1 - SBAS enabled
+        Options sbas_options; ///< SBAS options, see definition
+        uint8_t num_included_prns = 0; ///< Number of SBAS PRNs to include in search (0 = include all)
+        uint16_t included_prns[39] = {0}; ///< List of specific SBAS PRNs to search for
+        
+        /// Descriptors
+        static constexpr const uint8_t DESCRIPTOR_SET = ::mip::commands_gnss::DESCRIPTOR_SET;
+        static constexpr const uint8_t FIELD_DESCRIPTOR = ::mip::commands_gnss::REPLY_SBAS_SETTINGS;
+        static constexpr const CompositeDescriptor DESCRIPTOR = {DESCRIPTOR_SET, FIELD_DESCRIPTOR};
+        static constexpr const char* NAME = "SbasSettingsResponse";
+        static constexpr const char* DOC_NAME = "SBAS Settings Response";
+        static constexpr const bool HAS_FUNCTION_SELECTOR = false;
+        
+        auto asTuple() const
+        {
+            return std::make_tuple(enable_sbas,sbas_options,num_included_prns,included_prns);
+        }
+        
+        auto asTuple()
+        {
+            return std::make_tuple(std::ref(enable_sbas),std::ref(sbas_options),std::ref(num_included_prns),std::ref(included_prns));
+        }
+        
+        /// Serialization
+        void insert(Serializer& serializer) const;
+        void extract(Serializer& serializer);
+        
+    };
+};
+TypedResult<SbasSettings> writeSbasSettings(C::mip_interface& device, uint8_t enableSbas, SbasSettings::Options sbasOptions, uint8_t numIncludedPrns, const uint16_t* includedPrns);
+TypedResult<SbasSettings> readSbasSettings(C::mip_interface& device, uint8_t* enableSbasOut, SbasSettings::Options* sbasOptionsOut, uint8_t* numIncludedPrnsOut, uint8_t numIncludedPrnsOutMax, uint16_t* includedPrnsOut);
+TypedResult<SbasSettings> saveSbasSettings(C::mip_interface& device);
+TypedResult<SbasSettings> loadSbasSettings(C::mip_interface& device);
+TypedResult<SbasSettings> defaultSbasSettings(C::mip_interface& device);
 
 ///@}
 ///

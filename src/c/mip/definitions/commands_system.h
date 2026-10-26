@@ -81,7 +81,8 @@ static const mip_comms_protocol MIP_COMMS_PROTOCOL_NMEA   = 0x00000100; ///<  NM
 static const mip_comms_protocol MIP_COMMS_PROTOCOL_RTCM   = 0x00000200; ///<  GNSS Correction Protocol
 static const mip_comms_protocol MIP_COMMS_PROTOCOL_SPARTN = 0x01000000; ///<  GNSS Correction Protocol
 static const mip_comms_protocol MIP_COMMS_PROTOCOL_SBF    = 0x20000000; ///<  Septentrio Binary Format
-static const mip_comms_protocol MIP_COMMS_PROTOCOL_ALL    = 0x21000301;
+static const mip_comms_protocol MIP_COMMS_PROTOCOL_UBX    = 0x40000000; ///<  Ublox Binary Format
+static const mip_comms_protocol MIP_COMMS_PROTOCOL_ALL    = 0x61000301;
 static inline void insert_mip_comms_protocol(microstrain_serializer* serializer, const mip_comms_protocol self)
 {
     microstrain_insert_u32(serializer, (uint32_t)(self));

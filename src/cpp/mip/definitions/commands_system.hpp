@@ -72,7 +72,8 @@ struct CommsProtocol : Bitfield<CommsProtocol>
         RTCM   = 0x00000200,  ///<  GNSS Correction Protocol
         SPARTN = 0x01000000,  ///<  GNSS Correction Protocol
         SBF    = 0x20000000,  ///<  Septentrio Binary Format
-        ALL    = 0x21000301,
+        UBX    = 0x40000000,  ///<  Ublox Binary Format
+        ALL    = 0x61000301,
     };
     uint32_t value = NONE;
     
@@ -94,6 +95,8 @@ struct CommsProtocol : Bitfield<CommsProtocol>
     constexpr void spartn(bool val) { value &= ~SPARTN; if(val) value |= SPARTN; }
     constexpr bool sbf() const { return (value & SBF) > 0; }
     constexpr void sbf(bool val) { value &= ~SBF; if(val) value |= SBF; }
+    constexpr bool ubx() const { return (value & UBX) > 0; }
+    constexpr void ubx(bool val) { value &= ~UBX; if(val) value |= UBX; }
     constexpr bool allSet() const { return value == ALL; }
     constexpr void setAll() { value |= ALL; }
 };
