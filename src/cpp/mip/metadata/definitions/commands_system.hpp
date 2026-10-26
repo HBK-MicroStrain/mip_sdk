@@ -136,6 +136,7 @@ struct MetadataFor<commands_system::CommsProtocol>
         { uint32_t(512), "RTCM", "GNSS Correction Protocol" },
         { uint32_t(16777216), "SPARTN", "GNSS Correction Protocol" },
         { uint32_t(536870912), "SBF", "Septentrio Binary Format" },
+        { uint32_t(1073741824), "UBX", "Ublox Binary Format" },
     };
 
     static constexpr inline BitfieldInfo value = {

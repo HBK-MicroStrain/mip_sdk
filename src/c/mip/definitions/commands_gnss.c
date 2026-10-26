@@ -729,6 +729,164 @@ mip_cmd_result mip_gnss_default_rtk_configuration(mip_interface* device)
     
     return mip_interface_run_command(device, MIP_GNSS_CMD_DESC_SET, MIP_CMD_DESC_RTK_CONFIGURATION, buffer, (uint8_t)microstrain_serializer_length(&serializer));
 }
+void insert_mip_gnss_sbas_settings_command(microstrain_serializer* serializer, const mip_gnss_sbas_settings_command* self)
+{
+    insert_mip_function_selector(serializer, self->function);
+    
+    if( self->function == MIP_FUNCTION_WRITE )
+    {
+        microstrain_insert_u8(serializer, self->enable_sbas);
+        
+        insert_mip_gnss_sbas_settings_command_options(serializer, self->sbas_options);
+        
+        microstrain_insert_u8(serializer, self->num_included_prns);
+        
+        
+        for(unsigned int i=0; i < self->num_included_prns; i++)
+            microstrain_insert_u16(serializer, self->included_prns[i]);
+        
+    }
+}
+void extract_mip_gnss_sbas_settings_command(microstrain_serializer* serializer, mip_gnss_sbas_settings_command* self)
+{
+    extract_mip_function_selector(serializer, &self->function);
+    
+    if( self->function == MIP_FUNCTION_WRITE )
+    {
+        microstrain_extract_u8(serializer, &self->enable_sbas);
+        
+        extract_mip_gnss_sbas_settings_command_options(serializer, &self->sbas_options);
+        
+        assert(self->num_included_prns);
+        microstrain_extract_count(serializer, &self->num_included_prns, sizeof(self->included_prns)/sizeof(self->included_prns[0]));
+        
+        for(unsigned int i=0; i < self->num_included_prns; i++)
+            microstrain_extract_u16(serializer, &self->included_prns[i]);
+        
+    }
+}
+
+void insert_mip_gnss_sbas_settings_response(microstrain_serializer* serializer, const mip_gnss_sbas_settings_response* self)
+{
+    microstrain_insert_u8(serializer, self->enable_sbas);
+    
+    insert_mip_gnss_sbas_settings_command_options(serializer, self->sbas_options);
+    
+    microstrain_insert_u8(serializer, self->num_included_prns);
+    
+    
+    for(unsigned int i=0; i < self->num_included_prns; i++)
+        microstrain_insert_u16(serializer, self->included_prns[i]);
+    
+}
+void extract_mip_gnss_sbas_settings_response(microstrain_serializer* serializer, mip_gnss_sbas_settings_response* self)
+{
+    microstrain_extract_u8(serializer, &self->enable_sbas);
+    
+    extract_mip_gnss_sbas_settings_command_options(serializer, &self->sbas_options);
+    
+    assert(self->num_included_prns);
+    microstrain_extract_count(serializer, &self->num_included_prns, sizeof(self->included_prns)/sizeof(self->included_prns[0]));
+    
+    for(unsigned int i=0; i < self->num_included_prns; i++)
+        microstrain_extract_u16(serializer, &self->included_prns[i]);
+    
+}
+
+mip_cmd_result mip_gnss_write_sbas_settings(mip_interface* device, uint8_t enable_sbas, mip_gnss_sbas_settings_command_options sbas_options, uint8_t num_included_prns, const uint16_t* included_prns)
+{
+    microstrain_serializer serializer;
+    uint8_t buffer[MIP_FIELD_PAYLOAD_LENGTH_MAX];
+    microstrain_serializer_init_insertion(&serializer, buffer, sizeof(buffer));
+    
+    insert_mip_function_selector(&serializer, MIP_FUNCTION_WRITE);
+    
+    microstrain_insert_u8(&serializer, enable_sbas);
+    
+    insert_mip_gnss_sbas_settings_command_options(&serializer, sbas_options);
+    
+    microstrain_insert_u8(&serializer, num_included_prns);
+    
+    assert(included_prns || (num_included_prns == 0));
+    for(unsigned int i=0; i < num_included_prns; i++)
+        microstrain_insert_u16(&serializer, included_prns[i]);
+    
+    assert(microstrain_serializer_is_ok(&serializer));
+    
+    return mip_interface_run_command(device, MIP_GNSS_CMD_DESC_SET, MIP_CMD_DESC_GNSS_SBAS_SETTINGS, buffer, (uint8_t)microstrain_serializer_length(&serializer));
+}
+mip_cmd_result mip_gnss_read_sbas_settings(mip_interface* device, uint8_t* enable_sbas_out, mip_gnss_sbas_settings_command_options* sbas_options_out, uint8_t* num_included_prns_out, uint8_t num_included_prns_out_max, uint16_t* included_prns_out)
+{
+    microstrain_serializer serializer;
+    uint8_t buffer[MIP_FIELD_PAYLOAD_LENGTH_MAX];
+    microstrain_serializer_init_insertion(&serializer, buffer, sizeof(buffer));
+    
+    insert_mip_function_selector(&serializer, MIP_FUNCTION_READ);
+    
+    assert(microstrain_serializer_is_ok(&serializer));
+    
+    uint8_t responseLength = sizeof(buffer);
+    mip_cmd_result result = mip_interface_run_command_with_response(device, MIP_GNSS_CMD_DESC_SET, MIP_CMD_DESC_GNSS_SBAS_SETTINGS, buffer, (uint8_t)microstrain_serializer_length(&serializer), MIP_REPLY_DESC_GNSS_SBAS_SETTINGS, buffer, &responseLength);
+    
+    if( result == MIP_ACK_OK )
+    {
+        microstrain_serializer deserializer;
+        microstrain_serializer_init_insertion(&deserializer, buffer, responseLength);
+        
+        assert(enable_sbas_out);
+        microstrain_extract_u8(&deserializer, enable_sbas_out);
+        
+        assert(sbas_options_out);
+        extract_mip_gnss_sbas_settings_command_options(&deserializer, sbas_options_out);
+        
+        assert(num_included_prns_out);
+        microstrain_extract_count(&deserializer, num_included_prns_out, num_included_prns_out_max);
+        
+        assert(included_prns_out || (num_included_prns_out == 0));
+        for(unsigned int i=0; i < *num_included_prns_out; i++)
+            microstrain_extract_u16(&deserializer, &included_prns_out[i]);
+        
+        if( microstrain_serializer_remaining(&deserializer) != 0 )
+            result = MIP_STATUS_ERROR;
+    }
+    return result;
+}
+mip_cmd_result mip_gnss_save_sbas_settings(mip_interface* device)
+{
+    microstrain_serializer serializer;
+    uint8_t buffer[MIP_FIELD_PAYLOAD_LENGTH_MAX];
+    microstrain_serializer_init_insertion(&serializer, buffer, sizeof(buffer));
+    
+    insert_mip_function_selector(&serializer, MIP_FUNCTION_SAVE);
+    
+    assert(microstrain_serializer_is_ok(&serializer));
+    
+    return mip_interface_run_command(device, MIP_GNSS_CMD_DESC_SET, MIP_CMD_DESC_GNSS_SBAS_SETTINGS, buffer, (uint8_t)microstrain_serializer_length(&serializer));
+}
+mip_cmd_result mip_gnss_load_sbas_settings(mip_interface* device)
+{
+    microstrain_serializer serializer;
+    uint8_t buffer[MIP_FIELD_PAYLOAD_LENGTH_MAX];
+    microstrain_serializer_init_insertion(&serializer, buffer, sizeof(buffer));
+    
+    insert_mip_function_selector(&serializer, MIP_FUNCTION_LOAD);
+    
+    assert(microstrain_serializer_is_ok(&serializer));
+    
+    return mip_interface_run_command(device, MIP_GNSS_CMD_DESC_SET, MIP_CMD_DESC_GNSS_SBAS_SETTINGS, buffer, (uint8_t)microstrain_serializer_length(&serializer));
+}
+mip_cmd_result mip_gnss_default_sbas_settings(mip_interface* device)
+{
+    microstrain_serializer serializer;
+    uint8_t buffer[MIP_FIELD_PAYLOAD_LENGTH_MAX];
+    microstrain_serializer_init_insertion(&serializer, buffer, sizeof(buffer));
+    
+    insert_mip_function_selector(&serializer, MIP_FUNCTION_RESET);
+    
+    assert(microstrain_serializer_is_ok(&serializer));
+    
+    return mip_interface_run_command(device, MIP_GNSS_CMD_DESC_SET, MIP_CMD_DESC_GNSS_SBAS_SETTINGS, buffer, (uint8_t)microstrain_serializer_length(&serializer));
+}
 
 #ifdef __cplusplus
 } // extern "C"

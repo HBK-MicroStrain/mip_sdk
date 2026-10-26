@@ -910,6 +910,182 @@ struct MetadataFor<commands_gnss::RtkConfiguration>
 template<> struct TypeForFieldInfo< &MetadataFor<commands_gnss::RtkConfiguration>::value > { using type = commands_gnss::RtkConfiguration; };
 template<> struct TypeForDescriptor<commands_gnss::RtkConfiguration::DESCRIPTOR.as_u16()> { using type = commands_gnss::RtkConfiguration; };
 
+template<>
+struct MetadataFor<commands_gnss::SbasSettings::Options>
+{
+    using type = commands_gnss::SbasSettings::Options;
+
+    static constexpr inline BitfieldInfo::Entry entries[] = {
+        { uint32_t(1), "enable_ranging", "Use SBAS pseudoranges in position solution" },
+        { uint32_t(2), "enable_corrections", "Use SBAS differential corrections" },
+        { uint32_t(4), "apply_integrity", "Use SBAS integrity information.  If enabled, only GPS satellites for which integrity information is available will be used." },
+    };
+
+    static constexpr inline BitfieldInfo value = {
+        /* .name    = */ "Options",
+        /* .docs    = */ "",
+        /* .type    = */ Type::U16,
+        /* .entries = */ entries,
+    };
+
+};
+
+template<> struct TypeForBitsInfo< &MetadataFor<commands_gnss::SbasSettings::Options>::value > { using type = commands_gnss::SbasSettings::Options; };
+
+template<>
+struct MetadataFor<commands_gnss::SbasSettings::Response>
+{
+    using type = commands_gnss::SbasSettings::Response;
+
+    using Context = commands_gnss::SbasSettings;
+
+    using ParamTypes = std::tuple<
+        decltype(type::enable_sbas),
+        decltype(type::sbas_options),
+        decltype(type::num_included_prns),
+        decltype(type::included_prns)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.enable_sbas;
+        if constexpr(I == 1) return value_.sbas_options;
+        if constexpr(I == 2) return value_.num_included_prns;
+        if constexpr(I == 3) return value_.included_prns;
+    }
+    
+    static constexpr inline ParameterInfo parameters[] = {
+        {
+            /* .name          = */ "enable_sbas",
+            /* .docs          = */ "0 - SBAS Disabled, 1 - SBAS enabled",
+            /* .type          = */ {Type::U8, nullptr},
+            /* .accessor      = */ nullptr, //utils::access<type, uint8_t, &type::enable_sbas>,
+            /* .attributes    = */ {true, false, false, false, false},
+            /* .count         = */ 1,
+            /* .condition     = */ {},
+        },
+        {
+            /* .name          = */ "sbas_options",
+            /* .docs          = */ "SBAS options, see definition",
+            /* .type          = */ {Type::BITS, &MetadataFor<commands_gnss::SbasSettings::Options>::value},
+            /* .accessor      = */ nullptr, //utils::access<type, commands_gnss::SbasSettings::Options, &type::sbas_options>,
+            /* .attributes    = */ {true, false, false, false, false},
+            /* .count         = */ 1,
+            /* .condition     = */ {},
+        },
+        {
+            /* .name          = */ "num_included_prns",
+            /* .docs          = */ "Number of SBAS PRNs to include in search (0 = include all)",
+            /* .type          = */ {Type::U8, nullptr},
+            /* .accessor      = */ nullptr, //utils::access<type, uint8_t, &type::num_included_prns>,
+            /* .attributes    = */ {true, false, false, false, false},
+            /* .count         = */ 1,
+            /* .condition     = */ {},
+        },
+        {
+            /* .name          = */ "included_prns",
+            /* .docs          = */ "List of specific SBAS PRNs to search for",
+            /* .type          = */ {Type::U16, nullptr},
+            /* .accessor      = */ nullptr, //utils::access<type, uint16_t, &type::included_prns>,
+            /* .attributes    = */ {true, false, false, false, false},
+            /* .count         = */ {39, microstrain::Index(2) /* num_included_prns */},
+            /* .condition     = */ {},
+        },
+    };
+    static constexpr inline FieldInfo value = {
+        {
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
+            /* .docs        = */ "",
+            /* .parameters  = */ parameters,
+        },
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ NO_FUNCTIONS,
+        /* .response    = */ nullptr,
+    };
+};
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_gnss::SbasSettings::Response>::value > { using type = commands_gnss::SbasSettings::Response; };
+
+template<>
+struct MetadataFor<commands_gnss::SbasSettings>
+{
+    using type = commands_gnss::SbasSettings;
+
+    using Context = CommandSetGnss;
+
+    using ParamTypes = std::tuple<
+        decltype(type::function),
+        decltype(type::enable_sbas),
+        decltype(type::sbas_options),
+        decltype(type::num_included_prns),
+        decltype(type::included_prns)
+    >;
+
+    template<size_t I, class T = type>
+    static auto& access(T& value_) {
+        if constexpr(I == 0) return value_.function;
+        if constexpr(I == 1) return value_.enable_sbas;
+        if constexpr(I == 2) return value_.sbas_options;
+        if constexpr(I == 3) return value_.num_included_prns;
+        if constexpr(I == 4) return value_.included_prns;
+    }
+    
+    static constexpr inline ParameterInfo parameters[] = {
+        FUNCTION_SELECTOR_PARAM,
+        {
+            /* .name          = */ "enable_sbas",
+            /* .docs          = */ "0 - SBAS Disabled, 1 - SBAS enabled",
+            /* .type          = */ {Type::U8, nullptr},
+            /* .accessor      = */ nullptr, //utils::access<type, uint8_t, &type::enable_sbas>,
+            /* .attributes    = */ {true, false, false, false, false},
+            /* .count         = */ 1,
+            /* .condition     = */ {},
+        },
+        {
+            /* .name          = */ "sbas_options",
+            /* .docs          = */ "SBAS options, see definition",
+            /* .type          = */ {Type::BITS, &MetadataFor<commands_gnss::SbasSettings::Options>::value},
+            /* .accessor      = */ nullptr, //utils::access<type, commands_gnss::SbasSettings::Options, &type::sbas_options>,
+            /* .attributes    = */ {true, false, false, false, false},
+            /* .count         = */ 1,
+            /* .condition     = */ {},
+        },
+        {
+            /* .name          = */ "num_included_prns",
+            /* .docs          = */ "Number of SBAS PRNs to include in search (0 = include all)",
+            /* .type          = */ {Type::U8, nullptr},
+            /* .accessor      = */ nullptr, //utils::access<type, uint8_t, &type::num_included_prns>,
+            /* .attributes    = */ {true, false, false, false, false},
+            /* .count         = */ 1,
+            /* .condition     = */ {},
+        },
+        {
+            /* .name          = */ "included_prns",
+            /* .docs          = */ "List of specific SBAS PRNs to search for",
+            /* .type          = */ {Type::U16, nullptr},
+            /* .accessor      = */ nullptr, //utils::access<type, uint16_t, &type::included_prns>,
+            /* .attributes    = */ {true, false, false, false, false},
+            /* .count         = */ {39, microstrain::Index(3) /* num_included_prns */},
+            /* .condition     = */ {},
+        },
+    };
+    static constexpr inline FieldInfo value = {
+        {
+            /* .name        = */ type::NAME,
+            /* .title       = */ type::DOC_NAME,
+            /* .docs        = */ "Configure the GNSS SBAS subsystem",
+            /* .parameters  = */ parameters,
+        },
+        /* .descriptor  = */ type::DESCRIPTOR,
+        /* .functions   = */ {true, true, true, true, true},
+        /* .response    = */ &MetadataFor<type::Response>::value,
+    };
+};
+
+template<> struct TypeForFieldInfo< &MetadataFor<commands_gnss::SbasSettings>::value > { using type = commands_gnss::SbasSettings; };
+template<> struct TypeForDescriptor<commands_gnss::SbasSettings::DESCRIPTOR.as_u16()> { using type = commands_gnss::SbasSettings; };
+
 
 static constexpr inline const FieldInfo* COMMANDS_GNSS_FIELDS[] = {
     &MetadataFor<commands_gnss::ReceiverInfo>::value,
@@ -918,11 +1094,13 @@ static constexpr inline const FieldInfo* COMMANDS_GNSS_FIELDS[] = {
     &MetadataFor<commands_gnss::RtkConfiguration>::value,
     &MetadataFor<commands_gnss::RtkDongleConfiguration>::value,
     &MetadataFor<commands_gnss::SpartnConfiguration>::value,
+    &MetadataFor<commands_gnss::SbasSettings>::value,
     &MetadataFor<commands_gnss::ReceiverInfo::Response>::value,
     &MetadataFor<commands_gnss::SignalConfiguration::Response>::value,
     &MetadataFor<commands_gnss::RtkConfiguration::Response>::value,
     &MetadataFor<commands_gnss::RtkDongleConfiguration::Response>::value,
     &MetadataFor<commands_gnss::SpartnConfiguration::Response>::value,
+    &MetadataFor<commands_gnss::SbasSettings::Response>::value,
 };
 
 struct CommandSetGnss
@@ -937,11 +1115,13 @@ struct CommandSetGnss
         ::mip::commands_gnss::RtkConfiguration,
         ::mip::commands_gnss::RtkDongleConfiguration,
         ::mip::commands_gnss::SpartnConfiguration,
+        ::mip::commands_gnss::SbasSettings,
         ::mip::commands_gnss::ReceiverInfo::Response,
         ::mip::commands_gnss::SignalConfiguration::Response,
         ::mip::commands_gnss::RtkConfiguration::Response,
         ::mip::commands_gnss::RtkDongleConfiguration::Response,
-        ::mip::commands_gnss::SpartnConfiguration::Response
+        ::mip::commands_gnss::SpartnConfiguration::Response,
+        ::mip::commands_gnss::SbasSettings::Response
     >;
 };
 

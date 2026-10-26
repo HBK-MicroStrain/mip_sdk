@@ -707,6 +707,145 @@ TypedResult<RtkConfiguration> defaultRtkConfiguration(C::mip_interface& device)
     
     return mip_interface_run_command(&device, DESCRIPTOR_SET, CMD_CONFIGURATION, buffer, (uint8_t)serializer.usedLength());
 }
+void SbasSettings::insert(Serializer& serializer) const
+{
+    serializer.insert(function);
+    
+    if( function == FunctionSelector::WRITE )
+    {
+        serializer.insert(enable_sbas);
+        
+        serializer.insert(sbas_options);
+        
+        serializer.insert(num_included_prns);
+        
+        for(unsigned int i=0; i < num_included_prns; i++)
+            serializer.insert(included_prns[i]);
+        
+    }
+}
+void SbasSettings::extract(Serializer& serializer)
+{
+    serializer.extract(function);
+    
+    if( function == FunctionSelector::WRITE )
+    {
+        serializer.extract(enable_sbas);
+        
+        serializer.extract(sbas_options);
+        
+        serializer.extract_count(num_included_prns, sizeof(included_prns)/sizeof(included_prns[0]));
+        for(unsigned int i=0; i < num_included_prns; i++)
+            serializer.extract(included_prns[i]);
+        
+    }
+}
+
+void SbasSettings::Response::insert(Serializer& serializer) const
+{
+    serializer.insert(enable_sbas);
+    
+    serializer.insert(sbas_options);
+    
+    serializer.insert(num_included_prns);
+    
+    for(unsigned int i=0; i < num_included_prns; i++)
+        serializer.insert(included_prns[i]);
+    
+}
+void SbasSettings::Response::extract(Serializer& serializer)
+{
+    serializer.extract(enable_sbas);
+    
+    serializer.extract(sbas_options);
+    
+    serializer.extract_count(num_included_prns, sizeof(included_prns)/sizeof(included_prns[0]));
+    for(unsigned int i=0; i < num_included_prns; i++)
+        serializer.extract(included_prns[i]);
+    
+}
+
+TypedResult<SbasSettings> writeSbasSettings(C::mip_interface& device, uint8_t enableSbas, SbasSettings::Options sbasOptions, uint8_t numIncludedPrns, const uint16_t* includedPrns)
+{
+    uint8_t buffer[MIP_FIELD_PAYLOAD_LENGTH_MAX];
+    Serializer serializer(buffer, sizeof(buffer));
+    
+    serializer.insert(FunctionSelector::WRITE);
+    serializer.insert(enableSbas);
+    
+    serializer.insert(sbasOptions);
+    
+    serializer.insert(numIncludedPrns);
+    
+    assert(includedPrns || (numIncludedPrns == 0));
+    for(unsigned int i=0; i < numIncludedPrns; i++)
+        serializer.insert(includedPrns[i]);
+    
+    assert(serializer.isOk());
+    
+    return mip_interface_run_command(&device, DESCRIPTOR_SET, CMD_SBAS_SETTINGS, buffer, (uint8_t)serializer.usedLength());
+}
+TypedResult<SbasSettings> readSbasSettings(C::mip_interface& device, uint8_t* enableSbasOut, SbasSettings::Options* sbasOptionsOut, uint8_t* numIncludedPrnsOut, uint8_t numIncludedPrnsOutMax, uint16_t* includedPrnsOut)
+{
+    uint8_t buffer[MIP_FIELD_PAYLOAD_LENGTH_MAX];
+    Serializer serializer(buffer, sizeof(buffer));
+    
+    serializer.insert(FunctionSelector::READ);
+    assert(serializer.isOk());
+    
+    uint8_t responseLength = sizeof(buffer);
+    TypedResult<SbasSettings> result = mip_interface_run_command_with_response(&device, DESCRIPTOR_SET, CMD_SBAS_SETTINGS, buffer, (uint8_t)serializer.usedLength(), REPLY_SBAS_SETTINGS, buffer, &responseLength);
+    
+    if( result == MIP_ACK_OK )
+    {
+        Serializer deserializer(buffer, responseLength);
+        
+        assert(enableSbasOut);
+        deserializer.extract(*enableSbasOut);
+        
+        assert(sbasOptionsOut);
+        deserializer.extract(*sbasOptionsOut);
+        
+        deserializer.extract_count(*numIncludedPrnsOut, numIncludedPrnsOutMax);
+        assert(includedPrnsOut || (numIncludedPrnsOut == 0));
+        for(unsigned int i=0; i < *numIncludedPrnsOut; i++)
+            deserializer.extract(includedPrnsOut[i]);
+        
+        if( deserializer.remaining() != 0 )
+            result = MIP_STATUS_ERROR;
+    }
+    return result;
+}
+TypedResult<SbasSettings> saveSbasSettings(C::mip_interface& device)
+{
+    uint8_t buffer[MIP_FIELD_PAYLOAD_LENGTH_MAX];
+    Serializer serializer(buffer, sizeof(buffer));
+    
+    serializer.insert(FunctionSelector::SAVE);
+    assert(serializer.isOk());
+    
+    return mip_interface_run_command(&device, DESCRIPTOR_SET, CMD_SBAS_SETTINGS, buffer, (uint8_t)serializer.usedLength());
+}
+TypedResult<SbasSettings> loadSbasSettings(C::mip_interface& device)
+{
+    uint8_t buffer[MIP_FIELD_PAYLOAD_LENGTH_MAX];
+    Serializer serializer(buffer, sizeof(buffer));
+    
+    serializer.insert(FunctionSelector::LOAD);
+    assert(serializer.isOk());
+    
+    return mip_interface_run_command(&device, DESCRIPTOR_SET, CMD_SBAS_SETTINGS, buffer, (uint8_t)serializer.usedLength());
+}
+TypedResult<SbasSettings> defaultSbasSettings(C::mip_interface& device)
+{
+    uint8_t buffer[MIP_FIELD_PAYLOAD_LENGTH_MAX];
+    Serializer serializer(buffer, sizeof(buffer));
+    
+    serializer.insert(FunctionSelector::RESET);
+    assert(serializer.isOk());
+    
+    return mip_interface_run_command(&device, DESCRIPTOR_SET, CMD_SBAS_SETTINGS, buffer, (uint8_t)serializer.usedLength());
+}
 
 } // namespace commands_gnss
 } // namespace mip
