@@ -37,12 +37,14 @@ enum
     MIP_CMD_DESC_RTK_CONFIGURATION               = 0x04,
     MIP_CMD_DESC_GNSS_RTK_DONGLE_CONFIGURATION   = 0x10,
     MIP_CMD_DESC_GNSS_SPARTN_CONFIGURATION       = 0x20,
+    MIP_CMD_DESC_GNSS_SBAS_SETTINGS              = 0x22,
     
     MIP_REPLY_DESC_GNSS_LIST_RECEIVERS           = 0x81,
     MIP_REPLY_DESC_GNSS_SIGNAL_CONFIGURATION     = 0x82,
     MIP_REPLY_DESC_GNSS_SPARTN_CONFIGURATION     = 0xA0,
     MIP_REPLY_DESC_GNSS_RTK_DONGLE_CONFIGURATION = 0x90,
     MIP_REPLY_DESC_RTK_CONFIGURATION             = 0x84,
+    MIP_REPLY_DESC_GNSS_SBAS_SETTINGS            = 0xA2,
 };
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -346,6 +348,63 @@ mip_cmd_result mip_gnss_read_rtk_configuration(mip_interface* device, mip_gnss_r
 mip_cmd_result mip_gnss_save_rtk_configuration(mip_interface* device);
 mip_cmd_result mip_gnss_load_rtk_configuration(mip_interface* device);
 mip_cmd_result mip_gnss_default_rtk_configuration(mip_interface* device);
+
+///@}
+///
+////////////////////////////////////////////////////////////////////////////////
+///@defgroup gnss_sbas_settings_c  (0x0E,0x22) Sbas Settings
+/// Configure the GNSS SBAS subsystem
+///
+///@{
+
+typedef uint16_t mip_gnss_sbas_settings_command_options;
+static const mip_gnss_sbas_settings_command_options MIP_GNSS_SBAS_SETTINGS_COMMAND_OPTIONS_NONE               = 0x0000;
+static const mip_gnss_sbas_settings_command_options MIP_GNSS_SBAS_SETTINGS_COMMAND_OPTIONS_ENABLE_RANGING     = 0x0001; ///<  Use SBAS pseudoranges in position solution
+static const mip_gnss_sbas_settings_command_options MIP_GNSS_SBAS_SETTINGS_COMMAND_OPTIONS_ENABLE_CORRECTIONS = 0x0002; ///<  Use SBAS differential corrections
+static const mip_gnss_sbas_settings_command_options MIP_GNSS_SBAS_SETTINGS_COMMAND_OPTIONS_APPLY_INTEGRITY    = 0x0004; ///<  Use SBAS integrity information.  If enabled, only GPS satellites for which integrity information is available will be used.
+static const mip_gnss_sbas_settings_command_options MIP_GNSS_SBAS_SETTINGS_COMMAND_OPTIONS_ALL                = 0x0007;
+static inline void insert_mip_gnss_sbas_settings_command_options(microstrain_serializer* serializer, const mip_gnss_sbas_settings_command_options self)
+{
+    microstrain_insert_u16(serializer, (uint16_t)(self));
+}
+static inline void extract_mip_gnss_sbas_settings_command_options(microstrain_serializer* serializer, mip_gnss_sbas_settings_command_options* self)
+{
+    uint16_t tmp = 0;
+    microstrain_extract_u16(serializer, &tmp);
+    *self = (mip_gnss_sbas_settings_command_options)tmp;
+}
+
+
+struct mip_gnss_sbas_settings_command
+{
+    mip_function_selector function;
+    uint8_t enable_sbas; ///< 0 - SBAS Disabled, 1 - SBAS enabled
+    mip_gnss_sbas_settings_command_options sbas_options; ///< SBAS options, see definition
+    uint8_t num_included_prns; ///< Number of SBAS PRNs to include in search (0 = include all)
+    uint16_t included_prns[39]; ///< List of specific SBAS PRNs to search for
+};
+typedef struct mip_gnss_sbas_settings_command mip_gnss_sbas_settings_command;
+
+void insert_mip_gnss_sbas_settings_command(microstrain_serializer* serializer, const mip_gnss_sbas_settings_command* self);
+void extract_mip_gnss_sbas_settings_command(microstrain_serializer* serializer, mip_gnss_sbas_settings_command* self);
+
+struct mip_gnss_sbas_settings_response
+{
+    uint8_t enable_sbas; ///< 0 - SBAS Disabled, 1 - SBAS enabled
+    mip_gnss_sbas_settings_command_options sbas_options; ///< SBAS options, see definition
+    uint8_t num_included_prns; ///< Number of SBAS PRNs to include in search (0 = include all)
+    uint16_t included_prns[39]; ///< List of specific SBAS PRNs to search for
+};
+typedef struct mip_gnss_sbas_settings_response mip_gnss_sbas_settings_response;
+
+void insert_mip_gnss_sbas_settings_response(microstrain_serializer* serializer, const mip_gnss_sbas_settings_response* self);
+void extract_mip_gnss_sbas_settings_response(microstrain_serializer* serializer, mip_gnss_sbas_settings_response* self);
+
+mip_cmd_result mip_gnss_write_sbas_settings(mip_interface* device, uint8_t enable_sbas, mip_gnss_sbas_settings_command_options sbas_options, uint8_t num_included_prns, const uint16_t* included_prns);
+mip_cmd_result mip_gnss_read_sbas_settings(mip_interface* device, uint8_t* enable_sbas_out, mip_gnss_sbas_settings_command_options* sbas_options_out, uint8_t* num_included_prns_out, uint8_t num_included_prns_out_max, uint16_t* included_prns_out);
+mip_cmd_result mip_gnss_save_sbas_settings(mip_interface* device);
+mip_cmd_result mip_gnss_load_sbas_settings(mip_interface* device);
+mip_cmd_result mip_gnss_default_sbas_settings(mip_interface* device);
 
 ///@}
 ///
