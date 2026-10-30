@@ -26,6 +26,7 @@ Forthcoming
   * Added type lists (tuples) to metadata
   * Added metadata functions to access struct/field members by index
   * Added parent context information to metadata types
+* Added listen and accept functions to the tcp socket library.
 ### Interface Changes
 * Improved ArrayView and Index usability, especially in constexpr contexts.
 * Metadata:
