@@ -25,7 +25,7 @@ if(MSVC)
     source_group(TREE ${MICROSTRAIN_SRC_DIR} FILES ${MIP_SOURCES})
 endif()
 
-target_compile_features(${MIP_LIBRARY} PUBLIC cxx_std_11)
+target_compile_features(${MIP_LIBRARY} PUBLIC cxx_std_14)
 target_include_directories(${MIP_LIBRARY} PRIVATE ${MIP_INCLUDE_DIR})
 
 # Get the mipdef list from the C version
