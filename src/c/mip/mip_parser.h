@@ -64,7 +64,6 @@ typedef struct mip_parser
 
 #ifdef MIP_ENABLE_DIAGNOSTICS
     uint64_t            _diag_bytes_read;                  ///<@private Counts bytes read from the user input buffer.
-    uint64_t            _diag_bytes_skipped;               ///<@private Counts bytes read from the user input buffer.
     uint64_t            _diag_packet_bytes;                ///<@private Counts bytes parsed into valid packets.
     uint64_t            _diag_valid_packets;               ///<@private Counts packets successfully parsed.
     uint32_t            _diag_invalid_packets;             ///<@private Counts invalid packets encountered (bad checksums).
@@ -110,7 +109,6 @@ mip_timestamp mip_parser_current_timestamp(const mip_parser* parser);
 #ifdef MIP_ENABLE_DIAGNOSTICS
 
 uint64_t mip_parser_diagnostic_bytes_read(const mip_parser* parser);
-uint64_t mip_parser_diagnostic_bytes_skipped(const mip_parser* parser);
 uint64_t mip_parser_diagnostic_packet_bytes(const mip_parser* parser);
 
 uint64_t mip_parser_diagnostic_valid_packets(const mip_parser* parser);

@@ -52,7 +52,6 @@ void mip_parser_reset(mip_parser* parser)
     parser->_buffered_length = 0;
 
     MIP_DIAG_ZERO(parser->_diag_bytes_read);
-    MIP_DIAG_ZERO(parser->_diag_bytes_skipped);
     MIP_DIAG_ZERO(parser->_diag_packet_bytes);
     MIP_DIAG_ZERO(parser->_diag_valid_packets);
     MIP_DIAG_ZERO(parser->_diag_invalid_packets);
@@ -541,17 +540,6 @@ uint64_t mip_parser_diagnostic_packet_bytes(const mip_parser* parser)
 {
     return parser->_diag_packet_bytes;
 }
-
-////////////////////////////////////////////////////////////////////////////////
-///@brief Gets the total number of bytes which weren't part of a valid packet.
-///
-/// This is the difference between the "packet bytes" and "bytes read" counters.
-///
-uint64_t mip_parser_diagnostic_bytes_skipped(const mip_parser* parser)
-{
-    return parser->_diag_bytes_skipped;
-}
-
 
 ////////////////////////////////////////////////////////////////////////////////
 ///@brief Gets the total number of valid packets emitted by the parser.
