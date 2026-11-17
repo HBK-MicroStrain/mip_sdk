@@ -35,7 +35,7 @@ typedef microstrain_embedded_timestamp mip_timeout;
 
 #else // MIP_ENABLE_DIAGNOSTICS
 
-// Do nothing if diagnostic counters diabled. Cast amount to void to avoid "unused local variable" warnings.
+// Do nothing if diagnostic counters disabled. Cast amount to void to avoid "unused local variable" warnings.
 #define MIP_DIAG_INC32(counter, amount) (void)amount
 #define MIP_DIAG_INC64(counter, amount) (void)amount
 
