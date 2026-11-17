@@ -62,7 +62,7 @@ struct ArrayView
     template<typename U=T>
     constexpr ArrayView(
         ArrayView<U,Extent> other,
-        typename std::enable_if< std::is_convertible<U*,T*>::value, nullptr_t>::type=nullptr
+        typename std::enable_if< std::is_convertible<U*,T*>::value, std::nullptr_t>::type=nullptr
     ) : m_ptr(other.data()) {}
 
     // ArrayView(const std::array<T,N>& array) but also allows construction from non-const arrays when T is const.
@@ -76,14 +76,14 @@ struct ArrayView
     template<typename U=T>
     constexpr ArrayView(
         const std::array<U,Extent>& array,
-        typename std::enable_if< std::is_const<T>::value && std::is_convertible<U*,T*>::value, nullptr_t>::type=nullptr
+        typename std::enable_if< std::is_const<T>::value && std::is_convertible<U*,T*>::value, std::nullptr_t>::type=nullptr
     ) : m_ptr(array.data()) {}
 
     // Mutable T
     template<typename U=T>
     constexpr ArrayView(
         std::array<U,Extent>& data,
-        typename std::enable_if<std::is_convertible<U*,T*>::value, nullptr_t>::type=nullptr
+        typename std::enable_if<std::is_convertible<U*,T*>::value, std::nullptr_t>::type=nullptr
     ) : m_ptr(data.data()) {}
 
     constexpr pointer begin() const noexcept { return m_ptr; }
@@ -140,14 +140,14 @@ struct ArrayView<T, DYNAMIC_EXTENT>
     template<typename U=T>
     constexpr ArrayView(
         const ArrayView<U>& other,
-        typename std::enable_if< std::is_convertible<U*,T*>::value, nullptr_t>::type=nullptr
+        typename std::enable_if< std::is_convertible<U*,T*>::value, std::nullptr_t>::type=nullptr
     ) : m_ptr(other.data()), m_cnt(other.size()) {}
 
     // ArrayView(T array[N]) but also allows construction from non-const arrays when T is const.
     template<size_t N, typename U=T>
     constexpr ArrayView(
         U (&arr)[N],
-        typename std::enable_if<std::is_convertible<U*,T*>::value, nullptr_t>::type=nullptr
+        typename std::enable_if<std::is_convertible<U*,T*>::value, std::nullptr_t>::type=nullptr
     ) : m_ptr(arr), m_cnt(N) {}
 
     // ArrayView(const std::array<T,N>& array) but also allows construction from non-const arrays when T is const.
@@ -161,14 +161,14 @@ struct ArrayView<T, DYNAMIC_EXTENT>
     template<size_t N, typename U=T>
     constexpr ArrayView(
         const std::array<U,N>& array,
-        typename std::enable_if< std::is_const<T>::value && std::is_convertible<U*,T*>::value, nullptr_t>::type=nullptr
+        typename std::enable_if< std::is_const<T>::value && std::is_convertible<U*,T*>::value, std::nullptr_t>::type=nullptr
     ) : m_ptr(array.data()), m_cnt(array.size()) {}
 
     // Mutable T
     template<size_t N, typename U=T>
     constexpr ArrayView(
         std::array<U,N>& data,
-        typename std::enable_if<std::is_convertible<U*,T*>::value, nullptr_t>::type=nullptr
+        typename std::enable_if<std::is_convertible<U*,T*>::value, std::nullptr_t>::type=nullptr
     ) : m_ptr(data.data()), m_cnt(data.size()) {}
 
 
