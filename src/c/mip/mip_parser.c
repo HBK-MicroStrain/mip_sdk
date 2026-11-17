@@ -228,6 +228,8 @@ size_t mip_parser_parse(mip_parser* parser, const uint8_t* input_buffer, size_t 
             {
                 parser->_start_time = timestamp;
 
+                MIP_DIAG_INC32(parser->_diag_timeouts, 1);
+
                 // Discard first packet in buffer and reparse remaining buffered data.
                 if(parser->_buffered_length > 0)
                 {
