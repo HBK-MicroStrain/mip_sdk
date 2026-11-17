@@ -91,11 +91,11 @@ typedef struct mip_cmd_queue
     mip_timeout      _base_timeout;       ///<@private Base command timeout.
 
 #ifdef MIP_ENABLE_DIAGNOSTICS
-    uint16_t         _diag_cmds_queued;    ///<@private Number of queued commands.
-    uint16_t         _diag_cmds_acked;     ///<@private Number of successful commands.
-    uint8_t          _diag_cmds_nacked;    ///<@private Number of commands failed by the device.
-    uint8_t          _diag_cmds_timedout;  ///<@private Number of commands that have timed out.
-    uint8_t          _diag_cmds_failed;    ///<@private Number of commands failed due to errors not from the device.
+    uint32_t         _diag_cmds_queued;    ///<@private Number of queued commands.
+    uint32_t         _diag_cmds_acked;     ///<@private Number of successful commands.
+    uint32_t         _diag_cmds_nacked;    ///<@private Number of commands failed by the device.
+    uint32_t         _diag_cmds_timedout;  ///<@private Number of commands that have timed out.
+    uint32_t         _diag_cmds_failed;    ///<@private Number of commands failed due to errors not from the device.
 #endif // MIP_ENABLE_DIAGNOSTICS
 
 } mip_cmd_queue;
@@ -115,14 +115,14 @@ void mip_cmd_queue_process_packet(mip_cmd_queue* queue, const mip_packet_view* p
 
 
 #ifdef MIP_ENABLE_DIAGNOSTICS
-uint16_t mip_cmd_queue_diagnostic_cmds_queued(const mip_cmd_queue* queue);
-uint16_t mip_cmd_queue_diagnostic_cmds_failed(const mip_cmd_queue* queue);
-uint16_t mip_cmd_queue_diagnostic_cmds_successful(const mip_cmd_queue* queue);
+uint32_t mip_cmd_queue_diagnostic_cmds_queued(const mip_cmd_queue* queue);
+uint32_t mip_cmd_queue_diagnostic_cmds_failed(const mip_cmd_queue* queue);
+uint32_t mip_cmd_queue_diagnostic_cmds_successful(const mip_cmd_queue* queue);
 
-uint16_t mip_cmd_queue_diagnostic_cmd_acks(const mip_cmd_queue* queue);
-uint16_t mip_cmd_queue_diagnostic_cmd_nacks(const mip_cmd_queue* queue);
-uint16_t mip_cmd_queue_diagnostic_cmd_timeouts(const mip_cmd_queue* queue);
-uint16_t mip_cmd_queue_diagnostic_cmd_errors(const mip_cmd_queue* queue);
+uint32_t mip_cmd_queue_diagnostic_cmd_acks(const mip_cmd_queue* queue);
+uint32_t mip_cmd_queue_diagnostic_cmd_nacks(const mip_cmd_queue* queue);
+uint32_t mip_cmd_queue_diagnostic_cmd_timeouts(const mip_cmd_queue* queue);
+uint32_t mip_cmd_queue_diagnostic_cmd_errors(const mip_cmd_queue* queue);
 #endif // MIP_ENABLE_DIAGNOSTICS
 
 ///@}
