@@ -392,12 +392,18 @@ size_t mip_parser_parse(mip_parser* parser, const uint8_t* input_buffer, size_t 
 ///
 void mip_parser_flush(mip_parser* parser)
 {
+    mip_parser_parse(parser, NULL, 0, parser->_start_time);
+
     while(parser->_buffered_length > 0)
     {
-        mip_parser_parse(parser, NULL, 0, parser->_start_time);
+        // This point is only reached when a packet is incomplete.
+        // Flag a timeout for every incomplete packet header found.
+        MIP_DIAG_INC32(parser->_diag_timeouts, 1);
 
         if(mip_parser_discard(parser, 1) == 1)
             break;
+
+        mip_parser_parse(parser, NULL, 0, parser->_start_time);
     }
 }
 
