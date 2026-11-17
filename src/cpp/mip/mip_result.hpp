@@ -46,9 +46,10 @@ struct CmdResult
 
     constexpr CmdResult() : value(C::MIP_ACK_OK) {}
     constexpr CmdResult(C::mip_cmd_result result) : value(result) {}
+    constexpr CmdResult(const CmdResult& other) : value(other.value) {}
     //constexpr ~CmdResult() = default;
 
-    CmdResult& operator=(const CmdResult& other) = default;
+    CmdResult& operator=(const CmdResult& other) { value = other.value; return *this; };
     CmdResult& operator=(C::mip_cmd_result other) { value = other; return *this; }
 
     static constexpr CmdResult userResult(uint8_t n) { return CmdResult(static_cast<C::mip_cmd_result>(STATUS_USER - int8_t(n))); }
