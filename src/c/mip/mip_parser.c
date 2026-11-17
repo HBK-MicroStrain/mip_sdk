@@ -228,6 +228,8 @@ size_t mip_parser_parse(mip_parser* parser, const uint8_t* input_buffer, size_t 
             {
                 parser->_start_time = timestamp;
 
+                MIP_DIAG_INC32(parser->_diag_timeouts, 1);
+
                 // Discard first packet in buffer and reparse remaining buffered data.
                 if(parser->_buffered_length > 0)
                 {
@@ -247,7 +249,7 @@ size_t mip_parser_parse(mip_parser* parser, const uint8_t* input_buffer, size_t 
             assert(parser->_buffered_length <= MIP_PACKET_LENGTH_MAX);
             //assert(total_packet_bytes <= input_length);
 
-            MIP_DIAG_INC(parser->_diag_bytes_read, input_length);
+            MIP_DIAG_INC64(parser->_diag_bytes_read, input_length);
             //MIP_DIAG_INC(parser->_diag_bytes_skipped, (input_length - total_packet_bytes));
 
             return unparsed_input_offset;
@@ -342,8 +344,8 @@ size_t mip_parser_parse(mip_parser* parser, const uint8_t* input_buffer, size_t 
             if(checksum_valid)
             {
                 // total_packet_bytes += expected_packet_length;
-                MIP_DIAG_INC(parser->_diag_valid_packets, 1);
-                MIP_DIAG_INC(parser->_diag_packet_bytes, expected_packet_length);
+                MIP_DIAG_INC64(parser->_diag_valid_packets, 1);
+                MIP_DIAG_INC64(parser->_diag_packet_bytes, expected_packet_length);
 
                 // Stop parsing if there's no callback or if the callback returns false.
                 // If there's no callback, it's assumed that the user just wants one packet at a time.
@@ -367,7 +369,7 @@ size_t mip_parser_parse(mip_parser* parser, const uint8_t* input_buffer, size_t 
             }
             else
             {
-                MIP_DIAG_INC(parser->_diag_invalid_packets, 1);
+                MIP_DIAG_INC32(parser->_diag_invalid_packets, 1);
                 expected_packet_length = 1;  // discard at least one byte in mip_parser_discard (below).
             }
 
@@ -523,7 +525,7 @@ mip_timestamp mip_parser_current_timestamp(const mip_parser* parser)
 /// the parser. Ensure all packets have been processed by the parser before
 /// comparing against the packet_bytes counter.
 ///
-uint32_t mip_parser_diagnostic_bytes_read(const mip_parser* parser)
+uint64_t mip_parser_diagnostic_bytes_read(const mip_parser* parser)
 {
     return parser->_diag_bytes_read;
 }
@@ -535,7 +537,7 @@ uint32_t mip_parser_diagnostic_bytes_read(const mip_parser* parser)
 /// This is a summation of the total length of every valid mip packet emitted by
 /// the parser.
 ///
-uint32_t mip_parser_diagnostic_packet_bytes(const mip_parser* parser)
+uint64_t mip_parser_diagnostic_packet_bytes(const mip_parser* parser)
 {
     return parser->_diag_packet_bytes;
 }
@@ -545,7 +547,7 @@ uint32_t mip_parser_diagnostic_packet_bytes(const mip_parser* parser)
 ///
 /// This is the difference between the "packet bytes" and "bytes read" counters.
 ///
-uint32_t mip_parser_diagnostic_bytes_skipped(const mip_parser* parser)
+uint64_t mip_parser_diagnostic_bytes_skipped(const mip_parser* parser)
 {
     return parser->_diag_bytes_skipped;
 }
@@ -554,7 +556,7 @@ uint32_t mip_parser_diagnostic_bytes_skipped(const mip_parser* parser)
 ////////////////////////////////////////////////////////////////////////////////
 ///@brief Gets the total number of valid packets emitted by the parser.
 ///
-uint32_t mip_parser_diagnostic_valid_packets(const mip_parser* parser)
+uint64_t mip_parser_diagnostic_valid_packets(const mip_parser* parser)
 {
     return parser->_diag_valid_packets;
 }

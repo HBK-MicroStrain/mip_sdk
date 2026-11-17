@@ -139,8 +139,9 @@ public:
     {
     public:
         AllocatedField(mip::PacketView& packet, uint8_t* buffer, size_t space) : Serializer(buffer, space), m_packet(packet) {}
-        //AllocatedField(const AllocatedField&) = delete;
+        AllocatedField(const AllocatedField&) = delete;
         AllocatedField& operator=(const AllocatedField&) = delete;
+        AllocatedField(AllocatedField&&) = default;
 
         uint8_t* allocateOrCancel(size_t length)
         {
