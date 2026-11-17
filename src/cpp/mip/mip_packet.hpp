@@ -226,7 +226,7 @@ public:
         if( fieldDescriptor == INVALID_FIELD_DESCRIPTOR )
             fieldDescriptor = FieldType::FIELD_DESCRIPTOR;
 
-        AllocatedField buffer = createField(fieldDescriptor);
+        AllocatedField buffer = std::move(createField(fieldDescriptor));
         buffer.insert(field);
         return buffer.commit();
     }
