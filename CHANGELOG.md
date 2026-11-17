@@ -30,11 +30,13 @@ Forthcoming
 * Improved ArrayView and Index usability, especially in constexpr contexts.
 * Metadata:
   * Removed :: in field response names (FieldAbc::Response is now FieldAbcResponse)
+* Bumped c++ version from 11 to 14.
 ### Bug Fixes
 * Fixed names of matrix types in metadata to have the right type specifier
 * Fixed metadata type of CmdResult.
 * Fixed Parser::setCallback making a copy of lambdas.
 * Fixed some potential compilation errors in certain template functions.
+* Fixed compiler warnings when diagnostics are enabled.
 
 V4.0.0
 -----------
